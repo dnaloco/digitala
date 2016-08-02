@@ -4,31 +4,78 @@ export default {
   UIPort: 3001,
   testPort: 3002,
 
-  sourceDir: './app/',
-  buildDir: './build/',
+  blog: {
+    sourceDir: './app/',
+    buildDir: './build/',
+    styles: {
+      src: 'app/blog/styles/**/*.scss',
+      dest: 'build/blog/css',
+      prodSourcemap: false,
+      sassIncludePaths: ['app/blog/styles/bourbon/', 'node_modules/foundation-sites/scss/']
+    },
 
-  styles: {
-    src: 'app/styles/**/*.scss',
-    dest: 'build/css',
-    prodSourcemap: false,
-    sassIncludePaths: []
+    scripts: {
+      src: 'app/blog/js/**/*.js',
+      dest: 'build/blog/js',
+      test: 'test/**/*.js',
+      gulp: 'gulp/**/*.js'
+    },
+
+    images: {
+      src: 'app/blog/images/**/*',
+      dest: 'build/blog/images'
+    },
+
+    fonts: {
+      src: ['app/blog/fonts/**/*'],
+      dest: 'build/blog/fonts'
+    },
+    views: {
+      index: 'app/blog/index.html',
+      src: 'app/blog/views/**/*.html',
+      dest: 'app/blog/js'
+    },
+    browserify: {
+      bundleName: 'main.js',
+      prodSourcemap: false
+    }
   },
 
-  scripts: {
-    src: 'app/js/**/*.js',
-    dest: 'build/js',
-    test: 'test/**/*.js',
-    gulp: 'gulp/**/*.js'
-  },
+  admin: {
+    sourceDir: './app/admin/',
+    buildDir: './build/admin/',
+    styles: {
+      src: 'app/admin/styles/**/*.scss',
+      dest: 'build/admin/css',
+      prodSourcemap: false,
+      sassIncludePaths: ['app/admin/styles/bourbon/', 'node_modules/foundation-sites/scss/']
+    },
 
-  images: {
-    src: 'app/images/**/*',
-    dest: 'build/images'
-  },
+    scripts: {
+      src: 'app/admin/js/**/*.js',
+      dest: 'build/admin/js',
+      test: 'test/**/*.js',
+      gulp: 'gulp/**/*.js'
+    },
 
-  fonts: {
-    src: ['app/fonts/**/*'],
-    dest: 'build/fonts'
+    images: {
+      src: 'app/admin/images/**/*',
+      dest: 'build/admin/images'
+    },
+
+    fonts: {
+      src: ['app/admin/fonts/**/*'],
+      dest: 'build/admin/fonts'
+    },
+    views: {
+      index: 'app/admin/index.html',
+      src: 'app/admin/views/**/*.html',
+      dest: 'app/admin/js'
+    },
+    browserify: {
+      bundleName: 'main.js',
+      prodSourcemap: false
+    }
   },
 
   assetExtensions: [
@@ -45,21 +92,10 @@ export default {
     'woff2?'
   ],
 
-  views: {
-    index: 'app/index.html',
-    src: 'app/views/**/*.html',
-    dest: 'app/js'
-  },
-
   gzip: {
-    src: 'build/**/*.{html,xml,json,css,js,js.map,css.map}',
+    src: 'build/**/*.{html,php,xml,json,css,js,js.map,css.map}',
     dest: 'build/',
     options: {}
-  },
-
-  browserify: {
-    bundleName: 'main.js',
-    prodSourcemap: false
   },
 
   test: {
@@ -68,12 +104,18 @@ export default {
   },
 
   init: function() {
-    this.views.watch = [
-      this.views.index,
-      this.views.src
+    this.blog.views.watch = [
+      this.blog.views.index,
+      this.blog.views.src
+    ];
+
+    this.admin.views.watch = [
+      this.admin.views.index,
+      this.admin.views.src
     ];
 
     return this;
-  }
+  },
+
 
 }.init();

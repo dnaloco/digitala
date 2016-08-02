@@ -7,16 +7,16 @@ import handleErrors from '../util/handleErrors';
 import browserSync  from 'browser-sync';
 import autoprefixer from 'gulp-autoprefixer';
 
-gulp.task('styles', function () {
+gulp.task('blogStyles', function () {
 
-  const createSourcemap = !global.isProd || config.styles.prodSourcemap;
+  const createSourcemap = !global.isProd || config.blog.styles.prodSourcemap;
 
-  return gulp.src(config.styles.src)
+  return gulp.src(config.blog.styles.src)
     .pipe(gulpif(createSourcemap, sourcemaps.init()))
     .pipe(sass({
       sourceComments: !global.isProd,
       outputStyle: global.isProd ? 'compressed' : 'nested',
-      includePaths: config.styles.sassIncludePaths
+      includePaths: config.blog.styles.sassIncludePaths
     }))
     .on('error', handleErrors)
     .pipe(autoprefixer({
@@ -26,7 +26,31 @@ gulp.task('styles', function () {
       createSourcemap,
       sourcemaps.write( global.isProd ? './' : null ))
     )
-    .pipe(gulp.dest(config.styles.dest))
+    .pipe(gulp.dest(config.blog.styles.dest))
+    .pipe(browserSync.stream());
+
+});
+
+gulp.task('adminStyles', function () {
+
+  const createSourcemap = !global.isProd || config.admin.styles.prodSourcemap;
+
+  return gulp.src(config.admin.styles.src)
+    .pipe(gulpif(createSourcemap, sourcemaps.init()))
+    .pipe(sass({
+      sourceComments: !global.isProd,
+      outputStyle: global.isProd ? 'compressed' : 'nested',
+      includePaths: config.admin.styles.sassIncludePaths
+    }))
+    .on('error', handleErrors)
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions', '> 1%', 'ie 8']
+    }))
+    .pipe(gulpif(
+      createSourcemap,
+      sourcemaps.write( global.isProd ? './' : null ))
+    )
+    .pipe(gulp.dest(config.admin.styles.dest))
     .pipe(browserSync.stream());
 
 });

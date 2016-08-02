@@ -16,15 +16,18 @@ lib-cov
 coverage
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
+#build/Release
 
 # Dependency directories
 node_modules
 bower_components
 
+
 # Build files
-build
-templates.js
+app
+test
+gulp
+backup01
 
 #webstorm
 .idea
