@@ -1,0 +1,52 @@
+@import url(https://fonts.googleapis.com/css?family=Slabo+27px);
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+@import url(https://fonts.googleapis.com/css?family=Oxygen+Mono);
+
+$body-font-family-slabo: 'Slabo 27px', serif;
+$body-font-family-oswald: 'Oswald', sans-serif;
+$body-font-family-oxygen-mono: 'Oxygen Mono', ;
+
+
+p {
+  font-family: $body-font-family-oswald;
+  margin-bottom: 1em;
+}
+
+.heading {
+  margin-bottom: 0.618em;
+
+  &.-large {
+    font-size: $font-size--lg;
+    font-weight: bold;
+    line-height: $half-space * 3 / 2;
+  }
+
+  &.-medium {
+    font-size: $font-size--md;
+    font-weight: normal;
+    line-height: $half-space;
+  }
+
+  &.-small {
+    font-size: $font-size--sm;
+    font-weight: bold;
+    line-height: $half-space * 2 / 3;
+  }
+
+  &.-smallest {
+    font-size: $font-size--xs;
+    font-weight: bold;
+  }
+}
+
+h1 {
+  @extend .heading.-large;
+}
+
+h2 {
+  @extend .heading.-medium;
+}
+
+h3 {
+  @extend .heading.-small;
+}
