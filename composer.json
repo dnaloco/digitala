@@ -16,7 +16,6 @@
         "jms/serializer": "~0.11",
         "pagseguro/php": "@stable",
         "sp/jms-serializer-module": "dev-master",
-        "dino/dompdf-module": "dev-master",
         "jotjunior/boletophp-zf2": "dev-master",
         "zfcampus/zf-oauth2": "^1.4",
         "facebook/php-sdk-v4": "^5.2",

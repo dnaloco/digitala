@@ -25,7 +25,6 @@ bower_components
 
 # Build files
 backup01
-vendor
 
 #webstorm
 .idea
