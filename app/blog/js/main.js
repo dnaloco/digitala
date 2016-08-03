@@ -1,9 +1,9 @@
-import angular from 'angular';
+import angular      from 'angular';
 
 // angular modules
-import constants from './constants';
-import onConfig  from './on_config';
-import onRun     from './on_run';
+import constants    from './constants';
+import onConfig     from './on_config';
+import onRun        from './on_run';
 import 'angular-ui-router';
 import 'angular-foundation-6';
 import 'angular-masonry';
@@ -13,6 +13,7 @@ import './filters';
 import './controllers';
 import './services';
 import './directives';
+
 import './assets/angular-equalizer';
 
 // create and bootstrap application
@@ -24,7 +25,7 @@ const requires = [
   'ngDialog',
 
 // vendors in ./assets
-  'ngEqualizer',
+  //'ngEqualizer',
 
   'templates',
   'app.filters',
@@ -32,6 +33,7 @@ const requires = [
   'app.services',
   'app.directives'
 ];
+
 
 // mount on window for testing
 window.app = angular.module('app', requires);

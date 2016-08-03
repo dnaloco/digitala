@@ -1,0 +1,33 @@
+{
+  "name": "angularjs-gulp-browserify-boilerplate",
+  "description": "Boilerplate using AngularJS, SASS, Gulp, and Browserify while also utilizing best practices.",
+  "main": "",
+  "authors": [
+    "Jake Marsh <jakemmarsh@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "express",
+    "gulp",
+    "browserify",
+    "angular",
+    "sass",
+    "karma",
+    "jasmine",
+    "protractor",
+    "boilerplate"
+  ],
+  "homepage": "https://github.com/dnaloco/digitala",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "imagesloaded": "^4.1.0",
+    "masonry": "^4.1.0"
+  }
+}
