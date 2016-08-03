@@ -17,7 +17,6 @@ return array(
         'DoctrineORMModule',
         'DoctrineDataFixtureModule',
         'JMSSerializerModule',
-        'PhpBoletoZf2',
 
         'DACore',
         'DABlog',

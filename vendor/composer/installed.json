@@ -2174,68 +2174,6 @@
         ]
     },
     {
-        "name": "symfony/console",
-        "version": "v3.1.2",
-        "version_normalized": "3.1.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/console.git",
-            "reference": "747154aa69b0f83cd02fc9aa554836dee417631a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/console/zipball/747154aa69b0f83cd02fc9aa554836dee417631a",
-            "reference": "747154aa69b0f83cd02fc9aa554836dee417631a",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5.9",
-            "symfony/polyfill-mbstring": "~1.0"
-        },
-        "require-dev": {
-            "psr/log": "~1.0",
-            "symfony/event-dispatcher": "~2.8|~3.0",
-            "symfony/process": "~2.8|~3.0"
-        },
-        "suggest": {
-            "psr/log": "For using the console logger",
-            "symfony/event-dispatcher": "",
-            "symfony/process": ""
-        },
-        "time": "2016-06-29 07:02:31",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Component\\Console\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Console Component",
-        "homepage": "https://symfony.com"
-    },
-    {
         "name": "doctrine/doctrine-module",
         "version": "1.1.0",
         "version_normalized": "1.1.0.0",
@@ -2854,57 +2792,6 @@
         ],
         "description": "Library that helps with managing the version number of Git-hosted PHP projects",
         "homepage": "https://github.com/sebastianbergmann/version"
-    },
-    {
-        "name": "symfony/yaml",
-        "version": "v3.1.2",
-        "version_normalized": "3.1.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/yaml.git",
-            "reference": "2884c26ce4c1d61aebf423a8b912950fe7c764de"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/yaml/zipball/2884c26ce4c1d61aebf423a8b912950fe7c764de",
-            "reference": "2884c26ce4c1d61aebf423a8b912950fe7c764de",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5.9"
-        },
-        "time": "2016-06-29 05:41:56",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Component\\Yaml\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Yaml Component",
-        "homepage": "https://symfony.com"
     },
     {
         "name": "sebastian/resource-operations",
@@ -5612,238 +5499,6 @@
         ]
     },
     {
-        "name": "sp/jms-serializer-module",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Spea/JMSSerializerModule.git",
-            "reference": "d1c187d00dad515ccc2bea712a6781445043706a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Spea/JMSSerializerModule/zipball/d1c187d00dad515ccc2bea712a6781445043706a",
-            "reference": "d1c187d00dad515ccc2bea712a6781445043706a",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/doctrine-module": ">=0.5.1",
-            "jms/serializer": "~0.11",
-            "php": ">=5.3.3",
-            "zendframework/zendframework": "2.*"
-        },
-        "require-dev": {
-            "zendframework/zend-developer-tools": "dev-master"
-        },
-        "time": "2014-11-13 09:32:13",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "0.1-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "JMSSerializerModule\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Martin Parsiegla",
-                "email": "martin.parsiegla@gmail.com",
-                "homepage": "http://speanet.info"
-            },
-            {
-                "name": "Community contributions",
-                "homepage": "https://github.com/Spea/JMSSerializerModule/contributors"
-            }
-        ],
-        "description": "Zend Framework 2 Module that integrates the jms serializer library",
-        "keywords": [
-            "deserialize",
-            "jms",
-            "json",
-            "module",
-            "serialize",
-            "xml",
-            "zf2"
-        ]
-    },
-    {
-        "name": "phenx/php-font-lib",
-        "version": "0.2.2",
-        "version_normalized": "0.2.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/PhenX/php-font-lib.git",
-            "reference": "c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/PhenX/php-font-lib/zipball/c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82",
-            "reference": "c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82",
-            "shasum": ""
-        },
-        "time": "2014-02-01 15:22:28",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "classes/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "LGPL"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Ménager",
-                "email": "fabien.menager@gmail.com"
-            }
-        ],
-        "description": "A library to read, parse, export and make subsets of different types of font files.",
-        "homepage": "https://github.com/PhenX/php-font-lib"
-    },
-    {
-        "name": "dompdf/dompdf",
-        "version": "v0.6.2",
-        "version_normalized": "0.6.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/dompdf/dompdf.git",
-            "reference": "cc06008f75262510ee135b8cbb14e333a309f651"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/dompdf/dompdf/zipball/cc06008f75262510ee135b8cbb14e333a309f651",
-            "reference": "cc06008f75262510ee135b8cbb14e333a309f651",
-            "shasum": ""
-        },
-        "require": {
-            "phenx/php-font-lib": "0.2.*"
-        },
-        "time": "2015-12-07 04:07:13",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "include/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "LGPL"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Ménager",
-                "email": "fabien.menager@gmail.com"
-            },
-            {
-                "name": "Brian Sweeney",
-                "email": "eclecticgeek@gmail.com"
-            }
-        ],
-        "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
-        "homepage": "https://github.com/dompdf/dompdf"
-    },
-    {
-        "name": "dino/dompdf-module",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/raykolbe/DOMPDFModule.git",
-            "reference": "ebb367877e25a39e597b529abd25f5390422253b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/raykolbe/DOMPDFModule/zipball/ebb367877e25a39e597b529abd25f5390422253b",
-            "reference": "ebb367877e25a39e597b529abd25f5390422253b",
-            "shasum": ""
-        },
-        "require": {
-            "dompdf/dompdf": "0.6.*",
-            "php": ">=5.3.0"
-        },
-        "time": "2014-04-18 00:18:45",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "DOMPDFModule": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Raymond Kolbe",
-                "email": "raymond.kolbe@maine.edu"
-            }
-        ],
-        "description": "A Zend Framework 2 module for incorporating DOMPDF support.",
-        "homepage": "http://raymondkolbe.com",
-        "keywords": [
-            "dompdf",
-            "pdf",
-            "zf2"
-        ]
-    },
-    {
-        "name": "jotjunior/boletophp-zf2",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/JotJunior/PHP-Boleto-ZF2.git",
-            "reference": "72f156d70371b76d2f78e4ec79a432a36caeccd1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/JotJunior/PHP-Boleto-ZF2/zipball/72f156d70371b76d2f78e4ec79a432a36caeccd1",
-            "reference": "72f156d70371b76d2f78e4ec79a432a36caeccd1",
-            "shasum": ""
-        },
-        "require": {
-            "dino/dompdf-module": "dev-master",
-            "php": ">=5.4.0"
-        },
-        "time": "2016-03-11 20:34:51",
-        "type": "module",
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "PhpBoletoZf2": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GNU General Public License "
-        ],
-        "authors": [
-            {
-                "name": "João G. Zanon Jr.",
-                "email": "jot@jot.com.br"
-            }
-        ],
-        "description": "Adaptação do BoletoPHP para Zend Framework 2",
-        "homepage": "http://phpboleto-zf2.jot.com.bt",
-        "keywords": [
-            "boleto",
-            "php",
-            "zf2"
-        ]
-    },
-    {
         "name": "doctrine/dbal",
         "version": "v2.5.4",
         "version_normalized": "2.5.4.0",
@@ -6137,185 +5792,6 @@
             "module",
             "zf2"
         ]
-    },
-    {
-        "name": "endroid/qrcode",
-        "version": "1.1.2",
-        "version_normalized": "1.1.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/endroid/QrCode.git",
-            "reference": "32e3e148b148482f04101fc96d18d3281da72af7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/endroid/QrCode/zipball/32e3e148b148482f04101fc96d18d3281da72af7",
-            "reference": "32e3e148b148482f04101fc96d18d3281da72af7",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2013-04-13 12:49:51",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Endroid": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jeroen van den Enden",
-                "email": "info@endroid.nl",
-                "homepage": "http://endroid.nl/"
-            }
-        ],
-        "description": "Endroid QR Code",
-        "homepage": "https://github.com/endroid/QrCode",
-        "keywords": [
-            "code",
-            "endroid",
-            "qr",
-            "qrcode"
-        ]
-    },
-    {
-        "name": "mpdf/mpdf",
-        "version": "v6.0.0",
-        "version_normalized": "6.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/mpdf/mpdf.git",
-            "reference": "a15743d030ce3b5b7be36c6e83f76589b27c3f2c"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/mpdf/mpdf/zipball/a15743d030ce3b5b7be36c6e83f76589b27c3f2c",
-            "reference": "a15743d030ce3b5b7be36c6e83f76589b27c3f2c",
-            "shasum": ""
-        },
-        "require": {
-            "ext-mbstring": "*",
-            "php": ">=4.3.10"
-        },
-        "time": "2015-03-01 10:27:49",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "mpdf.php",
-                "classes"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-1.0+"
-        ],
-        "authors": [
-            {
-                "name": "Ian Back"
-            }
-        ],
-        "description": "A PHP class to generate PDF files from HTML with Unicode/UTF-8 and CJK support",
-        "homepage": "http://www.mpdf1.com/mpdf/index.php",
-        "keywords": [
-            "pdf",
-            "php",
-            "utf-8"
-        ]
-    },
-    {
-        "name": "soundasleep/html2text",
-        "version": "0.3.4",
-        "version_normalized": "0.3.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/soundasleep/html2text.git",
-            "reference": "a1f77b8f340c8425b746bef1d1040189e89be334"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/soundasleep/html2text/zipball/a1f77b8f340c8425b746bef1d1040189e89be334",
-            "reference": "a1f77b8f340c8425b746bef1d1040189e89be334",
-            "shasum": ""
-        },
-        "require": {
-            "ext-dom": "*",
-            "ext-libxml": "*",
-            "php": ">=5.3.2"
-        },
-        "require-dev": {
-            "phpunit/phpunit": ">=4.0",
-            "soundasleep/component-tests": "dev-master"
-        },
-        "time": "2016-06-09 04:56:16",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Html2Text\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "EPL-1.0"
-        ],
-        "authors": [
-            {
-                "name": "Jevon Wright",
-                "homepage": "https://jevon.org",
-                "role": "Developer"
-            }
-        ],
-        "description": "A PHP script to convert HTML into a plain text format",
-        "homepage": "https://github.com/soundasleep/html2text",
-        "keywords": [
-            "email",
-            "html",
-            "php",
-            "text"
-        ]
-    },
-    {
-        "name": "pagseguro/php",
-        "version": "2.7.1",
-        "version_normalized": "2.7.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/pagseguro/php.git",
-            "reference": "1c956e609acdef2dd7a37ece5cb5d13e7fc672a0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/pagseguro/php/zipball/1c956e609acdef2dd7a37ece5cb5d13e7fc672a0",
-            "reference": "1c956e609acdef2dd7a37ece5cb5d13e7fc672a0",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "lib-curl": "*",
-            "lib-libxml": "*",
-            "lib-openssl": "*",
-            "php": ">=5.4.27"
-        },
-        "time": "2016-01-28 20:17:46",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "source/PagSeguroLibrary"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache License 2.0"
-        ],
-        "description": "Biblioteca de integração com o PagSeguro"
     },
     {
         "name": "zfcampus/zf-api-problem",
@@ -6622,106 +6098,227 @@
         ]
     },
     {
-        "name": "nfephp-org/nfephp",
-        "version": "v4.0.53",
-        "version_normalized": "4.0.53.0",
+        "name": "bjyoungblood/bjy-profiler",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/nfephp-org/nfephp.git",
-            "reference": "52d39376085fca66a38ea49ed88cb444993edbae"
+            "url": "https://github.com/bjyoungblood/BjyProfiler.git",
+            "reference": "420b392f6fafff7eefca5e9615c347706ce8d8e7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nfephp-org/nfephp/zipball/52d39376085fca66a38ea49ed88cb444993edbae",
-            "reference": "52d39376085fca66a38ea49ed88cb444993edbae",
+            "url": "https://api.github.com/repos/bjyoungblood/BjyProfiler/zipball/420b392f6fafff7eefca5e9615c347706ce8d8e7",
+            "reference": "420b392f6fafff7eefca5e9615c347706ce8d8e7",
             "shasum": ""
         },
         "require": {
-            "endroid/qrcode": "1.*@dev",
-            "ext-curl": "*",
-            "ext-dom": "*",
-            "ext-fileinfo": "*",
-            "ext-iconv": "*",
-            "ext-libxml": "*",
-            "ext-mbstring": "*",
-            "ext-openssl": "*",
-            "ext-soap": "*",
-            "ext-xml": "*",
-            "ext-xmlreader": "*",
-            "ext-zip": "*",
-            "ext-zlib": "*",
-            "mpdf/mpdf": "6.0.0",
-            "php": ">=5.5.0",
-            "soundasleep/html2text": "~0.2",
-            "zendframework/zend-mail": "^2.5",
-            "zendframework/zend-servicemanager": "^2.5"
+            "php": ">=5.3",
+            "zendframework/zendframework": ">=2.1.0"
+        },
+        "time": "2014-03-11 13:42:24",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "BjyProfiler": "src/"
+            },
+            "classmap": [
+                "./Module.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "authors": [
+            {
+                "name": "Ben Youngblood",
+                "email": "bx.youngblood@gmail.com",
+                "homepage": "http://bjyoungblood.com/",
+                "role": "Developer"
+            }
+        ],
+        "description": "Database profiler for Zend\\Db (also plugin for ZendDeveloperTools)",
+        "homepage": "https://github.com/bjyoungblood/BjyProfiler",
+        "keywords": [
+            "db",
+            "profiler",
+            "zdt",
+            "zf2"
+        ]
+    },
+    {
+        "name": "symfony/console",
+        "version": "v3.1.3",
+        "version_normalized": "3.1.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/console.git",
+            "reference": "f9e638e8149e9e41b570ff092f8007c477ef0ce5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/console/zipball/f9e638e8149e9e41b570ff092f8007c477ef0ce5",
+            "reference": "f9e638e8149e9e41b570ff092f8007c477ef0ce5",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.9",
+            "symfony/polyfill-mbstring": "~1.0"
         },
         "require-dev": {
-            "phpunit/phpunit": "4.*",
-            "scrutinizer/ocular": "~1.1",
-            "squizlabs/php_codesniffer": "~2.3"
+            "psr/log": "~1.0",
+            "symfony/event-dispatcher": "~2.8|~3.0",
+            "symfony/process": "~2.8|~3.0"
         },
-        "time": "2016-07-29 20:38:36",
+        "suggest": {
+            "psr/log": "For using the console logger",
+            "symfony/event-dispatcher": "",
+            "symfony/process": ""
+        },
+        "time": "2016-07-26 08:04:17",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "4.0.x-dev",
-                "dev-develop": "4.1.x-dev"
+                "dev-master": "3.1-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "nfephp-org\\nfephp\\": "libs/"
+                "Symfony\\Component\\Console\\": ""
             },
-            "psr-0": {
-                "": [
-                    "libs/",
-                    "tests/"
-                ]
-            },
-            "classmap": [
-                "./libs/NFe/",
-                "./libs/Common/",
-                "./libs/Common/Base/",
-                "./libs/Common/Certificate/",
-                "./libs/Common/Configure/",
-                "./libs/Common/DateTime/",
-                "./libs/Common/Dom/",
-                "./libs/Common/Exception/",
-                "./libs/Common/Files/",
-                "./libs/Common/Identify/",
-                "./libs/Common/Keys/",
-                "./libs/Common/LotNumber/",
-                "./libs/Common/Modules/",
-                "./libs/Common/Soap/",
-                "./libs/Common/Strings/",
-                "./libs/Extras/"
+            "exclude-from-classmap": [
+                "/Tests/"
             ]
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "GPL-3.0+",
-            "LGPL-3.0+"
+            "MIT"
         ],
         "authors": [
             {
-                "name": "Roberto L. Machado",
-                "email": "linux.rlm@gmail.com.br",
-                "homepage": "http://www.nfephp.org",
-                "role": "Developer"
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
             },
             {
-                "name": "Comunidade NFePHP",
-                "homepage": "https://github.com/nfephp-org/nfephp/graphs/contributors"
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
             }
         ],
-        "description": "NFePHP é uma API para gerenciamento das comunicações entre o emitente de NFe e os serviços dos SEFAZ estaduais. Inteiramente construido em PHP para rodar sob qualquer sistema operacional.",
-        "homepage": "https://github.com/nfephp-org/nfephp",
+        "description": "Symfony Console Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "symfony/yaml",
+        "version": "v3.1.3",
+        "version_normalized": "3.1.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/yaml.git",
+            "reference": "1819adf2066880c7967df7180f4f662b6f0567ac"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/yaml/zipball/1819adf2066880c7967df7180f4f662b6f0567ac",
+            "reference": "1819adf2066880c7967df7180f4f662b6f0567ac",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.9"
+        },
+        "time": "2016-07-17 14:02:08",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Yaml\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Yaml Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "sp/jms-serializer-module",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Spea/JMSSerializerModule.git",
+            "reference": "d1c187d00dad515ccc2bea712a6781445043706a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Spea/JMSSerializerModule/zipball/d1c187d00dad515ccc2bea712a6781445043706a",
+            "reference": "d1c187d00dad515ccc2bea712a6781445043706a",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/doctrine-module": ">=0.5.1",
+            "jms/serializer": "~0.11",
+            "php": ">=5.3.3",
+            "zendframework/zendframework": "2.*"
+        },
+        "require-dev": {
+            "zendframework/zend-developer-tools": "dev-master"
+        },
+        "time": "2014-11-13 09:32:13",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.1-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "JMSSerializerModule\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Martin Parsiegla",
+                "email": "martin.parsiegla@gmail.com",
+                "homepage": "http://speanet.info"
+            },
+            {
+                "name": "Community contributions",
+                "homepage": "https://github.com/Spea/JMSSerializerModule/contributors"
+            }
+        ],
+        "description": "Zend Framework 2 Module that integrates the jms serializer library",
         "keywords": [
-            "nfe",
-            "nfephp",
-            "sped"
+            "deserialize",
+            "jms",
+            "json",
+            "module",
+            "serialize",
+            "xml",
+            "zf2"
         ]
     },
     {
@@ -6800,54 +6397,6 @@
             "debug",
             "developer",
             "module",
-            "zf2"
-        ]
-    },
-    {
-        "name": "bjyoungblood/bjy-profiler",
-        "version": "v1.1.0",
-        "version_normalized": "1.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/bjyoungblood/BjyProfiler.git",
-            "reference": "420b392f6fafff7eefca5e9615c347706ce8d8e7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/bjyoungblood/BjyProfiler/zipball/420b392f6fafff7eefca5e9615c347706ce8d8e7",
-            "reference": "420b392f6fafff7eefca5e9615c347706ce8d8e7",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3",
-            "zendframework/zendframework": ">=2.1.0"
-        },
-        "time": "2014-03-11 13:42:24",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "BjyProfiler": "src/"
-            },
-            "classmap": [
-                "./Module.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "authors": [
-            {
-                "name": "Ben Youngblood",
-                "email": "bx.youngblood@gmail.com",
-                "homepage": "http://bjyoungblood.com/",
-                "role": "Developer"
-            }
-        ],
-        "description": "Database profiler for Zend\\Db (also plugin for ZendDeveloperTools)",
-        "homepage": "https://github.com/bjyoungblood/BjyProfiler",
-        "keywords": [
-            "db",
-            "profiler",
-            "zdt",
             "zf2"
         ]
     }

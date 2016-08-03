@@ -12,7 +12,10 @@ return [
             'dablog-home' => array(
                 'type' => Hostname::class,
                 'options' => array(
-                    'route' => 'www.agenciadigitala.com.br',
+                    'route' => 'www.agenciadigitala.[:tail]',
+                    'constraints' => array(
+                        'tail' => '[a-zA-Z._-]*',
+                    ),
                     'defaults' => array(
                         'controller' => Controller\IndexController::class,
                         'action' => 'index',
