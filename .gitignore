@@ -71,3 +71,6 @@ gulp/
 
 # backups
 backup01/
+
+#tests
+test/
