@@ -1,0 +1,47 @@
+<?= $this->doctype() ?>
+<html lang="pt-br, en, fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<?= $this->headTitle('Painel Administrativo')
+		->setSeparator(' - ')
+		->setAutoEscape(false)
+	?>
+
+	<?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+                        ->prependStylesheet($this->basePath('css/app.css'))
+    ?>
+
+	<?= $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+</head>
+<body>
+	<nav class="top-bar" id="admin-top-bar">
+		<div class="top-bar-left">
+			<ul class="dropdown menu" data-dropdown-menu>
+				<li class="menu-logo">
+					
+				</li>
+				<li class="menu-text">
+					Painel Administrativo
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<sidebar id="admin-sidebar-menu">
+		
+	</sidebar>
+
+	<main id="admin-content">
+		
+	</main>
+
+	<footer id="admin-footer">
+		
+	</footer>
+</body>
+</html>

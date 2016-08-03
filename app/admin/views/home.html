@@ -1,0 +1,23 @@
+<h1 class="heading -large">{{ home.title | ExampleFilter }}</h1>
+
+<h3 class="heading -medium">Here is a fancy number served up courtesy of Angular: <span class="number-example">{{ home.number }}</span></h3>
+
+<img src="images/angular.png" height="100" />
+<img src="images/gulp.png" height="100" />
+<img src="images/browserify.png" height="100" />
+
+<button ng-click="home.teste()">TESTE</button>
+
+Mensagem: {{home.mensagem}}
+
+<div class="row">
+  <div class="small-2 columns">2 <span class="hide-for-small-only">columns</span></div>
+  <div class="small-10 columns">10 columns</div>
+</div>
+<div class="row">
+  <div class="small-3 columns">3 columns</div>
+  <div class="small-9 columns">9 columns</div>
+</div>
+
+<hr/>
+<div example-directive title="WOW!" click-message="You clicked me!">Directive is not loaded.</div>
