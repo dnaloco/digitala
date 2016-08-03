@@ -1,5 +1,5 @@
 <?php
-namespace DADummy\Crud;
+namespace DACore\Crud;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
@@ -26,13 +26,13 @@ class AbstractCrudRestController extends AbstractRestfulController implements Re
 		$data = $this->service->getList($_GET);
 
 		if ($data) {
-			if (!is_null($this->serializer)) 
-				$data = json_decode($this->getPropertyNamingSerializer()->serialize($data, 'json'), true);	
+			if (!is_null($this->serializer))
+				$data = json_decode($this->getPropertyNamingSerializer()->serialize($data, 'json'), true);
 			return new JsonModel(array('data' => $data, 'success' => true));
 		}
 
 		return new JsonModel(array('data' => array(),'success' => false));
-		
+
 	}
 
 	public function get($id)
@@ -45,8 +45,8 @@ class AbstractCrudRestController extends AbstractRestfulController implements Re
 		$result = $this->service->insert($data);
 
 		if ($result) {
-			if (!is_null($this->serializer)) 
-				$data = json_decode($this->getPropertyNamingSerializer()->serialize($result, 'json'), true);	
+			if (!is_null($this->serializer))
+				$data = json_decode($this->getPropertyNamingSerializer()->serialize($result, 'json'), true);
 			return new JsonModel(array('data' => $data, 'success' => true));
 		}
 
@@ -58,8 +58,8 @@ class AbstractCrudRestController extends AbstractRestfulController implements Re
 		$result = $this->service->update($data);
 
 		if ($result) {
-			if (!is_null($this->serializer)) 
-				$data = json_decode($this->getPropertyNamingSerializer()->serialize($result, 'json'), true);	
+			if (!is_null($this->serializer))
+				$data = json_decode($this->getPropertyNamingSerializer()->serialize($result, 'json'), true);
 			return new JsonModel(array('data' => $data, 'success' => true));
 		}
 
