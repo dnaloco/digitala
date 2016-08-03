@@ -1,0 +1,15 @@
+[submodule "vendor/dino/dompdf-module"]
+  path = vendor/dino/dompdf-module
+  url = https://github.com/raykolbe/DOMPDFModule
+
+[submodule "vendor/jotjunior/boletophp-zf2"]
+  path = vendor/jotjunior/boletophp-zf2
+  url = https://github.com/JotJunior/PHP-Boleto-ZF2
+
+[submodule "vendor/sp/jms-serializer-module"]
+  path = vendor/sp/jms-serializer-module
+  url = https://github.com/Spea/JMSSerializerModule
+
+[submodule "vendor/zendframework/zend-developer-tools"]
+  path = vendor/zendframework/zend-developer-tools
+  url = https://github.com/zendframework/ZendDeveloperTools
