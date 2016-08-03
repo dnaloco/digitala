@@ -23,7 +23,7 @@ return [
                 'type' => Literal::class,
                 'options' => array(
                     'route' => '/teste-landing',
-                    'defaults' => array(
+                    'defaults' => array(g
                         'controller' => Controller\IndexController::class,
                         'action' => 'landingPage',
                     ),
