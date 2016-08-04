@@ -3,7 +3,6 @@
 namespace DABlog;
 
 use Zend\Mvc\Router\Http\Hostname;
-use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -19,16 +18,6 @@ return [
                     'defaults' => array(
                         'controller' => Controller\IndexController::class,
                         'action' => 'index',
-                    ),
-                ),
-            ),
-            'dablog-landing-page' => array(
-                'type' => Literal::class,
-                'options' => array(
-                    'route' => '/teste-landing',
-                    'defaults' => array(
-                        'controller' => Controller\IndexController::class,
-                        'action' => 'landingPage',
                     ),
                 ),
             ),
