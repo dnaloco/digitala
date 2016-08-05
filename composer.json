@@ -17,6 +17,9 @@
         "zfcampus/zf-oauth2": "^1.4",
         "facebook/php-sdk-v4": "^5.2",
         "zendframework/zend-developer-tools": "dev-master",
-        "bjyoungblood/bjy-profiler": "*"
+        "bjyoungblood/bjy-profiler": "*",
+        "tymon/jwt-auth": "0.5.*",
+        "bshaffer/oauth2-server-php": "^1.8",
+        "firebase/php-jwt": "^4.0"
     }
 }

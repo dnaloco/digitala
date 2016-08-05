@@ -1,7 +1,7 @@
 import angular from 'angular';
 
 const bulk = require('bulk-require');
-const servicesModule = angular.module('app.services', []);
+const servicesModule = angular.module('app.services', ['ngStorage']);
 const services = bulk(__dirname, ['./**/!(*index|*.spec).js']);
 
 function declare(serviceMap) {

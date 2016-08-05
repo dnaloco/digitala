@@ -21,7 +21,7 @@ return array(
         'DACore',
         'DABlog',
 
-        //'DADummy',
+        'DADummy',
         'DAAcl',
         'DAUser',
         'DAAdmin',

@@ -8,6 +8,9 @@ import 'angular-ui-router';
 import 'angular-foundation-6';
 import 'angular-masonry';
 import 'ng-dialog';
+import 'angular-messages';
+import 'ngstorage';
+import 'angular-jwt';
 import './templates';
 import './filters';
 import './controllers';
@@ -19,13 +22,16 @@ import './assets/angular-equalizer';
 // create and bootstrap application
 const requires = [
 // vendors in node_modules
+  'ngStorage',
   'ui.router',
   'mm.foundation',
   'wu.masonry',
   'ngDialog',
+  'ngMessages',
+  'angular-jwt',
 
 // vendors in ./assets
-  //'ngEqualizer',
+  'ngEqualizer',
 
   'templates',
   'app.filters',

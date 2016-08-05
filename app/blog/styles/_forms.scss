@@ -1,0 +1,127 @@
+.da-wrapper-icomoon-input {
+  position: relative;
+
+  &:before {
+    font-family: 'icomoon';
+    position: absolute;
+  }
+}
+
+.da-icon-input-valid {
+  &:before {
+    color: green;
+    content: '\e905';
+  }
+}
+
+.da-icon-input-invalid {
+  &:before {
+    color: red;
+    content: '\e907';
+  }
+}
+
+.da-form-blue-red {
+  $box-shadow: #555;
+  $box-hover-shadow: #999;
+  $input-inset-shadow: #888;
+  $button-hover: #42FF53;
+  $blue-white: #CDE5FF;
+  $pure-white: white;
+  $text-shadow: #666;
+  $input-color: #1875AF;
+  $placeholder-color: #444;
+
+  .da-wrapper-icomoon-input {
+    &:before {
+      top: 10px;
+      right: 10px;
+    }
+  }
+
+  background: $blue;
+  font-family: "Andika R";
+
+  a {
+    color: $pure-white;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px $blue, 2px 2px 0px $text-shadow;
+    @include transition(all 0.2s ease-in-out);
+
+    &:hover {
+      color: $red;
+    }
+  }
+
+  h2 {
+
+    font-size: 1.6em;
+    font-weight: bold;
+    color: $pure-white;
+    text-shadow: 1px 1px 0px $blue, 2px 2px 0px $text-shadow;
+  }
+
+  label {
+    font-weight: bold;
+    color: $pure-white;
+    text-shadow: 1px 1px 0px $blue, 2px 2px 0px $text-shadow;
+  }
+
+  input[type="text"], input[type="password"] {
+    margin: 0;
+    color: $input-color;
+    padding-top: 10px;
+    border: 4px solid $red;
+    background: $blue-white;
+    box-shadow: 1px 1px 0px $box-shadow, 2px 2px 0px $box-shadow, 3px 3px 0px $box-shadow, 4px 4px 0px $box-shadow, inset 2px 2px 0px 2px $input-inset-shadow;
+    font-weight: bold;
+
+    @include placeholder {
+      color: $placeholder-color;
+    }
+
+    &:focus {
+      background: $pure-white;
+    }
+  }
+
+  input[type="checkbox"] {
+    width: 19px;
+    height: 19px;
+    cursor: pointer;
+    + label {
+      cursor: default;
+      color: $pure-white;
+    }
+  }
+
+  .da-form-button {
+    background: $red;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 15px;
+    text-shadow: 1px 1px 0px $red, 2px 2px 0px #666;
+    box-shadow: 1px 1px 0px $box-shadow, 2px 2px 0px $box-shadow, 3px 3px 0px $box-shadow, 4px 4px 0px $box-shadow;
+    @include transition(all 0.2s ease-in-out);
+
+    &:hover {
+      text-shadow: 1px 1px 0px $button-hover, 2px 2px 0px $text-shadow;
+      color: $pure-white;
+      background: $button-hover;
+      margin-top: 5px;
+      margin-left: 5px;
+      margin-bottom: 11px;
+      box-shadow: none;
+    }
+  }
+
+  .da-error-messages {
+    padding-left: 10px;
+    margin-top: 3px;
+    color: $red;
+    -webkit-animation-name: da-blinker;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: cubic-bezier(.5, 0, 1, 1);
+    -webkit-animation-duration: 1.7s;
+  }
+}

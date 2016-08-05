@@ -6,19 +6,13 @@ use Zend\View\Model\JsonModel;
 
 class AbstractCrudRestController extends AbstractRestfulController implements ResponsesInterfface, SerializerInterface
 {
+  use \DACore\Trait\SerializerTrait;
+
 	protected $service;
-	protected $serializer;
 
-
-	public function __construct($service, $serializer = null)
+	public function __construct($service)
 	{
 		$this->service = $service;
-		$this->servializer = $serializer;
-	}
-
-	public function getPropertyNamingSerializer() : \JMS\Serializer\Naming\PropertyNamingStrategyInterface
-	{
-		return $this->serializer;
 	}
 
 	public function getList()
@@ -26,8 +20,7 @@ class AbstractCrudRestController extends AbstractRestfulController implements Re
 		$data = $this->service->getList($_GET);
 
 		if ($data) {
-			if (!is_null($this->serializer))
-				$data = json_decode($this->getPropertyNamingSerializer()->serialize($data, 'json'), true);
+			$data = json_decode($this->getPropertyNamingSerializer()->serialize($data, 'json'), true);
 			return new JsonModel(array('data' => $data, 'success' => true));
 		}
 

@@ -14,105 +14,105 @@ use Zend\Stdlib\Hydrator;
  */
 class User implements UserInterface
 {
-    use \DAUser\Traits\TraitEncrypt;
+    use \DACore\Strategy\EncryptStrategies;
 
-	/**
-	 * @var integer
-	 *
-	 * @ORM\Column(name="id", type="integer", nullable=false)
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="IDENTITY")
-	 */
-	protected $id;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    protected $id;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="user", type="string", length=255, unique=true, nullable=false)
-	 */
-	protected $user;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="user", type="string", length=255, unique=true, nullable=false)
+     */
+    protected $user;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="password", type="string", length=255, nullable=false)
-	 */
-	protected $password;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     */
+    protected $password;
 
-	/**
-	 * @ORM\ManyToMany(targetEntity="DAAcl\Entity\RoleInterface")
-	 * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=false)
+    /**
+     * @ORM\ManyToMany(targetEntity="DAAcl\Entity\RoleInterface")
+     * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=false)
      * @ORM\JoinTable(name="dauser_users_role",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={ 
+     *      inverseJoinColumns={
      *          @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      *      }
      * )
-     * 
-	 **/
-	protected $roles;
+     *
+     **/
+    protected $roles;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="salt", type="string", length=255, nullable=true)
-	 */
-	protected $salt;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
+     */
+    protected $salt;
 
-	/**
-	 * @var boolean
-	 *
-	 * @ORM\Column(name="active", type="boolean", nullable=true)
-	 */
-	protected $active;
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean", nullable=true)
+     */
+    protected $active;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="activationKey", type="string", length=255, nullable=true)
-	 */
-	protected $activationKey;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="activationKey", type="string", length=255, nullable=true)
+     */
+    protected $activationKey;
 
-		/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="notes", type="text", nullable=true)
-	 */
-	protected $notes;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="notes", type="text", nullable=true)
+     */
+    protected $notes;
 
-	/**
-	 * @var \DateTime
-	 *
-	 * @ORM\Column(name="createdAt", type="datetime", nullable=false)
-	 */
-	protected $createdAt;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=false)
+     */
+    protected $createdAt;
 
-	/**
-	 * @var \DateTime
-	 *
-	 * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
-	 */
-	protected $updatedAt;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
+     */
+    protected $updatedAt;
 
-	public function __construct(array $options = array())
-	{
+    public function __construct(array $options = array())
+    {
         $this->roles = new ArrayCollection();
 
-		$this->createdAt = new \DateTime("now");
-		$this->updatedAt = new \DateTime("now");
+        $this->createdAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime("now");
 
-		$this->salt = base64_encode(Rand::getBytes(8, true));
-		$this->activationKey = md5($this->user . $this->salt);
+        $this->salt = base64_encode(Rand::getBytes(8, true));
+        $this->activationKey = md5($this->user . $this->salt);
 
-		(new Hydrator\ClassMethods)->hydrate($options, $this);
-	}
+        (new Hydrator\ClassMethods)->hydrate($options, $this);
+    }
 
     /**
      * Gets the value of id.
      *
      * @return integer
      */
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -136,7 +136,7 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getUser() : string
+    public function getUser(): string
     {
         return $this->user;
     }
@@ -160,7 +160,7 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getPassword() : string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -184,7 +184,7 @@ class User implements UserInterface
      *
      * @return mixed
      */
-    public function getRoles() : ArrayCollection
+    public function getRoles(): ArrayCollection
     {
         return $this->roles;
     }
@@ -208,7 +208,7 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getSalt() : string
+    public function getSalt(): string
     {
         return $this->salt;
     }
@@ -232,7 +232,7 @@ class User implements UserInterface
      *
      * @return boolean
      */
-    public function getActive() : boolean
+    public function getActive(): boolean
     {
         return $this->active;
     }
@@ -256,7 +256,7 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getActivationKey() : string
+    public function getActivationKey(): string
     {
         return $this->activationKey;
     }
@@ -280,7 +280,7 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getNotes() : string
+    public function getNotes(): string
     {
         return $this->notes;
     }
@@ -304,7 +304,7 @@ class User implements UserInterface
      *
      * @return \DateTime
      */
-    public function getCreatedAt() : \DateTime
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
@@ -314,7 +314,7 @@ class User implements UserInterface
      *
      * @return \DateTime
      */
-    public function getUpdatedAt() : \DateTime
+    public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
     }
@@ -325,7 +325,7 @@ class User implements UserInterface
      * @param \DateTime $updatedAt the updated at
      *
      * @return self
-     * 
+     *
      * @ORM\PrePersist
      */
     protected function setUpdatedAt()

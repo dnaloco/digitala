@@ -1,4 +1,4 @@
-function ExampleCtrl(ngDialog) {
+function ExampleCtrl(ngDialog, RememberMeService) {
   'ngInject';
 
   // ViewModel
@@ -25,6 +25,9 @@ function ExampleCtrl(ngDialog) {
   vm.teste = function() {
     console.log('ISSO É UM TESTE');
   }
+
+
+
 
   //ngDialog.open({ template: 'partials/popup.html', className: 'ngdialog-theme-default' });
 }

@@ -1,6 +1,9 @@
+@import 'bourbon';
+
 @import 'vars';
 @import 'typography';
-@import 'bourbon';
+@import 'icons';
+@import 'animations';
 
 @import 'settings';
 @import 'foundation';
@@ -50,5 +53,9 @@
 @include foundation-visibility-classes;
 @include foundation-float-classes;
 // @include foundation-flex-classes;
+//
+//
 
+@import "forms";
+@import "generics";
 

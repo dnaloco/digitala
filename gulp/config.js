@@ -11,7 +11,7 @@ export default {
       src: 'app/blog/styles/**/*.scss',
       dest: 'build/blog/css',
       prodSourcemap: false,
-      sassIncludePaths: ['app/blog/styles/bourbon/', 'node_modules/foundation-sites/scss/']
+      sassIncludePaths: ['app/general/bourbon/', 'node_modules/foundation-sites/scss/']
     },
 
     scripts: {

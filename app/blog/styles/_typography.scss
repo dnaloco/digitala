@@ -6,6 +6,115 @@
 //$body-font-family-oswald: 'Oswald', sans-serif;
 //$body-font-family-oxygen-mono: 'Oxygen Mono', ;
 
+@include font-face("Aller Display", "/blog/fonts/aller/AllerDisplay", $file-formats: ttf);
+
+@include font-face("Aller", "/blog/fonts/aller/Aller_Lt", normal, $file-formats: ttf);
+@include font-face("Aller", "/blog/fonts/aller/Aller_LtIt", normal, italic);
+@include font-face("Aller", "/blog/fonts/aller/Aller_Rg", bold);
+@include font-face("Aller", "/blog/fonts/aller/Aller_It", bold, italic);
+
+@include font-face("Andika R", "/blog/fonts/Andika/Andika-R", $file-formats: ttf);
+
+@include font-face("Anivers", "/blog/fonts/anivers/Anivers_Regular-webfont");
+
+@include font-face("Aref Ruqaa", "/blog/fonts/Aref_Ruqaa/ArefRuqaa-Regular", $file-formats: ttf);
+
+@include font-face("Aref Ruqaa Bold", "/blog/fonts/Aref_Ruqaa/ArefRuqaa-Bold", $file-formats: ttf);
+
+@include font-face("Atma", "/blog/fonts/Atma/Atma-Regular", $file-formats: ttf);
+
+@include font-face("Atma Bold", "/blog/fonts/Atma/Atma-Bold", $file-formats: ttf);
+
+@include font-face("Atma Light", "/blog/fonts/Atma/Atma-Light", $file-formats: ttf);
+
+@include font-face("Atma SemiBold", "/blog/fonts/Atma/Atma-SemiBold", $file-formats: ttf);
+
+@include font-face("Audiowide", "/blog/fonts/Audiowide/Audiowide-Regular", $file-formats: ttf);
+
+@include font-face("Bungee Hairline", "/blog/fonts/Bungee_Hairline/BungeeHairline-Regular", $file-formats: ttf);
+
+@include font-face("Bungee Inine", "/blog/fonts/Bungee_Inline/BungeeInline-Regular", $file-formats: ttf);
+
+@include font-face("Bungee Shade", "/blog/fonts/Bungee_Shade/BungeeShade-Regular", $file-formats: ttf);
+
+@include font-face("Candal", "/blog/fonts/Candal/Candal", $file-formats: ttf);
+
+@include font-face("Caveat", "/blog/fonts/Caveat/Caveat-Regular", $file-formats: ttf);
+
+@include font-face("Caveat Bold", "/blog/fonts/Caveat/Caveat-Bold", $file-formats: ttf);
+
+@include font-face("Chathura", "/blog/fonts/Chathura/Chathura-Regular", $file-formats: ttf);
+
+@include font-face("Chathura Light", "/blog/fonts/Chathura/Chathura-Light", $file-formats: ttf);
+
+@include font-face("Chathura Thin", "/blog/fonts/Chathura/Chathura-Thin", $file-formats: ttf);
+
+@include font-face("Chathura Bold", "/blog/fonts/Chathura/Chathura-Bold", $file-formats: ttf);
+
+@include font-face("Chewy", "/blog/fonts/Chewy/Chewy", $file-formats: ttf);
+
+@include font-face("Chunk Five", "/blog/fonts/chunkfive/chunkfive-webfont", $file-formats: woff woff2);
+
+@include font-face("Cinzel", "/blog/fonts/Cinzel/Cinzel-Regular", $file-formats: ttf);
+
+@include font-face("Cinzel Black", "/blog/fonts/Cinzel/Cinzel-Black", $file-formats: ttf);
+
+@include font-face("Cinzel Bold", "/blog/fonts/Cinzel/Cinzel-Bold", $file-formats: ttf);
+
+@include font-face("Coiny", "/blog/fonts/Coiny/Coiny-Regular", $file-formats: ttf);
+
+@include font-face("Copse", "/blog/fonts/Copse/Copse-Regular", $file-formats: ttf);
+
+@include font-face("Cormorant", "/blog/fonts/Cormorant/Cormorant-Regular", normal, $file-formats: ttf);
+@include font-face("Cormorant", "/blog/fonts/Cormorant/Cormorant-Bold", bold, $file-formats: ttf);
+@include font-face("Cormorant", "/blog/fonts/Cormorant/Cormorant-Italic", italic, $file-formats: ttf);
+@include font-face("Cormorant", "/blog/fonts/Cormorant/Cormorant-Light", 100, $file-formats: ttf);
+@include font-face("Cormorant", "/blog/fonts/Cormorant/Cormorant-LightItalic", 100, italic, $file-formats: ttf);
+@include font-face("Cormorant", "/blog/fonts/Cormorant/Cormorant-Medium", 500);
+@include font-face("Cormorant", "/blog/fonts/Cormorant/Cormorant-MediumItalic", 500, italic, $file-formats: ttf);
+@include font-face("Cormorant", "/blog/fonts/Cormorant/Cormorant-SemiBold", 900);
+@include font-face("Cormorant", "/blog/fonts/Cormorant/Cormorant-SemiBoldItalic", 900, italic, $file-formats: ttf);
+
+@include font-face("Cormorant Infant", "/blog/fonts/Cormorant_Infant/CormorantInfant-Regular", normal, $file-formats: ttf);
+@include font-face("Cormorant Infant", "/blog/fonts/Cormorant_Infant/CormorantInfant-Bold", bold, $file-formats: ttf);
+@include font-face("Cormorant Infant", "/blog/fonts/Cormorant_Infant/CormorantInfant-Italic", italic, $file-formats: ttf);
+@include font-face("Cormorant Infant", "/blog/fonts/Cormorant_Infant/CormorantInfant-Light", 100, $file-formats: ttf);
+@include font-face("Cormorant Infant", "/blog/fonts/Cormorant_Infant/CormorantInfant-LightItalic", 100, italic, $file-formats: ttf);
+@include font-face("Cormorant Infant", "/blog/fonts/Cormorant_Infant/CormorantInfant-Medium", 500, $file-formats: ttf);
+@include font-face("Cormorant Infant", "/blog/fonts/Cormorant_Infant/CormorantInfant-MediumItalic", 500, italic, $file-formats: ttf);
+@include font-face("Cormorant Infant", "/blog/fonts/Cormorant_Infant/CormorantInfant-SemiBold", 900, $file-formats: ttf);
+@include font-face("Cormorant Infant", "/blog/fonts/Cormorant_Infant/CormorantInfant-SemiBoldItalic", 900, italic, $file-formats: ttf);
+
+@include font-face("Crafty Girls", "/blog/fonts/Crafty_Girls/CraftyGirls", $file-formats: ttf);
+
+@include font-face("Dancing Script", "/blog/fonts/Dancing_Script/DancingScript-Regular", $file-formats: ttf);
+
+@include font-face("Dancing Script Bold", "/blog/fonts/Dancing_Script/DancingScript-Bold", $file-formats: ttf);
+
+@include font-face("Delicious", "/blog/fonts/delicious/delicious-roman-webfont", normal, $file-formats: woff woff2);
+@include font-face("Delicious", "/blog/fonts/delicious/delicious-italic-webfont", normal, italic, $file-formats: woff woff2);
+@include font-face("Delicious", "/blog/fonts/delicious/delicious-bold-webfont", bold, $file-formats: woff woff2);
+@include font-face("Delicious", "/blog/fonts/delicious/delicious-bolditalic-webfont", bold, italic, $file-formats: woff woff2);
+
+@include font-face("Delicious Heavy", "/blog/fonts/delicious/delicious-heavy-webfont", $file-formats: woff woff2);
+
+@include font-face("Delicious SmallCaps", "/blog/fonts/delicious/delicious-smallcaps-webfont", $file-formats: woff woff2);
+
+@include font-face("Fertigo", "/blog/fonts/fertigo/Fertigo_PRO-webfont");
+
+@include font-face("Finger Paint", "/blog/fonts/Finger_Paint/FingerPaint-Regular", $file-formats: ttf);
+
+@include font-face("Kelly Slab", "/blog/fonts/Kelly_Slab/KellySlab-Regular", $file-formats: ttf);
+
+@include font-face("Sacramento", "/blog/fonts/Sacramento/Sacramento-Regular", $file-formats: ttf);
+
+@include font-face("Satisfy", "/blog/fonts/Satisfy/Satisfy-Regular", $file-formats: ttf);
+
+@include font-face("Unkempt", "/blog/fonts/Unkempt/Unkempt-Regular", $file-formats: ttf);
+
+@include font-face("Unkempt Bold", "/blog/fonts/Unkempt/Unkempt-Bold", $file-formats: ttf);
+
+
 
 p {
   // font-family: $body-font-family-oswald;
