@@ -1,0 +1,89 @@
+<div>
+  <form name="signupForm" novalidate class="da-form-blue-red" ng-submit="signup.submit()">
+    <h2>Registrar Usuário</h2>
+    <div class="row da-margin-top-small">
+      <div class="small-12 columns">
+
+        <div class="da-wrapper-icomoon-input ng-class:{'da-icon-input-valid': signupForm.fullname.$valid && signupForm.fullname.$touched, 'da-icon-input-invalid': signupForm.fullname.$invalid && signupForm.fullname.$touched};">
+          <input name="fullname" type="text" placeholder="Seu nome completo"
+            ng-model="signup.user.person.fullname"
+            ng-required="true">
+        </div>
+
+        <div class="da-error-messages"
+          ng-messages="signupForm.fullname.$error"
+          ng-if="signupForm.fullname.$touched"
+          role="alert">
+          <div ng-message="required">- Você não informou o seu nome</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row da-margin-top-small">
+      <div class="small-12 columns">
+
+        <div class="da-wrapper-icomoon-input ng-class:{'da-icon-input-valid': signupForm.username.$valid && signupForm.username.$touched, 'da-icon-input-invalid': signupForm.username.$invalid && signupForm.username.$touched};">
+          <input name="username" type="email" placeholder="Seu e-mail (para logar)"
+            ng-model="signup.user.username"
+            ng-required="true">
+        </div>
+
+        <div class="da-error-messages"
+          ng-messages="signupForm.username.$error"
+          ng-if="signupForm.username.$touched"
+          role="alert">
+          <div ng-message="required">- Você não informou o seu e-mail</div>
+          <div ng-message="email">- E-mail informado é inválido</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row da-margin-top-small">
+      <div class="small-12 columns">
+
+        <div class="da-wrapper-icomoon-input ng-class:{'da-icon-input-valid': signupForm.password.$valid && signupForm.password.$touched, 'da-icon-input-invalid': signupForm.password.$invalid && signupForm.password.$touched};">
+          <input name="password" type="password" placeholder="Sua senha"
+            ng-model="signup.user.password"
+            ng-required="true"
+            ng-minlength="6">
+        </div>
+
+        <div class="da-error-messages"
+          ng-messages="signupForm.password.$error"
+          ng-if="signupForm.password.$touched"
+          autocomplete="on"
+          role="alert">
+          <div ng-message="required">- Você não informou a senha</div>
+          <div ng-message="minlength">- A senha deve ter pelo menos 6 caracteres</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row da-margin-top-small">
+      <div class="small-12 columns">
+
+        <div class="da-wrapper-icomoon-input ng-class:{'da-icon-input-valid': signupForm.confpassword.$valid && signupForm.confpassword.$touched, 'da-icon-input-invalid': signupForm.confpassword.$invalid && signupForm.confpassword.$touched};">
+          <input name="confpassword" type="password" placeholder="Confirme sua senha"
+            ng-model="signup.user.confpassword"
+            ng-required="true">
+        </div>
+
+        <div class="da-error-messages"
+          ng-messages="signupForm.confpassword.$error"
+          ng-if="signupForm.confpassword.$touched"
+          role="alert">
+          <div ng-message="required">- Você não confirmou a senha</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row da-margin-top-small">
+      <div class="small-12 columns">
+        <button class="expanded button da-form-button" href="#" ng-disabled="signupForm.$invalid || signupForm.$pending">Registrar</button>
+      </div>
+    </div>
+
+  </form>
+</div>

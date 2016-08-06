@@ -1,9 +1,19 @@
-function TestCtrl(RememberMeService, $scope, $timeout, $http) {
+function TestCtrl(RememberMeService, $scope, $timeout, $http, ngDialog) {
   'ngInject';
 
   const vm = this;
 
-  const restUrl = 'http://www.agenciadigitala.local/api/test'
+  vm.signupModal = function () {
+    ngDialog.open({
+      template: 'login/signup.html',
+      controller: 'SignupCtrl as signup',
+      className: 'ngdialog-theme-signup-form ngdialog-theme-default',
+    });
+  };
+
+  // Signin Controller...
+
+  const restUrl = 'http://www.agenciadigitala.local/api/test';
 
   $http({
     method: 'GET',
@@ -41,7 +51,7 @@ function TestCtrl(RememberMeService, $scope, $timeout, $http) {
     RememberMeService.myDecision(true, data);
   }
 
-  vm.login = function () {
+  vm.signin = function () {
     $timeout(function() {
       console.log('Usuário logado');
 
@@ -53,8 +63,8 @@ function TestCtrl(RememberMeService, $scope, $timeout, $http) {
       if (vm.rememberMe) {
 
 
-      if (vm.user.username === undefined) throw new LoginException("Usuário não informado");
-      if (vm.user.password === undefined) throw new LoginException("Senha não informada");
+        if (vm.user.username === undefined) throw new LoginException("Usuário não informado");
+        if (vm.user.password === undefined) throw new LoginException("Senha não informada");
 
         RememberMeService.myDecision(vm.rememberMe, vm.user);
       } else {

@@ -1,6 +1,7 @@
-<?php 
+<?php
 namespace DACore\Crud;
 
-interface SerializerInterface {
-	function getPropertyNamingSerializer() : \JMS\Serializer\Naming\PropertyNamingStrategyInterface;
+interface SerializerInterface
+{
+    public static function getPropertyNamingSerializer();
 }

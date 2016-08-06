@@ -8,19 +8,29 @@ use Zend\Mvc\Router\Http\Segment;use Zend\ServiceManager\Factory\InvokableFactor
 return [
     'router' => [
         'routes' => [
-            'dablog-home' => array(
+            'dablog-subdomain' => array(
                 'type' => Hostname::class,
                 'options' => array(
                     'route' => 'www.agenciadigitala.[:tail]',
                     'constraints' => array(
                         'tail' => '[a-zA-Z._-]*',
                     ),
-                    'defaults' => array(
-                        'controller' => Controller\IndexController::class,
-                        'action' => 'index',
+                ),
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'dablog-home' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/',
+                            'defaults' => array(
+                                'controller' => Controller\IndexController::class,
+                                'action' => 'index',
+                            ),
+                        ),
                     ),
                 ),
             ),
+
         ],
     ],
     'controllers' => [

@@ -50,8 +50,10 @@
     "masonry": "0.0.2",
     "masonry-layout": "^4.1.0",
     "ng-dialog": "^0.6.2",
+    "ng-token-auth": "0.0.29",
     "ngCart": "^1.0.0",
-    "ngstorage": "^0.3.11"
+    "ngstorage": "^0.3.11",
+    "satellizer": "^0.15.4"
   },
   "devDependencies": {
     "angular": "^1.5.0",
