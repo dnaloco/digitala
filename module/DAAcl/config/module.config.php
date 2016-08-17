@@ -49,7 +49,7 @@ return [
 					'DAAcl\Entity\ResourceInterface' => 'DAAcl\Entity\Resource',
 					'DAAcl\Entity\PrivilegeInterface' => 'DAAcl\Entity\Privilege',
 				]
-			]				
+			]
 		]
 	]
 ];

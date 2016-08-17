@@ -10,4 +10,9 @@ trait EncryptStrategies
         return base64_encode(Pbkdf2::calc('sha256', $password, $salt, 10000, strlen($password * 2)));
     }
 
+    public static function encryptSalt(string $salt) : string
+    {
+    	
+    }
+
 }

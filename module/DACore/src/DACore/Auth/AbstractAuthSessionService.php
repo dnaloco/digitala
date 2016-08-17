@@ -4,7 +4,7 @@ namespace DACore\Auth;
 use Zend\Authentication\AuthenticationService,
     Zend\Authentication\Storage\Session as SessionStorage;
 
-abstract class AbstractAuthService implements AuthServiceInterface
+abstract class AbstractAuthSessionService implements AuthServiceInterface
 {
 	protected $authService;
 	protected $adapter;

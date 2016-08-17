@@ -174,7 +174,7 @@ class User implements UserInterface
      */
     protected function setPassword(string $password)
     {
-        $this->password = $this->encryptPassword($password, $this->salt);
+        $this->password = static::encryptPassword($password, $this->salt);
 
         return $this;
     }

@@ -18,14 +18,14 @@ return array(
         'DoctrineDataFixtureModule',
         'JMSSerializerModule',
 
-        'DACore',
-        'DABase',
-        'DABlog',
+        // 'DACore',
+        // 'DABase',
+        // 'DABlog',
 
-        'DADummy',
-        'DAAcl',
-        'DAUser',
-        'DAAdmin',
+        // 'DADummy',
+        // 'DAAcl',
+        // 'DAUser',
+        // 'DAAdmin',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
