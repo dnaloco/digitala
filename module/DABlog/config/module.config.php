@@ -1,17 +1,16 @@
 <?php
-
 namespace DABlog;
 
 use Zend\Mvc\Router\Http\Hostname;
 use Zend\Mvc\Router\Http\Segment;use Zend\ServiceManager\Factory\InvokableFactory;
-
+//echo file_exists(__DIR__ . '/key.pem');
 return [
     'router' => [
         'routes' => [
             'dablog-subdomain' => array(
                 'type' => Hostname::class,
                 'options' => array(
-                    'route' => 'www.agenciadigitala.[:tail]',
+                    'route' => 'blog.agenciadigitala.[:tail]',
                     'constraints' => array(
                         'tail' => '[a-zA-Z._-]*',
                     ),
@@ -53,6 +52,29 @@ return [
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
+        ],
+    ],
+
+    'service_manager' => [
+        'factories' => [
+            //Register the factory with whatever service name you like
+            'MyOAuth2Provider' => 'Codeacious\OAuth2Provider\ProviderFactory',
+        ],
+    ],
+
+    'oauth2provider' => [
+        'storage' => [
+            'public_key' => [
+                'class' => 'Codeacious\OAuth2Provider\Storage\PublicKeyFileStore',
+                'options' => [
+                    'public_key' => __DIR__ . '/key.pem',
+                    'algorithm' => 'RS256',
+                ],
+            ],
+        ],
+        'options' => [
+            'use_jwt_access_tokens'  => true,
+            'www_realm' => 'My Application',
         ],
     ],
 ];

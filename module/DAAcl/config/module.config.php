@@ -41,15 +41,14 @@ return [
 				]
 			]
 		],
-
 		'entity_resolver' => [
-			'orm_default' => [
-				'resolvers' => [
-					'DAAcl\Entity\RoleInterface' => 'DAAcl\Entity\Role',
-					'DAAcl\Entity\ResourceInterface' => 'DAAcl\Entity\Resource',
-					'DAAcl\Entity\PrivilegeInterface' => 'DAAcl\Entity\Privilege',
-				]
-			]
-		]
+            'orm_default' => [
+                'resolvers' => [
+                    'DACore\Entity\Acl\RoleInterface' 		=> 'DAAcl\Entity\Role',
+                    'DACore\Entity\Acl\ResourceInterface' 	=> 'DAAcl\Entity\Resource',
+                    'DACore\Entity\Acl\PrivilegeInterface' 	=> 'DAAcl\Entity\Privilege',
+                ],
+            ],
+        ],
 	]
 ];

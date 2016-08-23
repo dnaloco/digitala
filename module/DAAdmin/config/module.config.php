@@ -8,43 +8,28 @@ use Zend\Mvc\Router\Http\{Literal, Segment, Hostname};
 return [
     'router' => [
         'routes' => [
-            'daadmin-home' => array(
-                'type'    => Hostname::class,
+            'daadmin-subdomain' => array(
+                'type' => Hostname::class,
                 'options' => array(
-                    'route'    => 'admin.digitala.local',
+                    'route' => 'admin.agenciadigitala.[:tail]',
                     'constraints' => array(
-
-                    ),
-                    'defaults' => array(
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'tail' => '[a-zA-Z._-]*',
                     ),
                 ),
-                'may_terminate' => true,
-
-/*                'child_routes' => array(
-                    'login' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'dablog-home' => array(
+                        'type' => 'literal',
                         'options' => array(
-                            'route'    => '/login',
+                            'route' => '/',
                             'defaults' => array(
-                                'action'     => 'login',
+                                'controller' => Controller\IndexController::class,
+                                'action' => 'index',
                             ),
                         ),
                     ),
-                    'createAd' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                        'options' => array(
-                            'route'    => '/createAd',
-                            'defaults' => array(
-                                'action'     => 'createAd',
-                            ),
-                        ),
-                    ),
-
-
-                ),*/
-            )
+                ),
+            ),
         ],
 
 

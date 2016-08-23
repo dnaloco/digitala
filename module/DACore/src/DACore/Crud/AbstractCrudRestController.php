@@ -14,7 +14,9 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
 
     protected $service;
 
-    abstract public function __construct($service);
+    public function __construct($service) {
+        $this->service = $service;
+    }
 
     public function setEventManager(EventManagerInterface $events)
     {
@@ -43,10 +45,12 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
 
     public function getList()
     {
-        $data = $this->service->getList($_GET);
+        $options = $_GET['options'] ?? array();
+
+        $data = $this->service->getList($options);
 
         if ($data) {
-            $data = json_decode(self::getPropertyNamingSerializer()->serialize($data, 'json'), true);
+            $data = json_decode(static::getPropertyNamingSerializer()->serialize($data, 'json'), true);
             return new JsonModel(array('data' => $data, 'success' => true));
         }
 
@@ -56,16 +60,26 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
 
     public function get($id)
     {
-        //$data = $this->service->getOne($id)
+        $data = $this->service->getOne($id);
+
+        if ($data) {
+            $data = json_decode(static::getPropertyNamingSerializer()->serialize($data, 'json'), true);
+            return new JsonModel(array('data' => $data, 'success' => true));
+        }
+        return new JsonModel(array('data' => array(), 'success' => false));
     }
 
     public function create($data)
     {
         $result = $this->service->insert($data);
 
+        if (isset($result['errors'])) {
+            return new JsonModel(array('data' => array(), 'success' => false, 'errors' => $data['errors']));
+        }
+
         if ($result) {
             if (!is_null($this->serializer)) {
-                $data = json_decode(self::getPropertyNamingSerializer()->serialize($result, 'json'), true);
+                $data = json_decode(static::getPropertyNamingSerializer()->serialize($result, 'json'), true);
             }
 
             return new JsonModel(array('data' => $data, 'success' => true));
@@ -78,9 +92,13 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
     {
         $result = $this->service->update($data);
 
+        if (isset($result['errors'])) {
+            return new JsonModel(array('data' => array(), 'success' => false, 'errors' => $data['errors']));
+        }
+
         if ($result) {
             if (!is_null($this->serializer)) {
-                $data = json_decode(self::getPropertyNamingSerializer()->serialize($result, 'json'), true);
+                $data = json_decode(static::getPropertyNamingSerializer()->serialize($result, 'json'), true);
             }
 
             return new JsonModel(array('data' => $data, 'success' => true));

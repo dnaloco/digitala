@@ -2,6 +2,6 @@
 namespace DACore\Interfaces\Rest;
 
 interface PrepareDataInterface {
-	function prepareDataToInsert(array $data) : array;
-	function prepareDataToUpdate(array $data) : array;
+	function prepareDataToInsert(array $data);
+	function prepareDataToUpdate(array $data);
 }

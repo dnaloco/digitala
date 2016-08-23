@@ -7,12 +7,14 @@ use Zend\Authentication\Result;
 
 abstract class AbstractAdapter implements AdapterInterface {
 	protected $em;
+	protected $userRepository;
 	protected $username;
 	protected $password;
 	protected $roles;
 
-	public function __construct(EntityManager $em) {
+	public function __construct(EntityManager $em, $userRepository) {
 		$this->em = $em;
+		$this->userRepository = $userRepository;
 	}
 	
 	public function getUsername()  : string {

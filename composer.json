@@ -21,6 +21,8 @@
         "tymon/jwt-auth": "0.5.*",
         "bshaffer/oauth2-server-php": "^1.8",
         "firebase/php-jwt": "^4.0",
-        "lcobucci/jwt": "^3.1"
+        "lcobucci/jwt": "^3.1",
+        "codeacious/oauth2-provider": "^1.0",
+        "phpro/zf-mvc-auth-token": "^0.1.0"
     }
 }

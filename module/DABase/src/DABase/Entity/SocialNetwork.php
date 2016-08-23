@@ -1,10 +1,16 @@
 <?php
 namespace DABase\Entity;
 
-class SocialNetwork
+use DACore\Entity\Base\SocialNetworkInterface;
+
+class SocialNetwork implements SocialNetworkInterface
 {
     protected $id;
-    protected $socialType;
+    protected $type;
     protected $address;
-    protected $createdAt;
+
+    public function __construct(array $data)
+    {
+    	
+    }
 }

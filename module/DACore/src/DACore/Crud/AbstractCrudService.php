@@ -10,17 +10,28 @@ namespace DACore\Crud;
 use Doctrine\ORM\EntityManager;
 use Zend\Stdlib\Hydrator;
 
-class AbstractCrudService {
+abstract class AbstractCrudService implements PrepareDataInterface
+{
 	protected $em;
 	protected $entity;
 
-	public function __construct(EntityManager $em) {
+	public function __construct(EntityManager $em, $entity)
+	{
 		$this->em = $em;
+		$this->entity = $entity;
+	}
+	abstract function prepareDataToInsert(array $data);
+
+	abstract function prepareDataToUpdate(array $data);
+
+	public static function getRepository()
+	{
+		return $this->em->getRepository($this->entity);
 	}
 
-	public function getList(array $options = array()) 
+	public function getList(array $options = array())
 	{
-		$repo = $this->getRepository();
+		$repo = self::getRepository();
 
 		$data = $repo->findBy(array(), $options);
 
@@ -29,19 +40,16 @@ class AbstractCrudService {
 
 	public function getOne($id)
 	{
-		$repo = $this->getRepository();
+		$repo = self::getRepository();
 
 		$data = $repo->find((int) $id);
 
 		return $data;
 	}
 
-	public function getRepository()
-	{
-		return $this->em->getRepository($this->entity);
-	}
-
 	public function insert(array $data) {
+		$data = static::prepareDataToInsert($data);
+		if (isset($data['errors'])) return $data;
 		$entity = new $this->entity($data);
 		$this->em->persist($entity);
 		$this->em->flush();
@@ -49,13 +57,15 @@ class AbstractCrudService {
 	}
 
 	public function update(array $data) {
+		$data = static::prepareDataToUpdate($data);
+		if (isset($data['errors'])) return $data;
 		$entity = $this->em->getReference($this->entity, $data['id']);
 		(new Hydrator\ClassMethods())->hydrate($data, $entity);
 		$this->em->persist($entity);
 		$this->em->flush();
 		return $entity;
 	}
-	
+
 	public function delete($id) {
 		$entity = $this->em->getReference($this->entity, $id);
 		if ($entity) {

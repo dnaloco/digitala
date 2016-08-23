@@ -7,8 +7,8 @@ use Zend\Mime\Message as MimeMessage;
 use Zend\Mime\Part as MimePart;
 use Zend\View\Model\ViewModel;
 
-class MailService {
-
+class MailService implements MailServiceInterface
+{
 	protected $transport;
 	protected $view;
 	protected $body;
@@ -18,10 +18,15 @@ class MailService {
 	protected $data;
 	protected $page;
 
-	public function __construct(SmtpTransport $transport, $view, $page) {
+	public function __construct(SmtpTransport $transport, $view) {
 		$this->transport = $transport;
 		$this->view = $view;
+	}
+
+	public function setPage($page)
+	{
 		$this->page = $page;
+		return $this;
 	}
 
 	public function setSubject($subject) {
@@ -44,8 +49,8 @@ class MailService {
 		$model->setTemplate("mailer/{$page}.phtml");
 		$model->setOption('has_parent', true);
 		if (count($data) > 0) {
-			$model->setVariables($data);	
-		}	
+			$model->setVariables($data);
+		}
 		return $this->view->render($model);
 	}
 

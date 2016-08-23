@@ -53,15 +53,15 @@ abstract class AbstractAuthSessionService implements AuthServiceInterface
 			$user = $auth->getIdentity();
 
 			if ($user->getActive()) {
-				$sessionStorage->write($user, null);
+				$sessionStorage->write($user->getId(), null);
 
-				return array('data' => $user, 'success' => true)
+				return array('data' => $user->getId(), 'success' => true)
 			}
 
-			return array('data' => $user, 'success' => false, 'error' => 'The user is inactive. Please contact the administrador');
+			return array('data' => $user->getId(), 'success' => false, 'error' => 'The user is inactive. Please contact the administrador');
 		}
 
-		return array('data' => $user, 'success' => false, 'error' => 'Wrong password or user');
+		return array('data' => $user->getId(), 'success' => false, 'error' => 'Wrong password or user');
 	}
 
 	public function logout() : boolean

@@ -3,6 +3,7 @@ namespace DAAcl\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
+use DACore\Entity\Acl\ResourceInterface;
 
 /**
  * @ORM\Entity
@@ -33,20 +34,37 @@ class Resource implements ResourceInterface {
 	 */
 	protected $updatedAt;
 
-	public function __construct(array $options = array()) {
+	public function __construct(array $data) {
 		$this->createdAt = new \DateTime("now");
 		$this->updatedAt = new \DateTime("now");
-		(new Hydrator\ClassMethods)->hydrate($options, $this);
+		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
+
+
+
 
     /**
      * Gets the value of id.
      *
      * @return mixed
      */
-    public function getId() : int
+    public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param mixed $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -54,7 +72,7 @@ class Resource implements ResourceInterface {
      *
      * @return string
      */
-    public function getName() : string
+    public function getName()
     {
         return $this->name;
     }
@@ -66,7 +84,7 @@ class Resource implements ResourceInterface {
      *
      * @return self
      */
-    protected function setName(string $name)
+    public function setName($name)
     {
         $this->name = $name;
 
@@ -78,9 +96,23 @@ class Resource implements ResourceInterface {
      *
      * @return mixed
      */
-    public function getCreatedAt() : \DateTime
+    public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Sets the value of createdAt.
+     *
+     * @param mixed $createdAt the created at
+     *
+     * @return self
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     /**
@@ -88,7 +120,7 @@ class Resource implements ResourceInterface {
      *
      * @return mixed
      */
-    public function getUpdatedAt() : \DateTime
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -99,12 +131,10 @@ class Resource implements ResourceInterface {
      * @param mixed $updatedAt the updated at
      *
      * @return self
-     * 
-     * @ORM\PrePersist
      */
-    protected function setUpdatedAt()
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updatedAt = new \Datetime("now");
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

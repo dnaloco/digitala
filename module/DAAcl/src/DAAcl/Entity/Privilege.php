@@ -3,6 +3,7 @@ namespace DAAcl\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
+use DACore\Entity\Acl\PrivilegeInterface;
 
 /**
  * @ORM\Entity
@@ -18,13 +19,13 @@ class Privilege implements PrivilegeInterface {
 	protected $id;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="DAAcl\Entity\RoleInterface")
+	 * @ORM\ManyToOne(targetEntity="DACore\Entity\Acl\RoleInterface")
 	 * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
 	 */
 	protected $role;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="DAAcl\Entity\ResourceInterface")
+	 * @ORM\ManyToOne(targetEntity="DACore\Entity\Acl\ResourceInterface")
 	 * @ORM\JoinColumn(name="resource_id", referencedColumnName="id")
 	 */
 	protected $resource;
@@ -45,20 +46,36 @@ class Privilege implements PrivilegeInterface {
 	 */
 	protected $updatedAt;
 
-	public function __construct(array $options = array()) {
+	public function __construct(array $data) {
 		$this->createdAt = new \DateTime("now");
 		$this->updatedAt = new \DateTime("now");
-		(new Hydrator\ClassMethods)->hydrate($options, $this);
+		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
+    
+    
 
     /**
      * Gets the value of id.
      *
      * @return mixed
      */
-    public function getId() : int
+    public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param mixed $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -66,7 +83,7 @@ class Privilege implements PrivilegeInterface {
      *
      * @return mixed
      */
-    public function getRole() : RoleInterface
+    public function getRole()
     {
         return $this->role;
     }
@@ -78,7 +95,7 @@ class Privilege implements PrivilegeInterface {
      *
      * @return self
      */
-    protected function setRole(\DAAcl\Entity\RoleInterface $role)
+    public function setRole($role)
     {
         $this->role = $role;
 
@@ -90,7 +107,7 @@ class Privilege implements PrivilegeInterface {
      *
      * @return mixed
      */
-    public function getResource() : ResourceInterface
+    public function getResource()
     {
         return $this->resource;
     }
@@ -102,7 +119,7 @@ class Privilege implements PrivilegeInterface {
      *
      * @return self
      */
-    protected function setResource($resource)
+    public function setResource($resource)
     {
         $this->resource = $resource;
 
@@ -114,7 +131,7 @@ class Privilege implements PrivilegeInterface {
      *
      * @return string
      */
-    public function getName() : string
+    public function getName()
     {
         return $this->name;
     }
@@ -126,7 +143,7 @@ class Privilege implements PrivilegeInterface {
      *
      * @return self
      */
-    protected function setName($name)
+    public function setName($name)
     {
         $this->name = $name;
 
@@ -138,9 +155,23 @@ class Privilege implements PrivilegeInterface {
      *
      * @return mixed
      */
-    public function getCreatedAt() : \DateTime
+    public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Sets the value of createdAt.
+     *
+     * @param mixed $createdAt the created at
+     *
+     * @return self
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     /**
@@ -148,7 +179,7 @@ class Privilege implements PrivilegeInterface {
      *
      * @return mixed
      */
-    public function getUpdatedAt() : \DateTime
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -159,12 +190,10 @@ class Privilege implements PrivilegeInterface {
      * @param mixed $updatedAt the updated at
      *
      * @return self
-     * 
-     * @ORM\PrePersist
      */
-    protected function setUpdatedAt()
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updatedAt = new \Datetime("now");
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

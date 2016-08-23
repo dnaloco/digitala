@@ -24,6 +24,11 @@ data/DoctrineORMModule/cache/
 demos/
 extras/documentation
 
+# SUBLIME
+.phpintel/
+
+
+
 
 ### Node ###
 # Logs

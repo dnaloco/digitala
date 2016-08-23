@@ -10,21 +10,27 @@ return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
         // Vendor
-        'ZendDeveloperTools',
-        'BjyProfiler',
+        // 'ZendDeveloperTools',
+        // 'BjyProfiler',
 
         'DoctrineModule',
         'DoctrineORMModule',
         'DoctrineDataFixtureModule',
         'JMSSerializerModule',
+        'Codeacious\OAuth2Provider',
 
-        // 'DACore',
-        // 'DABase',
-        // 'DABlog',
+        'DASite',
+        'DAAdmin',
+        'DACore',
+        'DAAcl',
+        'DAUser',
+        //'DABase',
+        //'DABlog',
+        //'Tweet',
 
         // 'DADummy',
-        // 'DAAcl',
-        // 'DAUser',
+        //'DAAcl',
+        //'DAUser',
         // 'DAAdmin',
     ),
 

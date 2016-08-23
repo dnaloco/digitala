@@ -5,6 +5,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
 
+use DACore\Entity\User\UserInterface;
+
 /**
  * R2Users
  *
@@ -14,7 +16,7 @@ use Zend\Stdlib\Hydrator;
  */
 class User implements UserInterface
 {
-    use \DACore\Strategy\EncryptStrategies;
+    use \DACore\Strategy\EncryptStrategy;
 
     /**
      * @var integer
@@ -24,6 +26,13 @@ class User implements UserInterface
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="enum_testtype")
+     */
+    protected $type;
 
     /**
      * @var string
@@ -40,7 +49,7 @@ class User implements UserInterface
     protected $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity="DAAcl\Entity\RoleInterface")
+     * @ORM\ManyToMany(targetEntity="DACore\Entity\Acl\RoleInterface")
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=false)
      * @ORM\JoinTable(name="dauser_users_role",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -80,6 +89,13 @@ class User implements UserInterface
      */
     protected $notes;
 
+
+    protected $person;
+
+    protected $company;
+
+    protected $customer;
+
     /**
      * @var \DateTime
      *
@@ -94,17 +110,17 @@ class User implements UserInterface
      */
     protected $updatedAt;
 
-    public function __construct(array $options = array())
+    public function __construct(array $data)
     {
         $this->roles = new ArrayCollection();
 
         $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
 
-        $this->salt = base64_encode(Rand::getBytes(8, true));
-        $this->activationKey = md5($this->user . $this->salt);
+        $this->salt = static::encryptSalt($data['user']);
+        $this->activationKey = static::encryptActivationKey($data['user'] . $this->salt);
 
-        (new Hydrator\ClassMethods)->hydrate($options, $this);
+        (new Hydrator\ClassMethods)->hydrate($data, $this);
     }
 
     /**
@@ -112,7 +128,7 @@ class User implements UserInterface
      *
      * @return integer
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -124,9 +140,33 @@ class User implements UserInterface
      *
      * @return self
      */
-    protected function setId(int $id)
+    public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of type.
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Sets the value of type.
+     *
+     * @param string $type the type
+     *
+     * @return self
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
 
         return $this;
     }
@@ -136,7 +176,7 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getUser(): string
+    public function getUser()
     {
         return $this->user;
     }
@@ -148,7 +188,7 @@ class User implements UserInterface
      *
      * @return self
      */
-    protected function setUser(string $user)
+    public function setUser($user)
     {
         $this->user = $user;
 
@@ -160,7 +200,7 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         return $this->password;
     }
@@ -172,7 +212,7 @@ class User implements UserInterface
      *
      * @return self
      */
-    protected function setPassword(string $password)
+    public function setPassword($password)
     {
         $this->password = static::encryptPassword($password, $this->salt);
 
@@ -184,7 +224,7 @@ class User implements UserInterface
      *
      * @return mixed
      */
-    public function getRoles(): ArrayCollection
+    public function getRoles()
     {
         return $this->roles;
     }
@@ -196,7 +236,7 @@ class User implements UserInterface
      *
      * @return self
      */
-    protected function setRoles(ArrayCollection $roles)
+    public function setRoles($roles)
     {
         $this->roles = $roles;
 
@@ -208,23 +248,9 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getSalt(): string
+    public function getSalt()
     {
         return $this->salt;
-    }
-
-    /**
-     * Sets the value of salt.
-     *
-     * @param string $salt the salt
-     *
-     * @return self
-     */
-    protected function setSalt(string $salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
     }
 
     /**
@@ -232,7 +258,7 @@ class User implements UserInterface
      *
      * @return boolean
      */
-    public function getActive(): boolean
+    public function getActive()
     {
         return $this->active;
     }
@@ -244,7 +270,7 @@ class User implements UserInterface
      *
      * @return self
      */
-    protected function setActive(boolean $active)
+    public function setActive($active)
     {
         $this->active = $active;
 
@@ -256,7 +282,7 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getActivationKey(): string
+    public function getActivationKey()
     {
         return $this->activationKey;
     }
@@ -268,9 +294,9 @@ class User implements UserInterface
      *
      * @return self
      */
-    protected function setActivationKey(string $activationKey)
+    public function setActivationKey()
     {
-        $this->activationKey = $activationKey;
+        $this->activationKey = static::encryptActivationKey($this->user, $this->salt);
 
         return $this;
     }
@@ -280,7 +306,7 @@ class User implements UserInterface
      *
      * @return string
      */
-    public function getNotes(): string
+    public function getNotes()
     {
         return $this->notes;
     }
@@ -292,7 +318,7 @@ class User implements UserInterface
      *
      * @return self
      */
-    protected function setNotes(string $notes)
+    public function setNotes($notes)
     {
         $this->notes = $notes;
 
@@ -304,9 +330,23 @@ class User implements UserInterface
      *
      * @return \DateTime
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Sets the value of createdAt.
+     *
+     * @param \DateTime $createdAt the created at
+     *
+     * @return self
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     /**
@@ -314,7 +354,7 @@ class User implements UserInterface
      *
      * @return \DateTime
      */
-    public function getUpdatedAt(): \DateTime
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -328,9 +368,9 @@ class User implements UserInterface
      *
      * @ORM\PrePersist
      */
-    protected function setUpdatedAt()
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
-        $this->updatedAt = new \Datetime("now");
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

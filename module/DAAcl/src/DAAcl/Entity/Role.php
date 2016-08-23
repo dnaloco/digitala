@@ -3,6 +3,7 @@ namespace DAAcl\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
+use DACore\Entity\Acl\RoleInterface;
 
 /**
  * @ORM\Entity
@@ -18,7 +19,7 @@ class Role implements RoleInterface {
 	protected $id;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="DAAcl\Entity\RoleInterface")
+	 * @ORM\ManyToOne(targetEntity="DACore\Entity\Acl\RoleInterface")
 	 * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
 	 */
 	protected $parent;
@@ -45,21 +46,37 @@ class Role implements RoleInterface {
 	 */
 	protected $updatedAt;
 
-	public function __construct(array $options = array()) {
+	public function __construct(array $data) {
 		$this->createdAt = new \DateTime("now");
 		$this->updatedAt = new \DateTime("now");
 		$this->isAdmin = 0;
-		(new Hydrator\ClassMethods)->hydrate($options, $this);
+		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
+
+
 
     /**
      * Gets the value of id.
      *
      * @return mixed
      */
-    public function getId() : int
+    public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param mixed $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -67,7 +84,7 @@ class Role implements RoleInterface {
      *
      * @return mixed
      */
-    public function getParent() : RoleInterface
+    public function getParent()
     {
         return $this->parent;
     }
@@ -79,7 +96,7 @@ class Role implements RoleInterface {
      *
      * @return self
      */
-    protected function setParent(RoleInterface $parent)
+    public function setParent($parent)
     {
         $this->parent = $parent;
 
@@ -91,7 +108,7 @@ class Role implements RoleInterface {
      *
      * @return string
      */
-    public function getName() : string
+    public function getName()
     {
         return $this->name;
     }
@@ -103,7 +120,7 @@ class Role implements RoleInterface {
      *
      * @return self
      */
-    protected function setName(string $name) 
+    public function setName($name)
     {
         $this->name = $name;
 
@@ -115,7 +132,7 @@ class Role implements RoleInterface {
      *
      * @return boolean
      */
-    public function getIsAdmin() : boolean
+    public function getIsAdmin()
     {
         return $this->isAdmin;
     }
@@ -127,7 +144,7 @@ class Role implements RoleInterface {
      *
      * @return self
      */
-    protected function setIsAdmin($isAdmin)
+    public function setIsAdmin($isAdmin)
     {
         $this->isAdmin = $isAdmin;
 
@@ -139,9 +156,23 @@ class Role implements RoleInterface {
      *
      * @return mixed
      */
-    public function getCreatedAt() : \DateTime
+    public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Sets the value of createdAt.
+     *
+     * @param mixed $createdAt the created at
+     *
+     * @return self
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     /**
@@ -149,7 +180,7 @@ class Role implements RoleInterface {
      *
      * @return mixed
      */
-    public function getUpdatedAt() : \DateTime
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -160,12 +191,10 @@ class Role implements RoleInterface {
      * @param mixed $updatedAt the updated at
      *
      * @return self
-     * 
-     * @ORM\PrePersist
      */
-    protected function setUpdatedAt()
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updatedAt = new \Datetime("now");
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
