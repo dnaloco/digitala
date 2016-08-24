@@ -1,6 +1,6 @@
+console.log('HELLO');
 function ExampleCtrl(ngDialog, RememberMeService) {
   'ngInject';
-
   // ViewModel
   const vm = this;
 
@@ -25,7 +25,6 @@ function ExampleCtrl(ngDialog, RememberMeService) {
   vm.teste = function() {
     console.log('ISSO É UM TESTE');
   }
-
 
 
 

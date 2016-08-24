@@ -22,6 +22,7 @@ return array(
         'DASite',
         'DAAdmin',
         'DACore',
+        'DABase',
         'DAAcl',
         'DAUser',
         //'DABase',

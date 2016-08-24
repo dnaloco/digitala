@@ -4,79 +4,79 @@ export default {
   UIPort: 3001,
   testPort: 3002,
 
+  sourceDir: './app/',
+  buildDir: './build/',
+
+  indexFile: './app/index.php',
+
+  browserify: {
+    bundleName: 'main.js',
+    prodSourcemap: false
+  },
+
+  generalStyle: {
+    prodSourcemap: false,
+    sassIncludePaths: ['app/general/bourbon/', 'node_modules/foundation-sites/scss/']
+  },
+
+  gulpDir: 'gulp/**/*.js',
+
   blog: {
-    sourceDir: './app/',
-    buildDir: './build/',
     styles: {
-      src: 'app/blog/styles/**/*.scss',
-      dest: 'build/blog/css',
-      prodSourcemap: false,
-      sassIncludePaths: ['app/general/bourbon/', 'node_modules/foundation-sites/scss/']
+      src: 'blog/styles/**/*.scss',
+      dest: 'blog/css',
     },
 
     scripts: {
-      src: 'app/blog/js/**/*.js',
-      dest: 'build/blog/js',
-      test: 'test/**/*.js',
-      gulp: 'gulp/**/*.js'
+      src: 'blog/js/**/*.js',
+      dest: 'blog/js',
+      test: 'test/blog/**/*.js',
     },
 
     images: {
-      src: 'app/blog/images/**/*',
-      dest: 'build/blog/images'
+      src: 'blog/images/**/*',
+      dest: 'blog/images'
     },
 
     fonts: {
-      src: ['app/blog/fonts/**/*'],
-      dest: 'build/blog/fonts'
+      src: ['blog/fonts/**/*'],
+      dest: 'blog/fonts'
     },
     views: {
-      index: 'app/blog/index.html',
-      src: 'app/blog/views/**/*.html',
-      dest: 'app/blog/js'
+      index: 'blog/index.html',
+      src: 'blog/views/**/*.html',
+      dest: 'blog/js'
     },
-    browserify: {
-      bundleName: 'main.js',
-      prodSourcemap: false
-    }
   },
 
-  admin: {
-    sourceDir: './app/admin/',
-    buildDir: './build/admin/',
+  site: {
     styles: {
-      src: 'app/admin/styles/**/*.scss',
-      dest: 'build/admin/css',
-      prodSourcemap: false,
-      sassIncludePaths: ['app/admin/styles/bourbon/', 'node_modules/foundation-sites/scss/']
+      src: 'site/styles/**/*.scss',
+      dest: 'site/css',
     },
 
     scripts: {
-      src: 'app/admin/js/**/*.js',
-      dest: 'build/admin/js',
-      test: 'test/**/*.js',
-      gulp: 'gulp/**/*.js'
+      src: 'site/js/**/*.js',
+      dest: 'site/js',
+      test: 'test/site/**/*.js',
     },
 
     images: {
-      src: 'app/admin/images/**/*',
-      dest: 'build/admin/images'
+      src: 'site/images/**/*',
+      dest: 'site/images'
     },
 
     fonts: {
-      src: ['app/admin/fonts/**/*'],
-      dest: 'build/admin/fonts'
+      src: ['site/fonts/**/*'],
+      dest: 'site/fonts'
     },
     views: {
-      index: 'app/admin/index.html',
-      src: 'app/admin/views/**/*.html',
-      dest: 'app/admin/js'
+      index: 'site/index.html',
+      src: 'site/views/**/*.html',
+      dest: 'site/js'
     },
-    browserify: {
-      bundleName: 'main.js',
-      prodSourcemap: false
-    }
   },
+
 
   assetExtensions: [
     'js',
@@ -105,13 +105,13 @@ export default {
 
   init: function() {
     this.blog.views.watch = [
-      this.blog.views.index,
-      this.blog.views.src
+      this.sourceDir + this.blog.views.index,
+      this.sourceDir + this.blog.views.src
     ];
 
-    this.admin.views.watch = [
-      this.admin.views.index,
-      this.admin.views.src
+    this.site.views.watch = [
+      this.sourceDir + this.site.views.index,
+      this.sourceDir + this.site.views.src
     ];
 
     return this;

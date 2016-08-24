@@ -6,11 +6,14 @@ return [
         'configuration' => [
             'orm_default' => [
                 'types' => [
-                    'enum_testtype'         => 'DACore\Enum\TestType',
                     'enum_addresstype'      => 'DACore\Enum\AddressType',
-                    'enum_imagefiletype'    => 'DACore\Enum\ImageFiletype',
-                    'enum_socialtype'       => 'DACore\Enum\AddressType',
+                    'enum_companytype'      => 'DACore\Enum\CompanyType',
                     'enum_gendertype'       => 'DACore\Enum\GenderType',
+                    'enum_imagefiletype'    => 'DACore\Enum\ImageFiletype',
+                    'enum_licence'          => 'DACore\Enum\Licence',
+                    'enum_mobileoperator'   => 'DACore\Enum\MobileOperator',
+                    'enum_socialtype'       => 'DACore\Enum\AddressType',
+                    'enum_telephonetype'    => 'DACore\Enum\TelephoneType',
                 ]
             ]
         ]

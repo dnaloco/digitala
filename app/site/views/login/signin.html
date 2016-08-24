@@ -1,0 +1,60 @@
+<form name="signinForm" novalidate class="da-form-blue-red da-width-small da-margin-auto da-test-div" ng-submit="test.signin()">
+  <h2>Login</h2>
+  <div class="row da-margin-top-small">
+    <div class="small-12 columns">
+
+      <div class="da-wrapper-icomoon-input ng-class:{'da-icon-input-valid': signinForm.username.$valid && signinForm.username.$touched, 'da-icon-input-invalid': signinForm.username.$invalid && signinForm.username.$touched};">
+        <input name="username" type="text" placeholder="Usuário"
+          ng-model="test.user.username"
+          autocomplete="on"
+          ng-required="true">
+      </div>
+
+      <div class="da-error-messages"
+        ng-messages="signinForm.username.$error"
+        ng-if="signinForm.username.$touched"
+        role="alert">
+        <div ng-message="required">- Você não informou o usuário</div>
+      </div>
+
+    </div>
+  </div>
+    <div class="row da-margin-top-small">
+      <div class="small-12 columns">
+
+        <div class="da-wrapper-icomoon-input ng-class:{'da-icon-input-valid': signinForm.password.$valid && signinForm.password.$touched, 'da-icon-input-invalid': signinForm.password.$invalid && signinForm.password.$touched};">
+          <input name="password" type="password" placeholder="Senha"
+            ng-model="test.user.password"
+            ng-required="true"
+            ng-minlength="6">
+        </div>
+
+        <div class="da-error-messages"
+          ng-messages="signinForm.password.$error"
+          ng-if="signinForm.password.$touched"
+          autocomplete="on"
+          role="alert">
+          <div ng-message="required">- Você não informou a senha</div>
+          <div ng-message="minlength">- A senha deve ter pelo menos 6 caracteres</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row da-margin-top-small">
+      <div class="small-12 columns">
+        <button class="expanded button da-form-button" href="#" ng-disabled="signinForm.$invalid || myForm.$pending">Login</button>
+      </div>
+    </div>
+
+    <div class="row da-margin-top-small">
+      <div class="small-6 columns">
+        <div class="da-wrapper-checkbox">
+          <input type="checkbox" ng-model="test.rememberMe"><label for="checkbox12">Lembrar senha</label>
+        </div>
+      </div>
+      <div class="small-6 columns da-text-to-right">
+        <a href="">Esqueceu a senha?</a>
+      </div>
+    </div>
+  </div>
+</form>

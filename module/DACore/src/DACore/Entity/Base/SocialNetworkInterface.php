@@ -6,5 +6,4 @@ interface SocialNetworkInterface
     function getId();
     function getType();
     function getAddress();
-    function createdAt();
 }

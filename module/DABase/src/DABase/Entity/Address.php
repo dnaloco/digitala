@@ -3,6 +3,7 @@ namespace DABase\Entity;
 
 use DACore\Entity\Base\AddressInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Stdlib\Hydrator;
 
 /**
  * Endereço
@@ -22,83 +23,65 @@ class Address implements AddressInterface
 	protected $id;
 
 	/**
+     * @var \DACore\Enum\Addresstype
+     *
      * tipo de endereco('residential', 'comercial', 'delivery', 'billing', 'work')
      *
-     * @var \DABase\Enum\EnumGenderType
-     *
-     * @ORM\Column(name="gender", type="enum_addresstype", nullable=false)
+     * @ORM\Column(name="type", type="enum_addresstype", nullable=false)
      */
 	protected $type;
 
 	/**
-	 * país
+	 * @var \DACore\Entity\Base\CityInterface
+     *
+     * cidade
 	 *
-	 * @var \DACore\Entity\Base\CountryInterface
-	 *
-	 * @ORM\ManyToOne(targetEntity="DACore\Entity\Base\CountryInterface")
-	 * @ORM\JoinColumn(name="country_id", referencedColumnName="id", nullable=false)
-	 *
-	 */
-	protected $country;
-
-	/**
-	 * estado
-	 * 
-	 * @var  \DACore\Entity\Base\StateInterface
-	 *
-	 * @ORM\ManyToOne(targetEntity="DACore\Entity\Base\StateInterface")
-	 * @ORM\JoinColumn(name="state_id", referencedColumnName="id", nullable=false)
-	 *
-	 */
-	protected $state;
-
-	/**
-	 * cidade
-	 * 
-	 * @var  \DACore\Entity\Base\CityInterface
-	 * 
 	 * @ORM\ManyToOne(targetEntity="DACore\Entity\Base\CityInterface")
 	 * @ORM\JoinColumn(name="state_id", referencedColumnName="id", nullable=false)
-	 *
 	 */
 	protected $city;
 
 
 	/**
-     * logradouro
      * @var string
+     *
+     * logradouro
      *
      * @ORM\Column(name="address_1", type="string", length=200, nullable=false)
      */
 	protected $address1;
 
 	/**
-     * complemento
      * @var string
+     *
+     * complemento
      *
      * @ORM\Column(name="address_2", type="string", length=60, nullable=true)
      */
 	protected $address2;
 
 	/**
-     * número
      * @var integer
+     *
+     * número
      *
      * @ORM\Column(name="number", type="integer", nullable=false)
      */
 	protected $number;
 
 	/**
+     * @var string
+     *
      * bairro
-     * @var integer
      *
      * @ORM\Column(name="residential_area", type="string", length=100, nullable=false)
      */
 	protected $residentialArea;
 
 	/**
+     * @var string
+     *
      * cep
-     * @var integer
      *
      * @ORM\Column(name="postal_code", type="string", length=15, nullable=false)
      */
@@ -120,9 +103,23 @@ class Address implements AddressInterface
     }
 
     /**
+     * Sets the value of id.
+     *
+     * @param integer $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Gets the tipo de endereco('residential', 'comercial', 'delivery', 'billing', 'work').
      *
-     * @return \DABase\Enum\EnumGenderType
+     * @return \DACore\Enum\Addresstype
      */
     public function getType()
     {
@@ -132,11 +129,11 @@ class Address implements AddressInterface
     /**
      * Sets the tipo de endereco('residential', 'comercial', 'delivery', 'billing', 'work').
      *
-     * @param \DABase\Enum\EnumGenderType $type the type
+     * @param \DACore\Enum\Addresstype $type the type
      *
      * @return self
      */
-    public function setType(\DABase\Enum\EnumGenderType $type)
+    public function setType(\DACore\Enum\Addresstype $type)
     {
         $this->type = $type;
 
@@ -144,57 +141,9 @@ class Address implements AddressInterface
     }
 
     /**
-     * Gets the país.
-     *
-     * @return \DACore\Entity\Base\CountryInterface
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * Sets the país.
-     *
-     * @param \DACore\Entity\Base\CountryInterface $country the country
-     *
-     * @return self
-     */
-    public function setCountry(\DACore\Entity\Base\CountryInterface $country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Gets the estado.
-     *
-     * @return  \DACore\Entity\Base\StateInterface
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * Sets the estado.
-     *
-     * @param  \DACore\Entity\Base\StateInterface $state the state
-     *
-     * @return self
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
-    /**
      * Gets the cidade.
      *
-     * @return  \DACore\Entity\Base\CityInterface
+     * @return \DACore\Entity\Base\CityInterface
      */
     public function getCity()
     {
@@ -204,11 +153,11 @@ class Address implements AddressInterface
     /**
      * Sets the cidade.
      *
-     * @param  \DACore\Entity\Base\CityInterface $city the city
+     * @param \DACore\Entity\Base\CityInterface $city the city
      *
      * @return self
      */
-    public function setCity($city)
+    public function setCity(\DACore\Entity\Base\CityInterface $city)
     {
         $this->city = $city;
 
@@ -290,7 +239,7 @@ class Address implements AddressInterface
     /**
      * Gets the bairro.
      *
-     * @return integer
+     * @return string
      */
     public function getResidentialArea()
     {
@@ -300,7 +249,7 @@ class Address implements AddressInterface
     /**
      * Sets the bairro.
      *
-     * @param integer $residentialArea the residential area
+     * @param string $residentialArea the residential area
      *
      * @return self
      */
@@ -314,7 +263,7 @@ class Address implements AddressInterface
     /**
      * Gets the cep.
      *
-     * @return integer
+     * @return string
      */
     public function getPostalCode()
     {
@@ -324,7 +273,7 @@ class Address implements AddressInterface
     /**
      * Sets the cep.
      *
-     * @param integer $postalCode the postal code
+     * @param string $postalCode the postal code
      *
      * @return self
      */

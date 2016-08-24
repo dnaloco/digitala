@@ -41,8 +41,23 @@ return [
         'entity_resolver' => [
             'orm_default' => [
                 'resolvers' => [
-                    'DABase\Entity\PersonInterface' => 'DABase\Entity\Person',
-                    'DABase\Entity\ImageInterface' => 'DABase\Entity\Image',
+                    'DACore\Entity\Base\AddressInterface'           => 'DABase\Entity\Address',
+                    'DACore\Entity\Base\CityInterface'              => 'DABase\Entity\City',
+                    'DACore\Entity\Base\CompanyInterface'           => 'DABase\Entity\Company',
+                    'DACore\Entity\Base\CompanyCategoryInterface'   => 'DABase\Entity\CompanyCategory',
+                    'DACore\Entity\Base\CountryInterface'           => 'DABase\Entity\Country',
+                    'DACore\Entity\Base\CurrencyInterface'          => 'DABase\Entity\Currency',
+                    'DACore\Entity\Base\DocumentInterface'          => 'DABase\Entity\Document',
+                    'DACore\Entity\Base\EmailInterface'             => 'DABase\Entity\Email',
+                    'DACore\Entity\Base\FileInterface'              => 'DABase\Entity\File',
+                    'DACore\Entity\Base\GoodTagInterface'           => 'DABase\Entity\GoodTag',
+                    'DACore\Entity\Base\ImageInterface'             => 'DABase\Entity\Image',
+                    'DACore\Entity\Base\PersonInterface'            => 'DABase\Entity\Person',
+                    'DACore\Entity\Base\SocialNetworkInterface'     => 'DABase\Entity\SocialNetwork',
+                    'DACore\Entity\Base\StateInterface'             => 'DABase\Entity\State',
+                    'DACore\Entity\Base\TelephoneInterface'         => 'DABase\Entity\Telephone',
+                    'DACore\Entity\Base\VideoInterface'             => 'DABase\Entity\Video',
+
                 ],
             ],
         ],

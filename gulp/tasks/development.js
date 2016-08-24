@@ -1,18 +1,18 @@
 import gulp        from 'gulp';
 import runSequence from 'run-sequence';
 
-gulp.task('blogDev', ['blogClean'], function(cb) {
+gulp.task('blogDev', ['clean'], function(cb) {
 
   global.isProd = false;
 
-  runSequence(['blogStyles', 'blogImages', 'blogFonts', 'blogViews'], 'blogBrowserify', 'blogWatch', cb);
+  runSequence(['blogStyles', 'blogImages', 'blogFonts', 'blogViews'], 'blogBrowserify', 'blogWatch', 'indexFile', cb);
 
 });
 
-gulp.task('adminDev', ['adminClean'], function(cb) {
+gulp.task('siteDev', ['clean'], function(cb) {
 
   global.isProd = false;
 
-  runSequence(['adminStyles', 'adminImages', 'adminFonts', 'adminViews'], 'adminBrowserify', 'adminWatch', cb);
+  runSequence(['siteStyles', 'siteImages', 'siteFonts', 'siteViews'], 'siteBrowserify', 'siteWatch', cb);
 
 });

@@ -11,6 +11,13 @@ class Module
             'dispatch', function ($e) {
                 $e->getTarget()->layout('layout/site01');
             });
+
+/*        $mm->getEventManager()->getSharedManager()->attach('DASite\Controller\IndexController', 'indexAction', 
+            function ($e) {
+                echo 'HHASKDHIUYQIWHNEW';
+                die();
+            }, 100
+        );*/
     }
 
     public function getConfig()

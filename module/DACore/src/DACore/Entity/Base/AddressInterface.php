@@ -19,8 +19,4 @@ interface AddressInterface
 	function getPostalCode();
 
 	function getCity();
-
-	function getState();
-
-	function getCountry();
 }

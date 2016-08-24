@@ -1,28 +1,23 @@
 import config from '../config';
 import gulp   from 'gulp';
+import browserSync from 'browser-sync';
 
-gulp.task('blogWatch', ['blogBrowserSync'], function() {
 
-  global.isWatching = true;
-
+function watch(app, scriptsSrc, stylesSrc, imagesSrc, fontsSrc, viewsWatch) {
+	console.log('WATCH TASK');
+	global.isWatching = true;
   // Scripts are automatically watched and rebundled by Watchify inside Browserify task
-  gulp.watch(config.blog.scripts.src, ['blogEslint']);
-  gulp.watch(config.blog.styles.src,  ['blogStyles']);
-  gulp.watch(config.blog.images.src,  ['blogImages']);
-  gulp.watch(config.blog.fonts.src,   ['blogFonts']);
-  gulp.watch(config.blog.views.watch, ['blogViews']);
+  gulp.watch(config.sourceDir + scriptsSrc, [app + 'Eslint']);
+  gulp.watch(config.sourceDir + stylesSrc,  [app + 'Styles']);
+  gulp.watch(config.sourceDir + imagesSrc,  [app + 'Images']);
+  gulp.watch(config.sourceDir + fontsSrc,   [app + 'Fonts']);
+  gulp.watch(viewsWatch, [app + 'Views']);
+}
 
+gulp.task('blogWatch', ['browserSync'], function() {
+  	return watch('blog', config.blog.scripts.src, config.blog.styles.src, config.blog.images.src, config.blog.fonts.src, config.blog.views.watch);
 });
 
-gulp.task('adminWatch', ['adminBrowserSync'], function() {
-
-  global.isWatching = true;
-
-  // Scripts are automatically watched and rebundled by Watchify inside Browserify task
-  gulp.watch(config.admin.scripts.src, ['eslint']);
-  gulp.watch(config.admin.styles.src,  ['styles']);
-  gulp.watch(config.admin.images.src,  ['images']);
-  gulp.watch(config.admin.fonts.src,   ['fonts']);
-  gulp.watch(config.admin.views.watch, ['views']);
-
+gulp.task('siteWatch', ['browserSync'], function() {
+  	return watch('site', config.site.scripts.src, config.site.styles.src, config.site.images.src, config.site.fonts.src, config.site.views.watch);
 });

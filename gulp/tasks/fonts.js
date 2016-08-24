@@ -3,20 +3,17 @@ import changed     from 'gulp-changed';
 import gulp        from 'gulp';
 import browserSync from 'browser-sync';
 
-gulp.task('blogFonts', function() {
-
-  return gulp.src(config.blog.fonts.src)
-    .pipe(changed(config.blog.fonts.dest)) // Ignore unchanged files
-    .pipe(gulp.dest(config.blog.fonts.dest))
+function fonts(src, dest) {
+	return gulp.src(config.sourceDir + src)
+    .pipe(changed(config.buildDir + dest)) // Ignore unchanged files
+    .pipe(gulp.dest(config.buildDir + dest))
     .pipe(browserSync.stream());
+}
 
+gulp.task('blogFonts', function() {
+  return fonts(config.blog.fonts.src, config.blog.fonts.dest);
 });
 
-gulp.task('adminFonts', function() {
-
-  return gulp.src(config.admin.fonts.src)
-    .pipe(changed(config.admin.fonts.dest)) // Ignore unchanged files
-    .pipe(gulp.dest(config.admin.fonts.dest))
-    .pipe(browserSync.stream());
-
+gulp.task('siteFonts', function() {
+  return fonts(config.site.fonts.src, config.site.fonts.dest);
 });

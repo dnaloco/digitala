@@ -30,13 +30,6 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="enum_testtype")
-     */
-    protected $type;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="user", type="string", length=255, unique=true, nullable=false)
      */
     protected $user;
@@ -89,12 +82,9 @@ class User implements UserInterface
      */
     protected $notes;
 
-
     protected $person;
 
     protected $company;
-
-    protected $customer;
 
     /**
      * @var \DateTime
@@ -336,20 +326,6 @@ class User implements UserInterface
     }
 
     /**
-     * Sets the value of createdAt.
-     *
-     * @param \DateTime $createdAt the created at
-     *
-     * @return self
-     */
-    public function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
      * Gets the value of updatedAt.
      *
      * @return \DateTime
@@ -368,9 +344,9 @@ class User implements UserInterface
      *
      * @ORM\PrePersist
      */
-    public function setUpdatedAt(\DateTime $updatedAt)
+    public function setUpdatedAt()
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime("now");
 
         return $this;
     }

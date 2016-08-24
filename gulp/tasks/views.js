@@ -3,37 +3,38 @@ import gulp          from 'gulp';
 import merge         from 'merge-stream';
 import templateCache from 'gulp-angular-templatecache';
 
-// Views task
+
+
+function views(index, src, dest) {
+  console.log('IS PROD', global.isProd);
+  // Put our index.html in the dist folder
+  
+
+  // Process any other view files from app/views
+  const views = gulp.src(config.sourceDir + src)
+    .pipe(templateCache({
+      standalone: true
+    }))
+    .pipe(gulp.dest(config.buildDir + dest));
+
+  if (global.isProd) {
+    return views;
+
+  } else {
+    const indexFile = gulp.src(config.sourceDir + index)
+      .pipe(gulp.dest(config.buildDir));
+    return merge(indexFile, views);
+  }
+}
+
+
 gulp.task('blogViews', function() {
 
-  // Put our index.html in the dist folder
-  const indexFile = gulp.src(config.blog.views.index)
-    .pipe(gulp.dest(config.blog.buildDir));
-
-  // Process any other view files from app/views
-  const views = gulp.src(config.blog.views.src)
-    .pipe(templateCache({
-      standalone: true
-    }))
-    .pipe(gulp.dest(config.blog.views.dest));
-
-  return merge(indexFile, views);
-
+  return views(config.blog.views.index, config.blog.views.src, config.blog.views.dest);
 });
 
-gulp.task('adminViews', function() {
+gulp.task('siteViews', function() {
 
-  // Put our index.html in the dist folder
-  const indexFile = gulp.src(config.admin.views.index)
-    .pipe(gulp.dest(config.admin.buildDir));
-
-  // Process any other view files from app/views
-  const views = gulp.src(config.admin.views.src)
-    .pipe(templateCache({
-      standalone: true
-    }))
-    .pipe(gulp.dest(config.admin.views.dest));
-
-  return merge(indexFile, views);
-
+  return views(config.site.views.index, config.site.views.src, config.site.views.dest);
 });
+

@@ -18,12 +18,11 @@ import bundleLogger from '../util/bundleLogger';
 import config       from '../config';
 
 // Based on: http://blog.avisi.nl/2014/04/25/how-to-keep-a-fast-build-with-browserify-and-reactjs/
-function buildBlogScript(file) {
-
-  const shouldCreateSourcemap = !global.isProd || config.blog.browserify.prodSourcemap;
+function buildScript(file, dest) {
+  const shouldCreateSourcemap = !global.isProd || config.browserify.prodSourcemap;
 
   let bundler = browserify({
-    entries: [config.blog.sourceDir + 'blog/js/' + file],
+    entries: [config.sourceDir + dest + '/' + file],
     debug: shouldCreateSourcemap,
     cache: {},
     packageCache: {},
@@ -65,62 +64,7 @@ function buildBlogScript(file) {
         compress: { drop_console: true } // eslint-disable-line camelcase
       }))))
       .pipe(gulpif(shouldCreateSourcemap, sourcemaps.write(sourceMapLocation)))
-      .pipe(gulp.dest(config.blog.scripts.dest))
-      .pipe(browserSync.stream());
-  }
-
-  return rebundle();
-
-}
-
-function buildAdminScript(file) {
-
-  const shouldCreateSourcemap = !global.isProd || config.admin.browserify.prodSourcemap;
-
-  let bundler = browserify({
-    entries: [config.admin.sourceDir + 'js/' + file],
-    debug: shouldCreateSourcemap,
-    cache: {},
-    packageCache: {},
-    fullPaths: !global.isProd
-  });
-
-  if ( !global.isProd ) {
-    bundler = watchify(bundler);
-
-    bundler.on('update', rebundle);
-  }
-
-  const transforms = [
-    { name: babelify, options: {} },
-    { name: debowerify, options: {} },
-    { name: ngAnnotate, options: {} },
-    { name: 'brfs', options: {} },
-    { name: bulkify, options: {} },
-    { name: envify, options: {} }
-  ];
-
-  transforms.forEach(function(transform) {
-    bundler.transform(transform.name, transform.options);
-  });
-
-  function rebundle() {
-    bundleLogger.start();
-
-    const stream = bundler.bundle();
-    const sourceMapLocation = global.isProd ? './' : '';
-
-    return stream
-      .on('error', handleErrors)
-      .on('end', bundleLogger.end)
-      .pipe(source(file))
-      .pipe(gulpif(shouldCreateSourcemap, buffer()))
-      .pipe(gulpif(shouldCreateSourcemap, sourcemaps.init({ loadMaps: true })))
-      .pipe(gulpif(global.isProd, streamify(uglify({
-        compress: { drop_console: true } // eslint-disable-line camelcase
-      }))))
-      .pipe(gulpif(shouldCreateSourcemap, sourcemaps.write(sourceMapLocation)))
-      .pipe(gulp.dest(config.admin.scripts.dest))
+      .pipe(gulp.dest(config.buildDir  + dest))
       .pipe(browserSync.stream());
   }
 
@@ -130,12 +74,12 @@ function buildAdminScript(file) {
 
 gulp.task('blogBrowserify', function() {
 
-  return buildBlogScript(config.blog.browserify.bundleName);
+  return buildScript(config.browserify.bundleName, config.blog.scripts.dest);
 
 });
 
-gulp.task('adminBrowserify', function() {
+gulp.task('siteBrowserify', function() {
 
-  return buildAdminScript(config.admin.browserify.bundleName);
+  return buildScript(config.browserify.bundleName, config.site.scripts.dest);
 
 });

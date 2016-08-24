@@ -32,7 +32,7 @@ interface PersonInterface
 
     function getWebsite();
 
-    function getNotes():
+    function getNotes();
 
 
     // when the user was created

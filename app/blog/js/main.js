@@ -30,6 +30,7 @@ const requires = [
   'ngMessages',
   'angular-jwt',
 
+
 // vendors in ./assets
   'ngEqualizer',
 

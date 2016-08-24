@@ -7,7 +7,7 @@ interface TelephoneInterface
 	function getAnswerable();
 	function getType();
 	function getNumber();
-	function getOperator();
+	function getMobileOperator();
 	function getDDD();
 	function getNotes();
 }

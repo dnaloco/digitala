@@ -1,9 +1,9 @@
 <?php
 namespace DACore\Entity\Base;
 
-interface GoodTagInteface
+interface GoodTagInterface
 {
 	function getId();
 	function getName();
-	function getFeatures();
+	function getDescription();
 }

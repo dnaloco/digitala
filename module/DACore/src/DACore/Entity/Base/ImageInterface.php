@@ -11,11 +11,11 @@ interface ImageInterface
     function getName();
     function getPath();
 
-    function hasThumb();
-    function hasSmall();
-    function hasMedium();
-    function hasLarge();
-    function hasXLarge();
+    function getHasThumb();
+    function getHasSmall();
+    function getHasMedium();
+    function getHasLarge();
+    function getHasXLarge();
 
     function getAlt();
 
