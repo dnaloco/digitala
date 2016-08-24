@@ -59,6 +59,7 @@ return [
         'not_found_template' => 'error/404',
         'exception_template' => 'error/index',
         'template_map' => [
+            'layout/default' => __DIR__ . '/../view/layout/layout.phtml',
             'layout/site01' => __DIR__ . '/../view/layout/layout.site01.phtml',
             'layout/landingTest' => __DIR__ . '/../view/layout/layout.landing.phtml',
 
