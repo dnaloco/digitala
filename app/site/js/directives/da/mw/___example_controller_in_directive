@@ -1,0 +1,28 @@
+function daMwApplication() {
+  daMwApplicationController.$inject = ['$scope']; // Will never run
+
+  function daMwApplicationController($scope) {
+      // Injecting $scope just for comparison
+      /* jshint validthis:true */
+      var vm = this;
+
+      vm.setMenu = function (menu) {
+        console.log('Menu', menu);
+        vm.menu = menu;
+      }
+  }
+
+  return {
+    restrict: 'A',
+    controller : daMwApplicationController,
+    controllerAs: 'damw',
+    link: (scope, element) => {
+      console.log('daMwApplication');
+    }
+  };
+}
+
+export default {
+  name: 'daMwApplication',
+  fn: daMwApplication
+};

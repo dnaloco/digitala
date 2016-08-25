@@ -1,0 +1,33 @@
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\AbstractFactoryInterface;
+
+class FooAbstractFactory implements AbstractFactoryInterface
+{
+    protected $config;
+
+    public function getConfig(ServiceLocatorInterface $serviceLocator) {
+        if (! isset($this->config)) {
+            $config = $serviceLocator->get('Config');
+            $this->config = $config['some_config_key'];
+        }
+        return $this->config;
+    }
+
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    {
+        $config = $this->getConfig($serviceLocator);
+
+        return (isset($config[$requestedName])) ? true : false;
+    }
+
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    {
+        $config = $this->getConfig($serviceLocator);
+        $config = $config[$requestedName];
+
+        $className = $config['class_name'];
+
+        // This could be more complicated
+        return new $className($config, $this->getSomethingElseExample($serviceLocator));
+    }
+} 

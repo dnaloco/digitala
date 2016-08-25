@@ -22,7 +22,16 @@ return [
     'service_manager' => [
         'factories' => [
             'DACore\Mail\MailService' => 'DACore\Mail\Factory\MailServiceFactory'
-        ]
-    ]
+        ],
+        'abstract_factories' => [
+            'DACore\Factory\AbsctractRestServiceFactory',
+        ],
+    ],
+
+    'controllers' => [
+        'abstract_factories' => [
+            'DACore\Factory\AbsctractRestControllerFactory',
+        ],
+    ],
 
 ];

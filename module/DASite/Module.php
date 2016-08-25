@@ -7,17 +7,13 @@ class Module
 {
     public function init(ModuleManager $mm)
     {
+
         $mm->getEventManager()->getSharedManager()->attach(__NAMESPACE__,
             'dispatch', function ($e) {
                 $e->getTarget()->layout('layout/site01');
             });
 
-/*        $mm->getEventManager()->getSharedManager()->attach('DASite\Controller\IndexController', 'indexAction', 
-            function ($e) {
-                echo 'HHASKDHIUYQIWHNEW';
-                die();
-            }, 100
-        );*/
+        // make a trigger when the user was created
     }
 
     public function getConfig()
@@ -38,4 +34,23 @@ class Module
             ),
         );
     }
+
+/*    public function getControllerConfig()
+    {
+        return array(
+             'initializers' => array(
+                function ($instance, $sm) {
+                    var_dump($instance::getServiceName());
+                    $instance->setService('ADASDADASD');
+                    var_dump($instance->getService());
+                    die();
+                    if ($instance instanceof ConfigAwareInterface) {
+                        $locator = $sm->getServiceLocator();
+                        $config  = $locator->get('Config');
+                        $instance->setConfig($config['application']);
+                    }
+                }
+            )
+        );
+    }*/
 }

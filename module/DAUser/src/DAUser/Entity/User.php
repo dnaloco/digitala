@@ -82,8 +82,14 @@ class User implements UserInterface
      */
     protected $notes;
 
+    /**
+     * @ORM\OneToOne(targetEntity="DACore\Entity\Base\PersonInterface", mappedBy="user", cascade={"persist", "remove"})
+     */
     protected $person;
 
+    /**
+     * @ORM\OneToOne(targetEntity="DACore\Entity\Base\CompanyInterface", mappedBy="user", cascade={"persist", "remove"})
+     */
     protected $company;
 
     /**
@@ -121,20 +127,6 @@ class User implements UserInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Sets the value of id.
-     *
-     * @param integer $id the id
-     *
-     * @return self
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     /**

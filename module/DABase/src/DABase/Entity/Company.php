@@ -154,6 +154,12 @@ class Company implements CompanyInterface
      */
 	protected $notes;
 
+    /**
+     * @ORM\OneToOne(targetEntity="DACore\Entity\User\UserInterface", inversedBy="company")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
 	/**
      * @var \DateTime
      *

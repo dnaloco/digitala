@@ -6,4 +6,5 @@ return array(
     'DAUser\Controller\UserRestController' => __DIR__ . '/src/DAUser/Controller/UserRestController.php',
     'DAUser\Service\User'                  => __DIR__ . '/src/DAUser/Service/User.php',
     'DAUser\Entity\User'                   => __DIR__ . '/src/DAUser/Entity/User.php',
+    'DAUser\Listener\ConfirmationListener' => __DIR__ . '/src/DAUser/Listener/ConfirmationListener.php',
 );

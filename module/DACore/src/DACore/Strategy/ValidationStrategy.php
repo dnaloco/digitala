@@ -5,12 +5,13 @@ use Zend\Validator\EmailAddress;
 Trait ValidationStrategy
 {
 	protected $errors = [];
-	public function addError($error)
+
+	private function addValidationError($error)
 	{
 		array_push($this->errors, $error);
 	}
 
-	public function getErrors()
+	public static function getValidationErrors()
 	{
 		return $this->errors;
 	}

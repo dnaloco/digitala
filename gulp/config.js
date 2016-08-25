@@ -39,7 +39,7 @@ export default {
     },
 
     fonts: {
-      src: ['blog/fonts/**/*'],
+      src: 'blog/fonts/**/*',
       dest: 'blog/fonts'
     },
     views: {
@@ -67,7 +67,7 @@ export default {
     },
 
     fonts: {
-      src: ['site/fonts/**/*'],
+      src: 'site/fonts/**/*',
       dest: 'site/fonts'
     },
     views: {

@@ -8,23 +8,17 @@ import templateCache from 'gulp-angular-templatecache';
 function views(index, src, dest) {
   console.log('IS PROD', global.isProd);
   // Put our index.html in the dist folder
-  
+  const indexFile = gulp.src(config.sourceDir + index)
+      .pipe(gulp.dest(config.buildDir));
 
   // Process any other view files from app/views
   const views = gulp.src(config.sourceDir + src)
     .pipe(templateCache({
       standalone: true
     }))
-    .pipe(gulp.dest(config.buildDir + dest));
+    .pipe(gulp.dest(config.sourceDir + dest));
 
-  if (global.isProd) {
-    return views;
-
-  } else {
-    const indexFile = gulp.src(config.sourceDir + index)
-      .pipe(gulp.dest(config.buildDir));
-    return merge(indexFile, views);
-  }
+  return merge(indexFile, views);
 }
 
 

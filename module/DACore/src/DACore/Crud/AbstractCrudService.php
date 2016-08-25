@@ -24,7 +24,7 @@ abstract class AbstractCrudService implements PrepareDataInterface
 
 	abstract function prepareDataToUpdate(array $data);
 
-	public static function getRepository()
+	public function getRepository()
 	{
 		return $this->em->getRepository($this->entity);
 	}
@@ -49,7 +49,9 @@ abstract class AbstractCrudService implements PrepareDataInterface
 
 	public function insert(array $data) {
 		$data = static::prepareDataToInsert($data);
-		if (isset($data['errors'])) return $data;
+
+		if (isset($data['errors'][0])) return $data;
+
 		$entity = new $this->entity($data);
 		$this->em->persist($entity);
 		$this->em->flush();

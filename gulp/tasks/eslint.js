@@ -13,3 +13,7 @@ function scriptEslint(src, test) {
 gulp.task('blogEslint', function() {
   return scriptEslint(config.blog.scripts.src, config.blog.scripts.test);
 });
+
+gulp.task('siteEslint', function() {
+  return scriptEslint(config.site.scripts.src, config.site.scripts.test);
+});

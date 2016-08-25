@@ -139,6 +139,12 @@ class Person implements PersonInterface
     protected $notes;
 
     /**
+     * @ORM\OneToOne(targetEntity="DACore\Entity\User\UserInterface", inversedBy="person")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
      * Quando a entidade foi criada
      * @var \DateTime
      *

@@ -3,6 +3,8 @@ import angular      from 'angular';
 // angular modules
 import constants    from './constants';
 import onConfig     from './on_config';
+//import onInterceptor     from './on_interceptor';
+import onRoute     from './on_route';
 import onRun        from './on_run';
 import 'angular-ui-router';
 import 'angular-foundation-6';
@@ -47,6 +49,8 @@ window.app = angular.module('app', requires);
 angular.module('app').constant('AppSettings', constants);
 
 angular.module('app').config(onConfig);
+//angular.module('app').config(onInterceptor);
+angular.module('app').config(onRoute);
 
 angular.module('app').run(onRun);
 

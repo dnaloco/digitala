@@ -25,6 +25,20 @@ return [
         ],
     ],
 
+    'entity_rest_service' => [
+        'DAUser\Service\User' => [
+            'class_name' => 'DAUser\Service\User',
+            'entity' => 'DAUser\Entity\User'
+        ]
+    ],
+
+    'service_rest_controller' => [
+        'DAUser\Controller\UsersRest' => [
+            'class_name' => 'DAUser\Controller\UserRestController',
+            'service' => 'DAUser\Service\User'
+        ]
+    ],
+
     'doctrine' => [
         'driver' => [
             __NAMESPACE__ . '_driver' => [

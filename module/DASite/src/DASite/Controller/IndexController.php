@@ -11,15 +11,6 @@ use Zend\EventManager\EventManagerInterface;
 
 class IndexController extends AbstractActionController
 {
-/*	private $mail;
-
-	public function __construct(\DACore\Service\Mail\MailServiceInterface $mail)
-	{
-		$this->mail = $mail;
-	}
-*/
-	// protected $events;
-
 
     public function indexAction()
     {
@@ -30,8 +21,8 @@ class IndexController extends AbstractActionController
 		//        ->setData(array())
 		//        ->prepare()
 		//        ->send();
-		$params = compact('foo', 'baz');
-        $this->getEventManager()->trigger(__FUNCTION__, $this, $params);
+    	//$this->setConfirmationData(array('nome' => 'Arthur Santos Costa', 'activationKey' => 'ahusud9q2h8193h1928dsadh912h3912'));
+
         return new ViewModel();
     }
 

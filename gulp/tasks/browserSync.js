@@ -7,7 +7,10 @@ gulp.task('browserSync', function() {
   const DEFAULT_FILE = 'index.html';
   const ASSET_EXTENSION_REGEX = new RegExp(`\\b(?!\\?)\\.(${config.assetExtensions.join('|')})\\b(?!\\.)`, 'i');
 
+
   browserSync.init({
+    localOnly: true,
+    //proxy:"localhost:3001",
     server: {
       baseDir: config.buildDir,
       middleware: function(req, res, next) {
@@ -29,5 +32,5 @@ gulp.task('browserSync', function() {
     }
   });
 
-  gulp.watch("app/**/*.html").on('change', browserSync.reload);
+  gulp.watch(['**/*.html', '**/*.js', '**/*.css']).on('change', browserSync.reload);
 });

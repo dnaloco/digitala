@@ -13,6 +13,6 @@ gulp.task('siteDev', ['clean'], function(cb) {
 
   global.isProd = false;
 
-  runSequence(['siteStyles', 'siteImages', 'siteFonts', 'siteViews'], 'siteBrowserify', 'siteWatch', cb);
+  runSequence(['siteStyles', 'siteImages', 'siteFonts', 'siteViews'], 'siteBrowserify', 'indexFile', 'siteWatch', cb);
 
 });

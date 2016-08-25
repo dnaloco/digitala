@@ -1,8 +1,15 @@
 <?php
 namespace DAUser;
 
+use Zend\Mvc\MvcEvent;
+
 class Module
 {
+    public function onBootstrap(MvcEvent $event) {
+        $eventManager = $event->getApplication()->getEventManager();
+        $eventManager->attach(new Listener\ConfirmationListener());
+    }
+
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
