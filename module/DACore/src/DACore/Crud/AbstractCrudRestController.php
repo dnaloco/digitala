@@ -73,9 +73,13 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
     {
         $result = $this->service->insert($data);
 
-        if (isset($result['errors'])) {
-            return new JsonModel(array('data' => array(), 'success' => false, 'errors' => $data['errors']));
+        var_dump($result);die();
+
+        if (isset($result['errors'][0])) {
+            return new JsonModel(array('data' => array(), 'success' => false, 'errors' => $result['errors']));
         }
+
+        unset($data['errors']);
 
         if ($result) {
             if (!is_null($this->serializer)) {

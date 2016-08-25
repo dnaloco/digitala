@@ -14,6 +14,7 @@ abstract class AbstractCrudService implements PrepareDataInterface
 {
 	protected $em;
 	protected $entity;
+	protected $repository;
 
 	public function __construct(EntityManager $em, $entity)
 	{
@@ -26,7 +27,16 @@ abstract class AbstractCrudService implements PrepareDataInterface
 
 	public function getRepository()
 	{
-		return $this->em->getRepository($this->entity);
+		if (!isset($this->repository)) {
+			$this->repository = $this->em->getRepository($this->entity);
+		}
+
+		return $this->repository;
+	}
+
+	public function getAnotherRepository($entity)
+	{
+		return $this->em->getRepository($entity);
 	}
 
 	public function getList(array $options = array())

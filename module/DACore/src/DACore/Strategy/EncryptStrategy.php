@@ -2,6 +2,7 @@
 namespace DACore\Strategy;
 
 use Zend\Crypt\Key\Derivation\Pbkdf2;
+use Zend\Math\Rand;
 
 trait EncryptStrategy
 {
@@ -12,7 +13,7 @@ trait EncryptStrategy
 
     public static function encryptActivationKey(string $user, string $salt) : string
     {
-    	return md5(uniqid($this->user . $this->salt), true);
+    	return md5(uniqid($user . $salt), true);
     }
 
     public static function encryptSalt($user)

@@ -113,8 +113,10 @@ class User implements UserInterface
         $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
 
+        
         $this->salt = static::encryptSalt($data['user']);
-        $this->activationKey = static::encryptActivationKey($data['user'] . $this->salt);
+
+        $this->activationKey = static::encryptActivationKey($data['user'], $this->salt);
 
         (new Hydrator\ClassMethods)->hydrate($data, $this);
     }
@@ -196,6 +198,7 @@ class User implements UserInterface
      */
     public function setPassword($password)
     {
+        // demora em média 100 milesegundos para encryptar...Será que este tempo é aceitável???
         $this->password = static::encryptPassword($password, $this->salt);
 
         return $this;
