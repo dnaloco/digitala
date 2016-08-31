@@ -4,14 +4,18 @@ import browserSync from 'browser-sync';
 import gulp        from 'gulp';
 
 gulp.task('browserSync', function() {
-  const DEFAULT_FILE = 'index.html';
-  const ASSET_EXTENSION_REGEX = new RegExp(`\\b(?!\\?)\\.(${config.assetExtensions.join('|')})\\b(?!\\.)`, 'i');
+  //const DEFAULT_FILE = 'index.html';
+  //const ASSET_EXTENSION_REGEX = new RegExp(`\\b(?!\\?)\\.(${config.assetExtensions.join('|')})\\b(?!\\.)`, 'i');
 
 
   browserSync.init({
-    localOnly: true,
+    //localOnly: true,
     //proxy:"localhost:3001",
-    server: {
+    open: 'external',
+    host: 'www.agenciadigitala.local',
+    proxy: 'www.agenciadigitala.local',
+    port: 8080
+    /*server: {
       baseDir: config.buildDir,
       middleware: function(req, res, next) {
         let fileHref = url.parse(req.url).href;
@@ -22,15 +26,16 @@ gulp.task('browserSync', function() {
 
         return next();
       }
-    },
-  	port: config.browserPort,
-  	ui: {
+    },*/
+  	//port: config.browserPort,
+  	/*ui: {
     	port: config.UIPort
-    },
-    ghostMode: {
+    },*/
+/*    ghostMode: {
       links: false
-    }
+    }*/
   });
 
-  gulp.watch(['**/*.html', '**/*.js', '**/*.css']).on('change', browserSync.reload);
+  //gulp.watch(['**/*.html', '**/*.js', '**/*.css']).on('change', browserSync.reload);
+
 });

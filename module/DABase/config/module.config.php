@@ -2,22 +2,51 @@
 namespace DABase;
 
 use Zend\Mvc\Router\Http\Segment;
+use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\Mvc\Controller\ControllerManager;
+use Zend\ServiceManager\ServiceManager;
 
 return [
     'router' => [
         'routes' => [
-            'dadbase-people-rest' => [
+            'dadbase-preupload-rest' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/api/people[/:id]',
-                    'constraints' => array(
+                    'route' => '/api/preupload[/:id]',
+                    'constraints' => [
                         'id' => '[0-9]+',
-                    ),
+                    ],
                     'defaults' => [
-                        'controller' => 'DABase\Controller\PeopleRest',
+                        'controller' =>  'PreUploadRest',
                     ],
                 ],
             ],
+        ],
+    ],
+    'service_manager' => [
+        'services' => [
+            'MyUploadService' => new Service\MyUpload(),
+        ],
+        'initializers' => [
+            function ($service, $sm) {
+                if(!$service instanceof \DACore\Upload\MyUploadAwareInterface) {
+                    return;
+                }
+
+                $service->setUploadManager($sm->get('MyUploadService'));
+            }
+        ]
+    ],
+     'controllers' => [
+        'factories' => [
+            'PreUploadRest' => function (ControllerManager $cm) {
+                $sm = $cm->getServiceLocator();
+                $myUploadService = $sm->get('MyUploadService');
+
+                $controller = new Controller\PreUploadRestController($myUploadService);
+
+                return $controller;
+            },
         ],
     ],
     'view_manager' => [
@@ -62,4 +91,10 @@ return [
             ],
         ],
     ],
+
+    'data-fixture' => array(
+
+        __NAMESPACE__ . '_fixture' => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
+
+    ),
 ];

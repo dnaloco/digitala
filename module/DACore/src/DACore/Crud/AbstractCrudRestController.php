@@ -33,21 +33,24 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
 
         if ($matches->getParam('id', false)) {
             if (!in_array($method, $this->resourceOptions)) {
-                return $this->methodNotAllowed();
+                return $this->statusMethodNotAllowed();
             }
             return;
         }
 
         if (!in_array($method, $this->collectionOptions)) {
-            return $this->methodNotAllowed();
+            return $this->statusMethodNotAllowed();
         }
     }
 
     public function getList()
     {
+        $where = $_GET['where'] ?? array();
         $options = $_GET['options'] ?? array();
+        $limit = $_GET['limit'] ?? null;
+        $offset = $_GET['offset'] ?? null;
 
-        $data = $this->service->getList($options);
+        $data = $this->service->getList($where, $options, $limit, $offset);
 
         if ($data) {
             $data = json_decode(static::getPropertyNamingSerializer()->serialize($data, 'json'), true);
@@ -66,6 +69,7 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
             $data = json_decode(static::getPropertyNamingSerializer()->serialize($data, 'json'), true);
             return new JsonModel(array('data' => $data, 'success' => true));
         }
+        $this->statusNoContent();
         return new JsonModel(array('data' => array(), 'success' => false));
     }
 
@@ -73,22 +77,18 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
     {
         $result = $this->service->insert($data);
 
-        var_dump($result);die();
-
-        if (isset($result['errors'][0])) {
+        if (is_array($result) && isset($result['errors'])) {
+            $this->statusConflict();
             return new JsonModel(array('data' => array(), 'success' => false, 'errors' => $result['errors']));
         }
 
-        unset($data['errors']);
-
         if ($result) {
-            if (!is_null($this->serializer)) {
-                $data = json_decode(static::getPropertyNamingSerializer()->serialize($result, 'json'), true);
-            }
+            $data = json_decode(static::getPropertyNamingSerializer()->serialize($result, 'json'), true);
 
             return new JsonModel(array('data' => $data, 'success' => true));
         }
 
+        $this->statusConflict();
         return new JsonModel(array('data' => array(), 'success' => false));
     }
 
@@ -97,17 +97,16 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
         $result = $this->service->update($data);
 
         if (isset($result['errors'])) {
+            $this->statusConflict();
             return new JsonModel(array('data' => array(), 'success' => false, 'errors' => $data['errors']));
         }
 
         if ($result) {
-            if (!is_null($this->serializer)) {
-                $data = json_decode(static::getPropertyNamingSerializer()->serialize($result, 'json'), true);
-            }
+            $data = json_decode(static::getPropertyNamingSerializer()->serialize($result, 'json'), true);
 
             return new JsonModel(array('data' => $data, 'success' => true));
         }
-
+        $this->statusNotModified();
         return new JsonModel(array('data' => array(), 'success' => false));
     }
 
@@ -122,15 +121,39 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
         return new JsonModel(array('data' => array(), 'success' => false));
     }
 
-    public function methodNotAllowed()
+    public function statusOk()
+    {
+        return $this->response->setStatusCode(200);
+        // throw new \Exception('Unauthorized');
+    }
+
+    public function statusMethodNotAllowed()
     {
         return $this->response->setStatusCode(405);
         // throw new \Exception('Method Not Allowed');
     }
 
-    public function unauthorized()
+    public function statusUnauthorized()
     {
         return $this->response->setStatusCode(401);
+        // throw new \Exception('Unauthorized');
+    }
+
+    public function statusConflict()
+    {
+        return $this->response->setStatusCode(409);
+        // throw new \Exception('Unauthorized');
+    }
+
+    public function statusNoContent()
+    {
+        return $this->response->setStatusCode(204);
+        // throw new \Exception('Unauthorized');
+    }
+
+    public function statusNotModified()
+    {
+        return $this->response->setStatusCode(304);
         // throw new \Exception('Unauthorized');
     }
 }

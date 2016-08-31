@@ -1,0 +1,40 @@
+        echo 'oih';
+        $tmp_path = getcwd() . '/tmp/';
+        $build_path = getcwd() . '/build/upload/';
+
+        rename($tmp_path . 'PNG_transparency_demonstration_1.png', $build_path . 'image1.png');
+
+        $source_image = imagecreatefrompng($build_path . 'image1.png');
+
+        $width = imagesx($source_image);
+        $height = imagesy($source_image);
+        $desired_width = 200;
+        
+        /* find the "desired height" of this thumbnail, relative to the desired width  */
+        $desired_height = floor($height * ($desired_width / $width));
+        
+        /* create a new, "virtual" image */
+        $virtual_image = imagecreatetruecolor($desired_width, $desired_height);
+
+        imagealphablending($virtual_image, true);
+
+        $transparent = imagecolorallocatealpha( $virtual_image, 0, 0, 0, 127 ); 
+        imagefill( $virtual_image, 0, 0, $transparent ); 
+        
+        /* copy source image at a resized size */
+        imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
+
+        imagealphablending($virtual_image, false); 
+
+        imagesavealpha($virtual_image,true); 
+        /* create the physical thumbnail image to its destination */
+        imagepng($virtual_image, $build_path . 'image1_thumb.png');
+        die;
+    	//var_dump($this->mail);die();
+    	// $this->mail->setPage('teste')
+    	// 	->setSubject('Email de teste')
+		//        ->setTo('arthur_scosta@yahoo.com.br')
+		//        ->setData(array())
+		//        ->prepare()
+		//        ->send();
+    	//$this->setConfirmationData(array('nome' => 'Arthur Santos Costa', 'activationKey' => 'ahusud9q2h8193h1928dsadh912h3912'));

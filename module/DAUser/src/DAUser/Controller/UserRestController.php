@@ -5,12 +5,24 @@ use DACore\Crud\AbstractCrudRestController;
 
 class UserRestController extends AbstractCrudRestController
 {
-	public function create($data)
+	/*public function create($data)
 	{
 		$response = parent::create($data);
 
-		$data = $response->getVariable('data');
+		$variables = $response->getVariables();
 
-		return $data;
-	}
+		if (isset($variables['errors']) || !$variables['success']) {
+            return $response;
+        }
+
+        $data = $variables['data'];
+		if (isset($data['id'])) {
+			$filteredUser = self::getFilteredUser($data);
+		}
+
+		$response->setVariable('data', $filteredUser);
+
+		return $response;
+	}*/
+
 }

@@ -113,7 +113,6 @@ class User implements UserInterface
         $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
 
-        
         $this->salt = static::encryptSalt($data['user']);
 
         $this->activationKey = static::encryptActivationKey($data['user'], $this->salt);
@@ -129,30 +128,6 @@ class User implements UserInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Gets the value of type.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Sets the value of type.
-     *
-     * @param string $type the type
-     *
-     * @return self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
     }
 
     /**
@@ -203,6 +178,7 @@ class User implements UserInterface
 
         return $this;
     }
+
 
     /**
      * Gets the value of roles.
@@ -286,6 +262,7 @@ class User implements UserInterface
         return $this;
     }
 
+
     /**
      * Gets the value of notes.
      *
@@ -306,6 +283,54 @@ class User implements UserInterface
     public function setNotes($notes)
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of person.
+     *
+     * @return mixed
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
+     * Sets the value of person.
+     *
+     * @param mixed $person the person
+     *
+     * @return self
+     */
+    public function setPerson($person)
+    {
+        $this->person = $person;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of company.
+     *
+     * @return mixed
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Sets the value of company.
+     *
+     * @param mixed $company the company
+     *
+     * @return self
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
 
         return $this;
     }
@@ -344,5 +369,13 @@ class User implements UserInterface
         $this->updatedAt = new \DateTime("now");
 
         return $this;
+    }
+
+    public function unsetCredentials()
+    {
+        $this->salt = null;
+        $this->password = null;
+        $this->roles = null;
+        $this->activationKey = null;
     }
 }

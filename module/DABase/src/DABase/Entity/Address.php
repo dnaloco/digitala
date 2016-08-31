@@ -37,7 +37,7 @@ class Address implements AddressInterface
      * cidade
 	 *
 	 * @ORM\ManyToOne(targetEntity="DACore\Entity\Base\CityInterface")
-	 * @ORM\JoinColumn(name="state_id", referencedColumnName="id", nullable=false)
+	 * @ORM\JoinColumn(name="city_id", referencedColumnName="id", nullable=false)
 	 */
 	protected $city;
 
@@ -89,7 +89,7 @@ class Address implements AddressInterface
 
 	public function __construct(array $data)
 	{
-		(new Hydrator\ClassMethods)->hydrate($options, $this);
+		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
     /**
@@ -133,7 +133,7 @@ class Address implements AddressInterface
      *
      * @return self
      */
-    public function setType(\DACore\Enum\Addresstype $type)
+    public function setType($type)
     {
         $this->type = $type;
 

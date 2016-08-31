@@ -32,4 +32,10 @@ abstract class EnumType extends Type
     {
         return $this->name;
     }
+
+    abstract static function getValues();
+
+    public static function hasValue($value) {
+        return in_array($value, static::getValues());
+    }
 }

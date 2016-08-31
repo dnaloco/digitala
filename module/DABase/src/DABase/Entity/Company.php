@@ -155,7 +155,7 @@ class Company implements CompanyInterface
 	protected $notes;
 
     /**
-     * @ORM\OneToOne(targetEntity="DACore\Entity\User\UserInterface", inversedBy="company")
+     * @ORM\OneToOne(targetEntity="DACore\Entity\User\UserInterface", inversedBy="company", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;

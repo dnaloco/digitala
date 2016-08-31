@@ -75,7 +75,7 @@ class Telephone implements TelephoneInterface
 
 	public function __construct(array $data)
 	{
-		(new Hydrator\ClassMethods)->hydrate($options, $this);
+		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
     /**
@@ -130,7 +130,7 @@ class Telephone implements TelephoneInterface
      *
      * @return self
      */
-    public function setType(\DACore\Enum\TelephoneType $type)
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -178,7 +178,7 @@ class Telephone implements TelephoneInterface
      *
      * @return self
      */
-    public function setMobileOperator(\DACore\Enum\TelephoneType $mobileOperator)
+    public function setMobileOperator($mobileOperator)
     {
         $this->mobileOperator = $mobileOperator;
 

@@ -1,69 +1,103 @@
 <div>
 	<h1>Cadastro</h1>
-	<form novalidate>
+	<form name="signupForm" novalidate>
+		<button ng-click="signup.submit()">Enviar</button>
+
+
+		<!-- User data: user and password -->
 		<label for="user">
 			User: <br>
-			<input type="text" name="">
+			<input type="email" name="user" ng-model="signup.user.user">
 		</label>
 
 		<label for="password">
 			Senha: <br>
-			<input type="password" name="">
+			<input type="password" name="password" ng-model="signup.user.password">
 		</label>
 
 		<label for="confPassword">
 			Confirmar senha: <br>
-			<input type="password" name="">
+			<input type="password" name="confPassword" ng-model="signup.user.confPassword">
 		</label>
 
+		
+		<!-- Person data: name, gender, birthdate, photo and description -->
 		<fieldset>
 			<legend>Pessoa</legend>
 			<label for="name">
 				Nome: <br>
-				<input type="text" name="">
+				<input type="text" name="name" ng-model="signup.user.person.name">
 			</label>
 			<label for="gender">
 				Gender:
-				<input type="radio" name="">Masculino
-				<input type="radio" name="">Feminino
+				<input type="radio" name="gender[]" ng-model="signup.user.person.gender" value="masculino">Masculino
+				<input type="radio" name="gender[]" ng-model="signup.user.person.gender" value="feminino">Feminino
 			</label>
 			<label for="birthdate">
 				Data de nascimento: <br>
-				<input type="date" name="">
+				<input type="date" name="birthdate" ng-model="signup.user.person.birthdate">
 			</label>
 			<label for="photo">
 				Foto: <br>
-				<input type="file" name="">
+				<div class="button" ngf-select ng-model="signup.user.person.photo" name="file" ngf-pattern="'image/*'"
+				    ngf-accept="'image/*'">Select</div>
+			</label>
+			<label for="photo">
+				Website: <br>
+				<input type="text" name="website" ng-model="signup.user.website">
 			</label>
 			<label for="description">
 				Sobre você: <br>
-				<textarea name="" cols="30" rows="10"></textarea>
+				<textarea name="" cols="30" rows="10" ng-model="signup.user.description"></textarea>
 			</label>
-			<fieldset>
-				<legend>Endereço</legend>
-				Residencial: <br>
-				<label for="city">
-					Cidade: <br>
-					<select name=""></select>
-				</label>
-				<label for="address1">
-					Logradouro: <br>
-					<input type="text" name="">
-				</label>
-				<label for="address2">
-					Complemento: <br>
-					<input type="text" name="">
-				</label>
-				<label for="residentialArea">
-					Bairro: <br>
-					<input type="text" name="">
-				</label>
-				<label for="postalCode">
-					Cep: <br>
-					<input type="text" name="">
-				</label>
-				<hr>
-			</fieldset>
 		</fieldset>
+
+		<fieldset>
+			<legend>Documentos</legend>
+
+			Imagens 1: <br>
+			<input type="hidden" name="doc_type" ng-model="signup.user.person.documents['0'].type" ng-value="signup.imageDoctype">
+			<label for="doc_title">
+				Título do document: <br>
+				<input type="text" name="doc_title" ng-model="sigunp.user.person.documents[0].field1">
+			</label>
+			<label for="document_images">Imagens do Documento:
+				<div class="button" ngf-select ng-model="signup.user.person.documents[0].images" ngf-multiple="true">Select</div>
+			</label>
+			
+		</fieldset>
+
+		<fieldset>
+			<legend>Endereços</legend>
+			Residencial 1: <br>
+			País = Brasil <br>
+			<label for="city">
+				Estado: <br>
+				<select name=""></select>
+			</label>
+			<label for="city">
+				Cidade: <br>
+				<select name=""></select>
+			</label>
+			<label for="address1">
+				Logradouro: <br>
+				<input type="text" name="">
+			</label>
+			<label for="address2">
+				Complemento: <br>
+				<input type="text" name="">
+			</label>
+			<label for="residentialArea">
+				Bairro: <br>
+				<input type="text" name="">
+			</label>
+			<label for="postalCode">
+				Cep: <br>
+				<input type="text" name="">
+			</label>
+			<hr>
+		</fieldset>
+
+		<button ng-click="submit()">Enviar</button>
 	</form>
 </div>

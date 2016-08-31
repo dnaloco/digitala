@@ -14,15 +14,6 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-    	//var_dump($this->mail);die();
-    	// $this->mail->setPage('teste')
-    	// 	->setSubject('Email de teste')
-		//        ->setTo('arthur_scosta@yahoo.com.br')
-		//        ->setData(array())
-		//        ->prepare()
-		//        ->send();
-    	//$this->setConfirmationData(array('nome' => 'Arthur Santos Costa', 'activationKey' => 'ahusud9q2h8193h1928dsadh912h3912'));
-
         return new ViewModel();
     }
 

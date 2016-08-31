@@ -2,6 +2,10 @@
 namespace DACore\Crud;
 
 interface ResponsesInterface {
-	function methodNotAllowed();
-	function unauthorized();
+	function statusOk();
+	function statusMethodNotAllowed();
+	function statusUnauthorized();
+	function statusConflict();
+	function statusNoContent();
+	function statusNotModified();
 }

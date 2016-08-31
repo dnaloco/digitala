@@ -46,7 +46,7 @@ class Role implements RoleInterface {
 	 */
 	protected $updatedAt;
 
-	public function __construct(array $data) {
+	public function __construct(array $data = array()) {
 		$this->createdAt = new \DateTime("now");
 		$this->updatedAt = new \DateTime("now");
 		$this->isAdmin = 0;

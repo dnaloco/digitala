@@ -1,6 +1,8 @@
 function OnConfig(
   $locationProvider,
   $compileProvider,
+  RestangularProvider,
+  AppSettings
   ) {
 
   'ngInject';
@@ -10,6 +12,8 @@ function OnConfig(
   }
 
   $locationProvider.html5Mode(true);
+
+  RestangularProvider.setBaseUrl(AppSettings.apiUrl);
 
 
 }

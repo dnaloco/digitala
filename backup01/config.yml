@@ -1,6 +1,0 @@
-PATHS:
-  dist: "public/dist"
-
-  build: "public/build"
-
-  javascript:

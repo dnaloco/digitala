@@ -12,8 +12,9 @@ return [
                     'enum_imagefiletype'    => 'DACore\Enum\ImageFiletype',
                     'enum_licence'          => 'DACore\Enum\Licence',
                     'enum_mobileoperator'   => 'DACore\Enum\MobileOperator',
-                    'enum_socialtype'       => 'DACore\Enum\AddressType',
+                    'enum_socialtype'       => 'DACore\Enum\SocialType',
                     'enum_telephonetype'    => 'DACore\Enum\TelephoneType',
+                    'enum_documenttype'     => 'DACore\Enum\DocumentType',
                 ]
             ]
         ]
@@ -25,7 +26,7 @@ return [
         ],
         'abstract_factories' => [
             'DACore\Factory\AbsctractRestServiceFactory',
-        ],
+        ]
     ],
 
     'controllers' => [

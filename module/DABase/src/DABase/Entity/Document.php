@@ -26,6 +26,13 @@ class Document implements DocumentInterface
      */
 	protected $id;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="enum_documenttype", nullable=true)
+     */
+    protected $type;
+
 	/**
      * @var string
      *
@@ -152,6 +159,31 @@ class Document implements DocumentInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    
+    /**
+     * Gets the value of type.
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Sets the value of type.
+     *
+     * @param string $type the type
+     *
+     * @return self
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
     }
 
     /**
@@ -403,4 +435,5 @@ class Document implements DocumentInterface
 
         return $this;
     }
+
 }

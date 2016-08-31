@@ -25,7 +25,7 @@ abstract class AbstractCrudService implements PrepareDataInterface
 
 	abstract function prepareDataToUpdate(array $data);
 
-	public function getRepository()
+	protected function getRepository()
 	{
 		if (!isset($this->repository)) {
 			$this->repository = $this->em->getRepository($this->entity);
@@ -34,16 +34,16 @@ abstract class AbstractCrudService implements PrepareDataInterface
 		return $this->repository;
 	}
 
-	public function getAnotherRepository($entity)
+	protected function getAnotherRepository($entity)
 	{
 		return $this->em->getRepository($entity);
 	}
 
-	public function getList(array $options = array())
+	public function getList(array $where = array(), array $options = array(), $limit = null, $offset = null)
 	{
 		$repo = self::getRepository();
 
-		$data = $repo->findBy(array(), $options);
+		$data = $repo->findBy($where, $options, $limit, $offset);
 
 		return $data;
 	}
@@ -58,9 +58,9 @@ abstract class AbstractCrudService implements PrepareDataInterface
 	}
 
 	public function insert(array $data) {
-		$data = static::prepareDataToInsert($data);
+		$data = $this->prepareDataToInsert($data);
 
-		if (isset($data['errors'][0])) return $data;
+		if (!empty($data['errors'])) return $data;
 
 		$entity = new $this->entity($data);
 		$this->em->persist($entity);

@@ -5,23 +5,6 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\Mvc\Router\Http\{Literal, Segment, Hostname};
 
 return [
-/*	'router' => [
-		'routes' => [
-			'daacl-roles-rest' => [
-				'type' => 'Segment',
-				'options' => [
-					'route' => '/api/roles[/:roleId]',
-					'constraints' => [
-						'roleId' => '[0-9]+',
-					],
-					'defaults' => [
-						'controller' => 'DAUser\Controller\UsersRest',
-					]
-				]
-			]
-		]
-	],
-*/
 	'view_manager' => [
 		'strategies' => [
 			'ViewJsonStrategy'
@@ -50,5 +33,11 @@ return [
                 ],
             ],
         ],
-	]
+	],
+
+	'data-fixture' => array(
+
+        __NAMESPACE__ . '_fixture' => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
+
+    ),
 ];

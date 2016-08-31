@@ -35,7 +35,7 @@ class Person implements PersonInterface
 
     /**
      * Sexo da pessoa(masculino ou feminino)
-     * @var \DABase\Enum\EnumGenderType
+     * @var \DACore\Enum\GenderType
      *
      * @ORM\Column(name="gender", type="enum_gendertype", nullable=false)
      */
@@ -139,7 +139,7 @@ class Person implements PersonInterface
     protected $notes;
 
     /**
-     * @ORM\OneToOne(targetEntity="DACore\Entity\User\UserInterface", inversedBy="person")
+     * @ORM\OneToOne(targetEntity="DACore\Entity\User\UserInterface", inversedBy="person", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
@@ -161,7 +161,7 @@ class Person implements PersonInterface
      */
     protected $updatedAt;
 
-    public function __construct(array $options = array())
+    public function __construct(array $data = array())
     {
         $this->telephones = new ArrayCollection();
         $this->documents = new ArrayCollection();
@@ -172,7 +172,7 @@ class Person implements PersonInterface
         $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
 
-        (new Hydrator\ClassMethods)->hydrate($options, $this);
+        (new Hydrator\ClassMethods)->hydrate($data, $this);
 
     }
 
@@ -213,7 +213,7 @@ class Person implements PersonInterface
     /**
      * Gets the Sexo da pessoa(masculino ou feminino).
      *
-     * @return \DABase\Enum\EnumGenderType
+     * @return \DACore\Enum\GenderType
      */
     public function getGender()
     {
@@ -223,11 +223,11 @@ class Person implements PersonInterface
     /**
      * Sets the Sexo da pessoa(masculino ou feminino).
      *
-     * @param \DABase\Enum\EnumGenderType $gender the gender
+     * @param \DACore\Enum\GenderType $gender the gender
      *
      * @return self
      */
-    public function setGender(\DABase\Enum\EnumGenderType $gender)
+    public function setGender($gender)
     {
         $this->gender = $gender;
 
@@ -323,7 +323,7 @@ class Person implements PersonInterface
      *
      * @return self
      */
-    public function setAddresses(\Doctrine\Common\Collections\ArrayCollection $addresses)
+    public function setAddresses($addresses)
     {
         $this->addresses = $addresses;
 
@@ -347,7 +347,7 @@ class Person implements PersonInterface
      *
      * @return self
      */
-    public function setTelephones(\Doctrine\Common\Collections\ArrayCollection $telephones)
+    public function setTelephones($telephones)
     {
         $this->telephones = $telephones;
 
@@ -371,7 +371,7 @@ class Person implements PersonInterface
      *
      * @return self
      */
-    public function setEmails(\Doctrine\Common\Collections\ArrayCollection $emails)
+    public function setEmails($emails)
     {
         $this->emails = $emails;
 
@@ -395,7 +395,7 @@ class Person implements PersonInterface
      *
      * @return self
      */
-    public function setSocialNetworks(\Doctrine\Common\Collections\ArrayCollection $socialNetworks)
+    public function setSocialNetworks($socialNetworks)
     {
         $this->socialNetworks = $socialNetworks;
 
@@ -405,7 +405,7 @@ class Person implements PersonInterface
     /**
      * Gets the value of documents.
      *
-     * @return mixed
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getDocuments()
     {
@@ -415,7 +415,7 @@ class Person implements PersonInterface
     /**
      * Sets the value of documents.
      *
-     * @param mixed $documents the documents
+     * @param \Doctrine\Common\Collections\ArrayCollection $documents the documents
      *
      * @return self
      */
@@ -470,6 +470,30 @@ class Person implements PersonInterface
     public function setNotes($notes)
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of user.
+     *
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Sets the value of user.
+     *
+     * @param mixed $user the user
+     *
+     * @return self
+     */
+    public function setUser(\DACore\Entity\User\UserInterface $user)
+    {
+        $this->user = $user;
 
         return $this;
     }

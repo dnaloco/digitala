@@ -1,15 +1,15 @@
-import config        from '../config';
-import gulp          from 'gulp';
-import merge         from 'merge-stream';
-import templateCache from 'gulp-angular-templatecache';
+import config         from '../config';
+import gulp           from 'gulp';
+import merge          from 'merge-stream';
+import templateCache  from 'gulp-angular-templatecache';
+import rename         from 'gulp-rename';
 
-
-
-function views(index, src, dest) {
+function views(index, src, dest, layout) {
   console.log('IS PROD', global.isProd);
   // Put our index.html in the dist folder
   const indexFile = gulp.src(config.sourceDir + index)
-      .pipe(gulp.dest(config.buildDir));
+      .pipe(rename(layout))
+      .pipe(gulp.dest(config.php.layout.site));
 
   // Process any other view files from app/views
   const views = gulp.src(config.sourceDir + src)
@@ -29,6 +29,6 @@ gulp.task('blogViews', function() {
 
 gulp.task('siteViews', function() {
 
-  return views(config.site.views.index, config.site.views.src, config.site.views.dest);
+  return views(config.site.layout.site01.src, config.site.views.src, config.site.views.dest, config.site.layout.site01.phpLayout);
 });
 

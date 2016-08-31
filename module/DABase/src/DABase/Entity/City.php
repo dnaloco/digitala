@@ -26,7 +26,7 @@ class City implements CityInterface
 	/**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true, nullable=false)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
 	protected $name;
 
@@ -36,7 +36,7 @@ class City implements CityInterface
      * estado
      *
 	 * @ORM\ManyToOne(targetEntity="DACore\Entity\Base\StateInterface")
-	 * @ORM\JoinColumn(name="country_id", referencedColumnName="id", nullable=false)
+	 * @ORM\JoinColumn(name="state_id", referencedColumnName="id", nullable=false)
 	 *
 	 */
 	protected $state;
@@ -97,7 +97,7 @@ class City implements CityInterface
      *
      * @return self
      */
-    public function setState(\DACore\Entity\Base\StateInterface $state)
+    public function setState($state)
     {
         $this->state = $state;
 

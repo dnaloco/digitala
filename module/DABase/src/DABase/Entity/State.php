@@ -44,7 +44,7 @@ class State implements StateInterface
 	 **/
 	protected $country;
 
-	public function __construct(array $data)
+	public function __construct(array $data = array())
 	{
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}

@@ -7,6 +7,63 @@
     "type": "git",
     "url": "https://github.com/jakemmarsh/angularjs-gulp-browserify-boilerplate.git"
   },
+  "browser": {
+    "angular": "./node_modules/angular/angular.js",
+    "ngCart": "./node_modules/ngCart/dist/ngCart.js",
+    "angular-masonry": "./node_modules/angular-masonry/angular-masonry.js",
+    "restangular": "./node_modules/restangular/dist/restangular.js",
+    "ngEqualizer": "./library/angular/vendor/angular-equalizer.js",
+    "imagesloaded": "./bower_components/imagesloaded/imagesloaded.pkgd.js",
+    "masonry": "./bower_components/masonry/dist/masonry.pkgd.js",
+    "lodash": "./bower_components/lodash/dist/lodash.js",
+    "jquery": "./bower_components/jquery/dist/jquery.js"
+  },
+  "browserify-shim": {
+    "jquery": {
+      "exports": "$"
+    },
+    "imagesloaded": {
+      "exports": "ImagesLoaded"
+    },
+    "lodash": {
+      "exports": "_"
+    },
+    "masonry": {
+      "exports": "Masonry",
+      "depends": "imagesloaded"
+    },
+    "angular": {
+      "exports": "angular",
+      "depends": "jquery"
+    },
+    "ngCart": {
+      "exports": "angular.module('ngCart').name",
+      "depends": "angular"
+    },
+    "angular-masonry": {
+      "exports": "angular.module('wu.masonry').name",
+      "depends": [
+        "angular",
+        "masonry"
+      ]
+    },
+    "restangular": {
+      "exports": "angular.module('restangular').name",
+      "depends": [
+        "angular",
+        "lodash"
+      ]
+    },
+    "ngEqualizer": {
+      "exports": "angular.module('ngEqualizer').name",
+      "depends": "angular"
+    }
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
   "license": "MIT",
   "keywords": [
     "express",
@@ -32,45 +89,37 @@
     "unit": "cross-env NODE_ENV=test ./node_modules/.bin/gulp unit"
   },
   "dependencies": {
-    "angular-animate": "^1.5.8",
-    "angular-breadcrumb": "^0.4.1",
-    "angular-foundation-6": "^0.10.4",
-    "angular-jwt": "0.0.9",
-    "angular-loading-overlay": "^1.1.1",
-    "angular-masonry": "^0.16.0",
-    "angular-messages": "^1.5.8",
-    "angular-recaptcha": "^3.0.4",
-    "angular-ui-notification": "^0.2.0",
-    "angular-youtube-embed": "^1.3.0",
-    "browser-sync-client": "^2.4.2",
-    "cross-env": "^1.0.8",
-    "foundation-sites": "^6.2.3",
-    "jquery": "^3.1.0",
-    "jquery-bridget": "^2.0.1",
-    "jquery-browserify": "^1.8.1",
-    "masonry": "0.0.2",
-    "masonry-layout": "^4.1.0",
-    "ng-dialog": "^0.6.2",
-    "ng-token-auth": "0.0.29",
-    "ngCart": "^1.0.0",
-    "ngstorage": "^0.3.11",
-    "satellizer": "^0.15.4"
+    "cross-env": "^1.0.8"
   },
   "devDependencies": {
+    "aliasify": "^2.0.0",
     "angular": "^1.5.0",
+    "angular-busy": "^4.1.3",
+    "angular-foundation-6": "^0.10.10",
+    "angular-google-analytics": "^1.1.7",
+    "angular-input-masks": "^2.4.0",
+    "angular-jwt": "^0.1.3",
+    "angular-loading-bar": "^0.9.0",
+    "angular-masonry": "^0.16.0",
+    "angular-messages": "^1.5.8",
     "angular-mocks": "^1.3.15",
+    "angular-smart-table": "^2.1.8",
+    "angular-translate": "^2.11.1",
+    "angular-translate-loader-static-files": "^2.11.1",
+    "angular-translate-loader-url": "^2.11.1",
     "angular-ui-router": "^0.2.13",
+    "angular-xeditable": "^0.2.0",
     "babel-core": "^6.3.26",
     "babel-eslint": "^5.0.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-register": "^6.5.2",
     "babelify": "^7.2.0",
     "brfs": "^1.2.0",
-    "browser-sync": "^2.14.0",
+    "browser-sync": "^2.7.6",
     "browserify": "^13.0.0",
-    "browserify-global-shim": "^1.0.3",
     "browserify-istanbul": "^1.0.0",
     "browserify-ngannotate": "^2.0.0",
+    "browserify-shim": "^3.8.12",
     "bulk-require": "^0.2.1",
     "bulkify": "^1.1.1",
     "debowerify": "^1.3.1",
@@ -78,12 +127,13 @@
     "envify": "^3.4.0",
     "eslint": "2.2.0",
     "express": "^4.13.3",
-    "gulp": "^3.9.1",
+    "foundation-sites": "^6.2.3",
+    "gulp": "^3.9.0",
     "gulp-angular-templatecache": "^1.3.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-changed": "^1.0.0",
     "gulp-eslint": "^2.0.0",
-    "gulp-gzip": "^1.4.0",
+    "gulp-gzip": "^1.2.0",
     "gulp-if": "^2.0.0",
     "gulp-imagemin": "^2.4.0",
     "gulp-notify": "^2.0.0",
@@ -103,8 +153,16 @@
     "karma-firefox-launcher": "^0.1.3",
     "karma-jasmine": "^0.3.6",
     "karma-sauce-launcher": "^0.3.0",
+    "lodash": "^4.15.0",
     "merge-stream": "^1.0.0",
+    "ng-autocomplete": "^1.0.0",
+    "ng-dialog": "^0.6.4",
+    "ng-file-upload": "^12.2.5",
+    "ng-sortable": "^1.3.6",
+    "ngCart": "^1.0.0",
+    "ngstorage": "^0.3.11",
     "pretty-hrtime": "^1.0.1",
+    "restangular": "^1.5.2",
     "run-sequence": "^1.1.5",
     "tiny-lr": "^0.2.1",
     "uglifyify": "^3.0.1",

@@ -16,10 +16,16 @@ export default {
 
   generalStyle: {
     prodSourcemap: false,
-    sassIncludePaths: ['app/general/bourbon/', 'node_modules/foundation-sites/scss/']
+    sassIncludePaths: ['library/scss/bourbon/', 'node_modules/foundation-sites/scss/']
   },
 
   gulpDir: 'gulp/**/*.js',
+
+  php: {
+    layout: {
+      site: './module/DASite/view/layout/'
+    }
+  },
 
   blog: {
     styles: {
@@ -50,6 +56,12 @@ export default {
   },
 
   site: {
+    layout: {
+      site01: {
+        src: 'site/site01.html',
+        phpLayout: 'layout.site01.phtml'
+      }
+    },
     styles: {
       src: 'site/styles/**/*.scss',
       dest: 'site/css',
@@ -110,7 +122,7 @@ export default {
     ];
 
     this.site.views.watch = [
-      this.sourceDir + this.site.views.index,
+      this.sourceDir + this.site.layout.site01.src,
       this.sourceDir + this.site.views.src
     ];
 

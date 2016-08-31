@@ -1,0 +1,203 @@
+    var _address = {
+        type: null,
+        city: {
+            id: null
+        },
+        address1: null,
+        address2: null,
+        number: null,
+        residentialArea: null,
+        postalCode: null
+    };
+    var _telephone = {
+        answerable: null,
+        type: null,
+        number: null,
+        mobileOperator: null,
+        DDD: null,
+        notes: null
+    };
+    var _email = {
+        anwserable: null,
+        address: null
+    };
+    var _socialNetwork = {
+        type: null,
+        address: null
+    };
+    var _document = {
+        type: null,
+        field1: null,
+        field2: null,
+        field3: null,
+        field4: null,
+        field5: null,
+        images: [],
+        files: [],
+    };
+    var _goodTag = {
+        name: null,
+        description: null
+    };
+  var dataTest = {
+        "user": "arthur_scostapojjhhkjhlsdasa3@yahoo.com",
+        "password": "test3asdas",
+        "person": {
+            "name": "Arthur S. Costa",
+            "gender": "masculino",
+            "birthdate": "2000-08-01",
+            "emails": [{
+                "anwserable": "Arthur Costa",
+                "address": "dnashghjiljkldaloco3@gmail.com"
+            }],
+            "addresses": [{
+                "type": "residential",
+                "city": {
+                    "id": 521500,
+                    "name": "NOVA VENEZA"
+                },
+                "address2": "Casa 21",
+                "number": "599",
+                "residentialArea": "Bairro dos Limões",
+                "postalCode": "04664-020"
+            }],
+            "socialNetworks": [{
+                "type": "facebook",
+                "address": "https://www.facebook.com/arthyuihnmmbmur.scostasadasda.1"
+            }, {
+                "type": "twitter",
+                "address": "https://twitter.com/ArbvnbvnmbmmnthuradsqweSantosadsCos"
+            }],
+            "telephones": [{
+                "type": "residential",
+                "number": "55235634",
+                "DDD": "11"
+            }, {
+                "type": "mobile",
+                "number": "987676663",
+                "answerable": "Terezinha (mãe)",
+                "DDD": "11",
+                "mobileOperator": "oi",
+                "notes": "Ligar no período matutino até as 11h ou no perído noturno, após as 19h"
+            }],
+            "documents": [{
+                "type": "rg",
+                "field1": "322412146",
+                "field2": "ssp"
+            }, {
+                "type": "cpf",
+                "field1": 31335964894
+            }]
+        }
+    };
+    vm.user = {
+        user: null,
+        password: null,
+        person: {
+            name: null,
+            gender: null,
+            birthdate: null,
+            description: null,
+            photo: null,
+            addresses: [],
+            telephones: [],
+            emails: [],
+            socialNetworks: [],
+            documents: [],
+            website: null
+        },
+        company: {
+            tradingName: null,
+            companyName: null,
+            category: null,
+            website: null,
+            telephones: [],
+            documents: [],
+            emails: [],
+            socialNetworks: [],
+            addresses: [],
+            description: null,
+            logo: null,
+            goodTags: []
+        }
+    };  var dataTest = {
+        "user": "arthur_scostapojjhhkjhlsdasa3@yahoo.com",
+        "password": "test3asdas",
+        "person": {
+            "name": "Arthur S. Costa",
+            "gender": "masculino",
+            "birthdate": "2000-08-01",
+            "emails": [{
+                "anwserable": "Arthur Costa",
+                "address": "dnashghjiljkldaloco3@gmail.com"
+            }],
+            "addresses": [{
+                "type": "residential",
+                "city": {
+                    "id": 521500,
+                    "name": "NOVA VENEZA"
+                },
+                "address2": "Casa 21",
+                "number": "599",
+                "residentialArea": "Bairro dos Limões",
+                "postalCode": "04664-020"
+            }],
+            "socialNetworks": [{
+                "type": "facebook",
+                "address": "https://www.facebook.com/arthyuihnmmbmur.scostasadasda.1"
+            }, {
+                "type": "twitter",
+                "address": "https://twitter.com/ArbvnbvnmbmmnthuradsqweSantosadsCos"
+            }],
+            "telephones": [{
+                "type": "residential",
+                "number": "55235634",
+                "DDD": "11"
+            }, {
+                "type": "mobile",
+                "number": "987676663",
+                "answerable": "Terezinha (mãe)",
+                "DDD": "11",
+                "mobileOperator": "oi",
+                "notes": "Ligar no período matutino até as 11h ou no perído noturno, após as 19h"
+            }],
+            "documents": [{
+                "type": "rg",
+                "field1": "322412146",
+                "field2": "ssp"
+            }, {
+                "type": "cpf",
+                "field1": 31335964894
+            }]
+        }
+    };    vm.user = {
+        user: null,
+        password: null,
+        person: {
+            name: null,
+            gender: null,
+            birthdate: null,
+            description: null,
+            photo: null,
+            addresses: [],
+            telephones: [],
+            emails: [],
+            socialNetworks: [],
+            documents: [],
+            website: null
+        },
+        company: {
+            tradingName: null,
+            companyName: null,
+            category: null,
+            website: null,
+            telephones: [],
+            documents: [],
+            emails: [],
+            socialNetworks: [],
+            addresses: [],
+            description: null,
+            logo: null,
+            goodTags: []
+        }
+    };

@@ -13,7 +13,7 @@ trait EncryptStrategy
 
     public static function encryptActivationKey(string $user, string $salt) : string
     {
-    	return md5(uniqid($user . $salt), true);
+    	return md5($user . $salt);
     }
 
     public static function encryptSalt($user)

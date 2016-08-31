@@ -151,10 +151,10 @@ class Image implements ImageInterface
      */
     protected $createdAt;
 
-    public function __construct(array $options = array())
+    public function __construct(array $data = array())
     {
         $this->createdAt = new \DateTime("now");
-        (new Hydrator\ClassMethods)->hydrate($options, $this);
+        (new Hydrator\ClassMethods)->hydrate($data, $this);
     }
 
 
