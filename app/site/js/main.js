@@ -5,6 +5,7 @@ import angular      from 'angular';
 
 // angular modules
 import constants    from './constants';
+import documentConfig    from './configs/document';
 import onConfig     from './on_config';
 //import onInterceptor     from './on_interceptor';
 import onRoute     from './on_route';
@@ -101,6 +102,7 @@ const requires = [
 window.app = angular.module('app', requires);
 
 angular.module('app').constant('AppSettings', constants);
+angular.module('app').constant('DocumentConfig', documentConfig);
 
 angular.module('app').config(onConfig);
 //angular.module('app').config(onInterceptor);
