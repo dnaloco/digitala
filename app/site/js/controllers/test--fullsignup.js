@@ -10,11 +10,7 @@ function TestFullsignupController(ngDialog, $scope, Upload, Restangular, $q, $ht
 
     vm.user = {
         person: {
-            documents: [
-                {
-                    type: null
-                }
-            ]
+            documents: []
         }
     };
 

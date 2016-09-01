@@ -1,8 +1,8 @@
-function daGetField (tag, $compile, scope) {
+function daGetField (tag, index, model, $compile, scope) {
 	var field;
 	switch (tag) {
 		case 'input':
-			field = $compile('<input da-field>')(scope);
+			field = $compile('<input da-field data-doc-index="' + index + '" data-model="' + model +'">')(scope);
 			break;
 	}
 
@@ -46,18 +46,30 @@ function daDocument(DocumentsConfig, $compile, ErrorsConfig) {
 				throw new ErrorsConfig.document.ConfigNotFound.type(ErrorsConfig.document.configNotFound.msg.concat(moreErrorInfo));
 			}
 
-			scope.documentsModel.push(DocumentsConfig.form[attrs.documentType].pristineModel);
+			scope.documentsModel.push(DocumentsConfig.form[attrs.documentType].pristineModel)
+			scope.documentIndex = scope.documentsModel.length - 1;
+
+			console.log('INDEX OF INSERTED ONE', scope.documentIndex);
 
 			console.log('SCOPE DOC MODEL', scope.documentsModel);
 
 			var fieldSection = element.find('section.fields-section');
 
 			angular.forEach(DocumentsConfig.form[attrs.documentType].fields, function (value, key) {
-				/*var label, field, bodyNgMsgs;
+				var field;
+				console.log('KEY', key);
+				console.log('VALUE', value);
+
+				if (!angular.isDefined(value.model)) {
+					moreErrorInfo = 'Undefined "value.model" on da-document for "' + attrs.documentType + '".';
+					throw new ErrorsConfig.document.ConfigRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo));
+				}
+
 				if (!angular.isDefined(value.label)) {
 					moreErrorInfo = 'Undefined "value.label" on da-document for "' + attrs.documentType + '".';
 					throw new ErrorsConfig.document.ConfigRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo));
 				}
+
 				if (!angular.isDefined(value.tag)) {
 					moreErrorInfo = 'Undefined "value.tag" on da-document for "' + attrs.documentType + '".'
 					throw new ErrorsConfig.document.ConfigRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo) );
@@ -68,11 +80,11 @@ function daDocument(DocumentsConfig, $compile, ErrorsConfig) {
 					throw new ErrorsConfig.document.ConfigRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo));
 				}
 
-				field = daGetField(value.tag, $compile, scope);
+				field = daGetField(value.tag, scope.documentIndex, value.model, $compile, scope);
 
 				console.log('FIELD', field);
 
-				fieldSection.append(field);*/
+				fieldSection.append(field);
 			});
 
 

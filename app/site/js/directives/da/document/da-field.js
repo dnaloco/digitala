@@ -11,13 +11,11 @@ function daField($compile, $parse) {
 
 			attr.$set('type', 'text');
 
-			attr.$set('ngModel', 'documentsModel["rg_doc"]');
+			attr.$set('ngModel', 'documentsModel[' + attr.docIndex +']["' + attr.model +'"]');
 
 			var ngModelLink = $compile(el, null, 9999);
 
 			return function (scope) {
-				scope.documentsModel['rg_doc'] = null;
-				console.log('SCOPE', scope);
 				ngModelLink(scope);
 			};
 		}

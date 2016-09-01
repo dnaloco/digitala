@@ -9,11 +9,12 @@ const DocumentsConfig = {
 	form: {
 		rg: {
 			pristineModel: {
+				type: 'rg',
 				field1: null,
 			},
 			fields: [
 				{
-					ngModel: 'field1',
+					model: 'field1',
 					label: 'Nome',
 					tag: 'input',
 					attributes: [
