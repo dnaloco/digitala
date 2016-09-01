@@ -1,6 +1,8 @@
 <div>
 	<h1>Cadastro</h1>
 	<form name="signupForm" novalidate>
+		Formulário é valido: {{signupForm.numero.$valid}} <br>
+		Formulário é inválido: {{signupForm.$invalid}}
 		<button ng-click="signup.submit()">Enviar</button>
 
 

@@ -3,7 +3,7 @@
 		<option value="">---Selecione o tipo de documento---</option>
 		<option ng-repeat="type in documentTypes" value="{{type}}">{{type}}</option>
 	</select>
-	<button da-add-document ng-disabled="!documentTypeSelected">Adicionar Documento</button>
+	<button da-add-document ng-disabled="!documentTypeSelected" ng-click="daDocApp.removeOption(documentTypeSelected)">Adicionar Documento</button>
 
 	<section id="section-to-documents"></section>
 </div>

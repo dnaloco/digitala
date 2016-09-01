@@ -3,9 +3,10 @@ function daAddDocument ($compile) {
 
 	return {
 		restrict: 'A',
-		link: function (scope, element, attrs) {
+		require: '^daDocumentApplication',
+		link: function (scope, element, attrs, daDocumentApplicationController) {
 			element.bind('click', function () {
-				angular.element(document.getElementById('section-to-documents')).prepend($compile('<da-document data-document-type="' + scope.documentTypeSelected.toLowerCase() + '"></div>')(scope));
+				angular.element(document.getElementById('section-to-documents')).prepend($compile('<da-document data-document-type="' + daDocumentApplicationController.documentTypeSelected.toLowerCase() + '"></div>')(scope));
 			})
 		}
 	};
