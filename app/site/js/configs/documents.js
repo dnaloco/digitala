@@ -2,8 +2,7 @@ const DocumentsConfig = {
 	types: {
 		physical: [
 			{id: 'rg', title: 'rg'},
-			{id: 'cpf', title: 'cpf'},
-			{id: 'passport', title: 'cpf'}
+			{id: 'cpf', title: 'cpf'}
 		],
 		orgaos: [
 			{id: 'SSP-SP', title: 'SSP-SP'},
@@ -13,9 +12,40 @@ const DocumentsConfig = {
 		]
 	},
 	form: {
+		cpf: {
+			structure: {
+				twelvecol: {
+					column: '<div class="medium-12 columns"></div>',
+					fieldsName: ['cpf_numero'],
+					maxFields: 1
+				}
+			},
+			pristineModel: {
+				type: 'cpf',
+				field1: null
+			},
+			fields: [
+				{
+					model: 'field1',
+					label: {
+						title: 'Número',
+						attributes: {}
+					},
+					tag: 'input',
+					name: 'cpf_numero',
+					attributes: [
+						{attr: 'type', val: 'text'},
+						{attr: 'ng-required', val: true}
+					],
+					daNgMessages: {
+						required: 'O campo número é necessario!'
+					}
+				}
+			]
+		},
 		rg: {
 			structure: {
-				threecol: {
+/*				threecol: {
 					column: '<div class="medium-3 columns"></div>',
 					fieldsName: [],
 					maxFields: 4
@@ -27,7 +57,7 @@ const DocumentsConfig = {
 				},
 				sixcol: {
 					column: '<div class="medium-6 columns"></div>',
-					fieldsName: ['rg_numero', 'rg_orgao'],
+					fieldsName: [],
 					maxFields: 2
 				},
 				twelvecol: {
@@ -41,7 +71,16 @@ const DocumentsConfig = {
 						'<div class="medium-3 columns"></div>',
 						'<div class="medium-9 columns"></div>'
 					],
-					fieldsName: ['rg_field3', 'rg_field4'],
+					fieldsName: [],
+					maxFields: 2,
+				},*/
+				ninethreecol: {
+					custom: true,
+					columns: [
+						'<div class="medium-9 columns"></div>',
+						'<div class="medium-3 columns"></div>'
+					],
+					fieldsName: ['rg_numero', 'rg_emissor'],
 					maxFields: 2,
 				}
 			},
@@ -64,10 +103,26 @@ const DocumentsConfig = {
 						{attr: 'ng-required', val: true}
 					],
 					daNgMessages: {
-						required: 'O campo nome é necessario!'
+						required: 'O campo número é necessario!'
 					}
 				},
 				{
+					model: 'field2',
+					label: {
+						title: 'Emissor',
+						attributes: {}
+					},
+					tag: 'input',
+					name: 'rg_emissor',
+					attributes: [
+						{attr: 'type', val: 'text'},
+						{attr: 'ng-required', val: true}
+					],
+					daNgMessages: {
+						required: 'O campo emissor é necessario!'
+					}
+				}
+/*				{
 					model: 'field2',
 					label: {
 						title: 'Orgão',
@@ -77,11 +132,7 @@ const DocumentsConfig = {
 					name: 'rg_orgao',
 					attributes: [
 						{attr: 'ng-options', val: 'rgOrgao'}
-					],
-					options: {
-						trackBy: '$index',
-						initialValue: '--- Selecione o orgao emissor ---'
-					}
+					]
 				},
 				{
 					model: 'field3',
@@ -107,7 +158,7 @@ const DocumentsConfig = {
 					attributes: [
 						{attr: 'type', val: 'text'},
 					]
-				}
+				}*/
 			]
 		}
 	}

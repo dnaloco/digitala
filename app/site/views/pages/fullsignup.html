@@ -4,7 +4,6 @@
 		Formulário é valido: {{signupForm.$valid}} <br>
 		Formulário é inválido: {{signupForm.$invalid}}
 
-		<br><br>
 		<ul>
 		  <li ng-repeat="(key, errors) in signupForm.$error track by $index"> <strong>{{ key }}</strong> errors
 		    <ul>
@@ -12,7 +11,7 @@
 		    </ul>
 		  </li>
 		</ul>
-		<br><br>
+
 		<button ng-click="signup.submit(signupForm)" class="button" type="submit">Enviar</button>
 
 

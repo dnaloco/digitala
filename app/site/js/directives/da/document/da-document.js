@@ -16,17 +16,12 @@ function daGetField(tag, name, index, model, scope, attributes, options) {
     attributes.forEach(function(attribute) {
         console.log('Attribute', attribute);
         if (attribute.attr == 'ng-options') {
+        	field.prepend(angular.element('<option value="">--- Selecione uma opção ---</option>'));
         	field.attr(attribute.attr, 'item.id as item.title for item in docApplicationOptions["' + attribute.val + '"] track by item.id');
-        	console.log('FIELD', field);
-        	/*console.log('EXECUTEI...');
-            field.prepend(angular.element('<option value="">--- Selecione uma opção ---</option>'));
-            field.attr(attribute.attr, 'item.id as item.title for item in docApplicationOptions["' + attribute.val + '"] track by item.id');*/
-
         } else {
             field.attr(attribute.attr, attribute.val)
         }
     });
-
 
     return field;
 }
@@ -69,7 +64,6 @@ function generateRow($compile, scope, rowId) {
     return $compile('<div id="' + rowId + '" class="row"></div>')(scope);
 }
 
-
 function daDocument(DocumentsConfig, $compile, ErrorsConfig) {
     'ngInject';
 
@@ -81,8 +75,18 @@ function daDocument(DocumentsConfig, $compile, ErrorsConfig) {
         require: ['^daDocumentApplication', 'daDocument'],
         templateUrl: 'directives/da/document/document.html',
         link: function(scope, element, attrs, controllers) {
+
             var moreErrorInfo;
-            console.log('DocumentsConfig.types.orgaos', DocumentsConfig.types.orgaos);
+
+            var fieldSection = element.find('section.fields-section');
+
+            var counterFieldsByRow = 0;
+
+            var counterRows = 1;
+
+            var selectedColumn, maxFieldsByRow, rowId;
+            var rowEl;
+
             scope.docApplicationOptions = {
                 rgOrgao: DocumentsConfig.types.orgaos
             };
@@ -97,14 +101,7 @@ function daDocument(DocumentsConfig, $compile, ErrorsConfig) {
             scope.documentsModel.push(DocumentsConfig.form[attrs.documentType].pristineModel)
             scope.documentIndex = scope.documentsModel.length - 1;
 
-            var fieldSection = element.find('section.fields-section');
-
-            var counterFieldsByRow = 0;
-
-            var counterRows = 1;
-
-            var selectedColumn, maxFieldsByRow, rowId;
-            var rowEl;
+            scope.documentTitle = 'DOCUMENTO ' + (scope.documentIndex + 1) + ': ' + attrs.documentType.toUpperCase();
 
             angular.forEach(DocumentsConfig.form[attrs.documentType].fields, function(value, key) {
                 var columnEl, fieldEl, labelEl, fieldMessagesEl;
@@ -201,6 +198,17 @@ function daDocument(DocumentsConfig, $compile, ErrorsConfig) {
                             maxFieldsByRow = structureVal.threeninecol.maxFields;
                         }
                         selectedColumn = structureVal.threeninecol.columns[counterFieldsByRow]
+                    }
+                }
+
+                if (angular.isDefined(structureVal.ninethreecol)) {
+                    if (structureVal.ninethreecol.fieldsName.indexOf(value.name) != -1) {
+                        if (counterFieldsByRow == 0) {
+                            rowId = 'doc_row_id_' + counterRows;
+                            rowEl = generateRow($compile, scope, rowId);
+                            maxFieldsByRow = structureVal.ninethreecol.maxFields;
+                        }
+                        selectedColumn = structureVal.ninethreecol.columns[counterFieldsByRow]
                     }
                 }
 

@@ -33,6 +33,7 @@ import 'angular-loading-bar';
 import 'ng-autocomplete';
 import 'angular-xeditable';
 import 'angular-busy';
+import 'ng-lodash';
 
 import 'ngEqualizer';
 
@@ -74,6 +75,7 @@ const requires = [
   'ngAutocomplete',
   'xeditable',
   'cgBusy',
+  'ngLodash',
 
   'ngEqualizer',
 /*  'ngStorage',
