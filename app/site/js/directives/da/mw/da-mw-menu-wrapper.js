@@ -8,7 +8,6 @@ function daMwMenuWrapper() {
     templateUrl: 'directives/da/mw/menu.html', 
     link: (scope, element, attributes) => {
       $('#damwMenuToggle, .damw-menu-close').on('click', function () {
-        console.log('#damwMenuToggle CLICKED');
         $('#damwMenuToggle').toggleClass('active');
         $('#damwTheContent').toggleClass('content-push-toleft foggy');
         $('#damwTheMenu').toggleClass('menu-open');

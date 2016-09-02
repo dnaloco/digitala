@@ -1,9 +1,22 @@
-<div>
-	<select name="doc_type" ng-model="documentTypeSelected">
+<div ng-form name="docForm">
+	<button class="button" ng-click="daDocApp.verForm()">VER FORM</button>
+	
+	rg_numero_0 tem erro? {{docForm.rg_numero_0.$error}} <br>
+	docForm é invalido? {{docForm.$invalid}} <br>
+
+	<ul>
+	  <li ng-repeat="(key, errors) in form.$error track by $index"> <strong>{{ key }}</strong> errors
+	    <ul>
+	      <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
+	    </ul>
+	  </li>
+	</ul>
+
+
+	<select name="doc_type" ng-model="documentTypeSelected" ng-options="type.id as type.title for type in documentTypes track by type.id">
 		<option value="">---Selecione o tipo de documento---</option>
-		<option ng-repeat="type in documentTypes track by $index" value="{{type}}">{{type}}</option>
 	</select>
-	<button da-add-document ng-disabled="!documentTypeSelected" ng-click="daDocApp.removeOption(documentTypeSelected)">Adicionar Documento</button>
+	<button da-add-document ng-disabled="!documentTypeSelected" ng-click="daDocApp.removeDocOption(documentTypeSelected)" class="button">Adicionar Documento</button>
 
 	<section id="section-to-documents"></section>
 </div>

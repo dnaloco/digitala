@@ -4,7 +4,8 @@ function TestFullsignupController(ngDialog, $scope, Upload, Restangular, $q, $ht
     // ViewModel
     const vm = this;
 
-    var signupForm = $scope.signupForm;
+    //var signupForm = vm.signupForm;
+    console.log('vm', vm);
 
     vm.imageDoctype = 'image collection';
 
@@ -14,7 +15,11 @@ function TestFullsignupController(ngDialog, $scope, Upload, Restangular, $q, $ht
         }
     };
 
-    vm.submit = function() {
+    vm.submit = function(form) {
+
+        if (form.$invalid)
+            throw new Error('Formulário inválido');
+
         var deferred = $q.defer()
         var queue = [];
 

@@ -1,130 +1,250 @@
-function daGetField (tag, index, model, $compile, scope) {
-	var field;
-	switch (tag) {
-		case 'input':
-			field = $compile('<input da-field data-doc-index="' + index + '" data-model="' + model +'">')(scope);
-			break;
-	}
+function daGetField(tag, name, index, model, scope, attributes, options) {
+    var field;
 
-	return field;
+    switch (tag) {
+        case 'input':
+            field = angular.element('<input />');
+            break;
+        case 'select':
+            field = angular.element('<select></select>');
+            break;
+    }
+
+    field.attr('name', name);
+    field.attr('ng-model', 'documentsModel[' + index + ']["' + model + '"]');
+
+    attributes.forEach(function(attribute) {
+        console.log('Attribute', attribute);
+        if (attribute.attr == 'ng-options') {
+        	field.attr(attribute.attr, 'item.id as item.title for item in docApplicationOptions["' + attribute.val + '"] track by item.id');
+        	console.log('FIELD', field);
+        	/*console.log('EXECUTEI...');
+            field.prepend(angular.element('<option value="">--- Selecione uma opção ---</option>'));
+            field.attr(attribute.attr, 'item.id as item.title for item in docApplicationOptions["' + attribute.val + '"] track by item.id');*/
+
+        } else {
+            field.attr(attribute.attr, attribute.val)
+        }
+    });
+
+
+    return field;
 }
 
+function daGetFieldMessages(messages, name, index, scope) {
+
+    //var dirtyField = angular.element('<div></div>');
+
+    var fieldMessages = angular.element('<div></div>');
+
+
+    // form['doc_rg_nome['+index+']'].$error
+    var fieldForm = "docForm." + name;
+    var hasError = fieldForm + '.$error';
+    var isDirty = fieldForm + '.$dirty';
+
+    fieldMessages.attr('ng-messages', hasError);
+    fieldMessages.attr('ng-show', isDirty);
+    //dirtyField.attr('ng-if', isDirty);
+
+    angular.forEach(messages, function(msg, key) {
+        fieldMessages.append(angular.element('<div ng-message="' + key + '">' + msg + '</div>'));
+        //$compile(result)(scope);
+    })
+
+    //var result = dirtyField.append(fieldMessages);
+
+    return fieldMessages;
+
+
+}
 
 function daDocumentController($scope) {
-	'ngInject';
+    'ngInject';
 
-	var vm = this;
+    var vm = this;
+}
 
-	vm.verForm = function () {
-		console.log($scope.form);
-	}
+function generateRow($compile, scope, rowId) {
+    return $compile('<div id="' + rowId + '" class="row"></div>')(scope);
 }
 
 
 function daDocument(DocumentsConfig, $compile, ErrorsConfig) {
-	'ngInject';
+    'ngInject';
 
-	return {
-		restrict: 'E',
-		scope: true,
-		controller : daDocumentController,
-		controllerAs: 'daDoc',
-		require: ['^daDocumentApplication', 'daDocument'],
-		templateUrl: 'directives/da/document/document.html',
-		link: function (scope, element, attrs, controllers) {
+    return {
+        restrict: 'E',
+        scope: true,
+        controller: daDocumentController,
+        controllerAs: 'daDoc',
+        require: ['^daDocumentApplication', 'daDocument'],
+        templateUrl: 'directives/da/document/document.html',
+        link: function(scope, element, attrs, controllers) {
+            var moreErrorInfo;
+            console.log('DocumentsConfig.types.orgaos', DocumentsConfig.types.orgaos);
+            scope.docApplicationOptions = {
+                rgOrgao: DocumentsConfig.types.orgaos
+            };
 
-			if (!angular.isDefined(DocumentsConfig.form[attrs.documentType])) {
-				moreErrorInfo = 'The config for "' + attrs.documentType + '"" type!'
-				throw new ErrorsConfig.document.ConfigNotFound.type(ErrorsConfig.document.configNotFound.msg.concat(moreErrorInfo));
-			}
+            console.log('docApplicationOptions', scope.docApplicationOptions);
 
-			scope.documentsModel.push(DocumentsConfig.form[attrs.documentType].pristineModel)
-			scope.documentIndex = scope.documentsModel.length - 1;
+            if (!angular.isDefined(DocumentsConfig.form[attrs.documentType])) {
+                moreErrorInfo = 'The config for "' + attrs.documentType + '"" type!'
+                throw new ErrorsConfig.document.configNotFound.type(ErrorsConfig.document.configNotFound.msg.concat(moreErrorInfo));
+            }
 
-			var fieldSection = element.find('section.fields-section');
+            scope.documentsModel.push(DocumentsConfig.form[attrs.documentType].pristineModel)
+            scope.documentIndex = scope.documentsModel.length - 1;
 
-			angular.forEach(DocumentsConfig.form[attrs.documentType].fields, function (value, key) {
-				var field, label, bodyMessages;
+            var fieldSection = element.find('section.fields-section');
 
-				if (!angular.isDefined(value.model)) {
-					moreErrorInfo = 'Undefined "value.model" on da-document for "' + attrs.documentType + '".';
-					throw new ErrorsConfig.document.ConfigRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo));
-				}
+            var counterFieldsByRow = 0;
 
-				if (!angular.isDefined(value.label)) {
-					moreErrorInfo = 'Undefined "value.label" on da-document for "' + attrs.documentType + '".';
-					throw new ErrorsConfig.document.ConfigRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo));
-				}
+            var counterRows = 1;
 
-				if (!angular.isDefined(value.tag)) {
-					moreErrorInfo = 'Undefined "value.tag" on da-document for "' + attrs.documentType + '".'
-					throw new ErrorsConfig.document.ConfigRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo) );
-				}
+            var selectedColumn, maxFieldsByRow, rowId;
+            var rowEl;
 
-				if (!angular.isDefined(value.attributes)) {
-					moreErrorInfo = 'Undefined "value.attributes" on da-document for ' + attrs.documentType + '".';
-					throw new ErrorsConfig.document.ConfigRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo));
-				}
+            angular.forEach(DocumentsConfig.form[attrs.documentType].fields, function(value, key) {
+                var columnEl, fieldEl, labelEl, fieldMessagesEl;
 
-				if (!angular.isDefined(value.name)) {
-					moreErrorInfo = 'Undefined "value.name" on da-document for ' + attrs.documentType + '".';
-					throw new ErrorsConfig.document.ConfigRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo));
-				}
+                var modelVal, labelVal, tagVal, nameVal, structureVal, attributesVal, optionsVal;
 
-				
-				label = $compile('<label>' + value.label + '</label>')(scope);
+                // este valor será usado para o campo de formulário (fn daGetField) usado para ngModel
+                if (!angular.isDefined(value.model)) {
+                    moreErrorInfo = 'Undefined "value.model" on da-document for "' + attrs.documentType + '".';
+                    throw new ErrorsConfig.document.configRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo));
+                }
 
-				field = daGetField(value.tag, scope.documentIndex, value.model, $compile, scope);
+                modelVal = value.model;
 
-				//field.attr('shared-another-dynamic-name','asdasa');
-				//$compile(field)(scope);
-				console.log('field', field);
-				label.append(field);
+                // este valor será usado para o título da label
+                if (!angular.isDefined(value.label.title)) {
+                    moreErrorInfo = 'Undefined "value.label.title" on da-document for "' + attrs.documentType + '".';
+                    throw new ErrorsConfig.document.configRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo));
+                }
 
-				var result = fieldSection.append(label);
+                labelVal = value.label.title;
 
-				$compile(result)(scope);
-				/*scope.fieldAttributes = value.attributes;
+                if (!angular.isDefined(value.tag)) {
+                    moreErrorInfo = 'Undefined "value.tag" on da-document for "' + attrs.documentType + '".'
+                    throw new ErrorsConfig.document.configRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo));
+                }
 
-				label = $compile('<label>' + value.label + '</label>')(scope);
+                tagVal = value.tag;
 
-				field = daGetField(value.tag, value.name, scope.documentIndex, value.model, $compile, scope);
+                if (!angular.isDefined(value.name)) {
+                    moreErrorInfo = 'Undefined "value.name" on da-document for ' + attrs.documentType + '".';
+                    throw new ErrorsConfig.document.configRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo));
+                }
 
-				label.append(field);
+                nameVal = value.name + '_' + scope.documentIndex;
 
-				scope.daNgMessages = value.daNgMessages;
+                if (!angular.isDefined(DocumentsConfig.form[attrs.documentType].structure)) {
+                    moreErrorInfo = 'Undefined "structure" on da-document for ' + attrs.documentType + '".';
+                    throw new ErrorsConfig.document.configRequired.type(ErrorsConfig.document.configRequired.msg.concat(moreErrorInfo));
+                }
 
-				console.log('FORM NAME', scope.form.$name);
+                structureVal = DocumentsConfig.form[attrs.documentType].structure;
 
-				bodyMessages = $compile('<div da-body-messages data-doc-form="' + scope.form.$name + '" data-doc-index="' + scope.documentIndex + '" data-doc-name="' + value.name + '"></div>')(scope);
+                if (angular.isDefined(value.attributes)) {
+                    attributesVal = value.attributes;
+                }
 
-				label.append(bodyMessages);
+                if (angular.isDefined(value.options)) {
+                    optionsVal = value.options;
+                }
 
+                if (angular.isDefined(structureVal.threecol) && counterFieldsByRow == 0) {
+                    if (structureVal.threecol.fieldsName.indexOf(value.name) != -1) {
+                        rowId = 'doc_row_id_' + counterRows;
+                        rowEl = generateRow($compile, scope, rowId);
+                        maxFieldsByRow = structureVal.threecol.maxFields;
+                        selectedColumn = structureVal.threecol.column;
+                    }
+                }
 
-				fieldSection.append(label);*/
-			});
+                if (angular.isDefined(structureVal.fourcol) && counterFieldsByRow == 0) {
+                    if (structureVal.fourcol.fieldsName.indexOf(value.name) != -1) {
+                        rowId = 'doc_row_id_' + counterRows;
+                        rowEl = generateRow($compile, scope, rowId);
+                        maxFieldsByRow = structureVal.fourcol.maxFields;
+                        selectedColumn = structureVal.fourcol.column;
+                    }
+                }
 
+                if (angular.isDefined(structureVal.sixcol) && counterFieldsByRow == 0) {
 
-			console.log('SCOPE', scope);
-		}
+                    if (structureVal.sixcol.fieldsName.indexOf(value.name) != -1) {
+                        rowId = 'doc_row_id_' + counterRows;
+                        rowEl = generateRow($compile, scope, rowId);
+                        maxFieldsByRow = structureVal.sixcol.maxFields;
+                        selectedColumn = structureVal.sixcol.column;
+                    }
+                }
 
-	};
+                if (angular.isDefined(structureVal.twelvecol) && counterFieldsByRow == 0) {
+                    if (structureVal.twelvecol.fieldsName.indexOf(value.name) != -1) {
+                        rowId = 'doc_row_id_' + counterRows;
+                        rowEl = generateRow($compile, scope, rowId);
+                        maxFieldsByRow = structureVal.twelvecol.maxFields;
+                        selectedColumn = structureVal.twelvecol.column;
+                    }
+                }
+
+                if (angular.isDefined(structureVal.threeninecol)) {
+                    if (structureVal.threeninecol.fieldsName.indexOf(value.name) != -1) {
+                        if (counterFieldsByRow == 0) {
+                            rowId = 'doc_row_id_' + counterRows;
+                            rowEl = generateRow($compile, scope, rowId);
+                            maxFieldsByRow = structureVal.threeninecol.maxFields;
+                        }
+                        selectedColumn = structureVal.threeninecol.columns[counterFieldsByRow]
+                    }
+                }
+
+                if (!angular.isDefined(rowId)) {
+                    moreErrorInfo = 'Undefined "rowId" on da-document.';
+                    throw new ErrorsConfig.generic.notDefined.type(ErrorsConfig.generic.notDefined.msg.concat(moreErrorInfo));
+                }
+
+                columnEl = angular.element(selectedColumn);
+
+                labelEl = angular.element('<label>' + labelVal + '</label>');
+
+                fieldEl = daGetField(tagVal, nameVal, scope.documentIndex, modelVal, scope, attributesVal, optionsVal);
+
+                labelEl.append(fieldEl);
+
+                if (angular.isDefined(value.daNgMessages)) {
+                    fieldMessagesEl = daGetFieldMessages(value.daNgMessages, nameVal, scope.documentIndex, scope);
+
+                    labelEl.append(fieldMessagesEl);
+                }
+
+                columnEl.append(labelEl);
+
+                rowEl.append(columnEl);
+
+                counterFieldsByRow++;
+
+                if (counterFieldsByRow == maxFieldsByRow) {
+                    fieldSection.append(rowEl);
+                    counterFieldsByRow = 0;
+                    counterRows++;
+                }
+
+            });
+
+			$compile(fieldSection)(scope);
+        }
+
+    };
 }
 
-export default {
-  name: 'daDocument',
-  fn: daDocument
+export
+default {
+    name: 'daDocument',
+    fn: daDocument
 };
-
-
-/*function daGetField (tag, name, index, model, $compile, scope) {
-	var field;
-	switch (tag) {
-		case 'input':
-			field = $compile('<input da-field data-doc-index="' + index + '" data-doc-model="' + model +'">')(scope);
-			break;
-	}
-
-	return field;
-}*/
-

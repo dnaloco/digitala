@@ -12,7 +12,14 @@ const ErrorsConfig = {
       type: Error,
       msg: 'Maybe you forgot to add this tag of the required field... More info: '
     }
-	}
+	},
+
+  generic: {
+    notDefined: {
+      type: ReferenceError,
+      msg: 'Not defined property. More info: '
+    }
+  }
 
 };
 

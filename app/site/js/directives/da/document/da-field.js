@@ -6,20 +6,19 @@ function daField($compile, $parse) {
 		priority: 9999,
 		terminal: true,
 		compile: function (el, attr) {
-			console.log('ELEMENT', el);
-			console.log('ATTRIBUTS', attr);
-
-			attr.$set('type', 'text');
-			attr.$set('name', 'rg_numero');
-			attr.$set('ngRequired', true);
 			
+			attr.$set('type', 'text');
+			attr.$set('name', attr.docName + '[{{' + attr.docIndex + '}}]');
+
+			attr.$set('ngRequired', true);
+
 
 			attr.$set('ngModel', 'documentsModel[' + attr.docIndex +']["' + attr.model +'"]');
 
 			var ngModelLink = $compile(el, null, 9999);
 
 			return function (scope) {
-				console.log('form', scope.form);
+				console.log('DA FIELD SCOPE', scope);
 				ngModelLink(scope);
 			};
 		}
@@ -42,7 +41,7 @@ export default {
 		compile: function (el, attr) {
 
 			var setAttributes = function (scope) {
-				
+
 				angular.forEach(scope.fieldAttributes, function(attribute) {
 					attr.$set(attribute.attr, attribute.val);
 				});

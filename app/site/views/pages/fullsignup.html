@@ -13,7 +13,7 @@
 		  </li>
 		</ul>
 		<br><br>
-		<button ng-click="signup.submit()">Enviar</button>
+		<button ng-click="signup.submit(signupForm)" class="button" type="submit">Enviar</button>
 
 
 		<!-- User data: user and password -->
@@ -66,7 +66,7 @@
 		
 		<fieldset>
 			DOCUMENT APPLICATION
-			<da-document-application data-documents-model="signup.user.person.documents" data-form="signupForm" data-document-type="physical">
+			<da-document-application data-documents-model="signup.user.person.documents" data-document-type="physical">
 			</da-document-application>
 		</fieldset>
 
@@ -116,6 +116,6 @@
 			<hr>
 		</fieldset>
 
-		<button ng-click="submit()">Enviar</button>
+		<button ng-click="submit(signup)" class="button" type="submit">Enviar</button>
 	</form>
 </div>

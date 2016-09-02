@@ -10,29 +10,25 @@ function daBodyMessages($compile) {
 
 			var setMessages = function (scope) {
 
-				console.log('docForm', attr.docForm);
-				console.log('docIndex', attr.docIndex);
-				console.log('docName', attr.docName);
+				console.log('DA BODY MESSAGES SCOPE', scope);
+
 				var fieldForm = attr.docForm + "['" + attr.docName + "['" + attr.docIndex + "']']";
 				var hasError = fieldForm + '.$error';
 				var isDirty = fieldForm + '.$dirty';
 				attr.$set('ngMessages', hasError);
-				attr.$set('ngIf', isDirty );
+				//attr.$set('ngIf', isDirty );
 
 				angular.forEach(scope.daNgMessages, function(msg, key) {
-					//scope.messageKey = key;
-					var message = $compile('<div da-message da-doc-key="' + key +'">' + msg + '</div>')(scope);
-					el.append(message);
+					//var message = $compile('<div da-message da-doc-key="' + key +'">' + msg + '</div>')(scope);
+					el.append(angular.element('<div da-message da-doc-key="' + key +'">' + msg + '</div>'));
+					//$compile(messageResult);
 				});
-
-				el.removeAttr('doc-form');
-				el.removeAttr('doc-index');
-				el.removeAttr('doc-name');
 
 				return $compile(el, null, 9999);
 			};
 
 			return function (scope) {
+				
 				setMessages(scope);
 			};
 		}
