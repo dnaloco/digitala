@@ -1,8 +1,18 @@
 <div>
 	<h1>Cadastro</h1>
 	<form name="signupForm" novalidate>
-		Formulário é valido: {{signupForm.numero.$valid}} <br>
+		Formulário é valido: {{signupForm.$valid}} <br>
 		Formulário é inválido: {{signupForm.$invalid}}
+
+		<br><br>
+		<ul>
+		  <li ng-repeat="(key, errors) in signupForm.$error track by $index"> <strong>{{ key }}</strong> errors
+		    <ul>
+		      <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
+		    </ul>
+		  </li>
+		</ul>
+		<br><br>
 		<button ng-click="signup.submit()">Enviar</button>
 
 

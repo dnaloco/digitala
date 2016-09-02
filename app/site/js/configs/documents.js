@@ -15,20 +15,16 @@ const DocumentsConfig = {
 			fields: [
 				{
 					model: 'field1',
-					label: 'Nome',
+					label: 'Número',
 					tag: 'input',
+					name: 'rg_numero',
 					attributes: [
 						{attr: 'type', val: 'text'},
-						{attr: 'name', val: 'numero'},
 						{attr: 'required', val: true},
 					],
-					ngMessages: [
-						{
-							numero: {
-								required: 'O campo nome é necessario!'
-							}
-						}
-					]
+					daNgMessages: {
+						required: 'O campo nome é necessario!'
+					}
 				}
 			]
 		}

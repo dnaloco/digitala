@@ -1,3 +1,14 @@
-<div>
+<div >
+	<button ng-click="daDoc.verForm()">VER FORM</button>
+	rg_numero é inválido: {{form.rg_numero.$invalid}}
+	<br><br>
+		<ul>
+		  <li ng-repeat="(key, errors) in form.$error track by $index"> <strong>{{ key }}</strong> errors
+		    <ul>
+		      <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
+		    </ul>
+		  </li>
+		</ul>
+		<br><br>
 	<section class="fields-section"></section>
 </div>
