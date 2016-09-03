@@ -1,6 +1,7 @@
 <div>
 	Tabela de Teste <br>
-	TOTAL DE PÁGINAS: {{::tabela.totalPaginas}}
+	TOTAL DE PÁGINAS: {{tabela.totalPaginas}} <br>
+	PÁGINA ATUAL: {{tabela.currentPage}}
 	<table class="table" st-pipe="tabela.callServer" st-table="tabela.displayed">
 		<thead>
 		<tr>
@@ -9,7 +10,7 @@
 			<th st-sort="state.code">UF</th>
 		</tr>
 		<tr>
-			<th><input st-search="id" ng-model-options="{updateOn: 'defaul blur', debounce: {default: 3000, blur: 0}}" /></th>
+			<th><input st-search="id"/></th>
 			<th><input st-search="name"/></th>
 			<th><input st-search="state.code"/></th>
 		</tr>
@@ -18,7 +19,7 @@
 		<tr ng-repeat="row in tabela.displayed">
 			<td>{{::row.id}}</td>
 			<td>{{::row.name}}</td>
-			<td>{{::row.state.code}}</td>
+			<td>{{::row.code}}</td>
 		</tr>
 		</tbody>
 		<tbody ng-show="tabela.isLoading">

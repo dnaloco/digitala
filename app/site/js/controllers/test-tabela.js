@@ -31,6 +31,10 @@ function TestTabelaController($scope, CityService, lodash) {
             });
         }
 
+        if (lodash.size(tableState.sort) > 0) {
+            options.push({predicate: tableState.sort.predicate, reverse: tableState.sort.reverse});
+        }
+
         CityService.getList({
             'limit': number,
             'offset': start,
@@ -39,6 +43,7 @@ function TestTabelaController($scope, CityService, lodash) {
         }).then(function (response) {
             vm.displayed = response;
             vm.totalPaginas = Math.ceil(response.total / number);
+            vm.currentPage = (number + start) / number;
             tableState.pagination.numberOfPages = vm.totalPaginas;
             vm.isLoading = false;
         });
