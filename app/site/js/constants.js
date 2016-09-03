@@ -1,5 +1,5 @@
 const AppSettings = {
-  appTitle: 'Example Application',
+  appTitle: 'Agência Digital A',
   apiUrl: '/api',
 };
 

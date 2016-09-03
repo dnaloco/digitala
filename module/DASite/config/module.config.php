@@ -28,16 +28,22 @@ return [
                         ),
                         'may_terminate' => true,
                         'child_routes' => array(
-                            'dablog-signin' => array(
+                            'dablog-login' => array(
                                 'type' => 'Segment',
                                 'options' => array(
                                     'route' => 'login[/]',
                                 ),
                             ),
-                            'dablog-signin' => array(
+                            'dablog-cadastro' => array(
                                 'type' => 'Segment',
                                 'options' => array(
                                     'route' => 'cadastro[/]',
+                                ),
+                            ),
+                            'dablog-tabela' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => 'tabela[/]',
                                 ),
                             ),
                         ),

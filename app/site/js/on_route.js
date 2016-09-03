@@ -3,7 +3,7 @@ function OnRoute(
   ) {
 
   'ngInject';
-
+  
   $stateProvider
   .state('Home', {
     url: '/',
@@ -15,7 +15,13 @@ function OnRoute(
     url: '/cadastro',
     controller: 'TestFullsignupController as signup',
     templateUrl: 'pages/fullsignup.html',
-    title: 'Cadastro'
+    title: 'Cadastro Teste'
+  })
+  .state('Tabela', {
+    url: '/tabela',
+    controller: 'TestTabelaController as tabela',
+    templateUrl: 'pages/tabela.html',
+    title: 'Tabela Teste'
   });
 
 }

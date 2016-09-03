@@ -3,12 +3,6 @@ const DocumentsConfig = {
 		physical: [
 			{id: 'rg', title: 'rg'},
 			{id: 'cpf', title: 'cpf'}
-		],
-		orgaos: [
-			{id: 'SSP-SP', title: 'SSP-SP'},
-			{id: 'SSP-RJ', title: 'SSP-RJ'},
-			{id: 'SSP-PR', title: 'SSP-PR'},
-			{id: 'SSP-MG', title: 'SSP-MG'}
 		]
 	},
 	form: {
@@ -38,42 +32,13 @@ const DocumentsConfig = {
 						{attr: 'ng-required', val: true}
 					],
 					daNgMessages: {
-						required: 'O campo número é necessario!'
+						required: 'O campo número é necessario para o cpf!'
 					}
 				}
 			]
 		},
 		rg: {
 			structure: {
-/*				threecol: {
-					column: '<div class="medium-3 columns"></div>',
-					fieldsName: [],
-					maxFields: 4
-				},
-				fourcol: {
-					column: '<div class="medium-4 columns"></div>',
-					fieldsName: [],
-					maxFields: 3
-				},
-				sixcol: {
-					column: '<div class="medium-6 columns"></div>',
-					fieldsName: [],
-					maxFields: 2
-				},
-				twelvecol: {
-					column: '<div class="medium-12 columns"></div>',
-					fieldsName: [],
-					maxFields: 1
-				},
-				threeninecol: {
-					custom: true,
-					columns: [
-						'<div class="medium-3 columns"></div>',
-						'<div class="medium-9 columns"></div>'
-					],
-					fieldsName: [],
-					maxFields: 2,
-				},*/
 				ninethreecol: {
 					custom: true,
 					columns: [
@@ -103,7 +68,7 @@ const DocumentsConfig = {
 						{attr: 'ng-required', val: true}
 					],
 					daNgMessages: {
-						required: 'O campo número é necessario!'
+						required: 'O campo número é necessario para o rg!'
 					}
 				},
 				{
@@ -119,10 +84,49 @@ const DocumentsConfig = {
 						{attr: 'ng-required', val: true}
 					],
 					daNgMessages: {
-						required: 'O campo emissor é necessario!'
+						required: 'O campo emissor é necessario para o rg!'
 					}
 				}
-/*				{
+
+			]
+		}
+	}
+};
+
+export default DocumentsConfig;
+
+
+/*				threecol: {
+					column: '<div class="medium-3 columns"></div>',
+					fieldsName: [],
+					maxFields: 4
+				},
+				fourcol: {
+					column: '<div class="medium-4 columns"></div>',
+					fieldsName: [],
+					maxFields: 3
+				},
+				sixcol: {
+					column: '<div class="medium-6 columns"></div>',
+					fieldsName: [],
+					maxFields: 2
+				},
+				twelvecol: {
+					column: '<div class="medium-12 columns"></div>',
+					fieldsName: [],
+					maxFields: 1
+				},
+				threeninecol: {
+					custom: true,
+					columns: [
+						'<div class="medium-3 columns"></div>',
+						'<div class="medium-9 columns"></div>'
+					],
+					fieldsName: [],
+					maxFields: 2,
+				},*/
+
+				/*				{
 					model: 'field2',
 					label: {
 						title: 'Orgão',
@@ -159,9 +163,3 @@ const DocumentsConfig = {
 						{attr: 'type', val: 'text'},
 					]
 				}*/
-			]
-		}
-	}
-};
-
-export default DocumentsConfig;

@@ -7,7 +7,7 @@ function OnRun($rootScope, AppSettings) {
 
     if (toState.title) {
       $rootScope.pageTitle += toState.title;
-      $rootScope.pageTitle += ' \u2014 ';
+      $rootScope.pageTitle += ' \u2014 '; //
     }
 
     $rootScope.pageTitle += AppSettings.appTitle;

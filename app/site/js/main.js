@@ -8,7 +8,7 @@ import constants    from './constants';
 import documentsConfig    from './configs/documents';
 import errorsConfig    from './configs/errors';
 import onConfig     from './on_config';
-//import onInterceptor     from './on_interceptor';
+import onInterceptor     from './on_interceptor';
 import onRoute     from './on_route';
 import onRun        from './on_run';
 
@@ -34,6 +34,7 @@ import 'ng-autocomplete';
 import 'angular-xeditable';
 import 'angular-busy';
 import 'ng-lodash';
+import 'angular-smart-table';
 
 import 'ngEqualizer';
 
@@ -42,16 +43,6 @@ import './filters';
 import './controllers';
 import './services';
 import './directives';
-
-// assets
-//import 'angular-equalizer';
-
-
-// modules
-//import 'modules/myModule/myModule';
-
-//import '../assets/angular-equalizer';
-
 
 // create and bootstrap application
 const requires = [
@@ -76,22 +67,9 @@ const requires = [
   'xeditable',
   'cgBusy',
   'ngLodash',
+  'smart-table',
 
   'ngEqualizer',
-/*  'ngStorage',
-  'ui.router',
-  'mm.foundation',
-  'wu.masonry',
-  'ngDialog',
-  'ngMessages',
-  'angular-jwt',*/
-  //'ui.utils.masks',
-
-  //assets
-  //'ngEqualizer',
-  
-  //'ngCart',
-  //'myModule',
 
   'templates',
   'app.filters',
@@ -109,7 +87,7 @@ angular.module('app').constant('DocumentsConfig', documentsConfig);
 angular.module('app').constant('ErrorsConfig', errorsConfig);
 
 angular.module('app').config(onConfig);
-//angular.module('app').config(onInterceptor);
+angular.module('app').config(onInterceptor);
 angular.module('app').config(onRoute);
 
 angular.module('app').run(onRun);
@@ -117,4 +95,3 @@ angular.module('app').run(onRun);
 angular.bootstrap(document, ['app'], {
   strictDi: true
 });
-

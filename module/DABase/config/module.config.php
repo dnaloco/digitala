@@ -9,7 +9,7 @@ use Zend\ServiceManager\ServiceManager;
 return [
     'router' => [
         'routes' => [
-            'dadbase-preupload-rest' => [
+            'dabase-preupload-rest' => [
                 'type' => Segment::class,
                 'options' => [
                     'route' => '/api/preupload[/:id]',
@@ -18,6 +18,18 @@ return [
                     ],
                     'defaults' => [
                         'controller' =>  'PreUploadRest',
+                    ],
+                ],
+            ],
+            'dabase-cities-rest' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/api/cities[/:id]',
+                    'constraints' => [
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => 'DABase\Controller\CityRest',
                     ],
                 ],
             ],
@@ -48,6 +60,19 @@ return [
                 return $controller;
             },
         ],
+    ],
+    'entity_rest_service' => [
+        'DABase\Service\City' => [
+            'class_name' => 'DABase\Service\City',
+            'entity' => 'DABase\Entity\City'
+        ]
+    ],
+
+    'service_rest_controller' => [
+        'DABase\Controller\CityRest' => [
+            'class_name' => 'DABase\Controller\CityRestController',
+            'service' => 'DABase\Service\City'
+        ]
     ],
     'view_manager' => [
         'strategies' => [
