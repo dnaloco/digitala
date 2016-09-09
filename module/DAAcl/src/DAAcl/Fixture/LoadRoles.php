@@ -12,13 +12,12 @@ class LoadRole extends AbstractFixture implements OrderedFixtureInterface
 	public function load(ObjectManager $manager)
         {
                 // GUEST
-                $role = new Role;
-                $role->setName("guest");
-                $manager->persist($role);
+                $guest = new Role(['name' => 'guest']);
+                $manager->persist($guest);
 
-                $manager->persist($role);
-
-
+                $admin = new Role(['name' => 'admin', 'isAdmin' => true]);
+                $manager->persist($admin);
+                
 		$manager->flush();
 	}
 

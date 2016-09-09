@@ -1,0 +1,1 @@
+angular.module("templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("pages/home.html","<div>\n	ERP HOME\n</div>");}]);

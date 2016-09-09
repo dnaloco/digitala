@@ -6,10 +6,14 @@ use Zend\View\Model\JsonModel;
 
 class CityRestController extends AbstractCrudRestController
 {
+    use \DACore\Strategy\CheckTokenStrategy;
+    protected $collectionOptions = array('GET');
+    protected $resourceOptions = array();
+
 	public function getList()
     {
 
-
+        //var_dump($this->getRequest()->getHeader('authorization'));die;
         $sortBy = array();
         $where = array();
         $limit = (int) $_GET['limit'] ?? null;

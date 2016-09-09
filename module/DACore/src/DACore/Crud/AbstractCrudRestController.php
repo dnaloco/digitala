@@ -5,6 +5,8 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 
+use Lcobucci\JWT\Parser;
+
 abstract class AbstractCrudRestController extends AbstractRestfulController implements ResponsesInterface, SerializerInterface
 {
     use \DACore\Strategy\SerializerStrategies;
@@ -13,6 +15,11 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
     protected $resourceOptions = array('DELETE', 'GET', 'PATCH', 'PUT');
 
     protected $service;
+
+    public function checkToken($token)
+    {
+        return true;
+    }
 
     public function __construct($service) {
         $this->service = $service;
@@ -24,12 +31,23 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
         $events->attach('dispatch', array($this, 'checkOptions'), 10);
     }
 
+    // TODO: criar uma trait para validar token e uma interface e sobrescrever checkOptions
     public function checkOptions($e)
     {
-        $matches = $e->getRouteMatch();
+        if (isset($this->hasToken)) {
+            $authStr = $this->getRequest()->getHeader('authorization')->getFieldValue();
+            $tokenParts = explode(' ', $authStr);
+            $token = (new Parser())->parse((string) $tokenParts[1]);
+            $isValidToken = $this->checkToken('ajksdlajsdoqweqw');
+            if (!$isValidToken) {
+                return $this->statusMethodNotAllowed();
+            }
+        }
+
+        $matches =  $e->getRouteMatch();
         $response = $e->getResponse();
-        $request = $e->getRequest();
-        $method = $request->getMethod();
+        $request =  $e->getRequest();
+        $method =   $request->getMethod();
 
         if ($matches->getParam('id', false)) {
             if (!in_array($method, $this->resourceOptions)) {
@@ -41,14 +59,16 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
         if (!in_array($method, $this->collectionOptions)) {
             return $this->statusMethodNotAllowed();
         }
+
+        return;
     }
 
     public function getList()
     {
-        $where = $_GET['where'] ?? array();
-        $options = $_GET['options'] ?? array();
-        $limit = $_GET['limit'] ?? null;
-        $offset = $_GET['offset'] ?? null;
+        $where =    $_GET['where'] ?? array();
+        $options =  $_GET['options'] ?? array();
+        $limit =    $_GET['limit'] ?? null;
+        $offset =   $_GET['offset'] ?? null;
 
         $data = $this->service->getList($where, $options, $limit, $offset);
 

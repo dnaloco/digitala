@@ -66,7 +66,7 @@ return [
         'exception_template' => 'error/index',
         'template_map' => [
             'layout/default' => __DIR__ . '/../view/layout/layout.phtml',
-            'layout/site01' => __DIR__ . '/../view/layout/layout.site01.phtml',
+            'layout/site' => __DIR__ . '/../view/layout/layout.site.phtml',
             'layout/landingTest' => __DIR__ . '/../view/layout/layout.landing.phtml',
 
             'error/404' => __DIR__ . '/../view/error/404.phtml',

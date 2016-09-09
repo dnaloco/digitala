@@ -1,7 +1,23 @@
 <?php
 namespace DACore;
 
+use Zend\Mvc\Router\Http\Literal;
+use Zend\ServiceManager\Factory\InvokableFactory;
+
 return [
+    'router' => [
+        'routes' => [
+            'dabase-public-token-rest' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/api/public/public-token',
+                    'defaults' => [
+                        'controller' => Controller\PublicTokenRestController::class,
+                    ],
+                ],
+            ],
+        ],
+    ],
     'doctrine' => [
         'configuration' => [
             'orm_default' => [
@@ -19,6 +35,11 @@ return [
             ]
         ]
     ],
+    'view_manager' => [
+        'strategies' => [
+            'ViewJsonStrategy',
+        ],
+    ],
 
     'service_manager' => [
         'factories' => [
@@ -30,6 +51,9 @@ return [
     ],
 
     'controllers' => [
+        'factories' => [
+            Controller\PublicTokenRestController::class => InvokableFactory::class,
+        ],
         'abstract_factories' => [
             'DACore\Factory\AbsctractRestControllerFactory',
         ],

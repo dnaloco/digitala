@@ -7,7 +7,7 @@ return [
             'dauser-users-rest' => [
                 'type' => 'Segment',
                 'options' => [
-                    'route' => '/api/users[/:id]',
+                    'route' => '/api/public/users[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
@@ -60,4 +60,9 @@ return [
             ],
         ],
     ],
+    'data-fixture' => array(
+
+        __NAMESPACE__ . '_fixture' => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
+
+    ),
 ];

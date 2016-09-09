@@ -83,3 +83,9 @@ gulp.task('siteBrowserify', function() {
   return buildScript(config.browserify.bundleName, config.site.scripts.dest);
 
 });
+
+gulp.task('erpBrowserify', function() {
+
+  return buildScript(config.browserify.bundleName, config.erp.scripts.dest);
+
+});

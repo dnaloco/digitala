@@ -20,3 +20,7 @@ gulp.task('blogImages', function() {
 gulp.task('siteImages', function() {
   return images(config.site.images.src, config.site.images.dest);
 });
+
+gulp.task('erpImages', function() {
+  return images(config.erp.images.src, config.erp.images.dest);
+});

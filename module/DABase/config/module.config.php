@@ -12,7 +12,7 @@ return [
             'dabase-preupload-rest' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/api/preupload[/:id]',
+                    'route' => '/api/public/preupload[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
@@ -24,7 +24,7 @@ return [
             'dabase-cities-rest' => [
                 'type' => 'Segment',
                 'options' => [
-                    'route' => '/api/cities[/:id]',
+                    'route' => '/api/public/cities[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
@@ -49,7 +49,7 @@ return [
             }
         ]
     ],
-     'controllers' => [
+    'controllers' => [
         'factories' => [
             'PreUploadRest' => function (ControllerManager $cm) {
                 $sm = $cm->getServiceLocator();

@@ -10,7 +10,7 @@ class Module
 
         $mm->getEventManager()->getSharedManager()->attach(__NAMESPACE__,
             'dispatch', function ($e) {
-                $e->getTarget()->layout('layout/site01');
+                $e->getTarget()->layout('layout/site');
             });
 
         // make a trigger when the user was created

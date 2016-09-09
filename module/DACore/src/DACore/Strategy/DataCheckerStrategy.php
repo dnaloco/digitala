@@ -1,36 +1,19 @@
 <?php
 namespace DACore\Strategy;
 
+use Zend\Validator\{EmailAddress, StringLength, Regex, Uri};
+use Zend\I18n\Validator\Alnum;
+
 trait DataCheckerStrategy
 {
-	// filters
-	abstract static function filterEmail($email);
-	abstract static function filterName($name);
-	abstract static function filterString($string);
-	abstract static function filterJsDate($jsDate);
-	abstract static function filterDatetimeFormat($datetime, $format = 'Y-m-d H:i:s');
-	abstract static function filterUrl($url);
-
-	// validations
-	abstract static function hasValidationErrors();
-	abstract static function resetValidationErrors();
-	abstract static function getValidationErrors();
-	abstract static function validateEmail($key, $email);
-	abstract static function validateName($key, $name, array $options = array('allowWhiteSpace' => true));
-	abstract static function validateNameWithDot($key, $name);
-	abstract static function validateMinMaxStringLength($key, $string, $min, $max);
-	abstract static function validateEnum($key, $type, $value);
-	abstract static function validateDateBetween($key, $date, $mindate, $maxdate, $format = 'Y-m-d H:i:s');
-	abstract static function validateUri($key, $uri);
-
-	protected static $dataErrors = array();
+	protected static $dataErrors = [];
 
 	public static function hasErrors()
 	{
-		return !empty(self::$dataErrors) || static::hasValidationErrors();
+		return !empty(self::$dataErrors);
 	}
 
-	public static function addDataError($key, $error, $field, $value = null)
+	public static function addDataError($key, $error, $field = null, $value = null)
 	{
 
 		if (!isset(self::$dataErrors[$key])) {
@@ -39,25 +22,19 @@ trait DataCheckerStrategy
 		self::$dataErrors[$key][]= array('error' => $error, 'field' => $field, 'value' => $value);
 	}
 
-	public static function getAllErrors()
+	public static function getErrors()
 	{
-		if (static::hasValidationErrors()) {
-			array_push(self::$dataErrors, static::getValidationErrors());
-			static::resetValidationErrors();
-		}
 		return self::$dataErrors;
 	}
 
 	public static function checkEmail($key, $email, $field = 'email')
 	{
-		$checkEmail = static::filterEmail($email);
+		$checkEmail = filter_var(trim($email), FILTER_VALIDATE_EMAIL);
 
 		if (!$checkEmail) {
 			self::addDataError($key, self::ERROR_INVALID_EMAIL, $field, $email);
 			return false;
 		}
-
-		$checkEmail = static::validateEmail($key, $checkEmail);
 
 		return $checkEmail;
 
@@ -75,24 +52,67 @@ trait DataCheckerStrategy
 		return $unique;
 	}
 
-	public static function checkName($key, $name, $field = 'name', $minlength = 6, $maxlength = 100)
+	public static function checkName($key, $name, $field = 'name')
 	{
-		$checkName = static::validateNameWithDot($key, $name, array('allowWhiteSpace' => true));
-		$checkName = $checkName ? static::validateMinMaxStringLength($key, $checkName, $minlength, $maxlength) : false;
+
+		$validator = new Alnum($options);
+
+		if (!$validator->isValid($name)) {
+			foreach($validator->getMessages() as $message) {
+				self::addDataError($key, $message, $field, $name);
+			}
+			return false;
+		}
 
 		return $checkName;
 	}
 
+	public static function checkNameWithSpecials($key, $name, $field = 'name')
+	{
+
+		$accentedCharacters = "àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ";
+		$validator = new Regex(array('pattern' => '/^(([' . $accentedCharacters . 'A-Za-z.\\(\\)\s])+)$/'));
+
+		if (!$validator->isValid($name)) {
+			foreach($validator->getMessages() as $message) {
+				self::addDataError($key, $message, $field, $name);
+			}
+			return false;
+		}
+		return $name;
+	}
+
 	public static function checkString($key, $string, $field = 'string')
 	{
-		$checkString = static::filterString($string);
+		$checkString = filter_var(trim($string), FILTER_SANITIZE_STRING);
 
 		if (!$checkString) {
 			self::addDataError($key, self::ERROR_INVALID_STRING, $field, $string);
-			return $checkString;
+			return false;
+		}
+		return $checkString;
+	}
+
+	public static function checkStringLength ($key, $string, $field = 'string', $min, $max)
+	{
+		if (!is_null($min) && is_numeric($min) && !is_null($max) && is_numeric($max)) {
+			$validator = new StringLength(array('min' => $min, 'max' => $max));
+		} else if (!is_null($min) && is_numeric($min)) {
+			$validator = new StringLength(array('min' => $min));
+		} else if (!is_null($max) && is_numeric($max)) {
+			$validator = new StringLength(array('max' => $min));
+		} else {
+			throw new \Exception('Must have [min]=3rd or/and [max]=4th argument(s).');
 		}
 
-		return $checkString;
+		if (!$validator->isValid($string)) {
+			foreach($validator->getMessages() as $message) {
+				self::addDataError($key, $message, $field, $string);
+			}
+			return false;
+		}
+
+		return $string;
 	}
 
 	public static function checkNumber($key, $number, $field = 'number')
@@ -106,9 +126,26 @@ trait DataCheckerStrategy
 
 	public static function checkType($key, $type, $value, $field = 'type')
 	{
-		$checkType = static::validateEnum($key, $type, $value, $field);
+
+		if(!$type::hasValue($value)) {
+			$message = 'Not permitted value for the type [' . $type . ']. Permitted values are [' . implode(",", $type::getValues()) . ']';
+			self::addDataError($key, $message, $field, $value);
+			return false;
+		}
+
+		return $value;
 
 		return $checkType;
+	}
+
+	// TODO: Terminar este método, que irá verificar se só existe um tipo para determinada coleção no repositório
+	public static function checkUniqueType($key, $type, $value, $repo, $field = 'type')
+	{
+		$checkType = $this->checkType($key, $type, $value, $field);
+
+		if ($checkType) {
+			//$checkOne = $repo->findOneBy(a)
+		}
 	}
 
 	public static function checkEntityById($key, $entityId, $field, $repo)
@@ -117,42 +154,60 @@ trait DataCheckerStrategy
 
 		if (!$checkEntity) {
 			self::addDataError($key, self::ERROR_ENTITY_NOT_FOUND, $field, $entityId);
+			return false;
 		}
 
 		return $checkEntity;
 	}
 
-	public static function checkDateBetween($key, $date, $mindate, $maxdate, $field = "date")
+	public static function checkDateBetween($key, $date, $field = 'date', $mindate, $maxdate)
 	{
-		$checkDate = static::filterJsDate($date);
 
-		if (!$checkDate) {
-			self::addDataError($key, self::ERROR_INVALID_DATE, $date);
-			return $checkDate;
+		$checkDate = strtotime($date);
+
+		if ($checkDate !== false) {
+		 	$checkDate = new \DateTime(date('Y-m-d', $checkDate));
 		}
 
-		$checkDate = new \DateTime(static::filterJsDate($checkDate));
-
 		if (!$checkDate) {
-			self::addDataError($key, self::ERROR_INVALID_DATE, $date);
-			return $checkDate;
+			self::addDataError($key, self::ERROR_INVALID_DATE, $field, $date);
+			return false;
 		}
 
-		$checkDate = static::validateDateBetween($key, $checkDate, $mindate, $maxdate);
+		if ($checkDate instanceof \DateTimeInterface) {
+	    	if ($checkDate < $mindate) {
+	    		self::addDataError($key, 'Invalid date. Date cannot be lesser than ' . $mindate->format($format) .'.', $field, $checkDate->format($format));
+	    		return false;
+	    	} else if ($checkDate > $maxdate) {
+	    		self::addDataError($key, 'Invalid date. Date cannot be greater than ' . $maxdate->format($format) .'.', $field, $checkDate->format($format));
+	    		return false;
+	    	}
+	    } else {
+	    	self::addDataError($key, 'Date is not a instance of DateTimeInterface', $field, $date);
+	    	return false;
+	    }
 
 		return $checkDate;
 	}
 
-	public static function checkUrl($key, $url)
+	public static function checkUrl($key, $url, $field = 'url')
 	{
-		$checkUrl = static::filterUrl($url);
+		$checkUrl = filter_var(trim($url), FILTER_SANITIZE_URL);
 
 		if (!$checkUrl) {
 			self::addDataError($key, self::ERROR_INVALID_URL, $date);
-			return $checkUrl;
+			return false;
 		}
 
-		$checkUrl = static::validateUri($key, $url);
+		$validator = new Regex(array('pattern' => '/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'));
+
+
+		if (!$validator->isValid($checkUrl)) {
+			foreach($validator->getMessages() as $message) {
+				self::addDataError($key, $message, $field, $url);
+			}
+			return false;
+		}
 
 		return $checkUrl;
 	}

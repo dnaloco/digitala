@@ -54,7 +54,6 @@ class PreUploadRestController extends AbstractRestfulController implements Respo
         if (!in_array($method, $this->collectionOptions)) {
             return $this->statusMethodNotAllowed();
         }
-        return;
     }
 	public function create ($data)
 	{

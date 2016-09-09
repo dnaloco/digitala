@@ -6,9 +6,7 @@ function OnInterceptor(
   'ngInject';
 
   RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
-    console.log('RESPONSE', response);
     if (operation == "getList") {
-      console.log('RESPONSE', response);
       var responseData = response.data;
       if (responseData.total == undefined) return responseData.data;
       var newResponse = responseData.data;

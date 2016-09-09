@@ -6,44 +6,19 @@ use Zend\I18n\Validator\Alnum;
 
 Trait ValidationStrategy
 {
-	private static $validationErrors = [];
-
-	private static function addValidationError($key, $error, $field)
-	{
-		if (!isset(self::$validationErrors[$key])) {
-			self::$validationErrors[$key] = [];
-		}
-		array_push(self::$validationErrors[$key], $error, array('value' => $field));
-	}
-
-	public static function hasValidationErrors()
-	{
-		return !empty(self::$validationErrors);
-	}
-
-	public static function resetValidationErrors()
-	{
-		self::$validationErrors = [];
-	}
-
-	public static function getValidationErrors()
-	{
-		return self::$validationErrors;
-	}
-
-	public static function validateEmail($key, $email)
+	public static function validateEmail($key, $email, $field)
 	{
 		$validator = new EmailAddress();
 		if (!$validator->isValid($email)) {
 			foreach($validator->getMessages() as $message) {
-				self::addValidationError($key, $message, $email);
+				self::addDataError($key, $message, null, $email);
 			}
 			return false;
 		}
 		return $email;
 	}
 
-	public static function validateName($key, $name, array $options = array('allowWhiteSpace' => true))
+	public static function validateName($key, $name, $field, array $options = array('allowWhiteSpace' => true))
 	{
 		$validator = new Alnum($options);
 
@@ -56,7 +31,7 @@ Trait ValidationStrategy
 		return $name;
 	}
 
-	public static function validateNameWithDot($key, $name)
+	public static function validateNameWithDot($key, $name, $field)
 	{
 		$accentedCharacters = "àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ";
 		$validator = new Regex(array('pattern' => '/^(([' . $accentedCharacters . 'A-Za-z.\\(\\)\s])+)$/'));
@@ -70,9 +45,17 @@ Trait ValidationStrategy
 		return $name;
 	}
 
-	public static function validateMinMaxStringLength($key, $string, $min, $max)
+	public static function validateMinMaxStringLength($key, $string, $field, $min = null, $max = null)
 	{
-		$validator = new StringLength(array('min' => $min, 'max' => $max));
+		if (!is_null($min) && is_numeric($min) && !is_null($max) && is_numeric($max)) {
+			$validator = new StringLength(array('min' => $min, 'max' => $max));
+		} else if (!is_null($min) && is_numeric($min)) {
+			$validator = new StringLength(array('min' => $min));
+		} else if (!is_null($max) && is_numeric($max)) {
+			$validator = new StringLength(array('max' => $min));
+		} else {
+			throw new \Exception('Must have [min]=3rd or/and [max]=4th argument(s).');
+		}
 
 		if (!$validator->isValid($string)) {
 			foreach($validator->getMessages() as $message) {
@@ -84,7 +67,7 @@ Trait ValidationStrategy
 		return $string;
 	}
 
-	public static function validateEnum($key, $type, $value)
+	public static function validateEnum($key, $type, $value, $field)
 	{
 		if(!$type::hasValue($value)) {
 			$message = 'Not permitted value for the type [' . $type . ']. Permitted values are [' . implode(",", $type::getValues()) . ']';
@@ -95,7 +78,7 @@ Trait ValidationStrategy
 		return $value;
 	}
 
-	public static function validateDateBetween($key, $date, $mindate, $maxdate, $format = 'Y-m-d H:i:s')
+	public static function validateDateBetween($key, $date, $field, $mindate, $maxdate, $format = 'Y-m-d H:i:s')
 	{
 	    if ($date instanceof \DateTimeInterface) {
 	    	if ($date < $mindate) {
@@ -113,7 +96,7 @@ Trait ValidationStrategy
 	    return $date;
 	}
 
-	public static function validateUri($key, $uri) {
+	public static function validateUri($key, $uri, $field) {
 		$validator = new Uri();
 
 		if (!$validator->isValid($uri)) {

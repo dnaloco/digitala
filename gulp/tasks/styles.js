@@ -36,3 +36,7 @@ gulp.task('blogStyles', function() {
 gulp.task('siteStyles', function() {
   return styles(config.site.styles.src, config.site.styles.dest);
 });
+
+gulp.task('erpStyles', function() {
+  return styles(config.erp.styles.src, config.erp.styles.dest);
+});

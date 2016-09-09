@@ -23,6 +23,13 @@
         "firebase/php-jwt": "^4.0",
         "lcobucci/jwt": "^3.1",
         "codeacious/oauth2-provider": "^1.0",
-        "phpro/zf-mvc-auth-token": "^0.1.0"
+        "phpro/zf-mvc-auth-token": "^0.1.0",
+        "bensquire/php-image-optim": "dev-master",
+        "lciolecki/php-image-optimizer": "dev-master",
+        "tuupola/slim-jwt-auth": "^2.3",
+        "vlucas/phpdotenv": "^2.4",
+        "monolog/monolog": "^1.21",
+        "learnzf2/route-cache": "dev-master",
+        "facebook/graph-sdk": "^5.3"
     }
 }

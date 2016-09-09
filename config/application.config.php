@@ -17,7 +17,7 @@ return array(
         'DoctrineORMModule',
         'DoctrineDataFixtureModule',
         'JMSSerializerModule',
-        'Codeacious\OAuth2Provider',
+        //'Codeacious\OAuth2Provider',
         
         'DACore',
         'DABase',
@@ -25,6 +25,7 @@ return array(
         'DAUser',
         'DAAdmin',
         'DASite',
+        'DAErp',
         //'DABase',
         //'DABlog',
         //'Tweet',

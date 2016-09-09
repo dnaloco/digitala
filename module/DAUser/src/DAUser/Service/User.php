@@ -11,8 +11,6 @@ implements
 DataCheckerStrategyInterface,
 MyUploadAwareInterface
 {
-	use FilterStrategy;
-	use ValidationStrategy;
 	use DataCheckerStrategy;
 
 	protected $uploadManager;
@@ -29,7 +27,6 @@ MyUploadAwareInterface
 
 	public function insert(array $data)
 	{
-		var_dump($data); die;
 		$entity = parent::insert($data);
 
 		if ($entity instanceof $this->entity) {
@@ -96,7 +93,7 @@ MyUploadAwareInterface
 		foreach($emails as $email) {
 			// email anwserable not required.
 			if (isset($email['anwserable'])) {
-				$email['anwserable'] = static::checkName($key, $email['anwserable'], 'anwserable');
+				$email['anwserable'] = static::checkNameWithSpecials($key, $email['anwserable'], 'anwserable');
 				if (!$email['anwserable']) return false;
 
 			}
@@ -206,7 +203,7 @@ MyUploadAwareInterface
 			//	fields: answerable, type, number, mobileOperator, DDD, notes
 
 			if (isset($telephone['anwserable'])) {
-				$telephone['anwserable'] = static::checkName($key, $telephone['anwserable'], 'anwserable');
+				$telephone['anwserable'] = static::checkNameWithSpecials($key, $telephone['anwserable'], 'anwserable');
 				if (!$telephone['anwserable']) return false;
 
 			}
@@ -270,7 +267,7 @@ MyUploadAwareInterface
 				return false;
 			} else {
 				$repoSocial = $this->getAnotherRepository('DABase\Entity\SocialNetwork');
-				$socialNetwork['address'] = static::checkUrl($key, $socialNetwork['address']);
+				$socialNetwork['address'] = static::checkUrl($key, $socialNetwork['address'], 'address');
 
 				$socialNetwork['address'] = $socialNetwork['address'] ? static::checkUnique($key, $socialNetwork['address'], 'address', $repoSocial) : false;
 
@@ -389,7 +386,7 @@ MyUploadAwareInterface
 		$imageData['licence'] = $person['gender'] = static::checkType($key, 'DACore\Enum\Licence', 'Attribution-NonCommercial-NoDerivs');
 		$imageData['description'] = 'Imagem de foto do usuário fornecida pelo próprio.';
 		$imageData['name'] = $uniqueId . $name;
-		$imageData['path'] = self::getFileDestination($baseDestination, $uniqueId, $name, $ext);
+		$imageData['path'] = $baseDestination;
 
 		foreach($uploadsResult as $result) {
 
@@ -416,15 +413,21 @@ MyUploadAwareInterface
 		return new \DABase\Entity\Image($imageData);
 	}
 
+	public function filterNullData($data)
+	{
+
+	}
+
 	public function getPerson($key, $person)
 	{
+		$person = array_filter($person);
 		$key = $key . '_person';
 
 		// person name REQUIRED!
 		if (!isset($person['name'])) {
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'name');
 		} else {
-			$person['name'] = static::checkName($key, $person['name']);
+			$person['name'] = static::checkNameWithSpecials($key, $person['name']);
 		}
 
 		// gender REQUIRED!
@@ -441,7 +444,7 @@ MyUploadAwareInterface
 
 			$maxdate = new \DateTime();
 			$maxdate->modify('-12 year');
-			$person['birthdate'] = static::checkDateBetween($key, $person['birthdate'], $mindate, $maxdate);
+			$person['birthdate'] = static::checkDateBetween($key, $person['birthdate'], 'birthdate', $mindate, $maxdate);
 		}
 
 		if (isset($person['description'])) {
@@ -481,7 +484,7 @@ MyUploadAwareInterface
 
 	public function prepareDataToInsert(array $data)
 	{
-		//var_dump($data);die;
+		$data = array_filter($data);
 		$key = 'user';
 
 		if (!isset($data['active'])) $data['active'] = false;
@@ -504,6 +507,7 @@ MyUploadAwareInterface
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'password');
 		} else {
 			$data['password'] = static::checkString($key, $data['password'], 'password');
+			$data['password'] = static::checkStringLength($key, $data['password'], 'password', 6, 32);
 		}
 
 		// person or company REQUIRED!
@@ -513,14 +517,14 @@ MyUploadAwareInterface
 		} else if (isset($data['company'])) {
 
 		} else {
-			//array_push($this->dataErrors, 'Data has no [person] or [company] field or was not setted!');
+			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'person or company');
 		}
 
 		if (static::hasErrors()) {
 			$data['errors'] = [];
-			$data['errors'] = static::getAllErrors();
+			$data['errors'] = static::getErrors();
 		}
-
+		
 		return $data;
 	}
 

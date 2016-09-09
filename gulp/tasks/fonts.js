@@ -10,10 +10,6 @@ function fonts(src, dest) {
     .pipe(browserSync.stream());
 }
 
-gulp.task('blogFonts', function() {
-  return fonts(config.blog.fonts.src, config.blog.fonts.dest);
-});
-
-gulp.task('siteFonts', function() {
-  return fonts(config.site.fonts.src, config.site.fonts.dest);
+gulp.task('fonts', function() {
+  return fonts(config.fonts.src, config.fonts.dest);
 });

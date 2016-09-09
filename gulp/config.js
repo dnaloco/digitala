@@ -23,8 +23,14 @@ export default {
 
   php: {
     layout: {
-      site: './module/DASite/view/layout/'
+      site: './module/DASite/view/layout/',
+      erp: './module/DAErp/view/layout/',
     }
+  },
+
+  fonts: {
+    src: './app/fonts/**/*',
+    dest: './build/fonts'
   },
 
   blog: {
@@ -44,10 +50,6 @@ export default {
       dest: 'blog/images'
     },
 
-    fonts: {
-      src: 'blog/fonts/**/*',
-      dest: 'blog/fonts'
-    },
     views: {
       index: 'blog/index.html',
       src: 'blog/views/**/*.html',
@@ -57,10 +59,8 @@ export default {
 
   site: {
     layout: {
-      site01: {
-        src: 'site/site01.html',
-        phpLayout: 'layout.site01.phtml'
-      }
+      src: 'site/layout.html',
+      phpLayout: 'layout.site.phtml'
     },
     styles: {
       src: 'site/styles/**/*.scss',
@@ -78,10 +78,6 @@ export default {
       dest: 'site/images'
     },
 
-    fonts: {
-      src: 'site/fonts/**/*',
-      dest: 'site/fonts'
-    },
     views: {
       index: 'site/index.html',
       src: 'site/views/**/*.html',
@@ -89,6 +85,33 @@ export default {
     },
   },
 
+  erp: {
+    layout: {
+      src: 'erp/layout.html',
+      phpLayout: 'layout.erp.phtml'
+    },
+    styles: {
+      src: 'erp/styles/**/*.scss',
+      dest: 'erp/css',
+    },
+
+    scripts: {
+      src: 'erp/js/**/*.js',
+      dest: 'erp/js',
+      test: 'test/erp/**/*.js',
+    },
+
+    images: {
+      src: 'erp/images/**/*',
+      dest: 'erp/images'
+    },
+
+    views: {
+      index: 'erp/index.html',
+      src: 'erp/views/**/*.html',
+      dest: 'erp/js'
+    },
+  },
 
   assetExtensions: [
     'js',
@@ -122,8 +145,13 @@ export default {
     ];
 
     this.site.views.watch = [
-      this.sourceDir + this.site.layout.site01.src,
+      this.sourceDir + this.site.layout.src,
       this.sourceDir + this.site.views.src
+    ];
+
+    this.erp.views.watch = [
+      this.sourceDir + this.erp.layout.src,
+      this.sourceDir + this.erp.views.src
     ];
 
     return this;
