@@ -20,9 +20,13 @@ implements \DACore\Controller\Aware\ApcCacheAwareInterface
 {
     protected $cache;
 
-    public function setCache($cache)
+    public function getCache($cache)
     {
-        $this->cache = $cache;
+        if(!isset($this->cache)) {
+            $this->cache = $cache;
+        }
+
+        return $this->cache;
     }
 
     public function indexAction()

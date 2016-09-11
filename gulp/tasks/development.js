@@ -13,6 +13,6 @@ gulp.task('erpDev', ['clean'], function(cb) {
 
   global.isProd = false;
 
-  runSequence(['erpStyles', 'erpImages', 'erpViews', 'erpBrowserify'], 'fonts', 'indexFile', 'uploadsDir', 'erpWatch', cb);
+  runSequence(['erpStyles', 'erpImages', 'erpViews'], 'erpBrowserify', 'fonts', 'indexFile', 'uploadsDir', 'erpWatch', cb);
 
 });

@@ -31,7 +31,6 @@ class PublicTokenRestController extends AbstractRestfulController
 
     public function checkOptions($e)
     {
-        $_SESSION['teste'] ='askljdaklspdiqçkhwn qowhdqduy qwbd sgah dkjbqwiuehqçkwjeqe';die;
         $matches = $e->getRouteMatch();
         $response = $e->getResponse();
         $request = $e->getRequest();

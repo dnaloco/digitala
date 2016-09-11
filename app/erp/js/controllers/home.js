@@ -13,6 +13,7 @@ function HomeController(CityService) {
         'options[]': []
     }).then(function (cities) {
         vm.cities = cities;
+        console.log('CIDADES', cities);
     }, function (error) {
       console.error('ERROR', error);
     });

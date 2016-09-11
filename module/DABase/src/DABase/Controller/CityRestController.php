@@ -33,8 +33,6 @@ implements CheckTokenStrategyInterface
 
     public function checkOptions($e)
     {
-        echo $_SESSION['teste'];
-        die;
         $matches =  $e->getRouteMatch();
         $response = $e->getResponse();
         $request =  $e->getRequest();

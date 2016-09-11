@@ -44,7 +44,6 @@ function OnInterceptor(
         if (options.url.substr(options.url.length - 5) == '.html' && !publicApi.test(options.url) && !privateApi.test(options.url)) {
           return null;
         }
-
         // public api...
         if (publicApi.test(options.url)) {
           //return refreshToken();

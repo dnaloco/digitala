@@ -16,14 +16,14 @@ class Module
         $em = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($em);
-        $this->bootstrapSession($e);
+        //$this->bootstrapSession($e);
 
-        //$em->attach("finish", array($this, "compressOutput"), 100);
+        $em->attach("finish", array($this, "compressOutput"), 100);
 
-        /*if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
-    $em->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDispatchError'), 0);
-    $em->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'onRenderError'), 0);
-    }*/
+        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
+            $em->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDispatchError'), 0);
+            $em->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'onRenderError'), 0);
+        }
     }
 
     public function bootstrapSession($e)

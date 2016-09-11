@@ -8,8 +8,13 @@ gulp.task('prod', ['clean'], function(cb) {
   global.isProd = true;
 
   runSequence(
+  	['erpStyles', 'erpImages', 'erpViews'],
+  	'erpBrowserify',
+  	'fonts', 'indexFile', 'uploadsDir', 'gzip', cb);
+
+/*  runSequence(
   	['siteStyles', 'siteImages', 'siteFonts', 'siteViews'],
   	'siteBrowserify',
-  	'indexFile', 'gzip', cb);
+  	'indexFile', 'gzip', cb);*/
 
 });
