@@ -12,10 +12,10 @@ function browserSyncSubdomain(subdomain) {
   });
 }
 
-gulp.task('browserSite', function() {
+gulp.task('siteBrowser', function() {
   return browserSyncSubdomain('www');
 });
 
-gulp.task('browserErp', function() {
+gulp.task('erpBrowser', function() {
   return browserSyncSubdomain('erp');
 });

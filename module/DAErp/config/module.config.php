@@ -7,7 +7,7 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
-            'dasite-subdomain' => array(
+            'daerp-subdomain' => array(
                 'type' => Hostname::class,
                 'options' => array(
                     'route' => 'erp.agenciadigitala.[:tail]',

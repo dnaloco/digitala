@@ -12,9 +12,9 @@ function PublicTokenService($http) {
       }).success((data) => {
         var token = data.token;
         localStorage.setItem('publicToken', token);
-        console.log('TOKEN FROM PUBLIC TOKEN SERVICE', token);
         resolve(token);
       }).error((err, status) => {
+        console.error('Error on PublicTokenService', err + ' | STATUS: ' + status);
         reject(err, status);
       })
     });

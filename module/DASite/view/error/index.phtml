@@ -12,6 +12,12 @@
     <dd>
         <pre class="prettyprint linenums"><?= $this->exception->getFile() ?>:<?= $this->exception->getLine() ?></pre>
     </dd>
+
+    <dt>Error Code:</dt>
+    <dd>
+        <pre class="prettyprint linenums"><?= $this->escapeHtml($this->exception->getCode()) ?></pre>
+    </dd>
+
     <dt>Message:</dt>
     <dd>
         <pre class="prettyprint linenums"><?= $this->escapeHtml($this->exception->getMessage()) ?></pre>

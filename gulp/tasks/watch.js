@@ -22,7 +22,7 @@ gulp.task('siteWatch', ['browserSite'], function() {
   	return watch('site', config.site.scripts.src, config.site.styles.src, config.site.images.src, config.fonts.src, config.site.views.watch);
 });
 
-gulp.task('erpWatch', ['browserErp'], function() {
+gulp.task('erpWatch', ['erpBrowser'], function() {
     return watch('erp',
       config.erp.scripts.src,
       config.erp.styles.src,

@@ -1,28 +1,31 @@
 <?php
 namespace DACore\Crud;
-
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
-
 use Lcobucci\JWT\Parser;
 
-abstract class AbstractCrudRestController extends AbstractRestfulController implements ResponsesInterface, SerializerInterface
+use DACore\Controller\Aware\FirephpAwareInterface;
+use DACore\Crud\HttpStatusCodeException;
+
+abstract class AbstractCrudRestController extends AbstractRestfulController implements ResponsesInterface, SerializerInterface, FirephpAwareInterface
 {
     use \DACore\Strategy\SerializerStrategies;
 
-    protected $collectionOptions = array('GET', 'POST');
+    protected $collectionOptions = array('GET', 'POST', 'OPTIONS');
     protected $resourceOptions = array('DELETE', 'GET', 'PATCH', 'PUT');
-
     protected $service;
-
-    public function checkToken($token)
-    {
-        return true;
-    }
 
     public function __construct($service) {
         $this->service = $service;
+    }
+
+    public function getFirephp($firephp) {
+        if (!isset($this->firephp)) {
+            $this->firephp = $firephp;
+        }
+
+        return $this->firephp;
     }
 
     public function setEventManager(EventManagerInterface $events)
@@ -30,36 +33,22 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
         parent::setEventManager($events);
         $events->attach('dispatch', array($this, 'checkOptions'), 10);
     }
-
     // TODO: criar uma trait para validar token e uma interface e sobrescrever checkOptions
     public function checkOptions($e)
     {
-        if (isset($this->hasToken)) {
-            $authStr = $this->getRequest()->getHeader('authorization')->getFieldValue();
-            $tokenParts = explode(' ', $authStr);
-            $token = (new Parser())->parse((string) $tokenParts[1]);
-            $isValidToken = $this->checkToken('ajksdlajsdoqweqw');
-            if (!$isValidToken) {
-                return $this->statusMethodNotAllowed();
-            }
-        }
-
         $matches =  $e->getRouteMatch();
         $response = $e->getResponse();
         $request =  $e->getRequest();
         $method =   $request->getMethod();
-
         if ($matches->getParam('id', false)) {
             if (!in_array($method, $this->resourceOptions)) {
                 return $this->statusMethodNotAllowed();
             }
             return;
         }
-
         if (!in_array($method, $this->collectionOptions)) {
             return $this->statusMethodNotAllowed();
         }
-
         return;
     }
 
@@ -69,22 +58,17 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
         $options =  $_GET['options'] ?? array();
         $limit =    $_GET['limit'] ?? null;
         $offset =   $_GET['offset'] ?? null;
-
         $data = $this->service->getList($where, $options, $limit, $offset);
-
         if ($data) {
             $data = json_decode(static::getPropertyNamingSerializer()->serialize($data, 'json'), true);
             return new JsonModel(array('data' => $data, 'success' => true));
         }
-
         return new JsonModel(array('data' => array(), 'success' => false));
-
     }
 
     public function get($id)
     {
         $data = $this->service->getOne($id);
-
         if ($data) {
             $data = json_decode(static::getPropertyNamingSerializer()->serialize($data, 'json'), true);
             return new JsonModel(array('data' => $data, 'success' => true));
@@ -96,18 +80,14 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
     public function create($data)
     {
         $result = $this->service->insert($data);
-
         if (is_array($result) && isset($result['errors'])) {
             $this->statusConflict();
             return new JsonModel(array('data' => array(), 'success' => false, 'errors' => $result['errors']));
         }
-
         if ($result) {
             $data = json_decode(static::getPropertyNamingSerializer()->serialize($result, 'json'), true);
-
             return new JsonModel(array('data' => $data, 'success' => true));
         }
-
         $this->statusConflict();
         return new JsonModel(array('data' => array(), 'success' => false));
     }
@@ -115,15 +95,12 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
     public function update($id, $data)
     {
         $result = $this->service->update($data);
-
         if (isset($result['errors'])) {
             $this->statusConflict();
             return new JsonModel(array('data' => array(), 'success' => false, 'errors' => $data['errors']));
         }
-
         if ($result) {
             $data = json_decode(static::getPropertyNamingSerializer()->serialize($result, 'json'), true);
-
             return new JsonModel(array('data' => $data, 'success' => true));
         }
         $this->statusNotModified();
@@ -133,47 +110,75 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
     public function delete($id)
     {
         $result = $this->service->delete($id);
-
         if ($result) {
             return new JsonModel(array('data' => $id, 'succcess' => true));
         }
-
         return new JsonModel(array('data' => array(), 'success' => false));
+    }
+
+    public function makeResponseStatus($message, $code, $firephpDebug = true, $throw = false)
+    {
+        $this->response->setStatusCode($code);
+
+        if (isset($this->firephp) && $firephpDebug) {
+            $this->firephp->addInfo('Info about http status code');
+            $this->firephp->addError($message, array('http_code' => $code));
+        }
+
+        if ($throw)
+            throw new HttpStatusCodeException($message, $code);
     }
 
     public function statusOk()
     {
-        return $this->response->setStatusCode(200);
-        // throw new \Exception('Unauthorized');
+        $this->response->setStatusCode(self::CODE_OK);
     }
 
-    public function statusMethodNotAllowed()
+    function statusCreated($message = null)
     {
-        return $this->response->setStatusCode(405);
-        // throw new \Exception('Method Not Allowed');
+        $message = 'New Resource Info: ' . $message;
+        $this->makeResponseStatus($message, self::CODE_CREATED, true);
     }
 
-    public function statusUnauthorized()
+    function statusNotModified($message = null)
     {
-        return $this->response->setStatusCode(401);
-        // throw new \Exception('Unauthorized');
+        $message = 'Not Modified Info: ' . $message;
+        $this->makeResponseStatus($message, self::CODE_NOT_MODIFIED, true, true);
     }
 
-    public function statusConflict()
+    function statusBadRequest($message = null)
     {
-        return $this->response->setStatusCode(409);
-        // throw new \Exception('Unauthorized');
+        $message = 'Bad Request Info: ' . $message;
+        $this->makeResponseStatus($message, self::CODE_BAD_REQUEST, true, true);
     }
 
-    public function statusNoContent()
+    function statusNotAuthorized($message = null)
     {
-        return $this->response->setStatusCode(204);
-        // throw new \Exception('Unauthorized');
+        $message = 'Not Authorized Info: ' . $message;
+        $this->makeResponseStatus($message, self::CODE_NOT_AUTHORIZED, true, true);
     }
 
-    public function statusNotModified()
+    function statusForbidden($message = null)
     {
-        return $this->response->setStatusCode(304);
-        // throw new \Exception('Unauthorized');
+        $message = 'Forbidden Info: ' . $message;
+        $this->makeResponseStatus($message, self::CODE_FORBIDDEN, true, true);
+    }
+
+    function statusResourceNotFound($message = null)
+    {
+        $message = 'Resource Not Found Info: ' . $message;
+        $this->makeResponseStatus($message, self::CODE_RESOURCE_NOT_FOUND, true, true);
+    }
+
+    function statusMethodNotAllowed($message = null)
+    {
+        $message = 'Method Not Allowed Info: ' . $message;
+        $this->makeResponseStatus($message, self::CODE_METHOD_NOT_ALLOWED, true, true);
+    }
+
+    function statusServerError($message = null)
+    {
+        $message = 'Server Error Info: ' . $message;
+        $this->makeResponseStatus($message, self::CODE_SERVER_ERROR, true, true);
     }
 }

@@ -4,6 +4,7 @@ return array(
     'DAUser\Module'                        => __DIR__ . '/Module.php',
     'DAUser\Controller\AuthRestController' => __DIR__ . '/src/DAUser/Controller/UserUniqueRestController.php',
     'DAUser\Controller\UserRestController' => __DIR__ . '/src/DAUser/Controller/UserRestController.php',
+    'DAUser\Fixture\AdminLoad'             => __DIR__ . '/src/DAUser/Fixture/AdminLoad.php',
     'DAUser\Service\User'                  => __DIR__ . '/src/DAUser/Service/User.php',
     'DAUser\Entity\User'                   => __DIR__ . '/src/DAUser/Entity/User.php',
     'DAUser\Listener\ConfirmationListener' => __DIR__ . '/src/DAUser/Listener/ConfirmationListener.php',

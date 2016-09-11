@@ -1,18 +1,23 @@
-function HomeController(ngDialog, CityService) {
+function HomeController(CityService) {
   // injetando dependência
   'ngInject';
 
   // ViewModel
   const vm = this;
 
-  CityService.getList({
+  vm.callCities = function () {
+    CityService.getList({
         'limit': 10,
         'offset': 0,
         'where[]': [],
         'options[]': []
-    }).then(function (response) {
-        console.log('CITIES', response);
+    }).then(function (cities) {
+        vm.cities = cities;
+    }, function (error) {
+      console.error('ERROR', error);
     });
+  };
+
   console.log('ERP HOME CONTROLLER');
 }
 

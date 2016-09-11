@@ -4,10 +4,10 @@ function OnInterceptor(
   RestangularProvider) {
 
   'ngInject';
-  console.log('INTERCEPTOR');
+
+
   // TODO: melhorar o interceptador da resposta...
   RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
-    console.log('RestangularProvider response', response);
     if (operation == "getList") {
       var responseData = response.data;
       if (responseData.total == undefined) return responseData.data;
@@ -25,52 +25,51 @@ function OnInterceptor(
     return response.data;
   });
 
-/*
-  jwtInterceptorProvider.tokenGetter = ['config', function(config) {
-    var patt = new RegExp("/api/");
-    
-    if (config.url.substr(config.url.length - 5) == '.html' || !patt.test(config.url)) {
-      return null;
-    }
-    console.log('CONFIG', config);
-    //return localStorage.getItem('JWT');
-  }];
-  $httpProvider.interceptors.push('jwtInterceptor');
-*/
   jwtOptionsProvider.config({
-      tokenGetter: ['options', 'PublicTokenService', function(options, PublicTokenService) {
+      //whiteListedDomains: ['api.agenciadigitala.local', 'api.agenciadigitala.com.br'],
+      tokenGetter: ['options', 'PublicTokenService', 'jwtHelper', function(options, PublicTokenService, jwtHelper) {
 
-      var publicApi = new RegExp("/api/public/");
-      var privateApi = new RegExp("/api/private/");
+        var publicApi = new RegExp("/api/public/");
+        var privateApi = new RegExp("/api/private/");
+        var refreshToken = function () {
+          PublicTokenService.get().then(function(token) {
+            //console.log('Token valido até ' + jwtHelper.getTokenExpirationDate(token));
+            return token;
+          }).then(function(err) {
+            console.error('Error', err);
+            throw 'Where the hell is the fuckin\' token? Error: ' + err;
+          });;
+        }
 
-      if (options.url.substr(options.url.length - 5) == '.html' || !publicApi.test(options.url)) {
-        return null;
-      }
+        if (options.url.substr(options.url.length - 5) == '.html' && !publicApi.test(options.url) && !privateApi.test(options.url)) {
+          return null;
+        }
 
-      if (publicApi.test(options.url)) {
-        PublicTokenService.get();
-        return localStorage.getItem('publicToken');
-      }
+        // public api...
+        if (publicApi.test(options.url)) {
+          //return refreshToken();
+          //console.log('tenho token?');
+          if (!localStorage.getItem('publicToken') || localStorage.getItem('publicToken') === null) {
+            //console.log('Viiiiishh, que descuido o meu, estou sem token. Deixa eu providenciar um novinho em folha para você, meu caro.');
+            return refreshToken();
+          }
 
-      if (privateApi.test(options.url)) {
-        //return localStorage.getItem('privateToken');
-      }
+          if (jwtHelper.isTokenExpired(localStorage.getItem('publicToken'))) {
+            //console.log('Tenho, mas ele já expirou. Calma ai que eu vou preparar um quentinho só pra você...');
+            return refreshToken();
+          }
+          //console.log('Ufa! Tenho sim, segura!');
+          return localStorage.getItem('publicToken');
+        }
 
-    }]
+        if (privateApi.test(options.url)) {
+          //return localStorage.getItem('privateToken');
+        }
+
+      }]
   });
 
   $httpProvider.interceptors.push('jwtInterceptor');
-
-  // jwtInterceptorProvider.tokenGetter = ['config', function(config) {
-  //   var patt = new RegExp("/api/");
-  //   if (config.url.substr(config.url.length - 5) == '.html' || !patt.test(config.url)) {
-  //     return null;
-  //   }
-  //   return localStorage.getItem('JWT');
-  // }];
-
-  // $httpProvider.interceptors.push('RestInterceptor');
-  // $httpProvider.interceptors.push('jwtInterceptor')
 
 }
 

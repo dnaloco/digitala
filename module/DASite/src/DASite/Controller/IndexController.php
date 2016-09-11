@@ -16,10 +16,19 @@ use Monolog\Handler\FirePHPHandler;
 
 
 class IndexController extends AbstractActionController
+implements \DACore\Controller\Aware\ApcCacheAwareInterface
 {
+    protected $cache;
+
+    public function setCache($cache)
+    {
+        $this->cache = $cache;
+    }
 
     public function indexAction()
     {
+        /*$this->cache->setItem('foo', 'bar asda ds asda  dasadsad adadsas ada  asd asdas addsa');
+        var_dump($this->cache->getItem('foo'));die;*/
     	// create a log channel
 /*		$log = new Logger('MyLogger');
 		$log->pushHandler(new StreamHandler('./log/my_app.log', Logger::DEBUG));

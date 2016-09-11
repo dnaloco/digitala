@@ -8,6 +8,10 @@ RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^.*$ - [NC,L]
 RewriteRule ^build/.*$ /build/index.php [NC,L]
 
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE, PUT"
+Header always set Access-Control-Allow-Headers "x-requested-with, content-type, origin, authorization, accept, client-security-token"
+Header always set Access-Control-Max-Age "3600"
 
 <IfModule mod_expires>
 	ExpiresActive On

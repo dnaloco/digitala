@@ -3,9 +3,11 @@
 return array(
     'DABase\Module'                             => __DIR__ . '/Module.php',
     'DABase\Controller\PreUploadRestController' => __DIR__ . '/src/DABase/Controller/PreUploadRestController.php',
+    'DABase\Controller\CityRestController'      => __DIR__ . '/src/DABase/Controller/CityRestController.php',
     'DABase\Fixture\BrasilLoad'                 => __DIR__ . '/src/DABase/Fixture/BrasilLoad.php',
     'DABase\Fixture\CitiesLoad'                 => __DIR__ . '/src/DABase/Fixture/CitiesLoad.php',
     'DABase\Fixture\StatesLoad'                 => __DIR__ . '/src/DABase/Fixture/StatesLoad.php',
+    'DABase\Service\City'                       => __DIR__ . '/src/DABase/Service/City.php',
     'DABase\Service\MyUpload'                   => __DIR__ . '/src/DABase/Service/MyUpload.php',
     'DABase\Entity\City'                        => __DIR__ . '/src/DABase/Entity/City.php',
     'DABase\Entity\Image'                       => __DIR__ . '/src/DABase/Entity/Image.php',

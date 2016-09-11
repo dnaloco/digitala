@@ -9,11 +9,6 @@ class IndexFactoryController implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        // $sm = $serviceLocator->getServiceLocator();
-        // $mail = $sm->get('DACore\Mail\MailService');
 
         return new IndexController();
     }
