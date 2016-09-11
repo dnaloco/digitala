@@ -64,23 +64,29 @@ class PublicTokenRestController extends AbstractRestfulController
 
         return $token;
     }
+
     public function getList()
     {
+        //var_dump($_SERVER);die;
         if (!isset($_SERVER['HTTP_ORIGIN'])) {
             $this->response->setStatusCode(400);
             throw new HttpStatusCodeException('Bad Request: Preciso saber qual a origem desta requisição', 400);
         }
 
-        //var_dump($_SERVER['HTTP_REFERER']);die;
+        $dotenv = new \Dotenv\Dotenv(getcwd() . '/config');
+        $dotenv->load();
+
+        if (!in_array($_SERVER['HTTP_ORIGIN'], explode(';', getenv('API_AUDIENCES')))) {
+            $this->response->setStatusCode(400);
+            throw new HttpStatusCodeException('Bad Request: Origem inválida.', 400);
+        }
+
         $token = new ValidationData();
         $strToken = null;
         $parsedToken = null;
 
-        $dotenv = new \Dotenv\Dotenv(getcwd() . '/config');
-        $dotenv->load();
-
         $api_issuer = getenv('API_ISSUER');
-        $api_audience = $_SERVER['HTTP_ORIGIN'];
+        $api_audience = getenv('API_AUDIENCES');
 
         $api_uid = md5(uniqid(rand(), true));
         $api_signer = new Sha256();

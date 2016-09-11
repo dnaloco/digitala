@@ -42,16 +42,27 @@ trait CheckTokenStrategy
     }
 
 	// TODO: implement this method...
+    // THE TRICK PART: Se o usuário tentar acessar está api sem ser pelo subdominio 'api', ele dará token inválido :)
 	public function checkToken()
 	{
         //if (!isset($this->aclResource)) return $this->status
         if (!isset($this->token)) return $this->statusBadRequest($this->badRequestError ?? 'SERVER ERROR!!! First, you need to execute "checkAuthorization" method.');
 
+        if (!isset($_SERVER['HTTP_ORIGIN'])) {
+            $this->statusBadRequest('Preciso saber qual a origem desta requisição.');
+        }
+
+        $dotenv = new \Dotenv\Dotenv(getcwd() . '/config');
+        $dotenv->load();
+
+        if (!in_array($_SERVER['HTTP_ORIGIN'], explode(';', getenv('API_AUDIENCES')))) {
+            $this->statusBadRequest('Origem inválida.');
+        }
 
         $parsedToken = (new Parser())->parse((string) $this->token);
 
-        $data_issuer = 'api.agenciadigitala.local';
-        $data_audience = 'api.agenciadigitala.local';
+        $data_issuer = $_SERVER['HTTP_HOST'];
+        $data_audience = getenv('API_AUDIENCES');
 
         $parsed_jti = $parsedToken->getHeader('jti');
         $parsed_ip = $parsedToken->getClaim('ip');
