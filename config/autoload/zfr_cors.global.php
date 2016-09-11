@@ -4,22 +4,17 @@
  * This is the config file for ZfrCors. Just drop this file into your config/autoload folder (don't
  * forget to remove the .dist extension from the file), and configure it as you want
  */
+//$dotenv = new \Dotenv\Dotenv('./config');
+
+$dotenv = new \Dotenv\Dotenv(getcwd() . '/config');
+$dotenv->load();
 
 return [
     'zfr_cors' => [
          /**
           * Set the list of allowed origins domain with protocol.
           */
-         'allowed_origins' => [
-            'http://erp.agenciadigitala.local:8080',
-            'http://erp.agenciadigitala.local:80',
-            'http://www.agenciadigitala.local:8080',
-            'http://www.agenciadigitala.local:80',
-            'http://api.agenciadigitala.local:8080',
-            'http://api.agenciadigitala.local:80',
-            'PostmanApp',
-            'PythonTestApp',
-          ],
+         'allowed_origins' => explode(';', getenv('API_AUDIENCES')),
 
          /**
           * Set the list of HTTP verbs.

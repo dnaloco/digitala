@@ -45,6 +45,7 @@ trait CheckTokenStrategy
     // THE TRICK PART: Se o usuário tentar acessar está api sem ser pelo subdominio 'api', ele dará token inválido :)
 	public function checkToken()
 	{
+
         //if (!isset($this->aclResource)) return $this->status
         if (!isset($this->token)) return $this->statusBadRequest($this->badRequestError ?? 'SERVER ERROR!!! First, you need to execute "checkAuthorization" method.');
 
@@ -59,6 +60,8 @@ trait CheckTokenStrategy
             $this->statusBadRequest('Origem inválida.');
         }
 
+        //var_dump($this->token);die;
+
         $parsedToken = (new Parser())->parse((string) $this->token);
 
         $data_issuer = $_SERVER['HTTP_HOST'];
@@ -68,9 +71,15 @@ trait CheckTokenStrategy
         $parsed_ip = $parsedToken->getClaim('ip');
         $parsed_access = $parsedToken->getClaim('access');
 
+        /*var_dump($_SERVER['HTTP_HOST']);
+        var_dump($parsedToken->getClaim('iss') === $_SERVER['HTTP_HOST']);
+        var_dump($parsedToken->getClaim('aud'));
+
+        die;*/
+
         $token = new ValidationData();
-        $token->setIssuer($data_issuer);
-        $token->setAudience($data_audience);
+        $token->setIssuer($_SERVER['HTTP_HOST']);
+        $token->setAudience(getenv('API_AUDIENCES'));
         $token->setId($parsed_jti);
 
         if ($parsedToken->validate($token)) {

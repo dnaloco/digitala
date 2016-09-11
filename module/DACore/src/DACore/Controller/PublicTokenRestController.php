@@ -67,19 +67,8 @@ class PublicTokenRestController extends AbstractRestfulController
 
     public function getList()
     {
-        //var_dump($_SERVER);die;
-        if (!isset($_SERVER['HTTP_ORIGIN'])) {
-            $this->response->setStatusCode(400);
-            throw new HttpStatusCodeException('Bad Request: Preciso saber qual a origem desta requisição', 400);
-        }
-
         $dotenv = new \Dotenv\Dotenv(getcwd() . '/config');
         $dotenv->load();
-
-        if (!in_array($_SERVER['HTTP_ORIGIN'], explode(';', getenv('API_AUDIENCES')))) {
-            $this->response->setStatusCode(400);
-            throw new HttpStatusCodeException('Bad Request: Origem inválida.', 400);
-        }
 
         $token = new ValidationData();
         $strToken = null;

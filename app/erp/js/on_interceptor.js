@@ -27,30 +27,42 @@ function OnInterceptor(
 
   jwtOptionsProvider.config({
       whiteListedDomains: ['api.agenciadigitala.local', 'api.agenciadigitala.com.br'],
-      tokenGetter: ['options', 'PublicTokenService', 'jwtHelper', function(options, PublicTokenService, jwtHelper) {
+      tokenGetter: ['options', 'PublicTokenService', 'jwtHelper', '$q', function(options, PublicTokenService, jwtHelper, $q) {
 
         //return 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6IjVkZGMzZGI0YjAwZDJkZTRlYTllODYzOTNmYTYwOTUxIn0.eyJpc3MiOiJhcGkuYWdlbmNpYWRpZ2l0YWxhLmxvY2FsIiwiYXVkIjoiYXBpLmFnZW5jaWFkaWdpdGFsYS5sb2NhbCIsImp0aSI6IjVkZGMzZGI0YjAwZDJkZTRlYTllODYzOTNmYTYwOTUxIiwiaWF0IjoxNDczNjIzNDE1LCJuYmYiOjE0NzM2MjM0MTUsImV4cCI6MTQ3MzYyNzAxNSwiYWNjZXNzIjoicHVibGljIiwiaXAiOiIxMjcuMC4wLjEiLCJ1aWQiOiI1ZGRjM2RiNGIwMGQyZGU0ZWE5ZTg2MzkzZmE2MDk1MSJ9.KbKECjchC1b_avaob9m543bVYRbqCk9tv7c7PZMpC80';
+        
 
         var publicApi = new RegExp("/api/public/");
         var privateApi = new RegExp("/api/private/");
+
+        var refreshToken = function() {
+          var deferred = $q.defer();
+
+          PublicTokenService.get().then(function(token) {
+            deferred.resolve(token);
+          });
+
+          return deferred.promise;
+        }
 
 
         if (options.url.substr(options.url.length - 5) == '.html' && !publicApi.test(options.url) && !privateApi.test(options.url)) {
           return null;
         }
 
+        //return localStorage.getItem('publicToken');
         // public api...
         if (publicApi.test(options.url)) {
           //return refreshToken();
           //console.log('tenho token?');
           if (!localStorage.getItem('publicToken') || localStorage.getItem('publicToken') === null) {
             //console.log('Viiiiishh, que descuido o meu, estou sem token. Deixa eu providenciar um novinho em folha para você, meu caro.');
-            PublicTokenService.get().then(function(token) {return token;});
+            return refreshToken();
           }
 
           if (jwtHelper.isTokenExpired(localStorage.getItem('publicToken'))) {
             //console.log('Tenho, mas ele já expirou. Calma ai que eu vou preparar um quentinho só pra você...');
-            PublicTokenService.get().then(function(token) {return token;});
+            return refreshToken();
           }
           //console.log('Ufa! Tenho sim, segura!');
           return localStorage.getItem('publicToken');
