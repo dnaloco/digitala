@@ -7,10 +7,10 @@ function HomeController(CityService) {
 
   vm.callCities = function () {
     CityService.getList({
-        'limit': 10,
-        'offset': 0,
-        'where[]': [],
-        'options[]': []
+      'limit': 10,
+      'offset': 0,
+      'where[]': [],
+      'options[]': []
     }).then(function (cities) {
         vm.cities = cities;
         console.log('CIDADES', cities);

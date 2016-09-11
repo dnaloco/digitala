@@ -12,7 +12,7 @@ return array(
         // Vendor
         /*'ZendDeveloperTools',
         'BjyProfiler',*/
-
+        'ZfrCors',
         'DoctrineModule',
         'DoctrineORMModule',
         'DoctrineDataFixtureModule',

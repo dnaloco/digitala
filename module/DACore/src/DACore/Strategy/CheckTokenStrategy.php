@@ -50,8 +50,8 @@ trait CheckTokenStrategy
 
         $parsedToken = (new Parser())->parse((string) $this->token);
 
-        $data_issuer = $_SERVER['HTTP_HOST'];
-        $data_audience = $_SERVER['HTTP_REFERER'];
+        $data_issuer = 'api.agenciadigitala.local';
+        $data_audience = 'api.agenciadigitala.local';
 
         $parsed_jti = $parsedToken->getHeader('jti');
         $parsed_ip = $parsedToken->getClaim('ip');
@@ -70,16 +70,16 @@ trait CheckTokenStrategy
                             if ($parsed_ip == $_SERVER['REMOTE_ADDR']) {
                                 return;
                             }
-                            return $this->statusBadRequest('Ummmm. This is awkward! code: 123 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
+                            return $this->statusBadRequest('Code: 123 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
                             break;
                         case 'private':
                             $parsed_uid = $parsedToken->getClaim('uid');
                             $user = $this->checkUser($parsed_uid);
                             $parsed_role = $parsedToken->getClaim('role');
 
-                            if (!$user) return $this->statusBadRequest('Ummmm. This is awkward! code: 234 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
+                            if (!$user) return $this->statusBadRequest('Code: 234 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
 
-                            if ($parsed_role != $this->role) return $this->statusBadRequest('Ummmm. This is awkward! code: 345 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
+                            if ($parsed_role != $this->role) return $this->statusBadRequest('Code: 345 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
 
                             $roles = $user->getRoles();
                             $hasRole = false;
@@ -91,14 +91,14 @@ trait CheckTokenStrategy
                                 }
                             }
 
-                            if (!$hasRole) return $this->statusBadRequest('Ummmm. This is awkward! code: 456 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
+                            if (!$hasRole) return $this->statusBadRequest('Code: 456 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
                             // TODO: continuar a implementação...
                             // checar se a role do usuário tem privilegio ao recurso dado...
                             // 
 
                             break;
                         default:
-                            return $this->statusBadRequest('Ummmm. This is awkward! code: 567 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
+                            return $this->statusBadRequest('Code: 567 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
                     }
                 }
             }
@@ -109,6 +109,7 @@ trait CheckTokenStrategy
 
     public function checkAuthorization($headers, $method)
     {
+
         $this->badRequestError = null;
         if ($headers->has('Authorization')) {
             $auhtorization = $headers->get('Authorization');
@@ -124,7 +125,7 @@ trait CheckTokenStrategy
                     $this->role = $this->aclRules[$method][self::ACL_RULES['ROLE']];
                     $this->privilege = $this->aclRules[$method][self::ACL_RULES['PRIVILEGE']];
                 } else {
-                    $this->badRequestError = 'Invalid schema. Only Bearer supported. Read about "JWT token" anyway.';
+                    $this->badRequestError = 'Invalid schema. Only Bearer supported. Read about JWT token.';
                 }
             } else {
                 $this->badRequestError = 'Invalid token format. Maybe you forgot the schema of the given token.';

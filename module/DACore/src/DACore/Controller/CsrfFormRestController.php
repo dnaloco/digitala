@@ -8,7 +8,7 @@ use Zend\EventManager\EventManagerInterface;
 class CsrfFormRestController extends AbstractRestfulController
 {
     protected $collectionOptions = array('GET', 'OPTIONS');
-    protected $resourceOptions = array('DELETE');
+    protected $resourceOptions = array();
 
     public function setEventManager(EventManagerInterface $events)
     {
@@ -45,9 +45,4 @@ class CsrfFormRestController extends AbstractRestfulController
         return new JsonModel(array('formToken' => $_SESSION[$_GET['formToken']]));
     }
 
-    public function delete($id)
-    {
-        session_name('CRSF_FORM');
-        session_destroy();
-    }
 }

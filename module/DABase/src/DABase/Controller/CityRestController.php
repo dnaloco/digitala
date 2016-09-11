@@ -33,6 +33,8 @@ implements CheckTokenStrategyInterface
 
     public function checkOptions($e)
     {
+        //var_dump(apache_request_headers());die;
+        //var_dump($_SERVER['HTTP_REFERER']);die;
         $matches =  $e->getRouteMatch();
         $response = $e->getResponse();
         $request =  $e->getRequest();
@@ -57,8 +59,7 @@ implements CheckTokenStrategyInterface
 
     public function getList()
     {
-        
-        //var_dump($this->getRequest()->getHeader('authorization'));die;
+        //var_dump($_SERVER);die;
         $sortBy = array();
         $where = array();
         $limit = $_GET['limit'] ?? 10;

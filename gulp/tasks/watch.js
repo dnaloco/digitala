@@ -18,8 +18,13 @@ gulp.task('blogWatch', ['browserBlog'], function() {
   	return watch('blog', config.blog.scripts.src, config.blog.styles.src, config.blog.images.src, config.blog.fonts.src, config.blog.views.watch);
 });
 
-gulp.task('siteWatch', ['browserSite'], function() {
-  	return watch('site', config.site.scripts.src, config.site.styles.src, config.site.images.src, config.fonts.src, config.site.views.watch);
+gulp.task('siteWatch', ['siteBrowser'], function() {
+  	return watch('site',
+      config.site.scripts.src,
+      config.site.styles.src,
+      config.site.images.src,
+      config.fonts.src,
+      config.site.views.watch);
 });
 
 gulp.task('erpWatch', ['erpBrowser'], function() {

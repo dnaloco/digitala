@@ -6,7 +6,7 @@ use Zend\View\Model\JsonModel;
 use Lcobucci\JWT\Parser;
 
 use DACore\Controller\Aware\FirephpAwareInterface;
-use DACore\Crud\HttpStatusCodeException;
+use DACore\Exception\HttpStatusCodeException;
 
 abstract class AbstractCrudRestController extends AbstractRestfulController implements ResponsesInterface, SerializerInterface, FirephpAwareInterface
 {
@@ -49,7 +49,6 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
         if (!in_array($method, $this->collectionOptions)) {
             return $this->statusMethodNotAllowed();
         }
-        return;
     }
 
     public function getList()

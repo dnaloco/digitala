@@ -10,6 +10,8 @@ use Lcobucci\JWT\ValidationData;
 use Lcobucci\JWT\Parser;
 use DACore\Controller\Aware\ApcCacheAwareInterface;
 
+use DACore\Exception\HttpStatusCodeException;
+
 class PublicTokenRestController extends AbstractRestfulController
 {
     protected $collectionOptions = array('GET', 'OPTIONS');
@@ -64,15 +66,21 @@ class PublicTokenRestController extends AbstractRestfulController
     }
     public function getList()
     {
+        if (!isset($_SERVER['HTTP_ORIGIN'])) {
+            $this->response->setStatusCode(400);
+            throw new HttpStatusCodeException('Bad Request: Preciso saber qual a origem desta requisição', 400);
+        }
+
+        //var_dump($_SERVER['HTTP_REFERER']);die;
         $token = new ValidationData();
         $strToken = null;
         $parsedToken = null;
 
-        $api_issuer = $_SERVER['HTTP_HOST'];
-        $api_audience = $_SERVER['HTTP_REFERER'] ?? 'whereItCameFrom';
-
         $dotenv = new \Dotenv\Dotenv(getcwd() . '/config');
         $dotenv->load();
+
+        $api_issuer = getenv('API_ISSUER');
+        $api_audience = $_SERVER['HTTP_ORIGIN'];
 
         $api_uid = md5(uniqid(rand(), true));
         $api_signer = new Sha256();

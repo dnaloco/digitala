@@ -29,7 +29,12 @@ gulp.task('blogViews', function() {
 
 gulp.task('siteViews', function() {
 
-  return views(config.site.layout.site01.src, config.site.views.src, config.site.views.dest, config.site.layout.site01.phpLayout);
+  return views(
+    config.site.layout.src,
+    config.site.views.src,
+    config.site.views.dest,
+    config.site.layout.phpLayout,
+    config.php.layout.site);
 });
 
 gulp.task('erpViews', function() {

@@ -10,13 +10,14 @@ function PublicTokenService($http) {
         skipAuthorization: true,
         method: 'GET'
       }).success((data) => {
+        console.info('novo token gerado...');
         var token = data.token;
         localStorage.setItem('publicToken', token);
         resolve(token);
       }).error((err, status) => {
-        console.error('Error on PublicTokenService', err + ' | STATUS: ' + status);
+        console.error('Erro ao gerar token', 'Erro: ' + err + ' | Status: ' + status);
         reject(err, status);
-      })
+      });
     });
   };
 

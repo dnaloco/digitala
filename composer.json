@@ -30,6 +30,7 @@
         "vlucas/phpdotenv": "^2.4",
         "monolog/monolog": "^1.21",
         "learnzf2/route-cache": "dev-master",
-        "facebook/graph-sdk": "^5.3"
+        "facebook/graph-sdk": "^5.3",
+        "zfr/zfr-cors": "1.*"
     }
 }

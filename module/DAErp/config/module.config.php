@@ -41,8 +41,9 @@ return [
     'view_manager' => [
         'template_map' => [
             'layout/erp' => __DIR__ . '/../view/layout/layout.erp.phtml',
-        ]
+        ],
+        'template_path_stack' => [
+            __DIR__ . '/../view',
+        ],
     ],
-
-
 ];

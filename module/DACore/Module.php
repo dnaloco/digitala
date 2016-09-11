@@ -5,7 +5,9 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\JsonModel;
 
+use Zend\Session\Config\SessionConfig;
 use Zend\Session\Container;
+use Zend\Session\SessionManager;
 
 class Module
 {
@@ -18,15 +20,29 @@ class Module
         $moduleRouteListener->attach($em);
         //$this->bootstrapSession($e);
 
-        $em->attach("finish", array($this, "compressOutput"), 100);
+        /*$em->attach("finish", array($this, "compressOutput"), 100);
 
         if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
             $em->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDispatchError'), 0);
             $em->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'onRenderError'), 0);
-        }
+        }*/
+        $this->initSession(array(
+            'remember_me_seconds' => 180,
+            'use_cookies' => true,
+            'cookie_httponly' => true,
+        ));
     }
 
-    public function bootstrapSession($e)
+    public function initSession($config)
+    {
+        $sessionConfig = new SessionConfig();
+        $sessionConfig->setOptions($config);
+        $sessionManager = new SessionManager($sessionConfig);
+        $sessionManager->start();
+        Container::setDefaultManager($sessionManager);
+    }
+
+    /*public function bootstrapSession($e)
     {
         $session = $e->getApplication()
                      ->getServiceManager()
@@ -68,7 +84,7 @@ class Module
                 }
             }
         }
-    }
+    }*/
 
     public function compressOutput($e)
     {

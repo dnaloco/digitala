@@ -15,7 +15,6 @@ function OnConfig(
 
   RestangularProvider.setBaseUrl(AppSettings.apiUrl);
 
-
 }
 
 export default OnConfig;
