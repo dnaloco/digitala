@@ -5,10 +5,25 @@ use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Zend\EventManager\EventManagerInterface;
 
+use Zend\Session\Config\SessionConfig;
+use Zend\Session\Container;
+use Zend\Session\SessionManager;
+use DACore\Controller\Aware\ApcCacheAwareInterface;
+
 class CsrfFormRestController extends AbstractRestfulController
+implements ApcCacheAwareInterface
 {
     protected $collectionOptions = array('GET', 'OPTIONS');
     protected $resourceOptions = array();
+
+    public function getCache($cache = null)
+    {
+        if(!isset($this->cache)) {
+            $this->cache = $cache;
+        }
+
+        return $this->cache;
+    }
 
     public function setEventManager(EventManagerInterface $events)
     {
@@ -36,13 +51,11 @@ class CsrfFormRestController extends AbstractRestfulController
 
     public function getList()
     {
-        session_name('CRSF_FORM');
+        if (!isset($_GET['formName'])) throw new \Exception('I couldn\'t generate the CSRF token. Contact the administrador of this api. Emails: arthur_scosta@yahoo.com.br or dnalogo@gmail.com. Sorry!');
 
-        if (!isset($_GET['formToken'])) throw new \Exception('I couldn\'t generate the CSRF token. Contact the administrador of this api. Emails: arthur_scosta@yahoo.com.br or dnalogo@gmail.com. Sorry!');
+        $this->cache->setItem($_GET['formName'], md5(uniqid(rand() . $_GET['formName'], true)));
 
-        $_SESSION[$_GET['formToken']] = md5(uniqid(rand() . $_GET['formToken'], true));
-
-        return new JsonModel(array('formToken' => $_SESSION[$_GET['formToken']]));
+        return new JsonModel(array('formToken' => $this->cache->getItem($_GET['formName'])));
     }
 
 }

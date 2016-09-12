@@ -3,5 +3,5 @@ namespace DACore\Controller\Aware;
 
 interface FirephpAwareInterface
 {
-	function getFirephp($firephp);
+	function getFirephp($firephp = null);
 }

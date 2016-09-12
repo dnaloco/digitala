@@ -71,7 +71,7 @@ return [
     'service_manager' => [
         'factories' => [
             'DACore\Mail\MailService' => 'DACore\Mail\Factory\MailServiceFactory',
-            'Zend\Session\SessionManager' => function ($sm) {
+            /*'Zend\Session\SessionManager' => function ($sm) {
                 $config = $sm->get('config');
                 if (isset($config['session'])) {
                     $session = $config['session'];
@@ -102,7 +102,7 @@ return [
                 }
                 Container::setDefaultManager($sessionManager);
                 return $sessionManager;
-            },
+            },*/
         ],
         'abstract_factories' => [
             'DACore\Factory\AbsctractRestServiceFactory',

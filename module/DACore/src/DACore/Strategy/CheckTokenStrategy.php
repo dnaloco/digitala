@@ -60,22 +60,11 @@ trait CheckTokenStrategy
             $this->statusBadRequest('Origem inválida.');
         }
 
-        //var_dump($this->token);die;
-
         $parsedToken = (new Parser())->parse((string) $this->token);
-
-        $data_issuer = $_SERVER['HTTP_HOST'];
-        $data_audience = getenv('API_AUDIENCES');
 
         $parsed_jti = $parsedToken->getHeader('jti');
         $parsed_ip = $parsedToken->getClaim('ip');
         $parsed_access = $parsedToken->getClaim('access');
-
-        /*var_dump($_SERVER['HTTP_HOST']);
-        var_dump($parsedToken->getClaim('iss') === $_SERVER['HTTP_HOST']);
-        var_dump($parsedToken->getClaim('aud'));
-
-        die;*/
 
         $token = new ValidationData();
         $token->setIssuer($_SERVER['HTTP_HOST']);
@@ -86,12 +75,14 @@ trait CheckTokenStrategy
             if ($data_access = $parsedToken->getClaim('access')) {
                 if ($data_access == $this->access) {
                     switch($data_access) {
+                        // token publico...
                         case 'public':
                             if ($parsed_ip == $_SERVER['REMOTE_ADDR']) {
                                 return;
                             }
                             return $this->statusBadRequest('Code: 123 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
                             break;
+                        // validar token privado. Obtido ao usuário se logar...
                         case 'private':
                             $parsed_uid = $parsedToken->getClaim('uid');
                             $user = $this->checkUser($parsed_uid);

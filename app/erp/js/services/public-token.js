@@ -3,7 +3,7 @@ function PublicTokenService($http) {
 
   const service = {};
 
-  service.get = function() {
+  service.getToken = function() {
     return new Promise((resolve, reject) => {
       $http({
         url: '/api/public/public-token',
@@ -12,7 +12,6 @@ function PublicTokenService($http) {
       }).success((data) => {
         console.info('novo token gerado...');
         var token = data.token;
-        localStorage.setItem('publicToken', token);
         resolve(token);
       }).error((err, status) => {
         console.error('Erro ao gerar token', 'Erro: ' + err + ' | Status: ' + status);

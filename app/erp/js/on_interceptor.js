@@ -5,6 +5,7 @@ function OnInterceptor(
 
   'ngInject';
 
+  localStorage.removeItem('publicToken');
 
   // TODO: melhorar o interceptador da resposta...
   RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
@@ -25,12 +26,11 @@ function OnInterceptor(
     return response.data;
   });
 
+
+
   jwtOptionsProvider.config({
       whiteListedDomains: ['api.agenciadigitala.local', 'api.agenciadigitala.com.br'],
       tokenGetter: ['options', 'PublicTokenService', 'jwtHelper', '$q', function(options, PublicTokenService, jwtHelper, $q) {
-
-        //return 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6IjVkZGMzZGI0YjAwZDJkZTRlYTllODYzOTNmYTYwOTUxIn0.eyJpc3MiOiJhcGkuYWdlbmNpYWRpZ2l0YWxhLmxvY2FsIiwiYXVkIjoiYXBpLmFnZW5jaWFkaWdpdGFsYS5sb2NhbCIsImp0aSI6IjVkZGMzZGI0YjAwZDJkZTRlYTllODYzOTNmYTYwOTUxIiwiaWF0IjoxNDczNjIzNDE1LCJuYmYiOjE0NzM2MjM0MTUsImV4cCI6MTQ3MzYyNzAxNSwiYWNjZXNzIjoicHVibGljIiwiaXAiOiIxMjcuMC4wLjEiLCJ1aWQiOiI1ZGRjM2RiNGIwMGQyZGU0ZWE5ZTg2MzkzZmE2MDk1MSJ9.KbKECjchC1b_avaob9m543bVYRbqCk9tv7c7PZMpC80';
-        
 
         var publicApi = new RegExp("/api/public/");
         var privateApi = new RegExp("/api/private/");
@@ -38,7 +38,8 @@ function OnInterceptor(
         var refreshToken = function() {
           var deferred = $q.defer();
 
-          PublicTokenService.get().then(function(token) {
+          PublicTokenService.getToken().then(function(token) {
+            localStorage.setItem('publicToken', token);
             deferred.resolve(token);
           });
 
@@ -54,17 +55,18 @@ function OnInterceptor(
         // public api...
         if (publicApi.test(options.url)) {
           //return refreshToken();
-          //console.log('tenho token?');
-          if (!localStorage.getItem('publicToken') || localStorage.getItem('publicToken') === null) {
-            //console.log('Viiiiishh, que descuido o meu, estou sem token. Deixa eu providenciar um novinho em folha para você, meu caro.');
+          console.log('tenho token?', localStorage.getItem('publicToken'));
+
+          if (localStorage.getItem('publicToken') === null || localStorage.getItem('publicToken') === undefined) {
+            console.log('Não. Gerando um novo.');
             return refreshToken();
           }
 
           if (jwtHelper.isTokenExpired(localStorage.getItem('publicToken'))) {
-            //console.log('Tenho, mas ele já expirou. Calma ai que eu vou preparar um quentinho só pra você...');
+            console.log('Tenho, mas expirou.');
             return refreshToken();
           }
-          //console.log('Ufa! Tenho sim, segura!');
+          console.log('Tenho.');
           return localStorage.getItem('publicToken');
         }
 

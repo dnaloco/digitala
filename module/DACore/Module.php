@@ -9,11 +9,15 @@ use Zend\Session\Config\SessionConfig;
 use Zend\Session\Container;
 use Zend\Session\SessionManager;
 
+use Zend\Uri\UriFactory;
+
 class Module
 {
 
     public function onBootstrap(MvcEvent $e)
     {
+        UriFactory::registerScheme('chrome-extension', 'Zend\Uri\Uri');
+
         $sm = $e->getApplication()->getServiceManager();
         $em = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
@@ -26,13 +30,15 @@ class Module
             $em->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDispatchError'), 0);
             $em->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'onRenderError'), 0);
         }*/
-        $this->initSession(array(
+        /*$this->initSession(array(
             'remember_me_seconds' => 180,
             'use_cookies' => true,
-            'cookie_httponly' => true,
-        ));
+            'name' => 'ADA_SESSION',
+            'cookie_domain' => '.agenciadigitala.local',
+            //'cookie_httponly' => true,
+        ));*/
     }
-
+/*
     public function initSession($config)
     {
         $sessionConfig = new SessionConfig();
@@ -40,7 +46,7 @@ class Module
         $sessionManager = new SessionManager($sessionConfig);
         $sessionManager->start();
         Container::setDefaultManager($sessionManager);
-    }
+    }*/
 
     /*public function bootstrapSession($e)
     {

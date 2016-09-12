@@ -3,5 +3,5 @@ namespace DACore\Controller\Aware;
 
 interface ApcCacheAwareInterface
 {
-	function getCache($cache);
+	function getCache($cache = null);
 }

@@ -20,7 +20,7 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
         $this->service = $service;
     }
 
-    public function getFirephp($firephp) {
+    public function getFirephp($firephp = null) {
         if (!isset($this->firephp)) {
             $this->firephp = $firephp;
         }
