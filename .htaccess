@@ -14,9 +14,9 @@ RewriteRule ^build/.*$ /build/index.php [NC,L]
 #AddType text/css .css
 #AddType text/javascript .js
 
-#Header set Access-Control-Allow-Origin *
-#Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE"
-#Header always set Access-Control-Allow-Headers "x-requested-with,Content-Type, origin,authorization, accept,client-security-token"
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE"
+Header always set Access-Control-Allow-Headers "x-requested-with,Content-Type, origin,authorization, accept,client-security-token"
 
 #Header set Access-Control-Allow-Origin *
 #Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE, PUT"

@@ -16,6 +16,15 @@ return [
                     ],
                 ],
             ],
+            'dauser-user-login' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/api/public/login[/]',
+                    'defaults' => [
+                        'controller' => 'DAUser\Controller\UserLoginRest',
+                    ],
+                ],
+            ]
         ],
     ],
 
@@ -35,6 +44,10 @@ return [
     'service_rest_controller' => [
         'DAUser\Controller\UsersRest' => [
             'class_name' => 'DAUser\Controller\UserRestController',
+            'service' => 'DAUser\Service\User'
+        ],
+        'DAUser\Controller\UserLoginRest' => [
+            'class_name' => 'DAUser\Controller\UserLoginRestController',
             'service' => 'DAUser\Service\User'
         ]
     ],

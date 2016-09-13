@@ -1,17 +1,22 @@
 function CityService(Restangular) {
   'ngInject';
 
-  const service = Restangular.service('public/cities');;
 
-/*  service.get = function() {
-    return new Promise((resolve, reject) => {
-      $http.get('http://api.agenciadigitala.local/api/public/cities').success((data) => {
-        resolve(data);
-      }).error((err, status) => {
-        reject(err, status);
-      });
-    });
-  };*/
+  var publicUrl = 'public/cities';
+  var privateUrl = 'private/cities';
+
+  const service = {
+    getCities: getCities,
+    getCity: getCity
+  };
+
+  function getCities(options) {
+    return Restangular.all(privateUrl).getList(options);
+  }
+
+  function getCity(cityId, options) {
+    return Restangular.one(publicUrl, cityId).get(options);
+  }
 
   return service;
 

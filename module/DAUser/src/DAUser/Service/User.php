@@ -3,7 +3,7 @@ namespace DAUser\Service;
 
 use DACore\Crud\AbstractCrudService;
 use Doctrine\Common\Collections\ArrayCollection;
-use DACore\Strategy\{DataCheckerStrategyInterface, FilterStrategy, ValidationStrategy, DataCheckerStrategy};
+use DACore\Strategy\{DataCheckerStrategyInterface, DataCheckerStrategy};
 use DACore\Upload\MyUploadAwareInterface;
 
 class User extends AbstractCrudService
@@ -413,11 +413,6 @@ MyUploadAwareInterface
 		return new \DABase\Entity\Image($imageData);
 	}
 
-	public function filterNullData($data)
-	{
-
-	}
-
 	public function getPerson($key, $person)
 	{
 		$person = array_filter($person);
@@ -484,6 +479,8 @@ MyUploadAwareInterface
 
 	public function prepareDataToInsert(array $data)
 	{
+
+
 		$data = array_filter($data);
 		$key = 'user';
 
@@ -524,7 +521,7 @@ MyUploadAwareInterface
 			$data['errors'] = [];
 			$data['errors'] = static::getErrors();
 		}
-		
+		//var_dump($data);die;
 		return $data;
 	}
 

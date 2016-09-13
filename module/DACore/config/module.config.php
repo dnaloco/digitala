@@ -132,7 +132,7 @@ return [
                 }
 
                 if ($instance instanceof \DACore\Controller\Aware\FirephpAwareInterface) {
-                    $log = new Logger('MyLogger');
+                    $log = new Logger('DA_FirePHP_Logger');
                     $log->pushHandler(new FirePHPHandler());
 
                     $instance->getFirephp($log);

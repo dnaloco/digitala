@@ -24,9 +24,10 @@ return [
             'dabase-cities-rest' => [
                 'type' => 'Segment',
                 'options' => [
-                    'route' => '/api/public/cities[/:id]',
+                    'route' => '/api/:access/cities[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
+                        'access' => 'private|public'
                     ],
                     'defaults' => [
                         'controller' => 'DABase\Controller\CityRest',

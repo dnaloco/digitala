@@ -73,46 +73,38 @@ trait CheckTokenStrategy
 
         if ($parsedToken->validate($token)) {
             if ($data_access = $parsedToken->getClaim('access')) {
-                if ($data_access == $this->access) {
-                    switch($data_access) {
-                        // token publico...
-                        case 'public':
-                            if ($parsed_ip == $_SERVER['REMOTE_ADDR']) {
-                                return;
-                            }
-                            return $this->statusBadRequest('Code: 123 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
+                if ($this->access === 'private' && $data_access === 'private') {
+                    // TODO: lógica de api privada...
+                    $parsed_uid = $parsedToken->getClaim('uid');
+                    $user = $this->checkUser($parsed_uid);
+                    $parsed_role = $parsedToken->getClaim('roles');
+
+                    var_dump(json_decode($parsed_role, true));die;
+
+                    if (!$user) return $this->statusBadRequest('Code: 234 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
+
+                    if ($parsed_role != $this->role) return $this->statusBadRequest('Code: 345 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
+
+                    $roles = $user->getRoles();
+                    $hasRole = false;
+
+                    foreach ($roles as $role) {
+                        if ($role->getName() == $this->role) {
+                            $hasRole = $role;
                             break;
-                        // validar token privado. Obtido ao usuário se logar...
-                        case 'private':
-                            $parsed_uid = $parsedToken->getClaim('uid');
-                            $user = $this->checkUser($parsed_uid);
-                            $parsed_role = $parsedToken->getClaim('role');
-
-                            if (!$user) return $this->statusBadRequest('Code: 234 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
-
-                            if ($parsed_role != $this->role) return $this->statusBadRequest('Code: 345 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
-
-                            $roles = $user->getRoles();
-                            $hasRole = false;
-
-                            foreach ($roles as $role) {
-                                if ($role->getName() == $this->role) {
-                                    $hasRole = $role;
-                                    break;
-                                }
-                            }
-
-                            if (!$hasRole) return $this->statusBadRequest('Code: 456 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
-                            // TODO: continuar a implementação...
-                            // checar se a role do usuário tem privilegio ao recurso dado...
-                            // 
-
-                            break;
-                        default:
-                            return $this->statusBadRequest('Code: 567 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
+                        }
                     }
                 }
+                if ($data_access == 'public') {
+                    if ($parsed_ip == $_SERVER['REMOTE_ADDR']) {
+                        return;
+                    }
+                    return $this->statusBadRequest('Code: 123 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
+
+                }
+                return $this->statusBadRequest('Code: 567 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
             }
+            return $this->statusBadRequest('Code: 567 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
         } else {
             return $this->statusBadRequest('TOKEN INVÁLIDO');
         }

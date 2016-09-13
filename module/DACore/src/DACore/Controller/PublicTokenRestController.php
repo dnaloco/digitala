@@ -6,8 +6,6 @@ use Zend\View\Model\JsonModel;
 use Zend\EventManager\EventManagerInterface;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
-use Lcobucci\JWT\ValidationData;
-use Lcobucci\JWT\Parser;
 use DACore\Controller\Aware\ApcCacheAwareInterface;
 
 use DACore\Exception\HttpStatusCodeException;
@@ -69,10 +67,6 @@ class PublicTokenRestController extends AbstractRestfulController
     {
         $dotenv = new \Dotenv\Dotenv(getcwd() . '/config');
         $dotenv->load();
-
-        $token = new ValidationData();
-        $strToken = null;
-        $parsedToken = null;
 
         $api_issuer = getenv('API_ISSUER');
         $api_audience = getenv('API_AUDIENCES');

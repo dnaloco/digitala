@@ -30,7 +30,7 @@ function OnInterceptor(
 
   jwtOptionsProvider.config({
       whiteListedDomains: ['api.agenciadigitala.local', 'api.agenciadigitala.com.br'],
-      tokenGetter: ['options', 'PublicTokenService', 'jwtHelper', '$q', function(options, PublicTokenService, jwtHelper, $q) {
+      tokenGetter: ['options', 'PublicTokenService', 'LoginService', 'jwtHelper', '$q', function(options, PublicTokenService, LoginService, jwtHelper, $q) {
 
         var publicApi = new RegExp("/api/public/");
         var privateApi = new RegExp("/api/private/");
@@ -72,6 +72,9 @@ function OnInterceptor(
 
         if (privateApi.test(options.url)) {
           //return localStorage.getItem('privateToken');
+
+          console.log('Has Private Token?', LoginService.getToken());
+          return LoginService.getToken();
         }
 
       }]

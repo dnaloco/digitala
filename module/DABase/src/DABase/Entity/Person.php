@@ -37,7 +37,7 @@ class Person implements PersonInterface
      * Sexo da pessoa(masculino ou feminino)
      * @var \DACore\Enum\GenderType
      *
-     * @ORM\Column(name="gender", type="enum_gendertype", nullable=false)
+     * @ORM\Column(name="gender", type="enum_gendertype", nullable=true)
      */
     protected $gender;
 

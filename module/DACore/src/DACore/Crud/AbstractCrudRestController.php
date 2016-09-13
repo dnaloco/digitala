@@ -72,7 +72,7 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
             $data = json_decode(static::getPropertyNamingSerializer()->serialize($data, 'json'), true);
             return new JsonModel(array('data' => $data, 'success' => true));
         }
-        $this->statusNoContent();
+
         return new JsonModel(array('data' => array(), 'success' => false));
     }
 
@@ -80,14 +80,14 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
     {
         $result = $this->service->insert($data);
         if (is_array($result) && isset($result['errors'])) {
-            $this->statusConflict();
+            $this->statusBadRequest(json_encode($result['errors']));
             return new JsonModel(array('data' => array(), 'success' => false, 'errors' => $result['errors']));
         }
         if ($result) {
             $data = json_decode(static::getPropertyNamingSerializer()->serialize($result, 'json'), true);
             return new JsonModel(array('data' => $data, 'success' => true));
         }
-        $this->statusConflict();
+
         return new JsonModel(array('data' => array(), 'success' => false));
     }
 
@@ -95,14 +95,14 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
     {
         $result = $this->service->update($data);
         if (isset($result['errors'])) {
-            $this->statusConflict();
+            $this->statusBadRequest(json_encode($result['errors']));
             return new JsonModel(array('data' => array(), 'success' => false, 'errors' => $data['errors']));
         }
         if ($result) {
             $data = json_decode(static::getPropertyNamingSerializer()->serialize($result, 'json'), true);
             return new JsonModel(array('data' => $data, 'success' => true));
         }
-        $this->statusNotModified();
+
         return new JsonModel(array('data' => array(), 'success' => false));
     }
 
@@ -115,13 +115,15 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
         return new JsonModel(array('data' => array(), 'success' => false));
     }
 
-    public function makeResponseStatus($message, $code, $firephpDebug = true, $throw = false)
+    public function makeResponseStatus($message, $code, array $context = array(), $firephpDebug = true, $throw = false)
     {
         $this->response->setStatusCode($code);
 
         if (isset($this->firephp) && $firephpDebug) {
-            $this->firephp->addInfo('Info about http status code');
-            $this->firephp->addError($message, array('http_code' => $code));
+            $this->firephp->addInfo('Info about http status code: (see below)');
+            $this->firephp->addError($message, $context);
+        } else {
+
         }
 
         if ($throw)
@@ -133,51 +135,76 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
         $this->response->setStatusCode(self::CODE_OK);
     }
 
-    function statusCreated($message = null)
+    function statusCreated($message = null, $resource = null)
     {
-        $message = 'New Resource Info: ' . $message;
-        $this->makeResponseStatus($message, self::CODE_CREATED, true);
+        $context = [
+            'http_code' => self::CODE_CREATED,
+            'http_status' => 'Created',
+            'resource_created' => $resource
+        ];
+        $this->makeResponseStatus($message,self::CODE_CREATED, $context, true);
     }
 
     function statusNotModified($message = null)
     {
-        $message = 'Not Modified Info: ' . $message;
-        $this->makeResponseStatus($message, self::CODE_NOT_MODIFIED, true, true);
+        $context = [
+            'http_code' => self::CODE_NOT_MODIFIED,
+            'http_status' => 'Not Modified'
+        ];
+        $this->makeResponseStatus($message, self::CODE_NOT_MODIFIED, $context, true, true);
     }
 
     function statusBadRequest($message = null)
     {
-        $message = 'Bad Request Info: ' . $message;
-        $this->makeResponseStatus($message, self::CODE_BAD_REQUEST, true, true);
+        $context = [
+            'http_code' => self::CODE_BAD_REQUEST,
+            'http_status' => 'Bad Request'
+        ];
+        $this->makeResponseStatus($message, self::CODE_BAD_REQUEST, $context, true, true);
     }
 
     function statusNotAuthorized($message = null)
     {
-        $message = 'Not Authorized Info: ' . $message;
-        $this->makeResponseStatus($message, self::CODE_NOT_AUTHORIZED, true, true);
+        $context = [
+            'http_code' => self::CODE_NOT_AUTHORIZED,
+            'http_status' => 'Not Authorized'
+        ];
+        $this->makeResponseStatus($message, self::CODE_NOT_AUTHORIZED, $context, true, true);
     }
 
     function statusForbidden($message = null)
     {
-        $message = 'Forbidden Info: ' . $message;
-        $this->makeResponseStatus($message, self::CODE_FORBIDDEN, true, true);
+        $context = [
+            'http_code' => self::CODE_FORBIDDEN,
+            'http_status' => 'Forbidden'
+        ];
+        $this->makeResponseStatus($message, self::CODE_FORBIDDEN, $context, true, true);
     }
 
     function statusResourceNotFound($message = null)
     {
-        $message = 'Resource Not Found Info: ' . $message;
-        $this->makeResponseStatus($message, self::CODE_RESOURCE_NOT_FOUND, true, true);
+        $context = [
+            'http_code' => self::CODE_RESOURCE_NOT_FOUND,
+            'http_status' => 'Resource Not Found'
+        ];
+        $this->makeResponseStatus($message, self::CODE_RESOURCE_NOT_FOUND, $context, true, true);
     }
 
     function statusMethodNotAllowed($message = null)
     {
-        $message = 'Method Not Allowed Info: ' . $message;
-        $this->makeResponseStatus($message, self::CODE_METHOD_NOT_ALLOWED, true, true);
+        $context = [
+            'http_code' => self::CODE_METHOD_NOT_ALLOWED,
+            'http_status' => 'Method Not Allowed'
+        ];
+        $this->makeResponseStatus($message, self::CODE_METHOD_NOT_ALLOWED, $context, true, true);
     }
 
     function statusServerError($message = null)
     {
-        $message = 'Server Error Info: ' . $message;
-        $this->makeResponseStatus($message, self::CODE_SERVER_ERROR, true, true);
+        $context = [
+            'http_code' => self::CODE_SERVER_ERROR,
+            'http_status' => 'Server Error'
+        ];
+        $this->makeResponseStatus($message, self::CODE_SERVER_ERROR, $context, true, true);
     }
 }

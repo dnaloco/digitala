@@ -25,7 +25,7 @@ abstract class AbstractCrudService implements PrepareDataInterface
 
 	abstract function prepareDataToUpdate(array $data);
 
-	protected function getRepository()
+	public function getRepository()
 	{
 		if (!isset($this->repository)) {
 			$this->repository = $this->em->getRepository($this->entity);
@@ -34,7 +34,7 @@ abstract class AbstractCrudService implements PrepareDataInterface
 		return $this->repository;
 	}
 
-	protected function getAnotherRepository($entity)
+	public function getAnotherRepository($entity)
 	{
 		return $this->em->getRepository($entity);
 	}

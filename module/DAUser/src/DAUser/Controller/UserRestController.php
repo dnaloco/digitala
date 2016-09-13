@@ -1,18 +1,60 @@
 <?php
 namespace DAUser\Controller;
 use DACore\Crud\AbstractCrudRestController;
-use DACore\Exception\HttpStatusCodeException;
 
-
-
-use Zend\Session\Config\SessionConfig;
-use Zend\Session\Container;
-use Zend\Session\SessionManager;
 use DACore\Controller\Aware\ApcCacheAwareInterface;
+use DACore\Crud\{CsrfTokenFormInterface, CsrfTokenStrategy};
+use DACore\Strategy\{CheckTokenStrategy, CheckTokenStrategyInterface};
 
 class UserRestController extends AbstractCrudRestController
-implements ApcCacheAwareInterface
+implements ApcCacheAwareInterface, CsrfTokenFormInterface, CheckTokenStrategyInterface
 {
+	use CsrfTokenStrategy;
+	use CheckTokenStrategy;
+
+	public function __construct($service)
+    {
+        parent::__construct($service);
+
+        if ($this instanceof CheckTokenStrategyInterface)
+        {
+            $this->aclResource = 'users';
+            $this->aclRules = [
+                self::ACL_RESOURCES['POST'] => [
+                    self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PUBLIC'],
+                    self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
+                    self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['SEE']
+                ],
+            ];
+        }
+    }
+
+    public function checkOptions($e)
+    {
+        //var_dump(apache_request_headers());die;
+        //var_dump($_SERVER['HTTP_REFERER']);die;
+        $matches =  $e->getRouteMatch();
+        $response = $e->getResponse();
+        $request =  $e->getRequest();
+        $method =   $request->getMethod();
+
+       if ($matches->getParam('id', false)) {
+            if (!in_array($method, $this->resourceOptions)) {
+                return $this->statusMethodNotAllowed('This method ' . $method . ' is not allowed on this api.');
+            }
+        }
+        if (!in_array($method, $this->collectionOptions)) {
+            return $this->statusMethodNotAllowed('This method ' . $method . ' is not allowed on this api.');
+        }
+
+        if ($this instanceof CheckTokenStrategyInterface) {
+            $headers = $request->getHeaders();
+            $authResponse = $this->checkAuthorization($headers, $method)->checkToken();
+            return $authResponse;
+        }
+
+    }
+	
 	public function getCache($cache = null)
     {
         if(!isset($this->cache)) {
@@ -22,39 +64,25 @@ implements ApcCacheAwareInterface
         return $this->cache;
     }
 
-	/*public function create($data)
-	{
-		$response = parent::create($data);
-		$variables = $response->getVariables();
-		if (isset($variables['errors']) || !$variables['success']) {
-            return $response;
-        }
-        $data = $variables['data'];
-		if (isset($data['id'])) {
-			$filteredUser = self::getFilteredUser($data);
-		}
-		$response->setVariable('data', $filteredUser);
-		return $response;
-	}*/
+    
 	public function create($data)
 	{
-		if (!isset($data['formName']) && !isset($data['formToken'])) {
-			$this->statusBadRequest('This form is invalid');
-			throw new HttpStatusCodeException('This form is invalid.', 400);
-		}
-		var_dump('from cache formToken ' . $this->cache->getItem($data['formName']));
-		var_dump('from form formToken ' . $data['formToken']);
-		die;
+		//var_dump($data);die;
+		$tokenKey = $this->checkCsrfToken($data);
 
 		$response = parent::create($data);
+
 		$variables = $response->getVariables();
 		if (isset($variables['errors']) || !$variables['success']) {
-            return $response;
+			return $response;
         }
+
         $data = $variables['data'];
+
 		if (isset($data['id'])) {
-			// excluir token...
+			$this->removeCsrfToken($tokenKey);
 		}
+
 		return $response;
 	}
 }

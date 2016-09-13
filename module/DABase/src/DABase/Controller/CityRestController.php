@@ -20,14 +20,14 @@ implements CheckTokenStrategyInterface
 
         if ($this instanceof CheckTokenStrategyInterface)
         {
-            $this->aclResource = 'city';
-            $this->aclRules = [
+            $this->aclResource = 'cities';
+/*            $this->aclRules = [
                 self::ACL_RESOURCES['GET'] => [
                     self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PUBLIC'],
                     self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
                     self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['SEE']
                 ],
-            ];
+            ];*/
         }
     }
 
