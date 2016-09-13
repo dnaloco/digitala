@@ -71,6 +71,14 @@ return [
     'service_manager' => [
         'factories' => [
             'DACore\Mail\MailService' => 'DACore\Mail\Factory\MailServiceFactory',
+            'DACore\Permissions\Acl' => function ($sm)
+            {
+                $em = $sm->get('Doctrine\ORM\EntityManager');
+
+                $repoRoles = $em->getRepository('DAAcl\Entity\Role');
+                $repoResources = $em->getRepository('DAAcl\Entity\Resource');
+                $repoPrivilege = $em->getRepository('DAAcl\Entity\Privilege');
+            },
             /*'Zend\Session\SessionManager' => function ($sm) {
                 $config = $sm->get('config');
                 if (isset($config['session'])) {

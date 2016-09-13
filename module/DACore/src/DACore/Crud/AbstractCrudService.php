@@ -9,6 +9,7 @@ namespace DACore\Crud;
 
 use Doctrine\ORM\EntityManager;
 use Zend\Stdlib\Hydrator;
+use DACore\Strategy\PrepareDataInterface;
 
 abstract class AbstractCrudService implements PrepareDataInterface
 {

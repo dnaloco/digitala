@@ -46,7 +46,7 @@ class Privilege implements PrivilegeInterface {
 	 */
 	protected $updatedAt;
 
-	public function __construct(array $data) {
+	public function __construct(array $data = array()) {
 		$this->createdAt = new \DateTime("now");
 		$this->updatedAt = new \DateTime("now");
 		(new Hydrator\ClassMethods)->hydrate($data, $this);

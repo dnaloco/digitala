@@ -34,7 +34,7 @@ class Resource implements ResourceInterface {
 	 */
 	protected $updatedAt;
 
-	public function __construct(array $data) {
+	public function __construct(array $data = array()) {
 		$this->createdAt = new \DateTime("now");
 		$this->updatedAt = new \DateTime("now");
 		(new Hydrator\ClassMethods)->hydrate($data, $this);

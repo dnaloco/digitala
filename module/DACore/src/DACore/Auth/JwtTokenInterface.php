@@ -1,9 +1,9 @@
 <?php
-namespace DACore\Strategy;
+namespace DACore\Auth;
 
-interface CheckTokenStrategyInterface
+interface JwtTokenInterface
 {
-    const ACL_RULES = [
+	const ACL_RULES = [
         'ACCESS' => 'access',
         'ROLE' => 'role',
         'PRIVILEGE' => 'privilege'
@@ -32,8 +32,7 @@ interface CheckTokenStrategyInterface
         'EDIT' => 'edit',
         'DELETE' => 'delete',
     ];
-    function checkToken();
-    function checkAuthorization($headers, $method);
-    function checkUser($id);
-    function checkOptions($e);
+
+	function getResource();
+	function getRules();
 }

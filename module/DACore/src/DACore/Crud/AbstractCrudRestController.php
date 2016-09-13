@@ -7,17 +7,56 @@ use Lcobucci\JWT\Parser;
 
 use DACore\Controller\Aware\FirephpAwareInterface;
 use DACore\Exception\HttpStatusCodeException;
+use DACore\Strategy\{SerializerInterface, SerializerStrategy};
+use DACore\Strategy\{ResponsesInterface, ResponseStrategy};
+use DACore\Auth\JwtTokenInterface;
 
-abstract class AbstractCrudRestController extends AbstractRestfulController implements ResponsesInterface, SerializerInterface, FirephpAwareInterface
+abstract class AbstractCrudRestController extends AbstractRestfulController implements ResponsesInterface, SerializerInterface, FirephpAwareInterface, JwtTokenInterface
 {
-    use \DACore\Strategy\SerializerStrategies;
+    use SerializerStrategy;
+    use ResponseStrategy;
 
     protected $collectionOptions = array('GET', 'POST', 'OPTIONS');
     protected $resourceOptions = array('DELETE', 'GET', 'PATCH', 'PUT');
     protected $service;
 
+    protected $aclResource = 'general';
+
+    protected $aclRules = [
+            self::ACL_RESOURCES['GET'] => [
+                self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PRIVATE'],
+                self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
+                self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['SEE']
+            ],
+            self::ACL_RESOURCES['POST'] => [
+                self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PRIVATE'],
+                self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
+                self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['CREATE']
+            ],
+            self::ACL_RESOURCES['UPDATE'] => [
+                self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PRIVATE'],
+                self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
+                self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['EDIT']
+            ],
+            self::ACL_RESOURCES['DELETE'] => [
+                self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PRIVATE'],
+                self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
+                self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['DELETE']
+            ],
+        ];
+
     public function __construct($service) {
         $this->service = $service;
+    }
+
+    public function getResource()
+    {
+        return $this->aclResource;
+    }
+
+    public function getRules()
+    {
+        return $this->aclRules;
     }
 
     public function getFirephp($firephp = null) {
@@ -115,96 +154,4 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
         return new JsonModel(array('data' => array(), 'success' => false));
     }
 
-    public function makeResponseStatus($message, $code, array $context = array(), $firephpDebug = true, $throw = false)
-    {
-        $this->response->setStatusCode($code);
-
-        if (isset($this->firephp) && $firephpDebug) {
-            $this->firephp->addInfo('Info about http status code: (see below)');
-            $this->firephp->addError($message, $context);
-        } else {
-
-        }
-
-        if ($throw)
-            throw new HttpStatusCodeException($message, $code);
-    }
-
-    public function statusOk()
-    {
-        $this->response->setStatusCode(self::CODE_OK);
-    }
-
-    function statusCreated($message = null, $resource = null)
-    {
-        $context = [
-            'http_code' => self::CODE_CREATED,
-            'http_status' => 'Created',
-            'resource_created' => $resource
-        ];
-        $this->makeResponseStatus($message,self::CODE_CREATED, $context, true);
-    }
-
-    function statusNotModified($message = null)
-    {
-        $context = [
-            'http_code' => self::CODE_NOT_MODIFIED,
-            'http_status' => 'Not Modified'
-        ];
-        $this->makeResponseStatus($message, self::CODE_NOT_MODIFIED, $context, true, true);
-    }
-
-    function statusBadRequest($message = null)
-    {
-        $context = [
-            'http_code' => self::CODE_BAD_REQUEST,
-            'http_status' => 'Bad Request'
-        ];
-        $this->makeResponseStatus($message, self::CODE_BAD_REQUEST, $context, true, true);
-    }
-
-    function statusNotAuthorized($message = null)
-    {
-        $context = [
-            'http_code' => self::CODE_NOT_AUTHORIZED,
-            'http_status' => 'Not Authorized'
-        ];
-        $this->makeResponseStatus($message, self::CODE_NOT_AUTHORIZED, $context, true, true);
-    }
-
-    function statusForbidden($message = null)
-    {
-        $context = [
-            'http_code' => self::CODE_FORBIDDEN,
-            'http_status' => 'Forbidden'
-        ];
-        $this->makeResponseStatus($message, self::CODE_FORBIDDEN, $context, true, true);
-    }
-
-    function statusResourceNotFound($message = null)
-    {
-        $context = [
-            'http_code' => self::CODE_RESOURCE_NOT_FOUND,
-            'http_status' => 'Resource Not Found'
-        ];
-        $this->makeResponseStatus($message, self::CODE_RESOURCE_NOT_FOUND, $context, true, true);
-    }
-
-    function statusMethodNotAllowed($message = null)
-    {
-        $context = [
-            'http_code' => self::CODE_METHOD_NOT_ALLOWED,
-            'http_status' => 'Method Not Allowed'
-        ];
-        $this->makeResponseStatus($message, self::CODE_METHOD_NOT_ALLOWED, $context, true, true);
-    }
-
-    function statusServerError($message = null)
-    {
-        $context = [
-            'http_code' => self::CODE_SERVER_ERROR,
-            'http_status' => 'Server Error'
-        ];
-        $this->makeResponseStatus($message, self::CODE_SERVER_ERROR, $context, true, true);
-    }
 }

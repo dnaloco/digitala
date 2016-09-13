@@ -20,8 +20,10 @@ implements \DACore\Controller\Aware\ApcCacheAwareInterface
 {
     protected $cache;
 
-    public function getCache($cache)
+    public function getCache($cache = null)
     {
+        $enabled = ini_get('apc.enabled');
+        var_dump( get_cfg_var('cfg_file_path'));die;
         if(!isset($this->cache)) {
             $this->cache = $cache;
         }

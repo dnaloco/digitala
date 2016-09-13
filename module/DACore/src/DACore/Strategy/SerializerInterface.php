@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Crud;
+namespace DACore\Strategy;
 
 interface SerializerInterface
 {

@@ -6,9 +6,8 @@ use Zend\View\Model\JsonModel;
 use Zend\EventManager\EventManagerInterface;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
-use DACore\Controller\Aware\ApcCacheAwareInterface;
 
-use DACore\Exception\HttpStatusCodeException;
+
 
 class PublicTokenRestController extends AbstractRestfulController
 {

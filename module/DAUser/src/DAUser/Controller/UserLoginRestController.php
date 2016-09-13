@@ -6,22 +6,21 @@ use Zend\View\Model\JsonModel;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use DACore\Controller\Aware\ApcCacheAwareInterface;
-use DACore\Crud\{CsrfTokenFormInterface, CachedRolesInterface, SerializerInterface};
-use DACore\Strategy\{CheckTokenStrategy, CheckTokenStrategyInterface};
-use DACore\Strategy\{DataCheckerStrategyInterface, DataCheckerStrategy, CsrfTokenStrategy, SerializerStrategies};
+
+
+use DACore\Strategy\{DataCheckerStrategyInterface, DataCheckerStrategy};
+use DACore\Strategy\{SerializerInterface, SerializerStrategy};
+use DACore\Strategy\{CsrfTokenFormInterface, CsrfTokenFormStrategy};
 
 class UserLoginRestController extends AbstractCrudRestController
 implements ApcCacheAwareInterface,
     CsrfTokenFormInterface,
     DataCheckerStrategyInterface,
-    CachedRolesInterface,
-    SerializerInterface,
-    CheckTokenStrategyInterface
+    SerializerInterface
 {
     use DataCheckerStrategy;
-    use CsrfTokenStrategy;
-    use SerializerStrategies;
-    use CheckTokenStrategy;
+    use CsrfTokenFormStrategy;
+    use SerializerStrategy;
 
     protected $collectionOptions = array('POST', 'OPTIONS');
     protected $resourceOptions = array();
@@ -76,15 +75,6 @@ implements ApcCacheAwareInterface,
         }
 
         return $this->cache;
-    }
-
-    public function setRoles($user_id, $roles)
-    {
-        return $this->cache->setItem('user_id_' . $user_id  . '_ roles', $roles);
-    }
-
-    public function getRoles($user_id) {
-        return $this->cache->getItem('user_id_' . $user_id  . '_ roles');
     }
 
     public function getToken($api_issuer, $api_audience, $api_uid, $api_signer, $api_sign, $api_not_before, $api_expiration, $user_email, $user_roles)

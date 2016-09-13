@@ -1,7 +1,7 @@
 <?php
 namespace DACore\Strategy;
 
-trait CsrfTokenStrategy
+trait CsrfTokenFormStrategy
 {
 	public function getCsrfToken($tokenKey)
     {

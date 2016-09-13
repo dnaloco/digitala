@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
 
 use DACore\Entity\User\UserInterface;
+use DACore\Strategy\{EncryptInterface, EncryptStrategy};
 
 /**
  * R2Users
@@ -14,9 +15,9 @@ use DACore\Entity\User\UserInterface;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
-class User implements UserInterface
+class User implements UserInterface, EncryptInterface
 {
-    use \DACore\Strategy\EncryptStrategy;
+    use EncryptStrategy;
 
     /**
      * @var integer

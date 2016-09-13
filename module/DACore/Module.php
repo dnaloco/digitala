@@ -22,6 +22,20 @@ class Module
         $em = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($em);
+        /*$em->attach(MvcEvent::EVENT_DISPATCH, function($e) {
+            echo $e->getRouteMatch()->getMatchedRouteName();
+        }, 100);*/
+
+        $sharedEvents = $em->getSharedManager();
+        $entityManager = $sm->get('Doctrine\ORM\EntityManager');
+        $cacheApc = $sm->get('apc');
+        $tokenAuth = new \DACore\Auth\JwtTokenDispatcherAuthentication($entityManager, $cacheApc);
+        $sharedEvents->attach('Zend\Mvc\Controller\AbstractRestfulController', MvcEvent::EVENT_DISPATCH, array($tokenAuth, 'onDispatch'), 200);
+        //$sharedEvents = $em->getSharedManager();
+        //$tokenAuth = new \DACore\Auth\TokenDispatcherAuthentication();
+
+        //$sharedEvents->attach('DACore\Crud\AbstractCrudRestController', MvcEvent::EVENT_DISPATCH, array($tokenAuth, 'onDispatch'), 200);
+        //$em->attach(\Zend\Mvc\MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'));
         //$this->bootstrapSession($e);
 
         /*$em->attach("finish", array($this, "compressOutput"), 100);
@@ -38,6 +52,20 @@ class Module
             //'cookie_httponly' => true,
         ));*/
     }
+
+    public function onDispatch(\Zend\Mvc\MvcEvent $e){
+        // ... your logic here ...
+        var_dump('LOGICA PARA VALIDAR TOKENS JWT...');
+        echo '<br>';
+        echo get_class($e->getApplication());
+        echo '<br>';
+        $matches =  $e->getRouteMatch();
+        $response = $e->getResponse();
+        $request =  $e->getRequest();
+        $method =   $request->getMethod();
+        die;
+    }
+
 /*
     public function initSession($config)
     {

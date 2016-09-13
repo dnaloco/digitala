@@ -7,29 +7,18 @@ use Zend\View\Model\JsonModel;
 use DACore\Strategy\{CheckTokenStrategy, CheckTokenStrategyInterface};
 
 class CityRestController extends AbstractCrudRestController
-implements CheckTokenStrategyInterface
 {
-    use CheckTokenStrategy;
 
     protected $collectionOptions = array('GET', 'OPTIONS');
     protected $resourceOptions = array();
-
-    public function __construct($service)
-    {
-        parent::__construct($service);
-
-        if ($this instanceof CheckTokenStrategyInterface)
-        {
-            $this->aclResource = 'cities';
-/*            $this->aclRules = [
-                self::ACL_RESOURCES['GET'] => [
-                    self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PUBLIC'],
-                    self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
-                    self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['SEE']
-                ],
-            ];*/
-        }
-    }
+    protected $aclResource = 'cities';
+    protected $aclRules = [
+        self::ACL_RESOURCES['GET'] => [
+            self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PRIVATE'],
+            self::ACL_RULES['ROLE'] => self::ACL_ROLES['GUEST'],
+            self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['SEE']
+        ],
+    ];
 
     public function checkOptions($e)
     {
@@ -47,12 +36,6 @@ implements CheckTokenStrategyInterface
         }
         if (!in_array($method, $this->collectionOptions)) {
             return $this->statusMethodNotAllowed('This method ' . $method . ' is not allowed on this api.');
-        }
-
-        if ($this instanceof CheckTokenStrategyInterface) {
-            $headers = $request->getHeaders();
-            $authResponse = $this->checkAuthorization($headers, $method)->checkToken();
-            return $authResponse;
         }
 
     }

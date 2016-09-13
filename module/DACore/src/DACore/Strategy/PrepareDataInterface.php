@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Crud;
+namespace DACore\Strategy;
 
 interface PrepareDataInterface {
 	function prepareDataToInsert(array $data);

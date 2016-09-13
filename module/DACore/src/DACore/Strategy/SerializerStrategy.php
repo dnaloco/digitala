@@ -1,7 +1,7 @@
 <?php
 namespace DACore\Strategy;
 
-trait SerializerStrategies
+trait SerializerStrategy
 {
     public static function getPropertyNamingSerializer()
     {
