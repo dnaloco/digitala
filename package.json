@@ -12,6 +12,10 @@
     "ngCart": "./node_modules/ngCart/dist/ngCart.js",
     "angular-masonry": "./node_modules/angular-masonry/angular-masonry.js",
     "restangular": "./node_modules/restangular/dist/restangular.js",
+    "da-authentication": "./library/angular/modules/da-authentication/da-authentication.js",
+    "XdUtils": "./library/angular/vendor/cross-domain-local-storage/app/scripts/services/xd-utils.js",
+    "xdLocalStorage": "./library/angular/vendor/cross-domain-local-storage/app/scripts/xdLocalStorage.js",
+    "ng-xdLocalStorage": "./library/angular/vendor/cross-domain-local-storage/app/scripts/ng-xdLocalStorage.js",
     "ngEqualizer": "./library/angular/vendor/angular-equalizer.js",
     "imagesloaded": "./bower_components/imagesloaded/imagesloaded.pkgd.js",
     "masonry": "./bower_components/masonry/dist/masonry.pkgd.js",
@@ -32,30 +36,52 @@
       "exports": "Masonry",
       "depends": "imagesloaded"
     },
+    "XdUtils": {
+      "exports": "XdUtils"
+    },
+    "xdLocalStorage": {
+      "exports": "xdLocalStorage",
+      "depends": "XdUtils"
+    },
+    "ng-xdLocalStorage": {
+      "exports": "angular.module('xdLocalStorage')",
+      "depends": [
+        "xdLocalStorage",
+        "angular"
+      ]
+    },
+    "da-authentication": {
+      "exports": "angular.module('daAuthentication')",
+      "depends": [
+        "angular",
+        "ng-xdLocalStorage",
+        "restangular"
+      ]
+    },
     "angular": {
       "exports": "angular",
       "depends": "jquery"
     },
     "ngCart": {
-      "exports": "angular.module('ngCart').name",
+      "exports": "angular.module('ngCart')",
       "depends": "angular"
     },
     "angular-masonry": {
-      "exports": "angular.module('wu.masonry').name",
+      "exports": "angular.module('wu.masonry')",
       "depends": [
         "angular",
         "masonry"
       ]
     },
     "restangular": {
-      "exports": "angular.module('restangular').name",
+      "exports": "angular.module('restangular')",
       "depends": [
         "angular",
         "lodash"
       ]
     },
     "ngEqualizer": {
-      "exports": "angular.module('ngEqualizer').name",
+      "exports": "angular.module('ngEqualizer')",
       "depends": "angular"
     }
   },
@@ -132,11 +158,13 @@
     "gulp": "^3.9.0",
     "gulp-angular-templatecache": "^1.3.0",
     "gulp-autoprefixer": "^3.1.0",
+    "gulp-bower-overrides": "^0.1.1",
     "gulp-changed": "^1.0.0",
     "gulp-eslint": "^2.0.0",
     "gulp-gzip": "^1.2.0",
     "gulp-if": "^2.0.0",
     "gulp-imagemin": "^2.4.0",
+    "gulp-load-plugins": "^1.3.0",
     "gulp-notify": "^2.0.0",
     "gulp-protractor": "^2.1.0",
     "gulp-rename": "^1.2.0",
@@ -155,7 +183,9 @@
     "karma-jasmine": "^0.3.6",
     "karma-sauce-launcher": "^0.3.0",
     "lodash": "^4.15.0",
+    "main-bower-files": "^2.13.1",
     "merge-stream": "^1.0.0",
+    "napa": "^2.3.0",
     "ng-autocomplete": "^1.0.0",
     "ng-dialog": "^0.6.4",
     "ng-file-upload": "^12.2.5",

@@ -56,6 +56,19 @@ class User implements UserInterface, EncryptInterface
     protected $roles;
 
     /**
+     * @ORM\ManyToMany(targetEntity="DACore\Entity\Modules\ModuleInterface")
+     * @ORM\JoinColumn(name="module_id", referencedColumnName="id")
+     * @ORM\JoinTable(name="dauser_users_module",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={
+     *          @ORM\JoinColumn(name="module_id", referencedColumnName="id")
+     *      }
+     * )
+     *
+     **/
+    protected $modules;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="salt", type="string", length=255, nullable=true)
@@ -110,6 +123,7 @@ class User implements UserInterface, EncryptInterface
     public function __construct(array $data)
     {
         $this->roles = new ArrayCollection();
+        $this->modules = new ArrayCollection();
 
         $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
@@ -201,6 +215,30 @@ class User implements UserInterface, EncryptInterface
     public function setRoles($roles)
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of modules.
+     *
+     * @return mixed
+     */
+    public function getModules()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * Sets the value of modules.
+     *
+     * @param mixed $modules the modules
+     *
+     * @return self
+     */
+    public function setModules($modules)
+    {
+        $this->modules = $modules;
 
         return $this;
     }
@@ -377,6 +415,5 @@ class User implements UserInterface, EncryptInterface
         $this->salt = null;
         $this->password = null;
         $this->roles = null;
-        $this->activationKey = null;
     }
 }

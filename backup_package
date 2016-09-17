@@ -1,0 +1,81 @@
+main-bower-files
+
+"browser": {
+    /*"angular": "./node_modules/angular/angular.js",
+    "ngCart": "./node_modules/ngCart/dist/ngCart.js",
+    "angular-masonry": "./node_modules/angular-masonry/angular-masonry.js",
+    "restangular": "./node_modules/restangular/dist/restangular.js",
+    "ngEqualizer": "./library/angular/vendor/angular-equalizer.js",*/
+/*    "imagesloaded": "./build/bower_components/imagesloaded.js",
+    "masonry": "./build/bower_components//masonry.js",
+    "lodash": "./build/bower_components/lodash.js",
+    "jquery": "./build/bower_components/jquery.js",
+    "xdLocalStorage": "./build/bower_components/ng-xdLocalStorage.min.js"*/
+  },
+  "browserify-shim": {
+    "jquery": {
+      "exports": "$"
+    },
+    "imagesloaded": {
+      "exports": "ImagesLoaded"
+    },
+    "lodash": {
+      "exports": "_"
+    },
+    "masonry": {
+      "exports": "Masonry",
+      "depends": "imagesloaded"
+    },
+    "angular": {
+      "exports": "angular",
+      "depends": "jquery"
+    },
+    "ngCart": {
+      "exports": "angular.module('ngCart').name",
+      "depends": "angular"
+    },
+    "xdLocalStorage": {
+      "exports": "angular.module('xdLocalStorage')",
+      "depends": "angular"
+    },
+    "angular-masonry": {
+      "exports": "angular.module('wu.masonry').name",
+      "depends": [
+        "angular",
+        "masonry"
+      ]
+    },
+    "restangular": {
+      "exports": "angular.module('restangular').name",
+      "depends": [
+        "angular",
+        "lodash"
+      ]
+    },
+    "ngEqualizer": {
+      "exports": "angular.module('ngEqualizer').name",
+      "depends": "angular"
+    }
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+      /*"imagesloaded": "./build/bower_components/imagesloaded.js",
+    "masonry": "./build/bower_components//masonry.js",
+    "lodash": "./build/bower_components/lodash.js",
+    "jquery": "./build/bower_components/jquery.js",
+    "xdLocalStorage": "./build/bower_components/ng-xdLocalStorage.min.js"*/

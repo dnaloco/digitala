@@ -21,3 +21,27 @@ gulp.task('erpDev', ['clean'], function(cb) {
   	'fonts', 'indexFile', 'uploadsDir', 'erpWatch', cb);
 
 });
+
+gulp.task('modulesDev', ['clean'], function(cb) {
+
+  global.isProd = false;
+
+  runSequence(
+    'crossDomainStorage',
+    ['modulesStyles', 'modulesImages', 'modulesViews'],
+    'modulesBrowserify',
+    'fonts', 'indexFile', 'uploadsDir', 'modulesWatch', cb);
+
+});
+
+gulp.task('dev', ['clean'], function(cb) {
+	global.isProd = false;
+
+  runSequence(
+    'crossDomainStorage',
+  	['erpStyles', 'erpImages', 'erpViews'],
+  	'erpBrowserify',
+  	['siteStyles', 'siteImages', 'siteViews'],
+  	'siteBrowserify',
+  	'fonts', 'indexFile', 'uploadsDir', 'erpWatch', 'siteWatch', cb);
+})

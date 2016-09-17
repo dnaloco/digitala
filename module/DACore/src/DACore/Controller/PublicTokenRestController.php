@@ -43,10 +43,9 @@ class PublicTokenRestController extends AbstractRestfulController
         if (!in_array($method, $this->collectionOptions)) {
             return $this->statusMethodNotAllowed();
         }
-        
     }
+
     public function getToken($api_issuer, $api_audience, $api_uid, $api_signer, $api_sign, $api_not_before, $api_expiration) {
-        
         $token = (new Builder())->setIssuer($api_issuer) // Configures the issuer (iss claim)
             ->setAudience($api_audience) // Configures the audience (aud claim)
             ->setId($api_uid, true) // Configures the id (jti claim), replicating as a header item

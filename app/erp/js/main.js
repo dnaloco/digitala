@@ -35,6 +35,7 @@ import 'angular-xeditable';
 import 'angular-busy';
 import 'ng-lodash';
 import 'angular-smart-table';
+import 'ng-xdLocalStorage';
 
 import 'ngEqualizer';
 
@@ -43,6 +44,7 @@ import './filters';
 import './controllers';
 import './services';
 import './directives';
+
 
 // create and bootstrap application
 const requires = [
@@ -67,6 +69,7 @@ const requires = [
   'cgBusy',
   'ngLodash',
   'smart-table',
+  'xdLocalStorage',
 
   'ngEqualizer',
 

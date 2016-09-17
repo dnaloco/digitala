@@ -26,6 +26,7 @@ return array(
         'DAAdmin',
         'DASite',
         'DAErp',
+        'DAModules',
         //'DABase',
         //'DABlog',
         //'Tweet',

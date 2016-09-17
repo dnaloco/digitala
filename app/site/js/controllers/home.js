@@ -1,4 +1,4 @@
-function HomeController(ngDialog) {
+function HomeController(ngDialog, xdLocalStorage) {
   // injetando dependência
   'ngInject';
 
@@ -6,6 +6,9 @@ function HomeController(ngDialog) {
   const vm = this;
 
   console.log('HOME CONTROLLER');
+
+  
+  //console.log('xdLocalStorage', xdLocalStorage.getItem('teste'));
 }
 
 

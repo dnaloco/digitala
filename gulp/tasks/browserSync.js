@@ -19,3 +19,7 @@ gulp.task('siteBrowser', function() {
 gulp.task('erpBrowser', function() {
   return browserSyncSubdomain('erp');
 });
+
+gulp.task('modulesBrowser', function() {
+  return browserSyncSubdomain('modules');
+});

@@ -6,8 +6,13 @@ use Zend\Mvc\MvcEvent;
 class Module
 {
     public function onBootstrap(MvcEvent $event) {
+        $sm = $event->getApplication()->getServiceManager();
         $eventManager = $event->getApplication()->getEventManager();
-        $eventManager->attach(new Listener\ConfirmationListener());
+        $mailService = $sm->get('DACore\Mail\MailService');
+        $eventManager->attach(new Listener\ConfirmationListener($mailService));
+
+        //$sharedEvents = $eventManager->getSharedManager();
+        //$sharedEvents->attach('DAUser\Controller\UserRestController', 'cls', array(new \DAUser\Controller\Class2, 'listen'));
     }
 
     public function getConfig()

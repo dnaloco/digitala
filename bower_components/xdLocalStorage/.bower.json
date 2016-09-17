@@ -1,0 +1,44 @@
+{
+  "name": "xdLocalStorage",
+  "version": "2.0.3",
+  "homepage": "https://github.com/ofirdagan/cross-domain-local-storage",
+  "authors": [
+    "Ofir Dagan <ofirdagan@gmail.com>"
+  ],
+  "dependencies": {},
+  "main": "app/scripts/xdLocalStorage.js",
+  "description": "A neat solution for cross domain local storage using invisible iframe and post messages",
+  "keywords": [
+    "LocalStorage",
+    "crossdomain",
+    "xd",
+    "cross-domain",
+    "cross",
+    "domain",
+    "post",
+    "message"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular": "~1.3.15",
+    "jquery": "~2.1.3",
+    "angular-mocks": "~1.3.15"
+  },
+  "_release": "2.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.0.3",
+    "commit": "017bb9631fcc56e1f52ac52eb3150b75ec9200b2"
+  },
+  "_source": "https://github.com/ofirdagan/cross-domain-local-storage.git",
+  "_target": "^2.0.3",
+  "_originalSource": "xdLocalStorage",
+  "_direct": true
+}

@@ -13,24 +13,25 @@ use DACore\Strategy\{SerializerInterface, SerializerStrategy};
 class JwtTokenDispatcherAuthentication implements SerializerInterface
 {
 	use SerializerStrategy;
-	public function __construct(\Doctrine\ORM\EntityManager $em, $cache)
+
+	public function __construct(\Doctrine\ORM\EntityManager $em, $cache, $acl)
 	{
 		$this->em = $em;
+
 		$dotenv = new \Dotenv\Dotenv(getcwd() . '/config');
         $dotenv->load();
 
         $this->cache = $cache;
+
+        $this->acl = $acl;
 	}
 
 	public function checkUser($id)
     {
-    	if (!$this->cache->hasItem('user_entity_' . $id)) {
-    		$userRepo = $this->em->getRepository('\DAUser\Entity\User');
-    		$user = $userRepo->find((int) $id);
-    		$userArray = json_decode(static::getPropertyNamingSerializer()->serialize($user, 'json'), true);
-    		$this->cache->setItem('user_entity_' . $id, $userArray);
-    	}
-    	return $this->cache->getItem('user_entity_' . $id);
+    	$userRepo = $this->em->getRepository('\DAUser\Entity\User');
+        $user = $userRepo->find((int) $id);
+        $userArray = json_decode(static::getPropertyNamingSerializer()->serialize($user, 'json'), true);
+    	return $userArray;
         //if ($user) return $user;
     }
 
@@ -66,40 +67,59 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
         $token->setAudience(getenv('API_AUDIENCES'));
         $token->setId($parsed_jti);
         /*var_dump($_SERVER['HTTP_HOST']);
+        var_dump( $parsedToken->getClaim('iss'));
         var_dump($parsed_jti);
         die;*/
+
+        /*var_dump(getenv('API_AUDIENCES'));
+        var_dump($parsedToken->getClaim('aud'));
+        die;*/
+
+        //var_dump($_SERVER['HTTP_HOST']);die;
+        //$parsedToken->validate($token)
         if ($parsedToken->validate($token)) {
+            
             if ($data_access = $parsedToken->getClaim('access')) {
+
                 if ($this->access === 'private' && $data_access === 'private') {
+
                     // TODO: lógica de api privada...
                     $parsed_uid = $parsedToken->getClaim('uid');
                     $user = $this->checkUser($parsed_uid);
-                    //$parsed_roles = $parsedToken->getClaim('roles');
+
+                    $resourceAcl = $this->controller->getResource();
 
                     if (!$user) return $this->controller->statusBadRequest('Code: 234 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
 
-
-                   // var_dump('Parsed Roles');
-                    //var_dump(json_decode($parsed_roles, true));
-                    var_dump('Roles User');
-                    var_dump($user['roles']);
-                    die;
-
-                    // TODO: Implementing ACL!!!!!
-
-                    if ($parsed_role != $this->role) return $this->controller->statusBadRequest('Code: 345 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
-
-                    $roles = $user->getRoles();
-                    $hasRole = false;
-
-                    foreach ($roles as $role) {
-                        if ($role->getName() == $this->role) {
-                            $hasRole = $role;
-                            break;
-                        }
+                    if(!$user['active']) {
+                        return $this->controller->statusForbidden('Code: 111 from TokenService (Usuário inativo). Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
                     }
+
+                    $hasAccess = false;
+
+                    foreach($user['roles'] as $role) {
+                        $hasAccess =  $this->acl->isAllowed($role['name'], $resourceAcl, $this->privilege);
+
+                        if ($hasAccess) break;
+                    }
+
+                    if (!$hasAccess) {
+                        $this->controller->statusForbidden('You don\'t have privilege to access this resource!');
+                    }
+
+                    if ($parsed_ip == $_SERVER['REMOTE_ADDR']) {
+                        return;
+                    }
+
+                    return $this->controller->statusBadRequest('Code: 987 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
                 }
                 if ($data_access == 'public') {
+
+
+
+                    if ($this->access === 'private') {
+                        return $this->controller->statusForbidden('Esta ação requer acesso privado! Faça o seu login, para ter acesso!');
+                    }
                     if ($parsed_ip == $_SERVER['REMOTE_ADDR']) {
                         return;
                     }
@@ -140,18 +160,23 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
                 $this->badRequestError = 'Invalid token format. Maybe you forgot the schema of the given token.';
             }
         } else {
-            $this->badRequestError = 'Header has no authorization';
+            $this->controller->statusNotAuthorized('Header has no authorization');
         }
         return $this;
     }
 
 	public function onDispatch(\Zend\Mvc\MvcEvent $e)
 	{
+
 		$this->controller = $e->getTarget();
 
+
 		if ( !($this->controller instanceof JwtTokenInterface)) {
+
 			return;
 		}
+
+
 
 		$matches =  $e->getRouteMatch();
         $response = $e->getResponse();

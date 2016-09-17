@@ -47,3 +47,13 @@ gulp.task('erpViews', function() {
     config.php.layout.erp);
 });
 
+gulp.task('modulesViews', function() {
+
+  return views(
+    config.modules.layout.src,
+    config.modules.views.src,
+    config.modules.views.dest,
+    config.modules.layout.phpLayout,
+    config.php.layout.modules);
+});
+

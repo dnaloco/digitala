@@ -25,6 +25,7 @@ export default {
     layout: {
       site: './module/DASite/view/layout/',
       erp: './module/DAErp/view/layout/',
+      modules: './module/DAModules/view/layout/',
     }
   },
 
@@ -113,6 +114,34 @@ export default {
     },
   },
 
+  modules: {
+    layout: {
+      src: 'modules/layout.html',
+      phpLayout: 'layout.modules.phtml'
+    },
+    styles: {
+      src: 'modules/styles/**/*.scss',
+      dest: 'modules/css',
+    },
+
+    scripts: {
+      src: 'modules/js/**/*.js',
+      dest: 'modules/js',
+      test: 'test/modules/**/*.js',
+    },
+
+    images: {
+      src: 'modules/images/**/*',
+      dest: 'modules/images'
+    },
+
+    views: {
+      src: 'modules/views/**/*.html',
+      dest: 'modules/js'
+    },
+  },
+
+
   assetExtensions: [
     'js',
     'css',
@@ -152,6 +181,11 @@ export default {
     this.erp.views.watch = [
       this.sourceDir + this.erp.layout.src,
       this.sourceDir + this.erp.views.src
+    ];
+
+    this.modules.views.watch = [
+      this.sourceDir + this.modules.layout.src,
+      this.sourceDir + this.modules.views.src
     ];
 
     return this;

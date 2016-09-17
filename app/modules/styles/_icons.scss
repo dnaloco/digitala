@@ -1,0 +1,53 @@
+// Icomoon: https://icomoon.io
+// user: arthur_scosta@yahoo.com.br | password: artdna07
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('/fonts/icomoon/icomoon.eot?rt1ojp');
+  src:  url('/fonts/icomoon/icomoon.eot?rt1ojp#iefix') format('embedded-opentype'),
+    url('/fonts/icomoon/icomoon.ttf?rt1ojp') format('truetype'),
+    url('/fonts/icomoon/icomoon.woff?rt1ojp') format('woff'),
+    url('/fonts/icomoon/icomoon.svg?rt1ojp#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-error:before {
+  content: "\e906";
+}
+.icon-x-altx-alt:before {
+  content: "\e907";
+}
+.icon-check-alt:before {
+  content: "\e905";
+}
+.icon-check:before {
+  content: "\e900";
+}
+.icon-check-circle-o:before {
+  content: "\e901";
+}
+.icon-check-circle:before {
+  content: "\e902";
+}
+.icon-check-square-o:before {
+  content: "\e903";
+}
+.icon-check-square:before {
+  content: "\e904";
+}

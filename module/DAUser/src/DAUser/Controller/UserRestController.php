@@ -2,59 +2,57 @@
 namespace DAUser\Controller;
 use DACore\Crud\AbstractCrudRestController;
 
+use Zend\EventManager\EventManager;
+use Zend\EventManager\EventManagerAwareInterface;
+use Zend\EventManager\EventManagerInterface;
+
 use DACore\Controller\Aware\ApcCacheAwareInterface;
-use DACore\Crud\{CsrfTokenFormInterface, CsrfTokenStrategy};
-use DACore\Strategy\{CheckTokenStrategy, CheckTokenStrategyInterface};
+use DACore\Strategy\{CsrfTokenFormInterface, CsrfTokenFormStrategy};
 
 class UserRestController extends AbstractCrudRestController
-implements ApcCacheAwareInterface, CsrfTokenFormInterface, CheckTokenStrategyInterface
+implements ApcCacheAwareInterface, CsrfTokenFormInterface, EventManagerAwareInterface
 {
-	use CsrfTokenStrategy;
-	use CheckTokenStrategy;
+	use CsrfTokenFormStrategy;
 
+    protected $aclResource = 'users';
+    protected $aclRules = [
+        self::ACL_RESOURCES['POST'] => [
+            self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PUBLIC'],
+            self::ACL_RULES['ROLE'] => self::ACL_ROLES['GUEST'],
+            self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['CREATE']
+        ],
+    ];
+/*
 	public function __construct($service)
     {
         parent::__construct($service);
 
-        if ($this instanceof CheckTokenStrategyInterface)
-        {
-            $this->aclResource = 'users';
-            $this->aclRules = [
-                self::ACL_RESOURCES['POST'] => [
-                    self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PUBLIC'],
-                    self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
-                    self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['SEE']
-                ],
-            ];
-        }
+        $this->aclResource = 'users';
+        $this->aclRules = [
+            self::ACL_RESOURCES['POST'] => [
+                self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PUBLIC'],
+                self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
+                self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['CREATE']
+            ],
+        ];
+
+    }*/
+
+    protected $events;
+
+    public function setEventManager(EventManagerInterface $events) {
+        parent::setEventManager($events);
+        $this->events = $events;
+        return $this;
     }
 
-    public function checkOptions($e)
-    {
-        //var_dump(apache_request_headers());die;
-        //var_dump($_SERVER['HTTP_REFERER']);die;
-        $matches =  $e->getRouteMatch();
-        $response = $e->getResponse();
-        $request =  $e->getRequest();
-        $method =   $request->getMethod();
-
-       if ($matches->getParam('id', false)) {
-            if (!in_array($method, $this->resourceOptions)) {
-                return $this->statusMethodNotAllowed('This method ' . $method . ' is not allowed on this api.');
-            }
-        }
-        if (!in_array($method, $this->collectionOptions)) {
-            return $this->statusMethodNotAllowed('This method ' . $method . ' is not allowed on this api.');
-        }
-
-        if ($this instanceof CheckTokenStrategyInterface) {
-            $headers = $request->getHeaders();
-            $authResponse = $this->checkAuthorization($headers, $method)->checkToken();
-            return $authResponse;
-        }
-
+    public function getEventManager() {
+        if (!$this->events) { $this->setEventManager(new EventManager(__CLASS__)); }
+        return $this->events;
     }
-	
+
+
+
 	public function getCache($cache = null)
     {
         if(!isset($this->cache)) {
@@ -64,9 +62,10 @@ implements ApcCacheAwareInterface, CsrfTokenFormInterface, CheckTokenStrategyInt
         return $this->cache;
     }
 
-    
+
 	public function create($data)
 	{
+
 		//var_dump($data);die;
 		$tokenKey = $this->checkCsrfToken($data);
 
@@ -81,6 +80,7 @@ implements ApcCacheAwareInterface, CsrfTokenFormInterface, CheckTokenStrategyInt
 
 		if (isset($data['id'])) {
 			$this->removeCsrfToken($tokenKey);
+            $this->getEventManager()->trigger('onCreateUser', $this, $data);
 		}
 
 		return $response;

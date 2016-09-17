@@ -1,9 +1,30 @@
-function HomeController($scope, CityService, CsrfFormService, UserService, LoginService) {
+function HomeController(
+  $scope,
+  CityService,
+  StateService,
+  CsrfFormService,
+  UserService,
+  LoginService,
+  xdLocalStorage,
+  $rootScope) {
   // injetando dependência
   'ngInject';
 
   // ViewModel
   const vm = this;
+
+  /*$rootScope.$on('crossDomainIFrame', function () {
+    console.log('crossDomainIFramecrossDomainIFramecrossDomainIFramecrossDomainIFramecrossDomainIFrame');
+    xdLocalStorage.setItem('teste', 'Esse é um teste de cross domain');
+  })
+*/
+/*  xdLocalStorage.setItem('teste', 'Esse é um teste de cross domain', function (data) {
+          if(data.success) {
+              console.log('Your data has been successfully stored.');
+          } else {
+              console.log('Ops, could not store your data.');
+          }
+      });*/
 
   vm.user = {
     person: {
@@ -28,7 +49,7 @@ function HomeController($scope, CityService, CsrfFormService, UserService, Login
 
   vm.testFormUser = function () {
     console.log('Enviando usuário ->', vm.user);
-    UserService.post(vm.user).then(function(resp) {
+    UserService.saveUser(vm.user).then(function(resp) {
       console.log('USER ', resp);
     }, function(error) {
       console.log('User ERROR ', error);
@@ -58,6 +79,19 @@ function HomeController($scope, CityService, CsrfFormService, UserService, Login
     });
   };
 
+  vm.callPrivateStates = function () {
+    StateService.getStates({
+      'limit': 10,
+      'offset': 0,
+      'where[]': [],
+      'options[]': []
+    }).then(function (states) {
+        vm.states = states;
+        console.log('STATES', states);
+    }, function (error) {
+      console.error('ERROR', error);
+    });
+  };
 }
 
 

@@ -19,11 +19,19 @@ class LoadResource extends AbstractFixture implements OrderedFixtureInterface
                 $resource->setName('cities');
                 $manager->persist($resource);
 
+                $resource = new Resource;
+                $resource->setName('states');
+                $manager->persist($resource);
+
+                $resource = new Resource;
+                $resource->setName('modules');
+                $manager->persist($resource);
+
 		$manager->flush();
 	}
 
 	public function getOrder() 
         {
-		return 1;
+		return 2;
 	}
 }

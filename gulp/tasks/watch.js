@@ -35,3 +35,12 @@ gulp.task('erpWatch', ['erpBrowser'], function() {
       config.fonts.src,
       config.erp.views.watch);
 });
+
+gulp.task('modulesWatch', ['modulesBrowser'], function() {
+    return watch('modules',
+      config.modules.scripts.src,
+      config.modules.styles.src,
+      config.modules.images.src,
+      config.fonts.src,
+      config.modules.views.watch);
+});

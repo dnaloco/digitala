@@ -78,6 +78,8 @@ return [
                 $repoRoles = $em->getRepository('DAAcl\Entity\Role');
                 $repoResources = $em->getRepository('DAAcl\Entity\Resource');
                 $repoPrivilege = $em->getRepository('DAAcl\Entity\Privilege');
+
+                return new Permissions\Acl($repoRoles->findAll(), $repoResources->findAll(), $repoPrivilege->findAll());
             },
             /*'Zend\Session\SessionManager' => function ($sm) {
                 $config = $sm->get('config');

@@ -1,0 +1,67 @@
+
+#damwMenuToggle  {
+    position: absolute;
+    top: 20px;
+    right: 280px;
+    z-index: 11;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, .25);
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+
+.damw-menu {
+    position: fixed;
+    right: -260px;
+    width: 260px;
+    top: 0;
+    z-index: 10;
+    text-align: left;
+    background: green;
+    height: 100%;
+}
+
+.damw-menu.menu-open {
+    right: 0;
+}
+
+.damw-content {
+    overflow-x: hidden;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: lightgrey;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+
+    &.content-push-toleft {
+        left: -260px;
+    }
+
+    &.foggy {
+        opacity: 0.3;
+        cursor: pointer;
+    }
+}
+
+.damw-menu, .damw-content {
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}

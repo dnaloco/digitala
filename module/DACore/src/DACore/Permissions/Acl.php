@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Permission;
+namespace DACore\Permissions;
 
 use Zend\Permissions\Acl\Acl as ClassAcl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
@@ -43,7 +43,7 @@ class Acl extends ClassAcl
     {
         foreach($this->resources as $resource) 
         {
-            $this->addResource(new Resource($resource->getNome()));
+            $this->addResource(new Resource($resource->getName()));
         }
     }
 
@@ -51,7 +51,7 @@ class Acl extends ClassAcl
     {
         foreach($this->privileges as $privilege)
         {
-            $this->allow($privilege->getRole()->getNome(), $privilege->getResource()->getNome(),$privilege->getNome());
+            $this->allow($privilege->getRole()->getName(), $privilege->getResource()->getName(),$privilege->getName());
         }
     }
 }

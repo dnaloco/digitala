@@ -7,7 +7,6 @@ function OnConfig(
   ) {
 
   'ngInject';
-  
 
   if (process.env.NODE_ENV === 'production') {
     $compileProvider.debugInfoEnabled(false);

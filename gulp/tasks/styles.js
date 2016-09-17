@@ -40,3 +40,7 @@ gulp.task('siteStyles', function() {
 gulp.task('erpStyles', function() {
   return styles(config.erp.styles.src, config.erp.styles.dest);
 });
+
+gulp.task('modulesStyles', function() {
+  return styles(config.modules.styles.src, config.modules.styles.dest);
+});

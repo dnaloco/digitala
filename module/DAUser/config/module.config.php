@@ -1,6 +1,8 @@
 <?php
 namespace DAUser;
 
+use \Zend\Mvc\Controller\ControllerManager;
+
 return [
     'router' => [
         'routes' => [
@@ -24,9 +26,34 @@ return [
                         'controller' => 'DAUser\Controller\UserLoginRest',
                     ],
                 ],
+            ],
+            'dauser-user-activate' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/api/public/activate[/:id]',
+                    'constraints' => [
+                        'id' => '[a-zA-Z0-9_-]+',
+                    ],
+                    'defaults' => [
+                        'controller' => 'DAUser\Controller\ActivateUserRest',
+                    ],
+                ],
             ]
         ],
     ],
+
+    'controllers' => array(
+        'factories' => array(
+            'DAUser\Controller\ActivateUserRest' => function (ControllerManager $cm) {
+                $sm = $cm->getServiceLocator();
+                $service = $sm->get('DAUser\Service\User');
+
+                $activateUser = new Controller\ActivateUserRestController($service);
+
+                return $activateUser;
+            }
+        )
+    ),
 
     'view_manager' => [
         'strategies' => [
@@ -78,4 +105,10 @@ return [
         __NAMESPACE__ . '_fixture' => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
 
     ),
+
+    'view_manager' => [
+        'template_path_stack' => [
+            __DIR__ . '/../view',
+        ],
+    ],
 ];

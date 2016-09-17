@@ -1,0 +1,10 @@
+Olá <?php echo $this->name;?>,
+<br />
+<br />
+
+<p>
+    Esse email tem o objetivo de confirmar seu cadastro em nosso sistema.
+    <br />
+    Para ativar sua conta, acesse: http://api.agenciadigitala.local:8080<?php echo $this->url('dauser-user-activate', array('id'=>$this->activationKey)); ?>
+    
+</p>

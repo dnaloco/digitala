@@ -25,48 +25,14 @@ implements ApcCacheAwareInterface,
     protected $collectionOptions = array('POST', 'OPTIONS');
     protected $resourceOptions = array();
 
-    public function __construct($service)
-    {
-        parent::__construct($service);
-
-        if ($this instanceof CheckTokenStrategyInterface)
-        {
-            $this->aclResource = 'login';
-            $this->aclRules = [
-                self::ACL_RESOURCES['POST'] => [
-                    self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PUBLIC'],
-                    self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
-                    self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['SEE']
-                ],
-            ];
-        }
-    }
-
-    public function checkOptions($e)
-    {
-        //var_dump(apache_request_headers());die;
-        //var_dump($_SERVER['HTTP_REFERER']);die;
-        $matches =  $e->getRouteMatch();
-        $response = $e->getResponse();
-        $request =  $e->getRequest();
-        $method =   $request->getMethod();
-
-       if ($matches->getParam('id', false)) {
-            if (!in_array($method, $this->resourceOptions)) {
-                return $this->statusMethodNotAllowed('This method ' . $method . ' is not allowed on this api.');
-            }
-        }
-        if (!in_array($method, $this->collectionOptions)) {
-            return $this->statusMethodNotAllowed('This method ' . $method . ' is not allowed on this api.');
-        }
-
-        if ($this instanceof CheckTokenStrategyInterface) {
-            $headers = $request->getHeaders();
-            $authResponse = $this->checkAuthorization($headers, $method)->checkToken();
-            return $authResponse;
-        }
-
-    }
+    protected $aclResource = 'login';
+    protected $aclRules = [
+        self::ACL_RESOURCES['POST'] => [
+            self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PUBLIC'],
+            self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
+            self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['CREATE']
+        ],
+    ];
 
 	public function getCache($cache = null)
     {
@@ -144,9 +110,9 @@ implements ApcCacheAwareInterface,
                 return new JsonModel(array('token' => $newToken->__toString()));
             }
 
-            $this->statusBadRequest('Wrong password');
+            $this->statusNotAuthorized('Wrong password');
         }
 
-        $this->statusBadRequest('User not found!');
+        $this->statusNotAuthorized('User not found!');
 	}
 }

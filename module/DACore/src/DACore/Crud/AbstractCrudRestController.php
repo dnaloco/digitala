@@ -81,12 +81,12 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
         $method =   $request->getMethod();
         if ($matches->getParam('id', false)) {
             if (!in_array($method, $this->resourceOptions)) {
-                return $this->statusMethodNotAllowed();
+                return $this->statusMethodNotAllowed('Method not allowed ' . $method);
             }
             return;
         }
         if (!in_array($method, $this->collectionOptions)) {
-            return $this->statusMethodNotAllowed();
+            return $this->statusMethodNotAllowed('Method not allowed ' . $method);
         }
     }
 

@@ -51,11 +51,14 @@ function OnInterceptor(
           return null;
         }
 
+        
         //return localStorage.getItem('publicToken');
         // public api...
         if (publicApi.test(options.url)) {
+          
+
           //return refreshToken();
-          console.log('tenho token?', localStorage.getItem('publicToken'));
+          console.log('tenho token publico?', localStorage.getItem('publicToken'));
 
           if (localStorage.getItem('publicToken') === null || localStorage.getItem('publicToken') === undefined) {
             console.log('Não. Gerando um novo.');
@@ -71,10 +74,17 @@ function OnInterceptor(
         }
 
         if (privateApi.test(options.url)) {
-          //return localStorage.getItem('privateToken');
+          var deferred = $q.defer();
+          LoginService.hasToken().then(function(response) {
+            console.log('Tenho token privado?', response.success);
+            LoginService.getToken().then(function(response) {
+              console.log('Valor do token privado', response.value);
+              deferred.resolve(response.value);
+            })
+          });
 
-          console.log('Has Private Token?', LoginService.getToken());
-          return LoginService.getToken();
+          return deferred.promise;
+
         }
 
       }]

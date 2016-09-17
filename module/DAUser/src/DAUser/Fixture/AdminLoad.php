@@ -19,6 +19,7 @@ class AdminLoad extends AbstractFixture implements OrderedFixtureInterface
 			'user' => 'arthur_scosta@yahoo.com.br',
 			'password' => 'artdna',
 			'roles' => $roles,
+			'active' => true,
 			'person' => new \DABase\Entity\Person([
 				'name' => 'Arthur Santos Costa',
 				'gender' => 'male',

@@ -24,3 +24,7 @@ gulp.task('siteImages', function() {
 gulp.task('erpImages', function() {
   return images(config.erp.images.src, config.erp.images.dest);
 });
+
+gulp.task('modulesImages', function() {
+  return images(config.modules.images.src, config.modules.images.dest);
+});

@@ -529,4 +529,22 @@ MyUploadAwareInterface
 	{
 
 	}
+
+	public function activateUser($key)
+	{
+		$repo = $this->getRepository();
+        
+        $user = $repo->findOneBy(array('activationKey'=>$key));
+        
+        if($user && !$user->getActive())
+        {
+            $user->setActive(true);
+            $user->setActivationKey();
+            
+            $this->em->persist($user);
+            $this->em->flush();
+            
+            return $user;
+        }
+	}
 }

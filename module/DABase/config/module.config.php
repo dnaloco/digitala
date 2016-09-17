@@ -30,7 +30,20 @@ return [
                         'access' => 'private|public'
                     ],
                     'defaults' => [
-                        'controller' => 'DABase\Controller\CityRest',
+                        'controller' => 'DABase\Controller\CitiesRest',
+                    ],
+                ],
+            ],
+            'dabase-states-rest' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/api/:access/states[/:id]',
+                    'constraints' => [
+                        'id' => '[0-9]+',
+                        'access' => 'private|public'
+                    ],
+                    'defaults' => [
+                        'controller' => 'DABase\Controller\StatesRest',
                     ],
                 ],
             ],
@@ -66,14 +79,22 @@ return [
         'DABase\Service\City' => [
             'class_name' => 'DABase\Service\City',
             'entity' => 'DABase\Entity\City'
+        ],
+        'DABase\Service\State' => [
+            'class_name' => 'DABase\Service\State',
+            'entity' => 'DABase\Entity\State'
         ]
     ],
 
     'service_rest_controller' => [
-        'DABase\Controller\CityRest' => [
-            'class_name' => 'DABase\Controller\CityRestController',
+        'DABase\Controller\CitiesRest' => [
+            'class_name' => 'DABase\Controller\CitiesRestController',
             'service' => 'DABase\Service\City'
-        ]
+        ],
+        'DABase\Controller\StatesRest' => [
+            'class_name' => 'DABase\Controller\StatesRestController',
+            'service' => 'DABase\Service\State'
+        ],
     ],
     'view_manager' => [
         'strategies' => [
@@ -112,7 +133,6 @@ return [
                     'DACore\Entity\Base\StateInterface'             => 'DABase\Entity\State',
                     'DACore\Entity\Base\TelephoneInterface'         => 'DABase\Entity\Telephone',
                     'DACore\Entity\Base\VideoInterface'             => 'DABase\Entity\Video',
-
                 ],
             ],
         ],

@@ -8,10 +8,15 @@ class ConfirmationListener implements ListenerAggregateInterface
 {
 	protected $listeners = array();
 
+	public function __construct($mailService)
+	{
+		$this->mailService = $mailService;
+	}
+
 	public function attach(EventManagerInterface $events)
 	{
 		$sharedEvents = $events->getSharedManager();
-		$this->listeners[] = $sharedEvents->attach('DASite\Controller\IndexController', 'onCreateUser', array($this, 'onEmailConfirmation'), 100);
+		$this->listeners[] = $sharedEvents->attach('DAUser\Controller\UserRestController', 'onCreateUser', array($this, 'onEmailConfirmation'), 100);
 	}
 
 	public function detach(EventManagerInterface $events)
@@ -25,6 +30,18 @@ class ConfirmationListener implements ListenerAggregateInterface
 
 	public function onEmailConfirmation($e)
 	{
-		var_dump($e->getParams);
+		$data = $e->getParams();
+
+		$dataEmail = [
+			'name' => $data['person']['name'],
+			'activationKey' => $data['activationKey']
+		];
+
+		$this->mailService->setPage('activate-user')
+			->setSubject('Confirmação de Cadastro')
+            ->setTo($data['user'])
+            ->setData($dataEmail)
+            ->prepare()
+            ->send();
 	}
 }
