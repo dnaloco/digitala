@@ -43,7 +43,7 @@ implements ApcCacheAwareInterface,
         return $this->cache;
     }
 
-    public function getToken($api_issuer, $api_audience, $api_uid, $api_signer, $api_sign, $api_not_before, $api_expiration, $user_email, $user_roles)
+    public function getToken($api_issuer, $api_audience, $api_uid, $api_signer, $api_sign, $api_not_before, $api_expiration, $user_email, $user_name, $user_roles)
     {
         $token = (new Builder())->setIssuer($api_issuer) // Configures the issuer (iss claim)
             ->setAudience($api_audience) // Configures the audience (aud claim)
@@ -55,6 +55,7 @@ implements ApcCacheAwareInterface,
             ->set('ip', $_SERVER['REMOTE_ADDR'])
             ->set('uid', $api_uid)
             ->set('email', $user_email)
+            ->set('name', $user_name)
             ->set('roles', $user_roles)
             ->sign($api_signer, $api_sign)
             ->getToken();
@@ -104,9 +105,17 @@ implements ApcCacheAwareInterface,
                 $api_expiration = getenv('API_PUBLIC_EXPIRATION');
 
                 $user_email = $hasUser->getUser();
+
+                $user_name = '[NOME ? / NOME FANTASIA ?]';
+
+                if (!is_null($hasUser->getPerson())) {
+                    $user_name = $hasUser->getPerson()->getName();
+                } elseif (!is_null($hasUser->getCompany())) {
+                    $user_name = $hasUser->getCompany()->getTradingName();
+                }
                 $user_roles = static::getPropertyNamingSerializer()->serialize($hasUser->getRoles(), 'json');
 
-                $newToken = $this->getToken($api_issuer, $api_audience, $api_uid, $api_signer, $api_sign, $api_not_before, $api_expiration, $user_email, $user_roles);
+                $newToken = $this->getToken($api_issuer, $api_audience, $api_uid, $api_signer, $api_sign, $api_not_before, $api_expiration, $user_email, $user_name, $user_roles);
                 return new JsonModel(array('token' => $newToken->__toString()));
             }
 

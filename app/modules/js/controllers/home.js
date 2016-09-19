@@ -5,7 +5,7 @@ function HomeController($scope, ModulesService, $rootScope) {
   // ViewModel
   const vm = this;
 
-  $rootScope.$on('iframeReady', function () {
+  /*$rootScope.$on('iframeReady', function () {
     ModulesService.getModules().then(function (modules) {
         vm.modules = modules;
         console.log('modules', modules);
@@ -13,7 +13,7 @@ function HomeController($scope, ModulesService, $rootScope) {
       console.error('ERROR', error);
     });
   });
-
+*/
   
 }
 

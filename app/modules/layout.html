@@ -12,9 +12,18 @@
   </head>
   <body ng-controller="LayoutController as layout">
 
-    <button ng-click="layout.logout()" ng-show="layout.logged">Sair</button>
+    <button class="button alert" ng-click="layout.logout()" ng-show="layout.logged">Sair</button>
     MODULES APPLICATION
-    <div ui-view></div>
+
+    <div id="da-layout-header" data-ui-view="header"></div>
+
+    <div id="da-layout-banner" data-ui-view="banner"></div>
+
+    <div id="da-layout-content" data-ui-view="content"></div>
+
+    <div id="da-layout-sidebar" data-ui-view="sidebar"></div>
+
+    <div id="da-layout-footer" data-ui-view="footer"></div>
 
     <script src="modules/js/main.js"></script>
 

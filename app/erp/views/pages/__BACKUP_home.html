@@ -1,0 +1,70 @@
+<div>
+	ERP HOME
+
+
+
+
+	<button class="button" ng-click="home.callCities()">Test Cities</button>
+	<button class="button" ng-click="home.callPrivateStates()">Test Privado States</button>
+	<button class="button" ng-click="home.testFormUser()">Test Form User</button>
+
+	<div>
+		<h2>Login Usuário</h2>
+		Form is valid: {{signinForm.$valid}} <br>
+		Token invalid: {{signinForm.signinFormToken.$invalid}} <br>
+		<form novalidate ng-submit="home.testLogin()" name="signinForm" ng-init="home.getToken('signinForm', home.login)">
+
+			<input type="hidden" name="signinFormToken" ng-model="silenceIsGold" required>
+
+			<div ng-show="signinForm.signinFormToken.$invalid">
+				Missing token form...
+			</div>
+
+			<label for="signin_user">
+				Usuário: <br>
+				<input type="text" name="signin_user" ng-model="home.login.user" required>	
+			</label>
+			<label for="signin_password">
+				Senha: <br>
+				<input type="password" name="signin_password" ng-model="home.login.password" required>
+			</label>
+
+			<button class="button success" type="submit" ng-disabled="signinForm.$invalid">Login</button>
+		</form>
+	</div>
+
+	<hr>
+
+	<div>
+		<h2>Cadastro Usuário</h2>
+		Form is valid: {{signupForm.$valid}} <br>
+		Token invalid: {{signupForm.signupFormToken.$invalid}} <br>
+		<form novalidate ng-submit="home.testFormUser()" name="signupForm" ng-init="home.getToken('signupForm', home.user)">
+
+			<input type="hidden" name="signupFormToken" ng-model="silenceIsGold" required>
+
+			<div ng-show="signupForm.signupFormToken.$invalid">
+				Missing token form...
+			</div>
+			<label for="signup_user">
+				Usuário: <br>
+				<input type="text" name="signup_user" ng-model="home.user.user" required>	
+			</label>
+			<label for="signup_password">
+				Senha: <br>
+				<input type="password" name="signup_password" ng-model="home.user.password" required>
+			</label>
+			<label for="signup_conf_password">
+				Confirmar Senha: <br>
+				<input type="password" name="signup_conf_password" ng-model="home.confPassword" required>
+			</label>
+			<label for="signup_name">
+				Nome: <br>
+				<input type="text" name="signup_name" ng-model="home.user.person.name" required>
+			</label>
+			
+
+			<button class="button success" type="submit" ng-disabled="signupForm.$invalid">Enviar</button>
+		</form>
+	</div>
+</div>

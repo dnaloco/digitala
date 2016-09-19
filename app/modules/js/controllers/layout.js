@@ -11,6 +11,10 @@ function LayoutController($rootScope, LoginService, jwtHelper, $state) {
 
 	vm.logged = false;
 
+	$rootScope.$on('isLogged', function(value) {
+		vm.logged = true;
+	})
+
 	$rootScope.$on('iframeReady', function () {
 	    LoginService.getToken().then(function(response) {
 	    	console.log('Login token resp', response);
@@ -26,6 +30,7 @@ function LayoutController($rootScope, LoginService, jwtHelper, $state) {
 
 	vm.logout = function () {
 		LoginService.removeToken();
+		vm.logged = false;
 		$state.go('Login');
 	};
 

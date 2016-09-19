@@ -3,11 +3,13 @@ function OnConfig(
   $compileProvider,
   RestangularProvider,
   AppSettings,
-  $httpProvider
+  $httpProvider,
+  $facebookProvider
   ) {
 
   'ngInject';
 
+  $facebookProvider.setAppId('309898129379278');
 
   if (process.env.NODE_ENV === 'production') {
     $compileProvider.debugInfoEnabled(false);

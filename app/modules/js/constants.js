@@ -1,6 +1,6 @@
 const AppSettings = {
   appTitle: 'Agência Digital A',
-  apiUrl: 'http://api.agenciadigitala.local/api',
+  apiUrl: 'http://api.agenciadigitala.local/api'
 };
 
 export default AppSettings;

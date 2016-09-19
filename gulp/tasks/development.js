@@ -16,7 +16,9 @@ gulp.task('erpDev', ['clean'], function(cb) {
 
   global.isProd = false;
 
-  runSequence(['erpStyles', 'erpImages', 'erpViews'],
+  runSequence(
+    'crossDomainStorage',
+    ['erpStyles', 'erpImages', 'erpViews'],
   	'erpBrowserify',
   	'fonts', 'indexFile', 'uploadsDir', 'erpWatch', cb);
 
@@ -43,5 +45,11 @@ gulp.task('dev', ['clean'], function(cb) {
   	'erpBrowserify',
   	['siteStyles', 'siteImages', 'siteViews'],
   	'siteBrowserify',
-  	'fonts', 'indexFile', 'uploadsDir', 'erpWatch', 'siteWatch', cb);
+    ['modulesStyles', 'modulesImages', 'modulesViews'],
+    'modulesBrowserify',
+  	'fonts', 'indexFile', 'uploadsDir',
+    'erpWatch',
+    'siteWatch',
+    'modulesWatch',
+    cb);
 })

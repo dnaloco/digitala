@@ -35,6 +35,7 @@ import 'angular-busy';
 import 'ng-lodash';
 import 'angular-smart-table';
 import 'ng-xdLocalStorage';
+import 'ng-facebook';
 
 import 'ngEqualizer';
 
@@ -67,6 +68,7 @@ const requires = [
   'ngLodash',
   'smart-table',
   'xdLocalStorage',
+  'ngFacebook',
 
   'ngEqualizer',
 

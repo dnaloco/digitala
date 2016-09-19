@@ -4,7 +4,8 @@ function OnRun($rootScope, AppSettings, xdLocalStorage) {
   xdLocalStorage.init({
       iframeUrl:'http://www.agenciadigitala.local:80/cross-domain-storage/magical-frame.html'
   }).then(function () {
-    console.log('Got iframe ready to erp');
+    console.log('Got iframe ready to ERP');
+    $rootScope.$broadcast('iframeReady');
   });
 
   // change page title based on state
