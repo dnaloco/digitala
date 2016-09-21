@@ -12,17 +12,13 @@ function OnRoute(
         templateUrl: 'layout/header.html',
         controller: 'HeaderController as header'
       },
-      'banner': {
-        templateUrl: 'layout/banner.html',
-        controller: 'BannerController as banner'
+      'leftsidebar': {
+        templateUrl: 'layout/left-navbar.html',
+        controller: 'NavbarController as navbar'
       },
-      'content': {
+      'middlecontent': {
         templateUrl: 'layout/home.html',
         controller: 'HomeController as home'
-      },
-      'sidebar': {
-        templateUrl: 'layout/sidebar.html',
-        controller: 'SidebarController as sidebar'
       },
       'footer':{
         templateUrl: 'layout/footer.html',
@@ -34,15 +30,34 @@ function OnRoute(
   .state('Login', {
     url: '/login',
     views: {
-        'content@': {
+        'middlecontent@': {
             templateUrl: 'pages/login.html',
             controller: 'LoginController as login',
         }
     },
     title: 'Login'
+  })
+  .state('Produtos', {
+    url: '/produtos',
+    views: {
+        'middlecontent@': {
+            templateUrl: 'pages/products/home.html',
+            controller: 'HomeProductsController as home',
+        },
+    },
+    title: 'Produtos'
+  })
+  .state('Produtos.novo', {
+    url: '/novo',
+    views: {
+        'new@Produtos': {
+            templateUrl: 'pages/products/new.html',
+            controller: 'NewProductController as new',
+        },
+    },
+    title: 'Novo Produto'
   });
 
 }
-
 
 export default OnRoute;

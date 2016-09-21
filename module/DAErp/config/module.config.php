@@ -17,7 +17,7 @@ return [
                 ),
                 'may_terminate' => false,
                 'child_routes' => array(
-                    'dablog-home' => array(
+                    'daerp-home' => array(
                         'type' => Literal::class,
                         'options' => array(
                             'route' => '/',
@@ -27,6 +27,41 @@ return [
                             ),
                         ),
                         'may_terminate' => true,
+                        'child_routes' => array(
+                            'daerp-products' => array(
+                                'type' => Segment::class,
+                                'options' => array(
+                                    'route' => 'produtos[/]',
+                                    'defaults' => array(
+                                        'controller' => Controller\IndexController::class,
+                                        'action' => 'index',
+                                    ),
+                                ),
+                                'may_terminate' => true,
+                                'child_routes' => array(
+                                    'daerp-products-new' => array(
+                                        'type' => Segment::class,
+                                        'options' => array(
+                                            'route' => 'novo[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action' => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                    'daerp-products-manufacturers' => array(
+                                        'type' => Segment::class,
+                                        'options' => array(
+                                            'route' => 'fabricantes[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action' => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),

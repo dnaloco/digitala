@@ -65,9 +65,9 @@ class Store {
 	 * If value is true to sell with the discount price
 	 * @var Boolean
 	 *
-	 * @ORM\Column(name="sell_discount_price", type="boolean", nullable=true)
+	 * @ORM\Column(name="sell_with_discount_price", type="boolean", nullable=true)
 	 */
-	private $sellDiscountPrice;
+	private $sellWithDiscountPrice;
 
 	/**
 	 * @var string

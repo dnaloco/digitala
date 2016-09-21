@@ -107,7 +107,19 @@ class Product {
 	 */
 	private $videos;
 
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="unit_type", type="string", length=50, nullable=true)
+	 */
 	private $unitType;
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="package_type", type="string", length=50, nullable=true)
+	 */
+	private packageType;
 
 	/**
 	 * @var string
@@ -145,6 +157,12 @@ class Product {
 	 *      )
 	 */
 	private $produtoRatings;
+
+	/**
+     * @ManyToMany(targetEntity="Group", inversedBy="users")
+     * @JoinTable(name="users_groups")
+     */
+	private $suppliers;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="R2Erp\Entity\Product\Product")

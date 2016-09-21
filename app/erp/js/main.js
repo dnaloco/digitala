@@ -36,6 +36,7 @@ import 'angular-busy';
 import 'ng-lodash';
 import 'angular-smart-table';
 import 'ng-xdLocalStorage';
+import 'angular-scroll';
 
 import 'ngEqualizer';
 
@@ -70,6 +71,7 @@ const requires = [
   'ngLodash',
   'smart-table',
   'xdLocalStorage',
+  'duScroll',
 
   'ngEqualizer',
 
