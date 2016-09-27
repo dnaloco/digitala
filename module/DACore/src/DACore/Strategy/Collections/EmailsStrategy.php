@@ -5,8 +5,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 trait EmailsStrategy
 {
-	public function getEmail($key, $email, $repoEmail)
+	private $checkUnique = true;
+
+	public function getEmail($key, $email)
 	{
+		$repoEmail = $this->getAnotherRepository('DABase\Entity\Email');
+
 		// email anwserable not required.
 		if (isset($email['anwserable'])) {
 			$email['anwserable'] = static::checkNameWithSpecials($key, $email['anwserable'], 'anwserable');
@@ -22,7 +26,8 @@ trait EmailsStrategy
 			if (!$email['address']) {
 				return false;
 			} else {
-				$email['address'] = static::checkUnique($key, $email['address'], 'address', $repoEmail);
+				if ($this->checkUnique)
+					$email['address'] = static::checkUnique($key, $email['address'], 'address', $repoEmail);
 
 				if (!$email['address']) return false;
 			}
@@ -33,8 +38,11 @@ trait EmailsStrategy
 		return new \DABase\Entity\Email($email);
 	}
 
-	public function getEmailsCollection($key, $emails, $repoEmail)
+	public function getEmailsCollection($key, $emails, $entity)
 	{
+		if (!($this instanceof \DACore\Service\AbstractCrudService))
+			throw new \Exception('TO USE EmailsStrategy TRAIT NEED TO BE INSTANCE OF  DACore\Service\AbstractCrudService');
+
 		$myTraits = class_uses($this);
 
 		if (!in_array('DACore\Strategy\DataCheckerStrategy', $myTraits)) {
@@ -43,8 +51,34 @@ trait EmailsStrategy
 
 		$arrEmails = new ArrayCollection();
 		$key = $key . '_emails';
+
+		if (!is_null($entity)) {
+			$this->checkUnique = false;
+			$emailsCollection = $entity->getEmails();
+
+			foreach($emails as $email) {
+				$email = $this->getEmail($key, $email);
+
+				if (!$email) continue;
+
+				if (is_null($email->getId())) {
+					$emailsCollection->add($email);
+				} else {
+
+					$emailEntity = $this->em->getReference('DABase\Entity\Email', $email->getId());
+					if ($emailsCollection->contains($emailEntity)) {
+						$this->em->merge($email);
+					}
+				}
+			}
+
+			$this->em->flush();
+			return null;
+
+		}
+
 		foreach($emails as $email) {
-			$email = $this->getEmail($key, $email, $repoEmail);
+			$email = $this->getEmail($key, $email);
 
 			if ($email) $arrEmails->add($email);
 		}

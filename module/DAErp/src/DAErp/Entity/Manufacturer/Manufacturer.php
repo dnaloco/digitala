@@ -23,7 +23,7 @@ class Manufacturer implements ManufacturerInterface
 
 	/**
 	 * @ORM\OneToOne(targetEntity="DACore\Entity\Base\CompanyInterface", cascade={"persist", "remove"})
-	 * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
+	 * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=false)
 	 **/
 	public $company;
 

@@ -14,9 +14,18 @@ use DACore\Strategy\Collections\{
     TelephonesInterface,TelephonesStrategy
 };
 
+use DACore\Strategy\Entity\{
+    PersonInterface,PersonStrategy
+};
 class User extends AbstractCrudService
 implements
 DataCheckerStrategyInterface,
+AddressesInterface,
+DocumentsInterface,
+EmailsInterface,
+SocialNetworksInterface,
+TelephonesInterface,
+PersonInterface,
 MyUploadAwareInterface
 {
 	use DataCheckerStrategy;
@@ -26,6 +35,7 @@ MyUploadAwareInterface
     use EmailsStrategy;
     use SocialNetworksStrategy;
     use TelephonesStrategy;
+    use PersonStrategy;
 
 	protected $uploadManager;
 
@@ -106,84 +116,12 @@ MyUploadAwareInterface
 		$key = $key . '_goodTags';
 	}
 
-
-	public function getPerson($key, $person)
-	{
-		$person = array_filter($person);
-		$key = $key . '_person';
-
-		// person name REQUIRED!
-		if (!isset($person['name'])) {
-			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'name');
-		} else {
-			$person['name'] = static::checkNameWithSpecials($key, $person['name']);
-		}
-
-		if (isset($person['gender'])) {
-			$person['gender'] = static::checkType($key, 'DACore\Enum\GenderType', $person['gender']);
-		}
-
-		// birthdate
-		if (isset($person['birthdate'])) {
-			$mindate = new \DateTime();
-			$mindate->modify('-150 year');
-
-			$maxdate = new \DateTime();
-			$maxdate->modify('-12 year');
-			$person['birthdate'] = static::checkDateBetween($key, $person['birthdate'], 'birthdate', $mindate, $maxdate);
-		}
-
-		if (isset($person['description'])) {
-			$person['description'] = static::checkString($key, $person['description'], 'description');
-		}
-
-		if (isset($person['photo']) && isset($person['photo']['uploaded']) && isset($person['name'])) {
-
-			$imgData = [
-				'title' => 'Foto de ' . $person['name'],
-				'author' => 'Foto do proprietário da conta',
-				'licence' => static::checkType($key, 'DACore\Enum\Licence', 'Attribution-NonCommercial-NoDerivs'),
-				'description' => 'Imagem de foto do usuário fornecida pelo próprio.',
-				'name' => $person['name'],
-				'path' => './build/uploads/person/photos/',
-			];
-
-			$person['photo'] = $this->getUploadManager()->getPhoto($key, $person['photo']['uploaded'], $imgData);
-		}
-
-		if (isset($person['emails'])) {
-			$repoEmail = $this->getAnotherRepository('\DABase\Entity\Email');
-			$person['emails'] = static::getEmailsCollection($key, $person['emails'], $repoEmail);
-		}
-
-		if (isset($person['addresses'])) {
-			$person['addresses'] = static::getAddressesCollection($key, $person['addresses']);
-		}
-
-		if (isset($person['telephones'])) {
-			$person['telephones'] = static::getTelephonesCollection($key, $person['telephones']);
-		}
-
-		if (isset($person['socialNetworks'])) {
-			$repoSocial = $this->getAnotherRepository('DABase\Entity\SocialNetwork');
-			$person['socialNetworks'] = static::getSocialNetworksCollection($key, $person['socialNetworks'], $repoSocial);
-		}
-
-		if (isset($person['documents'])) {
-			$person['documents'] = static::getDocumentsCollection($key, $person['documents']);
-		}
-
-		if (static::hasErrors()) return false;
-
-		$person = new \DABase\Entity\Person($person);
-
-		return $person;
-	}
-
-	public function prepareDataToInsert(array $data)
+	public function prepareData(array $data)
 	{
 
-
+		if(isset($data['createdAt'])) unset($data['createdAt']);
+		if(isset($data['updatedAt'])) unset($data['updatedAt']);
+		
 		$data = array_filter($data);
 		$key = 'user';
 
@@ -212,7 +150,7 @@ MyUploadAwareInterface
 
 		// person or company REQUIRED!
 		if (isset($data['person'])) {
-			$data['person'] = $this->getPerson($key, $data['person']);
+			$data['person'] = static::getPerson($key, $data['person'], true);
 
 		} else if (isset($data['company'])) {
 
@@ -226,11 +164,6 @@ MyUploadAwareInterface
 		}
 		//var_dump($data);die;
 		return $data;
-	}
-
-	public function prepareDataToUpdate(array $data)
-	{
-
 	}
 
 	public function activateUser($key)

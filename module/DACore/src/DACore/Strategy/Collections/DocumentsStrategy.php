@@ -49,8 +49,11 @@ trait DocumentsStrategy
 		return new \DABase\Entity\Document($document);
 	}
 
-	public function getDocumentsCollection($key, $documents)
+	public function getDocumentsCollection($key, $documents, $entity)
 	{
+		if (!($this instanceof \DACore\Service\AbstractCrudService))
+			throw new \Exception('TO USE DocumentsStrategy TRAIT NEED TO BE INSTANCE OF  DACore\Service\AbstractCrudService');
+
 		$myTraits = class_uses($this);
 
 		if (!in_array('DACore\Strategy\DataCheckerStrategy', $myTraits)) {
@@ -59,6 +62,31 @@ trait DocumentsStrategy
 
 		$arrDocuments = new ArrayCollection();
 		$key = $key . '_documents';
+
+		if (!is_null($entity)) {
+
+			$documentsCollection = $entity->getDocuments();
+
+			foreach($documents as $document) {
+				$document = $this->getDocument($key, $document);
+
+				if (!$document) continue;
+
+				if (is_null($document->getId())) {
+					$documentsCollection->add($document);
+				} else {
+
+					$documentEntity = $this->em->getReference('DABase\Entity\Document', $document->getId());
+					if ($documentsCollection->contains($documentEntity)) {
+						$this->em->merge($document);
+					}
+				}
+			}
+
+			$this->em->flush();
+			return null;
+
+		}
 
 		foreach($documents as $document) {
 			$document = $this->getDocument($key, $document);

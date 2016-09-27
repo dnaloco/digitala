@@ -22,9 +22,13 @@ abstract class AbstractCrudService implements PrepareDataInterface
 		$this->em = $em;
 		$this->entity = $entity;
 	}
-	abstract function prepareDataToInsert(array $data);
 
-	abstract function prepareDataToUpdate(array $data);
+	public function prepareData(array $data)
+	{
+		if(isset($data['createdAt'])) unset($data['createdAt']);
+		if(isset($data['updatedAt'])) unset($data['updatedAt']);
+		return $data;
+	}
 
 	public function getRepository()
 	{
@@ -51,7 +55,6 @@ abstract class AbstractCrudService implements PrepareDataInterface
 
 	public function getOne($id)
 	{
-		
 		$repo = self::getRepository();
 
 		$data = $repo->find((int) $id);
@@ -62,7 +65,7 @@ abstract class AbstractCrudService implements PrepareDataInterface
 	public function insert(array $data)
 	{
 
-		$data = $this->prepareDataToInsert($data);
+		$data = static::prepareData($data);
 
 		if (!empty($data['errors'])) return $data;
 
@@ -79,7 +82,7 @@ abstract class AbstractCrudService implements PrepareDataInterface
 	}
 
 	public function update(array $data) {
-		$data = static::prepareDataToUpdate($data);
+		$data = static::prepareData($data);
 		if (isset($data['errors'])) return $data;
 		$entity = $this->em->getReference($this->entity, $data['id']);
 		(new Hydrator\ClassMethods())->hydrate($data, $entity);

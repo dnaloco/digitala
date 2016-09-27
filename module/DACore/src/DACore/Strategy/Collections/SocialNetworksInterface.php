@@ -3,5 +3,5 @@ namespace DACore\Strategy\Collections;
 
 interface SocialNetworksInterface
 {
-	function getSocialNetworksCollection($key, $socialNetworks, $repoSocial);
+	function getSocialNetworksCollection($key, $socialNetworks, $entity);
 }

@@ -70,8 +70,11 @@ trait AddressesStrategy
 		return new \DABase\Entity\Address($address);
 	}
 
-	public function getAddressesCollection($key, $addresses)
+	public function getAddressesCollection($key, $addresses, $entity)
 	{
+		if (!($this instanceof \DACore\Service\AbstractCrudService))
+			throw new \Exception('TO USE AddressesStrategy TRAIT NEED TO BE INSTANCE OF  DACore\Service\AbstractCrudService');
+
 		$myTraits = class_uses($this);
 
 		if (!in_array('DACore\Strategy\DataCheckerStrategy', $myTraits)) {
@@ -80,6 +83,31 @@ trait AddressesStrategy
 
 		$arrAddresses = new ArrayCollection();
 		$key = $key . '_addresses';
+
+		if (!is_null($entity)) {
+
+			$addressesCollection = $entity->getAddresses();
+
+			foreach($addresses as $address) {
+				$address = $this->getAddress($key, $address);
+
+				if (!$address) continue;
+
+				if (is_null($address->getId())) {
+					$addressesCollection->add($address);
+				} else {
+
+					$addressEntity = $this->em->getReference('DABase\Entity\Address', $address->getId());
+					if ($addressesCollection->contains($addressEntity)) {
+						$this->em->merge($address);
+					}
+				}
+			}
+
+			$this->em->flush();
+			return null;
+
+		}
 
 		foreach($addresses as $address) {
 

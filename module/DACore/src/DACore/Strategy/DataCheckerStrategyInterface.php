@@ -6,6 +6,7 @@ interface DataCheckerStrategyInterface
 	const ERROR_REQUIRED_FIELD = 'Required field was not present in data.';
 	const ERROR_ENTITY_NOT_FOUND = 'Entity id could not be found.';
 	const ERROR_INVALID_EMAIL = 'Email data has an invalid format.';
+	const ERROR_INVALID_REFERENCE = 'Id data was not found.';
 	const ERROR_INVALID_URL = 'Url data has an invalid format.';
 	const ERROR_UNIQUE_FIELD = 'Field data already exist! Please, choose another one.';
 	const ERROR_INVALID_STRING = 'String data has an invalid string.';

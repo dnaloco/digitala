@@ -3,5 +3,5 @@ namespace DACore\Strategy\Collections;
 
 interface TelephonesInterface
 {
-	function getTelephonesCollection($key, $telephones);
+	function getTelephonesCollection($key, $telephones, $entity);
 }

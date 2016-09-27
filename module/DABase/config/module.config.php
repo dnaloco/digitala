@@ -30,7 +30,7 @@ return [
                         'id' => '[0-9]+',
                     ],
                     'defaults' => [
-                        'controller' =>  'DABase\Controller\GoodTagsRest',
+                        'controller' =>  'DABase\Controller\PeopleRest',
                     ],
                 ],
             ],
@@ -110,13 +110,13 @@ return [
             'class_name' => 'DABase\Controller\CompanyCategoriesRestController',
             'service' => 'DABase\Service\CompanyCategory'
         ],
-        'DABase\Controller\GoodTagsRest' => [
-            'class_name' => 'DABase\Controller\GoodTagsRestController',
-            'service' => 'DABase\Service\GoodTag'
+        'DABase\Controller\PeopleRest' => [
+            'class_name' => 'DABase\Controller\PeopleRestController',
+            'service' => 'DABase\Service\Person'
         ],
         'DABase\Controller\GoodTagsRest' => [
             'class_name' => 'DABase\Controller\GoodTagsRestController',
-            'service' => 'DABase\Service\Person'
+            'service' => 'DABase\Service\GoodTag'
         ],
     ],
     'view_manager' => [

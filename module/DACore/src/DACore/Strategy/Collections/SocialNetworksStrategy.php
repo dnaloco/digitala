@@ -5,8 +5,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 trait SocialNetworksStrategy
 {
-	public function getSocialNetwork($key, $socialNetwork, $repoSocial)
+	private $checkUnique = true;
+	public function getSocialNetwork($key, $socialNetwork)
 	{
+		$repoSocial = $this->getAnotherRepository('DABase\Entity\SocialNetwork');
+
 		if (!isset($socialNetwork['type'])) {
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'type');
 			return false;
@@ -21,7 +24,8 @@ trait SocialNetworksStrategy
 		} else {
 			$socialNetwork['address'] = static::checkUrl($key, $socialNetwork['address'], 'address');
 
-			$socialNetwork['address'] = $socialNetwork['address'] ? static::checkUnique($key, $socialNetwork['address'], 'address', $repoSocial) : false;
+			if ($this->checkUnique)
+				$socialNetwork['address'] = $socialNetwork['address'] ? static::checkUnique($key, $socialNetwork['address'], 'address', $repoSocial) : false;
 
 			if (!$socialNetwork['address']) return false;
 		}
@@ -31,8 +35,12 @@ trait SocialNetworksStrategy
 		return new \DABase\Entity\SocialNetwork($socialNetwork);
 	}
 
-	public function getSocialNetworksCollection($key, $socialNetworks, $repoSocial)
+	public function getSocialNetworksCollection($key, $socialNetworks, $entity)
 	{
+
+		if (!($this instanceof \DACore\Service\AbstractCrudService))
+			throw new \Exception('TO USE SocialNetworksStrategy TRAIT NEED TO BE INSTANCE OF  DACore\Service\AbstractCrudService');
+
 		$myTraits = class_uses($this);
 
 		if (!in_array('DACore\Strategy\DataCheckerStrategy', $myTraits)) {
@@ -42,8 +50,33 @@ trait SocialNetworksStrategy
 		$arrSocialNetworks = new ArrayCollection();
 		$key = $key . '_socialNetworks';
 
+		if (!is_null($entity)) {
+			$this->checkUnique = false;
+			$socialsCollection = $entity->getSocialNetworks();
+
+			foreach($socialNetworks as $socialNetwork) {
+				$socialNetwork = $this->getSocialNetwork($key, $socialNetwork);
+
+				if (!$socialNetwork) continue;
+
+				if (is_null($socialNetwork->getId())) {
+					$socialsCollection->add($socialNetwork);
+				} else {
+
+					$socialEntity = $this->em->getReference('DABase\Entity\SocialNetwork', $socialNetwork->getId());
+					if ($socialsCollection->contains($socialEntity)) {
+						$this->em->merge($socialNetwork);
+					}
+				}
+			}
+
+			$this->em->flush();
+			return null;
+
+		}
+
 		foreach($socialNetworks as $socialNetwork) {
-			$socialNetwork = $this->getSocialNetwork($key, $socialNetwork, $repoSocial);
+			$socialNetwork = $this->getSocialNetwork($key, $socialNetwork);
 
 			if ($socialNetwork) $arrSocialNetworks->add($socialNetwork);
 

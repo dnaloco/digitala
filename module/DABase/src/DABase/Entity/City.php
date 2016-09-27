@@ -56,6 +56,7 @@ class City implements CityInterface
         return $this->id;
     }
 
+   
     /**
      * Gets the value of name.
      *
@@ -100,6 +101,20 @@ class City implements CityInterface
     public function setState($state)
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param integer $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
 
         return $this;
     }

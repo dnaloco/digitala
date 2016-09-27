@@ -3,5 +3,5 @@ namespace DACore\Strategy\Collections;
 
 interface DocumentsInterface
 {
-	function getDocumentsCollection($key, $documents);
+	function getDocumentsCollection($key, $documents, $entity);
 }

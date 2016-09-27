@@ -538,4 +538,18 @@ class Image implements ImageInterface
         return $this->createdAt;
     }
 
+
+    /**
+     * Sets the id of image.
+     *
+     * @param integer $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 }

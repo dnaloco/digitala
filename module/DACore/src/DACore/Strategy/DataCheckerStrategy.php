@@ -32,12 +32,24 @@ trait DataCheckerStrategy
 		$checkEmail = filter_var(trim($email), FILTER_VALIDATE_EMAIL);
 
 		if (!$checkEmail) {
-			self::addDataError($key, self::ERROR_INVALID_EMAIL, $field, $email);
+			self::addDataError($key, static::ERROR_INVALID_EMAIL, $field, $email);
 			return false;
 		}
 
 		return $checkEmail;
 
+	}
+
+	public static function checkReference($key, $id, $field, $repo)
+	{
+		$reference = $repo->find($id);
+
+		if (!$reference) {
+			self::addDataError($key, self::ERROR_INVALID_REFERENCE, $field, $id);
+			return false;
+		}
+
+		return $reference;
 	}
 
 	public static function checkUnique($key, $unique, $field, $repo)

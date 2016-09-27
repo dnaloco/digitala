@@ -273,4 +273,18 @@ class File implements FileInterface
         return $this->createdAt;
     }
 
+
+    /**
+     * Sets the value of id.
+     *
+     * @param integer $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 }

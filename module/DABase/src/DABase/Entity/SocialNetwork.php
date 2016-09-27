@@ -42,6 +42,7 @@ class SocialNetwork implements SocialNetworkInterface
     	(new Hydrator\ClassMethods)->hydrate($data, $this);
     }
 
+
     /**
      * Gets the value of id.
      *
@@ -50,6 +51,20 @@ class SocialNetwork implements SocialNetworkInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param integer $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
