@@ -3,9 +3,9 @@ namespace DAUser\Service;
 
 use DACore\Service\AbstractCrudService;
 use Doctrine\Common\Collections\ArrayCollection;
-use DACore\Strategy\{DataCheckerStrategyInterface, DataCheckerStrategy};
-use DACore\Upload\MyUploadAwareInterface;
 
+use DACore\Upload\MyUploadAwareInterface;
+use DACore\Strategy\{DataCheckerStrategyInterface, DataCheckerStrategy};
 use DACore\Strategy\Collections\{
     AddressesInterface,AddressesStrategy,
     DocumentsInterface,DocumentsStrategy,

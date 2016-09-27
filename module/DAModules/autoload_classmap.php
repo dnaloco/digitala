@@ -4,6 +4,7 @@ return array(
     'DAModules\Module'                          => __DIR__ . '/Module.php',
     'DAModules\Controller\ModuleRestController' => __DIR__ . '/src/DAModules/Controller/ModuleRestController.php',
     'DAModules\Controller\IndexController'      => __DIR__ . '/src/DAModules/Controller/IndexController.php',
+    'DAModules\Fixture\ModulesLoad'             => __DIR__ . '/src/DAModules/Fixture/ModulesLoad.php',
     'DAModules\Service\Module'                  => __DIR__ . '/src/DAModules/Service/Module.php',
     'DAModules\Entity\Module'                   => __DIR__ . '/src/DAModules/Entity/Module.php',
 );

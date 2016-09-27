@@ -5,33 +5,48 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 trait SocialNetworksStrategy
 {
+	public function getSocialNetwork($key, $socialNetwork, $repoSocial)
+	{
+		if (!isset($socialNetwork['type'])) {
+			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'type');
+			return false;
+		} else {
+			$socialNetwork['type'] = static::checkType($key, 'DACore\Enum\SocialType', $socialNetwork['type']);
+			if (!$socialNetwork['type']) return false;
+		}
+
+		if (!isset($socialNetwork['address'])) {
+			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'address');
+			return false;
+		} else {
+			$socialNetwork['address'] = static::checkUrl($key, $socialNetwork['address'], 'address');
+
+			$socialNetwork['address'] = $socialNetwork['address'] ? static::checkUnique($key, $socialNetwork['address'], 'address', $repoSocial) : false;
+
+			if (!$socialNetwork['address']) return false;
+		}
+
+		if (static::hasErrors()) return false;
+
+		return new \DABase\Entity\SocialNetwork($socialNetwork);
+	}
+
 	public function getSocialNetworksCollection($key, $socialNetworks, $repoSocial)
 	{
+		$myTraits = class_uses($this);
+
+		if (!in_array('DACore\Strategy\DataCheckerStrategy', $myTraits)) {
+			throw new \Exception('TO USE SocialNetworksStrategy TRAIT NEED TO HAVE DACore\Strategy\DataCheckerStrategy');
+		}
+
 		$arrSocialNetworks = new ArrayCollection();
 		$key = $key . '_socialNetworks';
 
 		foreach($socialNetworks as $socialNetwork) {
-			if (!isset($socialNetwork['type'])) {
-				static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'type');
-				return false;
-			} else {
-				$socialNetwork['type'] = static::checkType($key, 'DACore\Enum\SocialType', $socialNetwork['type']);
-				if (!$socialNetwork['type']) return false;
-			}
+			$socialNetwork = $this->getSocialNetwork($key, $socialNetwork, $repoSocial);
 
-			if (!isset($socialNetwork['address'])) {
-				static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'address');
-				return false;
-			} else {
-				$socialNetwork['address'] = static::checkUrl($key, $socialNetwork['address'], 'address');
+			if ($socialNetwork) $arrSocialNetworks->add($socialNetwork);
 
-				$socialNetwork['address'] = $socialNetwork['address'] ? static::checkUnique($key, $socialNetwork['address'], 'address', $repoSocial) : false;
-
-				if (!$socialNetwork['address']) return false;
-			}
-			if (static::hasErrors()) return false;
-
-			$arrSocialNetworks->add(new \DABase\Entity\SocialNetwork($socialNetwork));
 		}
 
 		return $arrSocialNetworks;

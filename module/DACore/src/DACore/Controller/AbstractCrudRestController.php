@@ -135,9 +135,10 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
     public function update($id, $data)
     {
         $result = $this->service->update($data);
-        if (isset($result['errors'])) {
+
+        if (is_array($result) && isset($result['errors'])) {
             $this->statusBadRequest(json_encode($result['errors']));
-            return new JsonModel(array('data' => array(), 'success' => false, 'errors' => $data['errors']));
+            return new JsonModel(array('data' => array(), 'success' => false, 'errors' => $result['errors']));
         }
         if ($result) {
             $data = json_decode(static::getPropertyNamingSerializer()->serialize($result, 'json'), true);

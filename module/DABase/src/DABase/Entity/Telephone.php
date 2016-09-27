@@ -88,6 +88,19 @@ class Telephone implements TelephoneInterface
         return $this->id;
     }
 
+    /**
+     * Sets the value of id.
+     *
+     * @param integer $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Gets the logradouro.

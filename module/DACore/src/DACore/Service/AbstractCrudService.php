@@ -51,6 +51,7 @@ abstract class AbstractCrudService implements PrepareDataInterface
 
 	public function getOne($id)
 	{
+		
 		$repo = self::getRepository();
 
 		$data = $repo->find((int) $id);

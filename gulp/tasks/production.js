@@ -8,8 +8,13 @@ gulp.task('prod', ['clean'], function(cb) {
   global.isProd = true;
 
   runSequence(
+  	'crossDomainStorage',
   	['erpStyles', 'erpImages', 'erpViews'],
   	'erpBrowserify',
+  	['siteStyles', 'siteImages', 'siteViews'],
+  	'siteBrowserify',
+  	['modulesStyles', 'modulesImages', 'modulesViews'],
+    'modulesBrowserify',
   	'fonts', 'indexFile', 'uploadsDir', 'gzip', cb);
 
 /*  runSequence(
