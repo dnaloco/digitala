@@ -4,8 +4,8 @@ namespace DACore\Entity\Erp\Product;
 interface GroupInterface
 {
 	function getId();
-	function setId();
+	function setId($id);
 
 	function getName();
-	function setName();
+	function setName($name);
 }

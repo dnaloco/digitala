@@ -4,47 +4,44 @@ namespace DACore\Entity\Erp\Product;
 interface CouponInterface
 {
 	function getId();
-	function setId();
+	function setId($id);
 
 	function getCoupon();
-	function setCoupon();
+	function setCoupon($coupon);
 
 	function getDescription();
-	function setDescription();
+	function setDescription($description);
 
 	function getDiscount();
-	function setDiscount();
+	function setDiscount($discount);
 
 	function getStartDate();
-	function setStartDate();
+	function setStartDate(\DateTime $startDate);
 
 	function getFinishDate();
-	function setFinishDate();
-
-	function getIsIlimitedDate();
-	function setIsIlimitedDate();
-
-	function getIsIlimitedQuantity();
-	function setIsIlimitedQuantity();
+	function setFinishDate(\DateTime $finishDate);
 
 	function getQuantity();
-	function setQuantity();
+	function setQuantity($quantity);
 
-	function getProduct();
-	function setProduct();
+	function getUnlimited();
+	function setUnlimited($unlimited);
 
-	function getMixProduct();
-	function setMixProduct();
+	function getProducts();
+	function setProducts($products);
 
-	function getDepartment();
-	function setDepartment();
+	function getMixProducts();
+	function setMixProducts($mixProducts);
 
-	function getCategory();
-	function setCategory();
+	function getDepartments();
+	function setDepartments($departments);
+
+	function getCategories();
+	function setCategories($categories);
 
 	function getCreatedAt();
-	function setCreatedAt();
+	function setCreatedAt(\DateTime $createdAt);
 
 	function getUpdatedAt();
-	function setUpdatedAt();
+	function setUpdatedAt(\DateTime $updatedAt);
 }

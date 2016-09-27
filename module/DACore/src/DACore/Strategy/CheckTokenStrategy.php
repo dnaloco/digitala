@@ -30,7 +30,7 @@ trait CheckTokenStrategy
         ];
     public function checkUser($id)
     {
-        if ($this instanceof \DACore\Crud\AbstractCrudRestController) {
+        if ($this instanceof \DACore\Controller\AbstractCrudRestController) {
             $userRepo = $this->service->getAnotherRepository('\DAUser\Entity\User');
             $user = $userRepo->find((int) $id);
 
@@ -38,7 +38,7 @@ trait CheckTokenStrategy
         }
 
         // TODO: implementar um logar para estes erros...
-        throw new \Exception('You should use this trait only with instance of "DACore\Crud\AbstractCrudRestController". Or implement another strategy...');
+        throw new \Exception('You should use this trait only with instance of "DACore\Controller\AbstractCrudRestController". Or implement another strategy...');
     }
 
 	// TODO: implement this method...

@@ -1,7 +1,7 @@
 <?php
 namespace DABase\Controller\Product;
 
-use DACore\Crud\AbstractCrudRestController;
+use DACore\Controller\AbstractCrudRestController;
 
 class ProductsRestController extends AbstractCrudRestController
 {

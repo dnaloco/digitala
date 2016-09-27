@@ -1,6 +1,7 @@
 <div>
 	<h1>Cadastro</h1>
-	<form name="signupForm" novalidate>
+
+	<form novalidate name="signupForm" ng-init="signup.getToken('signupForm', signup.user)">
 		Formulário é valido: {{signupForm.$valid}} <br>
 		Formulário é inválido: {{signupForm.$invalid}}
 

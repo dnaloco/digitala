@@ -5,6 +5,7 @@ function ManufacturersController() {
   // ViewModel
   const vm = this;
 
+  console.log('ManufacturersController');
 }
 
 

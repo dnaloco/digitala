@@ -1,11 +1,11 @@
 <?php
-namespace DAErp\Entity\Product;
+namespace DACore\Entity\Erp\Product;
 
-class RatingInterface
+interface RatingInterface
 {
 	function getId();
-	function setId();
+	function setId($id);
 
 	function getRating();
-	function setRating();
+	function setRating($rating);
 }

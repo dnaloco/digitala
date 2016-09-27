@@ -1,7 +1,7 @@
 <?php 
 namespace DABase\Service;
 
-use DACore\Crud\AbstractCrudService;
+use DACore\Service\AbstractCrudService;
 
 class State extends AbstractCrudService
 {

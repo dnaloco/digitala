@@ -4,8 +4,11 @@ namespace DACore\Entity\Erp\Manufacturer;
 interface ManufacturerInterface
 {
 	function getId();
-	function setId();
+	function setId($id);
 
 	function getCompany();
-	function setCompany();
+	function setCompany($company);
+
+	function getProducts();
+	function setProducts($products);
 }

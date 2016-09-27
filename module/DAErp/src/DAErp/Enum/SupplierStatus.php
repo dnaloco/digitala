@@ -6,11 +6,11 @@ use DACore\Types\EnumType;
 class SupplierStatus extends EnumType
 {
     protected $name = 'enum_addresstype';
-    protected $values = array('cadastrado', 'cancalado');
+    protected $values = array('cadastrado', 'liberado/ativo', 'cancalado');
 
     public static function getValues()
     {
-    	return array('residential', 'comercial', 'delivery', 'billing', 'work');
+    	return array('cadastrado', 'liberado/ativo', 'cancalado');
     }
 }
 

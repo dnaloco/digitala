@@ -3,21 +3,46 @@ namespace DABase;
 
 use Zend\Mvc\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\Mvc\Controller\ControllerManager;
+
 use Zend\ServiceManager\ServiceManager;
 
 return [
     'router' => [
         'routes' => [
-            'dabase-preupload-rest' => [
+
+            'dabase-company-categories-rest' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/api/public/preupload[/:id]',
+                    'route' => '/api/private/company-categories[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
                     'defaults' => [
-                        'controller' =>  'PreUploadRest',
+                        'controller' =>  'DABase\Controller\CompanyCategoriesRest',
+                    ],
+                ],
+            ],
+            'dabase-people-rest' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/api/private/people[/:id]',
+                    'constraints' => [
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' =>  'DABase\Controller\GoodTagsRest',
+                    ],
+                ],
+            ],
+            'dabase-good-tags-rest' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/api/private/good-tags[/:id]',
+                    'constraints' => [
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' =>  'DABase\Controller\GoodTagsRest',
                     ],
                 ],
             ],
@@ -49,32 +74,6 @@ return [
             ],
         ],
     ],
-    'service_manager' => [
-        'services' => [
-            'MyUploadService' => new Service\MyUpload(),
-        ],
-        'initializers' => [
-            function ($service, $sm) {
-                if(!$service instanceof \DACore\Upload\MyUploadAwareInterface) {
-                    return;
-                }
-
-                $service->setUploadManager($sm->get('MyUploadService'));
-            }
-        ]
-    ],
-    'controllers' => [
-        'factories' => [
-            'PreUploadRest' => function (ControllerManager $cm) {
-                $sm = $cm->getServiceLocator();
-                $myUploadService = $sm->get('MyUploadService');
-
-                $controller = new Controller\PreUploadRestController($myUploadService);
-
-                return $controller;
-            },
-        ],
-    ],
     'entity_rest_service' => [
         'DABase\Service\City' => [
             'class_name' => 'DABase\Service\City',
@@ -83,7 +82,19 @@ return [
         'DABase\Service\State' => [
             'class_name' => 'DABase\Service\State',
             'entity' => 'DABase\Entity\State'
-        ]
+        ],
+        'DABase\Service\CompanyCategory' => [
+            'class_name' => 'DABase\Service\CompanyCategory',
+            'entity' => 'DABase\Entity\CompanyCategory'
+        ],
+        'DABase\Service\GoodTag' => [
+            'class_name' => 'DABase\Service\GoodTag',
+            'entity' => 'DABase\Entity\GoodTag'
+        ],
+        'DABase\Service\Person' => [
+            'class_name' => 'DABase\Service\Person',
+            'entity' => 'DABase\Entity\Person'
+        ],
     ],
 
     'service_rest_controller' => [
@@ -94,6 +105,18 @@ return [
         'DABase\Controller\StatesRest' => [
             'class_name' => 'DABase\Controller\StatesRestController',
             'service' => 'DABase\Service\State'
+        ],
+        'DABase\Controller\CompanyCategoriesRest' => [
+            'class_name' => 'DABase\Controller\CompanyCategoriesRestController',
+            'service' => 'DABase\Service\CompanyCategory'
+        ],
+        'DABase\Controller\GoodTagsRest' => [
+            'class_name' => 'DABase\Controller\GoodTagsRestController',
+            'service' => 'DABase\Service\GoodTag'
+        ],
+        'DABase\Controller\GoodTagsRest' => [
+            'class_name' => 'DABase\Controller\GoodTagsRestController',
+            'service' => 'DABase\Service\Person'
         ],
     ],
     'view_manager' => [

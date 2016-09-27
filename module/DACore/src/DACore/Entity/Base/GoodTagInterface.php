@@ -5,5 +5,4 @@ interface GoodTagInterface
 {
 	function getId();
 	function getName();
-	function getDescription();
 }

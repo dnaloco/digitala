@@ -26,19 +26,19 @@ class Module
             echo $e->getRouteMatch()->getMatchedRouteName();
         }, 100);*/
 
-        $sharedEvents = $em->getSharedManager();
+        /*$sharedEvents = $em->getSharedManager();
         $entityManager = $sm->get('Doctrine\ORM\EntityManager');
         $cacheApc = $sm->get('apc');
         $acl = $sm->get('DACore\Permissions\Acl');
         $tokenAuth = new \DACore\Auth\JwtTokenDispatcherAuthentication($entityManager, $cacheApc, $acl);
 
         $sharedEvents->attach('Zend\Mvc\Controller\AbstractRestfulController', MvcEvent::EVENT_DISPATCH, array($tokenAuth, 'onDispatch'), 200);
-
+*/
 
         //$sharedEvents = $em->getSharedManager();
         //$tokenAuth = new \DACore\Auth\TokenDispatcherAuthentication();
 
-        //$sharedEvents->attach('DACore\Crud\AbstractCrudRestController', MvcEvent::EVENT_DISPATCH, array($tokenAuth, 'onDispatch'), 200);
+        //$sharedEvents->attach('DACore\Service\AbstractCrudRestController', MvcEvent::EVENT_DISPATCH, array($tokenAuth, 'onDispatch'), 200);
         //$em->attach(\Zend\Mvc\MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'));
         //$this->bootstrapSession($e);
 

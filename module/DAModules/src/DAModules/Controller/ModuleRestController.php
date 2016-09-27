@@ -1,7 +1,7 @@
 <?php
 namespace DAModules\Controller;
 
-use DACore\Crud\AbstractCrudRestController;
+use DACore\Controller\AbstractCrudRestController;
 
 
 class ModuleRestController extends AbstractCrudRestController

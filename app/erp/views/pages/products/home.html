@@ -1,16 +1,10 @@
 <div>
 	<h1>Produtos</h1>
 
-	<button class="button" ui-sref="Produtos.novo">
-		Adicionar Novo Produto
-	</button>
-
 	<tabset>
 	    <tab ng-repeat="tab in home.tabs" heading="{{tab.title}}" active="tab.active">
-			<div ng-include="tab.content"></div>
+			<div ng-include="tab.content" ng-controller="tab.ngController"></div>
 	    </tab>
 	</tabset>
-
-	<div id="da-product-new" data-ui-view="new"></div>
 
 </div>

@@ -1,6 +1,6 @@
 <?php
 namespace DAUser\Controller;
-use DACore\Crud\AbstractCrudRestController;
+use DACore\Controller\AbstractCrudRestController;
 
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;

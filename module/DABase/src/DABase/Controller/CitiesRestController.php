@@ -1,7 +1,7 @@
 <?php
 namespace DABase\Controller;
 
-use DACore\Crud\AbstractCrudRestController;
+use DACore\Controller\AbstractCrudRestController;
 use Zend\View\Model\JsonModel;
 
 class CitiesRestController extends AbstractCrudRestController

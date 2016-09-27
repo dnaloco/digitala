@@ -4,11 +4,11 @@ namespace DACore\Entity\Erp\Product;
 interface FeatureInterface
 {
 	function getId();
-	function setId();
+	function setId($id);
 
 	function getGroup();
-	function setGroup();
+	function setGroup($group);
 
 	function getValue();
-	function setValue();
+	function setValue($value);
 }

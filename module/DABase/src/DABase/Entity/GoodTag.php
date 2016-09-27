@@ -26,16 +26,9 @@ class GoodTag implements GoodTagInterface
 	/**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     * @ORM\Column(name="name", type="string", length=100, nullable=false, unique=true)
      */
 	protected $name;
-
-	/**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-	protected $description;
 
 	public function __construct(array $data)
 	{
@@ -90,27 +83,4 @@ class GoodTag implements GoodTagInterface
         return $this;
     }
 
-    /**
-     * Gets the value of description.
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Sets the value of description.
-     *
-     * @param string $description the description
-     *
-     * @return self
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
 }

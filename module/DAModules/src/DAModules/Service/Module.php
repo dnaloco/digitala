@@ -1,7 +1,7 @@
 <?php 
 namespace DAModules\Service;
 
-use DACore\Crud\AbstractCrudService;
+use DACore\Service\AbstractCrudService;
 
 class Module extends AbstractCrudService
 {

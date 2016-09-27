@@ -77,8 +77,6 @@ class Person implements PersonInterface
      **/
     protected $addresses;
 
-    
-
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      * 

@@ -6,31 +6,31 @@ function UserService(Restangular) {
   var privateUrl = 'private/users';
 
   const service = {
-    getUsers: getUsers,
-    getUser: getUser,
-    saveUser: saveUser,
-    editUser: editUser,
-    deleteUser: deleteUser,
+    getList:   getList,
+    getOne:    getOne,
+    save:   save,
+    edit:   edit,
+    remove: remove,
   };
 
-  function getUsers(options) {
+  function getList(options) {
     return Restangular.all(publicUrl).getList(options);
   }
 
-  function getUser(userId, options) {
+  function getOne(userId, options) {
     return Restangular.one(publicUrl, userId).get(options);
   }
 
-  function saveUser(scope) {
+  function save(scope) {
   	return Restangular.all(publicUrl).post(scope);
   }
 
 
-  function editUser(scope) {
+  function edit(scope) {
   	return scope.put();
   }
 
-  function deleteUser(scope) {
+  function remove(scope) {
   	return scope.remove();
   }
 

@@ -8,6 +8,7 @@ use Zend\Stdlib\Hydrator;
 use DACore\Entity\User\UserInterface;
 use DACore\Strategy\{EncryptInterface, EncryptStrategy};
 
+
 /**
  * R2Users
  *

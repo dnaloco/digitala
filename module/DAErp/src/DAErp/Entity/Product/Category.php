@@ -1,15 +1,16 @@
 <?php
-namespace R2Erp\Entity\Product;
+namespace DAErp\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
-
+use DACore\Entity\Erp\Product\CategoryInterface;
 /**
  *
  * @ORM\Table(name="daerp_product_categories")
  * @ORM\Entity
  */
-class Category {
+class Category implements CategoryInterface
+{
 	/**
 	 * @var integer
 	 *
@@ -40,64 +41,103 @@ class Category {
 	 */
 	private $isDisabled;
 
-	public function __construct(array $options = array()) {
-		(new Hydrator\ClassMethods)->hydrate($options, $this);
+	public function __construct(array $data = array()) {
+		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getId() {
-		return $this->id;
-	}
+    /**
+     * Gets the value of id.
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	/**
-	 * @param int $id
-	 */
-	public function setId($id) {
-		$this->id = $id;
-	}
+    /**
+     * Sets the value of id.
+     *
+     * @param integer $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
 
-	/**
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $name
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+    /**
+     * Gets the value of name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getSeoDescription() {
-		return $this->seoDescription;
-	}
+    /**
+     * Sets the value of name.
+     *
+     * @param string $name the name
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
 
-	/**
-	 * @param string $seoDescription
-	 */
-	public function setSeoDescription($seoDescription) {
-		$this->seoDescription = $seoDescription;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getIsDisabled() {
-		return $this->isDisabled;
-	}
+    /**
+     * Gets the value of seoDescription.
+     *
+     * @return string
+     */
+    public function getSeoDescription()
+    {
+        return $this->seoDescription;
+    }
 
-	/**
-	 * @param string $isDisabled
-	 */
-	public function setIsDisabled($isDisabled) {
-		$this->isDisabled = $isDisabled;
-	}
+    /**
+     * Sets the value of seoDescription.
+     *
+     * @param string $seoDescription the seo description
+     *
+     * @return self
+     */
+    public function setSeoDescription($seoDescription)
+    {
+        $this->seoDescription = $seoDescription;
 
+        return $this;
+    }
+
+    /**
+     * Gets the value of isDisabled.
+     *
+     * @return string
+     */
+    public function getIsDisabled()
+    {
+        return $this->isDisabled;
+    }
+
+    /**
+     * Sets the value of isDisabled.
+     *
+     * @param string $isDisabled the is disabled
+     *
+     * @return self
+     */
+    public function setIsDisabled($isDisabled)
+    {
+        $this->isDisabled = $isDisabled;
+
+        return $this;
+    }
 }

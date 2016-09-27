@@ -1,6 +1,6 @@
 <?php
 namespace DAUser\Controller;
-use DACore\Crud\AbstractCrudRestController;
+use DACore\Controller\AbstractCrudRestController;
 use DACore\Exception\HttpStatusCodeException;
 use Zend\View\Model\JsonModel;
 use Lcobucci\JWT\Builder;

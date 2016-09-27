@@ -4,13 +4,14 @@ namespace DAErp\Entity\Product;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
-
+use DACore\Entity\Erp\Product\ProductInterface;
 /**
  * @ORM\Table(name="daerp_product_products")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
-class Product {
+class Product implements ProductInterface
+{
 	/**
 	 * @var integer
 	 *
@@ -20,12 +21,12 @@ class Product {
 	 */
 	private $id;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="reference", type="string", length=60, unique=true, nullable=true)
-	 */
-	private $reference;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reference", type="string", length=255, nullable=false)
+     */
+    private $reference;
 
 	/**
 	 * @var string
@@ -42,9 +43,9 @@ class Product {
 	private $subtitle;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="DACore\Entity\Erp\Manufacturer\ManufacturerInterface")
-	 * @ORM\JoinColumn(name="manufacturer_id", referencedColumnName="id", nullable=true)
-	 **/
+     * @ORM\ManyToOne(targetEntity="DACore\Entity\Erp\Manufacturer\ManufacturerInterface", inversedBy="products")
+     * @ORM\JoinColumn(name="manufacturer_id", referencedColumnName="id")
+     */
 	private $manufacturer;
 
 	/**
@@ -81,17 +82,17 @@ class Product {
 	private $category;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity="R2Erp\Entity\Product\FeatureTag")
-	 * @ORM\JoinTable(name="r2_erp_product_product_feature_tags",
+	 * @ORM\ManyToMany(targetEntity="DACore\Entity\Erp\Product\FeatureInterface")
+	 * @ORM\JoinTable(name="daerp_product_product_features",
 	 *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
-	 *      inverseJoinColumns={@ORM\JoinColumn(name="feature_tag_id", referencedColumnName="id")}
+	 *      inverseJoinColumns={@ORM\JoinColumn(name="feature_id", referencedColumnName="id")}
 	 *      )
 	 **/
 	private $features;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="DACore\Entity\Base\ImageInterface", cascade={"persist", "remove"})
-	 * @ORM\JoinTable(name="r2_erp_product_images",
+	 * @ORM\JoinTable(name="daerp_product_images",
 	 *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="image_id", referencedColumnName="id", unique=true)}
 	 *      )
@@ -100,7 +101,7 @@ class Product {
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="DACore\Entity\Base\VideoInterface", cascade={"persist", "remove"})
-	 * @ORM\JoinTable(name="r2_erp_product_video_links",
+	 * @ORM\JoinTable(name="daerp_product_video_links",
 	 *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="videoLink_id", referencedColumnName="id", unique=true)}
 	 *      )
@@ -119,7 +120,7 @@ class Product {
 	 *
 	 * @ORM\Column(name="package_type", type="string", length=50, nullable=true)
 	 */
-	private packageType;
+	private $packageType;
 
 	/**
 	 * @var string
@@ -150,23 +151,17 @@ class Product {
 	private $dimensionWidth;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity="R2Base\Entity\Rating")
-	 * @ORM\JoinTable(name="r2_erp_product_ratings",
+	 * @ORM\ManyToMany(targetEntity="DACore\Entity\Erp\Product\RatingInterface")
+	 * @ORM\JoinTable(name="daerp_product_products_ratings",
 	 *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="product_rating_id", referencedColumnName="id", unique=true)}
 	 *      )
 	 */
-	private $produtoRatings;
+	private $productRatings;
 
 	/**
-     * @ManyToMany(targetEntity="Group", inversedBy="users")
-     * @JoinTable(name="users_groups")
-     */
-	private $suppliers;
-
-	/**
-	 * @ORM\ManyToMany(targetEntity="R2Erp\Entity\Product\Product")
-	 * @ORM\JoinTable(name="r2_erp_product_product_alternate_products",
+	 * @ORM\ManyToMany(targetEntity="DACore\Entity\Erp\Product\ProductInterface")
+	 * @ORM\JoinTable(name="daerp_product_product_alternate_products",
 	 *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="alternate_produto_id", referencedColumnName="id", unique=true)}
 	 *      )
@@ -174,14 +169,14 @@ class Product {
 	private $alternativeProducts;
 
 	/**
-	 * @var Booleam
+	 * @var boolean
 	 *
 	 * @ORM\Column(name="is_highlighted", type="boolean", nullable=true)
 	 */
 	private $isHighlighted;
 
 	/**
-	 * @var Booleam
+	 * @var boolean
 	 *
 	 * @ORM\Column(name="is_Launch", type="boolean", nullable=true)
 	 */
@@ -206,7 +201,7 @@ class Product {
 	 */
 	private $updatedAt;
 
-	public function __construct(array $options = array()) {
+	public function __construct(array $data = array()) {
 		$this->createdAt = new \DateTime("now");
 		$this->updatedAt = new \DateTime("now");
 
@@ -221,403 +216,29 @@ class Product {
 		(new Hydrator\ClassMethods)->hydrate($options, $this);
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getId() {
-		return $this->id;
-	}
+    /**
+     * Gets the value of id.
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	/**
-	 * @param int $id
-	 * @return Product
-	 */
-	public function setId($id) {
-		$this->id = $id;
-		return $this;
-	}
+    /**
+     * Sets the value of id.
+     *
+     * @param integer $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
 
-
-
-	/**
-	 * @return string
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
-
-	/**
-	 * @param string $title
-	 * @return Product
-	 */
-	public function setTitle($title) {
-		$this->title = $title;
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getSubtitle() {
-		return $this->subtitle;
-	}
-
-	/**
-	 * @param string $subtitle
-	 * @return Product
-	 */
-	public function setSubtitle($subtitle) {
-		$this->subtitle = $subtitle;
-		return $this;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getManufacturer() {
-		return $this->manufacturer;
-	}
-
-	/**
-	 * @param mixed $manufacturer
-	 * @return Product
-	 */
-	public function setManufacturer($manufacturer) {
-		$this->manufacturer = $manufacturer;
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getSeoDescription() {
-		return $this->seoDescription;
-	}
-
-	/**
-	 * @param string $seoDescription
-	 * @return Product
-	 */
-	public function setSeoDescription($seoDescription) {
-		$this->seoDescription = $seoDescription;
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getDescription() {
-		return $this->description;
-	}
-
-	/**
-	 * @param string $description
-	 * @return Product
-	 */
-	public function setDescription($description) {
-		$this->description = $description;
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getBriefDescription() {
-		return $this->briefDescription;
-	}
-
-	/**
-	 * @param string $briefDescription
-	 * @return Product
-	 */
-	public function setBriefDescription($briefDescription) {
-		$this->briefDescription = $briefDescription;
-		return $this;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getDepartment() {
-		return $this->department;
-	}
-
-	/**
-	 * @param mixed $department
-	 * @return Product
-	 */
-	public function setDepartment($department) {
-		$this->department = $department;
-		return $this;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getCategory() {
-		return $this->category;
-	}
-
-	/**
-	 * @param mixed $category
-	 * @return Product
-	 */
-	public function setCategory($category) {
-		$this->category = $category;
-		return $this;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getFeatures() {
-		return $this->features;
-	}
-
-	/**
-	 * @param mixed $featureTags
-	 * @return Product
-	 */
-	public function setFeatures($features) {
-		$this->features = $features;
-		return $this;
-	}
-
-	public function addFeature($feature) {
-		$this->features->add($feature);
-		return $this;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getImages() {
-		return $this->images;
-	}
-
-	/**
-	 * @param mixed $images
-	 * @return Product
-	 */
-	public function setImages($images) {
-		$this->images = $images;
-		return $this;
-	}
-
-	public function addImage($image) {
-		$this->images->add($image);
-		return $this;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getVideos() {
-		return $this->videos;
-	}
-
-	/**
-	 * @param mixed $videos
-	 * @return Product
-	 */
-	public function setVideos($videos) {
-		$this->videos = $videos;
-		return $this;
-	}
-
-	public function addVideo($video) {
-		$this->videos_ > add($video);
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getWeight() {
-		return $this->weight;
-	}
-
-	/**
-	 * @param string $weight
-	 * @return Product
-	 */
-	public function setWeight($weight) {
-		$this->weight = $weight;
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getDimensionLength() {
-		return $this->dimensionLength;
-	}
-
-	/**
-	 * @param string $dimensionLength
-	 * @return Product
-	 */
-	public function setDimensionLength($dimensionLength) {
-		$this->dimensionLength = $dimensionLength;
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getDimensionHeight() {
-		return $this->dimensionHeight;
-	}
-
-	/**
-	 * @param string $dimensionHeight
-	 * @return Product
-	 */
-	public function setDimensionHeight($dimensionHeight) {
-		$this->dimensionHeight = $dimensionHeight;
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getDimensionWidth() {
-		return $this->dimensionWidth;
-	}
-
-	/**
-	 * @param string $dimensionWidth
-	 * @return Product
-	 */
-	public function setDimensionWidth($dimensionWidth) {
-		$this->dimensionWidth = $dimensionWidth;
-		return $this;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getProdutoRatings() {
-		return $this->produtoRatings;
-	}
-
-	/**
-	 * @param mixed $produtoRatings
-	 * @return Product
-	 */
-	public function setProdutoRatings($produtoRatings) {
-		$this->produtoRatings = $produtoRatings;
-		return $this;
-	}
-
-	public function addProdutoRating($produtoRating) {
-		$this->produtoRatings->add($produtoRating);
-		return $this;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getAlternativeProducts() {
-		return $this->alternativeProducts;
-	}
-
-	/**
-	 * @param mixed $alternativeProducts
-	 * @return Product
-	 */
-	public function setAlternativeProducts($alternativeProducts) {
-		$this->alternativeProducts = $alternativeProducts;
-		return $this;
-	}
-
-	public function setAlternativeProduct($alternativeProduct) {
-		$this->alternativeProducts->add($alternativeProduct);
-		return $this;
-	}
-
-	/**
-	 * @return Booleam
-	 */
-	public function getIsHighlighted() {
-		return $this->isHighlighted;
-	}
-
-	/**
-	 * @param Booleam $isHighlighted
-	 * @return Product
-	 */
-	public function setIsHighlighted($isHighlighted) {
-		$this->isHighlighted = $isHighlighted;
-		return $this;
-	}
-
-	/**
-	 * @return Booleam
-	 */
-	public function getIsLaunch() {
-		return $this->isLaunch;
-	}
-
-	/**
-	 * @param Booleam $isLaunch
-	 * @return Product
-	 */
-	public function setIsLaunch($isLaunch) {
-		$this->isLaunch = $isLaunch;
-		return $this;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getStore() {
-		return $this->store;
-	}
-
-	/**
-	 * @param mixed $store
-	 * @return Product
-	 */
-	public function setStore($store) {
-		$this->store = $store;
-		return $this;
-	}
-
-	/**
-	 * @return \DateTime
-	 */
-	public function getCreatedAt() {
-		return $this->createdAt;
-	}
-
-	/**
-	 * @param \DateTime $createdAt
-	 * @return Product
-	 */
-	public function setCreatedAt($createdAt) {
-		$this->createdAt = $createdAt;
-		return $this;
-	}
-
-	/**
-	 * @return \DateTime
-	 */
-	public function getUpdatedAt() {
-		return $this->updatedAt;
-	}
-
-	/**
-	 * @param \DateTime $updatedAt
-	 * @return Product
-	 *
-	 * @ORM\PrePersist
-	 */
-	public function setUpdatedAt() {
-		$this->updatedAt = new \Datetime("now");
-		return $this;
-	}
-
+        return $this;
+    }
 
     /**
      * Gets the value of reference.
@@ -639,6 +260,594 @@ class Product {
     public function setReference($reference)
     {
         $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of title.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Sets the value of title.
+     *
+     * @param string $title the title
+     *
+     * @return self
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of subtitle.
+     *
+     * @return string
+     */
+    public function getSubtitle()
+    {
+        return $this->subtitle;
+    }
+
+    /**
+     * Sets the value of subtitle.
+     *
+     * @param string $subtitle the subtitle
+     *
+     * @return self
+     */
+    public function setSubtitle($subtitle)
+    {
+        $this->subtitle = $subtitle;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of manufacturer.
+     *
+     * @return mixed
+     */
+    public function getManufacturer()
+    {
+        return $this->manufacturer;
+    }
+
+    /**
+     * Sets the value of manufacturer.
+     *
+     * @param mixed $manufacturer the manufacturer
+     *
+     * @return self
+     */
+    public function setManufacturer($manufacturer)
+    {
+        $this->manufacturer = $manufacturer;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of seoDescription.
+     *
+     * @return string
+     */
+    public function getSeoDescription()
+    {
+        return $this->seoDescription;
+    }
+
+    /**
+     * Sets the value of seoDescription.
+     *
+     * @param string $seoDescription the seo description
+     *
+     * @return self
+     */
+    public function setSeoDescription($seoDescription)
+    {
+        $this->seoDescription = $seoDescription;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Sets the value of description.
+     *
+     * @param string $description the description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of briefDescription.
+     *
+     * @return string
+     */
+    public function getBriefDescription()
+    {
+        return $this->briefDescription;
+    }
+
+    /**
+     * Sets the value of briefDescription.
+     *
+     * @param string $briefDescription the brief description
+     *
+     * @return self
+     */
+    public function setBriefDescription($briefDescription)
+    {
+        $this->briefDescription = $briefDescription;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of department.
+     *
+     * @return mixed
+     */
+    public function getDepartment()
+    {
+        return $this->department;
+    }
+
+    /**
+     * Sets the value of department.
+     *
+     * @param mixed $department the department
+     *
+     * @return self
+     */
+    public function setDepartment($department)
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of category.
+     *
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Sets the value of category.
+     *
+     * @param mixed $category the category
+     *
+     * @return self
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of features.
+     *
+     * @return mixed
+     */
+    public function getFeatures()
+    {
+        return $this->features;
+    }
+
+    /**
+     * Sets the value of features.
+     *
+     * @param mixed $features the features
+     *
+     * @return self
+     */
+    public function setFeatures($features)
+    {
+        $this->features = $features;
+
+        return $this;
+    }
+
+    /**
+     * Gets the joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+inverseJoinColumns={@ORM\JoinColumn(name="image_id", referencedColumnName="id", unique=true)}
+).
+     *
+     * @return mixed
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Sets the joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+inverseJoinColumns={@ORM\JoinColumn(name="image_id", referencedColumnName="id", unique=true)}
+).
+     *
+     * @param mixed $images the images
+     *
+     * @return self
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * Gets the joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+inverseJoinColumns={@ORM\JoinColumn(name="videoLink_id", referencedColumnName="id", unique=true)}
+).
+     *
+     * @return mixed
+     */
+    public function getVideos()
+    {
+        return $this->videos;
+    }
+
+    /**
+     * Sets the joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+inverseJoinColumns={@ORM\JoinColumn(name="videoLink_id", referencedColumnName="id", unique=true)}
+).
+     *
+     * @param mixed $videos the videos
+     *
+     * @return self
+     */
+    public function setVideos($videos)
+    {
+        $this->videos = $videos;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of unitType.
+     *
+     * @return string
+     */
+    public function getUnitType()
+    {
+        return $this->unitType;
+    }
+
+    /**
+     * Sets the value of unitType.
+     *
+     * @param string $unitType the unit type
+     *
+     * @return self
+     */
+    public function setUnitType($unitType)
+    {
+        $this->unitType = $unitType;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of packageType.
+     *
+     * @return string
+     */
+    public function getPackageType()
+    {
+        return $this->packageType;
+    }
+
+    /**
+     * Sets the value of packageType.
+     *
+     * @param string $packageType the package type
+     *
+     * @return self
+     */
+    public function setPackageType($packageType)
+    {
+        $this->packageType = $packageType;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of weight.
+     *
+     * @return string
+     */
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    /**
+     * Sets the value of weight.
+     *
+     * @param string $weight the weight
+     *
+     * @return self
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of dimensionLength.
+     *
+     * @return string
+     */
+    public function getDimensionLength()
+    {
+        return $this->dimensionLength;
+    }
+
+    /**
+     * Sets the value of dimensionLength.
+     *
+     * @param string $dimensionLength the dimension length
+     *
+     * @return self
+     */
+    public function setDimensionLength($dimensionLength)
+    {
+        $this->dimensionLength = $dimensionLength;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of dimensionHeight.
+     *
+     * @return string
+     */
+    public function getDimensionHeight()
+    {
+        return $this->dimensionHeight;
+    }
+
+    /**
+     * Sets the value of dimensionHeight.
+     *
+     * @param string $dimensionHeight the dimension height
+     *
+     * @return self
+     */
+    public function setDimensionHeight($dimensionHeight)
+    {
+        $this->dimensionHeight = $dimensionHeight;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of dimensionWidth.
+     *
+     * @return string
+     */
+    public function getDimensionWidth()
+    {
+        return $this->dimensionWidth;
+    }
+
+    /**
+     * Sets the value of dimensionWidth.
+     *
+     * @param string $dimensionWidth the dimension width
+     *
+     * @return self
+     */
+    public function setDimensionWidth($dimensionWidth)
+    {
+        $this->dimensionWidth = $dimensionWidth;
+
+        return $this;
+    }
+
+    /**
+     * Gets the joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+inverseJoinColumns={@ORM\JoinColumn(name="product_rating_id", referencedColumnName="id", unique=true)}
+).
+     *
+     * @return mixed
+     */
+    public function getProductRatings()
+    {
+        return $this->productRatings;
+    }
+
+    /**
+     * Sets the joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+inverseJoinColumns={@ORM\JoinColumn(name="product_rating_id", referencedColumnName="id", unique=true)}
+).
+     *
+     * @param mixed $productRatings the product ratings
+     *
+     * @return self
+     */
+    public function setProductRatings($productRatings)
+    {
+        $this->productRatings = $productRatings;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of alternativeProducts.
+     *
+     * @return mixed
+     */
+    public function getAlternativeProducts()
+    {
+        return $this->alternativeProducts;
+    }
+
+    /**
+     * Sets the value of alternativeProducts.
+     *
+     * @param mixed $alternativeProducts the alternative products
+     *
+     * @return self
+     */
+    public function setAlternativeProducts($alternativeProducts)
+    {
+        $this->alternativeProducts = $alternativeProducts;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of isHighlighted.
+     *
+     * @return boolean
+     */
+    public function getIsHighlighted()
+    {
+        return $this->isHighlighted;
+    }
+
+    /**
+     * Sets the value of isHighlighted.
+     *
+     * @param boolean $isHighlighted the is highlighted
+     *
+     * @return self
+     */
+    public function setIsHighlighted($isHighlighted)
+    {
+        $this->isHighlighted = $isHighlighted;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of isLaunch.
+     *
+     * @return boolean
+     */
+    public function getIsLaunch()
+    {
+        return $this->isLaunch;
+    }
+
+    /**
+     * Sets the value of isLaunch.
+     *
+     * @param boolean $isLaunch the is launch
+     *
+     * @return self
+     */
+    public function setIsLaunch($isLaunch)
+    {
+        $this->isLaunch = $isLaunch;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of stores.
+     *
+     * @return mixed
+     */
+    public function getStores()
+    {
+        return $this->stores;
+    }
+
+    /**
+     * Sets the value of stores.
+     *
+     * @param mixed $stores the stores
+     *
+     * @return self
+     */
+    public function setStores($stores)
+    {
+        $this->stores = $stores;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of createdAt.
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Sets the value of createdAt.
+     *
+     * @param \DateTime $createdAt the created at
+     *
+     * @return self
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of updatedAt.
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Sets the value of updatedAt.
+     *
+     * @param \DateTime $updatedAt the updated at
+     *
+     * @return self
+     */
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

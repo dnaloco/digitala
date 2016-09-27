@@ -6,16 +6,31 @@ function CitiesService(Restangular) {
   var privateUrl = 'private/cities';
 
   const service = {
-    getCities: getCities,
-    getCity: getCity
+    getList:   getList,
+    getOne:    getOne,
+    save:   save,
+    edit:   edit,
+    remove: remove,
   };
 
-  function getCities(options) {
-    return Restangular.all(publicUrl).getList(options);
+  function getList(options) {
+    return Restangular.all(privateUrl).getList(options);
   }
 
-  function getCity(cityId, options) {
-    return Restangular.one(publicUrl, cityId).get(options);
+  function getOne(id, options) {
+    return Restangular.one(privateUrl, id).get(options);
+  }
+
+  function save(id, data) {
+
+  }
+
+  function edit(id, data) {
+
+  }
+
+  function remove(id) {
+
   }
 
   return service;
@@ -23,6 +38,6 @@ function CitiesService(Restangular) {
 }
 
 export default {
-  name: 'CityService',
-  fn: CityService
+  name: 'CitiesService',
+  fn: CitiesService
 };

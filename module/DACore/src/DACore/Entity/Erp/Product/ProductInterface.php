@@ -4,83 +4,80 @@ namespace DACore\Entity\Erp\Product;
 interface ProductInterface
 {
 	function getId();
-	function getId();
+	function setId($id);
 
 	function getReference();
-	function setReference();
+	function setReference($reference);
 
 	function getTitle();
-	function setTitle();
+	function setTitle($title);
 
 	function getSubtitle();
-	function setSubtitle();
+	function setSubtitle($subtitle);
 
 	function getManufacturer();
-	function setManufacturer();
+	function setManufacturer($manufacturer);
 
 	function getSeoDescription();
-	function setSeoDescription();
+	function setSeoDescription($seoDescription);
 
 	function getDescription();
-	function setDescription();
+	function setDescription($description);
 
 	function getBriefDescription();
-	function setBriefDescription();
+	function setBriefDescription($briefDescription);
 
-	function getDeparment();
-	function setDeparment();
+	function getDepartment();
+	function setDepartment($deparment);
 
 	function getCategory();
-	function setCategory();
+	function setCategory($category);
 
 	function getFeatures();
-	function setFeatures();
+	function setFeatures($features);
 
 	function getImages();
-	function setImages();
+	function setImages($images);
 
 	function getVideos();
-	function setVideos();
+	function setVideos($videos);
 
 	function getUnitType();
-	function setUnitType();
+	function setUnitType($unitType);
 
 	function getPackageType();
-	function setPackageType();
+	function setPackageType($packageType);
 
 	function getWeight();
-	function setWeight();
+	function setWeight($weight);
 
 	function getDimensionLength();
-	function setDimensionLength();
+	function setDimensionLength($dimensionLength);
 
 	function getDimensionHeight();
-	function setDimensionHeight();
+	function setDimensionHeight($dimensionHeight);
 
 	function getDimensionWidth();
-	function setDimensionWidth();
+	function setDimensionWidth($dimensionWidth);
 
 	function getProductRatings();
-	function setProductRatings();
-
-	function getSuppliers();
-	function setSuppliers();
+	function setProductRatings($productRatings);
 
 	function getAlternativeProducts();
-	function setAlternativeProducts();
+	function setAlternativeProducts($alternativeProducts);
 
 	function getIsHighlighted();
-	function setIsHighlighted();
+	function setIsHighlighted($isHighlighted);
 
 	function getIsLaunch();
-	function setIsLaunch();
+	function setIsLaunch($isLaunch);
 
 	function getStores();
-	function setStores();
+	function setStores($stores);
 
 	function getCreatedAt();
-	function setCreatedAt();
+	function setCreatedAt(\DateTime $createdAt);
 
 	function getUpdatedAt();
-	function setUpdatedAt();
+	function setUpdatedAt(\DateTime $updatedAt);
 }

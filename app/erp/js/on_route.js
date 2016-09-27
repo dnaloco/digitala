@@ -46,16 +46,6 @@ function OnRoute(
         },
     },
     title: 'Produtos'
-  })
-  .state('Produtos.novo', {
-    url: '/novo',
-    views: {
-        'new@Produtos': {
-            templateUrl: 'pages/products/new.html',
-            controller: 'NewProductController as new',
-        },
-    },
-    title: 'Novo Produto'
   });
 
 }

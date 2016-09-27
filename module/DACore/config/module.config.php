@@ -1,7 +1,11 @@
 <?php
 namespace DACore;
 
-use Zend\Mvc\Router\Http\{Literal, Hostname};
+use Zend\Mvc\Router\Http\{
+    Literal,
+    Hostname,
+    Segment
+};
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 use Monolog\Logger;
@@ -10,6 +14,7 @@ use Monolog\Handler\FirePHPHandler;
 
 use Zend\Session\SessionManager;
 use Zend\Session\Container;
+use Zend\Mvc\Controller\ControllerManager;
 
 return [
     'router' => [
@@ -23,6 +28,18 @@ return [
                     ],
                 ],
                 'may_terminate' => false,
+            ],
+            'dacore-preupload-rest' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/api/public/preupload[/:id]',
+                    'constraints' => [
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' =>  'PreUploadRest',
+                    ],
+                ],
             ],
             'dabase-public-token-rest' => [
                 'type' => Literal::class,
@@ -67,8 +84,19 @@ return [
             'ViewJsonStrategy',
         ],
     ],
-
     'service_manager' => [
+        'services' => [
+            'MyUploadService' => new Service\MyUpload(),
+        ],
+        'initializers' => [
+            function ($service, $sm) {
+                if(!$service instanceof Upload\MyUploadAwareInterface) {
+                    return;
+                }
+
+                $service->setUploadManager($sm->get('MyUploadService'));
+            }
+        ],
         'factories' => [
             'DACore\Mail\MailService' => 'DACore\Mail\Factory\MailServiceFactory',
             'DACore\Permissions\Acl' => function ($sm)
@@ -119,11 +147,18 @@ return [
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
         ]
     ],
-
     'controllers' => [
         'factories' => [
             Controller\PublicTokenRestController::class => InvokableFactory::class,
             Controller\CsrfFormRestController::class => InvokableFactory::class,
+            'PreUploadRest' => function (ControllerManager $cm) {
+                $sm = $cm->getServiceLocator();
+                $myUploadService = $sm->get('MyUploadService');
+
+                $controller = new Controller\PreUploadRestController($myUploadService);
+
+                return $controller;
+            },
         ],
         'abstract_factories' => [
             'DACore\Factory\AbsctractRestControllerFactory',

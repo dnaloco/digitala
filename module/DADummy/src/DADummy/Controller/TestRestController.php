@@ -1,7 +1,7 @@
 <?php
 namespace DADummy\Controller;
 
-use DACore\Crud\AbstractCrudRestController;
+use DACore\Controller\AbstractCrudRestController;
 use Zend\View\Model\JsonModel;
 
 class TestRestController extends AbstractCrudRestController

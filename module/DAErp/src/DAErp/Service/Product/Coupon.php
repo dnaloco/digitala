@@ -1,7 +1,7 @@
 <?php 
 namespace DAErp\Service\Product;
 
-use DACore\Crud\AbstractCrudService;
+use DACore\Service\AbstractCrudService;
 
 class Coupon extends AbstractCrudService
 {

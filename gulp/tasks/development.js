@@ -6,6 +6,7 @@ gulp.task('siteDev', ['clean'], function(cb) {
   global.isProd = false;
 
   runSequence(
+    'crossDomainStorage',
   	['siteStyles', 'siteImages', 'siteViews'],
   	'siteBrowserify',
   	'fonts', 'indexFile', 'uploadsDir', 'siteWatch', cb);

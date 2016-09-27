@@ -6,16 +6,31 @@ function StatesService(Restangular) {
   var privateUrl = 'private/states';
 
   const service = {
-    getStates: getStates,
-    getState: getState
+    getList:   getList,
+    getOne:    getOne,
+    save:   save,
+    edit:   edit,
+    remove: remove,
   };
 
-  function getStates(options) {
+  function getList(options) {
     return Restangular.all(privateUrl).getList(options);
   }
 
-  function getState(cityId, options) {
-    return Restangular.one(privateUrl, cityId).get(options);
+  function getOne(id, options) {
+    return Restangular.one(privateUrl, id).get(options);
+  }
+
+  function save(id, data) {
+
+  }
+
+  function edit(id, data) {
+
+  }
+
+  function remove(id) {
+
   }
 
   return service;
@@ -23,6 +38,6 @@ function StatesService(Restangular) {
 }
 
 export default {
-  name: 'StateService',
-  fn: StateService
+  name: 'StatesService',
+  fn: StatesService
 };

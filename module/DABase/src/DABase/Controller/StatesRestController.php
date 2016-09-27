@@ -1,7 +1,7 @@
 <?php
 namespace DABase\Controller;
 
-use DACore\Crud\AbstractCrudRestController;
+use DACore\Controller\AbstractCrudRestController;
 
 class StatesRestController extends AbstractCrudRestController
 {

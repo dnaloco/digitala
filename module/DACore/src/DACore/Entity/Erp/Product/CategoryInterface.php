@@ -4,11 +4,14 @@ namespace DACore\Entity\Erp\Product;
 interface CategoryInterface
 {
 	function getId();
-	function setId();
+	function setId($id);
+
 	function getName();
-	function setName();
+	function setName($name);
+
 	function getSeoDescription();
-	function setSeoDescription();
+	function setSeoDescription($seoDescription);
+	
 	function getIsDisabled();
-	function setIsDisabled();
+	function setIsDisabled($isDisabled);
 }

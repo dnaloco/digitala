@@ -185,7 +185,7 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
 
 		$headers = $request->getHeaders();
 
-		if ($this->controller instanceof \DACore\Crud\AbstractCrudRestController) {
+		if ($this->controller instanceof \DACore\Controller\AbstractCrudRestController) {
 
 			$authResponse = $this->checkAuthorization($headers, $method)->checkCrudToken();
 		}

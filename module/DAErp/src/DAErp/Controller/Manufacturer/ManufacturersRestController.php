@@ -1,9 +1,9 @@
 <?php
-namespace DABase\Controller;
+namespace DAErp\Controller\Manufacturer;
 
-use DACore\Crud\AbstractCrudRestController;
+use DACore\Controller\AbstractCrudRestController;
 
 class ManufacturersRestController extends AbstractCrudRestController
 {
-    protected $aclResource = 'states';
+    protected $aclResource = 'manufacturers';
 }

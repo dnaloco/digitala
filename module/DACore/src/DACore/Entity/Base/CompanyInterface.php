@@ -12,11 +12,14 @@ interface CompanyInterface
 	function getTelephones();
 	function getDocuments();
 	function getEmails();
+	function getSocialNetworks();
+	function getContacts();
 	function getAddresses();
 	function getDescription();
 	function getLogo();
 	function getGoodTags();
 	function getNotes();
+	function getUser();
 	function getCreatedAt();
 	function getUpdatedAt();
 }

@@ -16,12 +16,8 @@ abstract class MyAbstractUpload
         $this->tmp_path = './tmp/';
     }
 
-    public function test()
-    {
-        return 'OK estou funcionando :)';
-    }
 
-    public function clearPath ($path)
+    public static function clearPath ($path)
     {
         $files = glob($path . '/*');
 
@@ -31,6 +27,72 @@ abstract class MyAbstractUpload
         }
 
         return true;
+    }
+
+    protected static function getFileDestination($baseDestination, $title, $ext, $prefix = null)
+    {
+        return $baseDestination . $title . $prefix . '.' . $ext;
+    }
+
+    public function getPhoto($key, $photo, $imageData)
+    {
+        $key = $key . '_photo';
+        $imagesize = getimagesize($this->tmp_path . $photo);
+        self::clearPath($imageData['path']);
+        $ext = pathinfo($photo, PATHINFO_EXTENSION);
+        $uniqueId = uniqid();
+        $imageData['name'] = $uniqueId . $imageData['name'];
+
+        $destinations = [
+            'thumb' => [
+                'dest' => self::getFileDestination($imageData['path'], $imageData['name'], $ext, '_thumb'),
+                'desired_width' => 200
+            ],
+            'small' => [
+                'dest' => self::getFileDestination($imageData['path'], $imageData['name'], $ext, '_small'),
+                'desired_width' => 360
+            ],
+            'medium' => [
+                'dest' => self::getFileDestination($imageData['path'], $imageData['name'], $ext, '_medium'),
+                'desired_width' => 800
+            ],
+            'large' => [
+                'dest' => self::getFileDestination($imageData['path'], $imageData['name'], $ext, '_large'),
+                'desired_width' => 1080
+            ],
+            'xlarge' => [
+                'dest' => self::getFileDestination($imageData['path'], $imageData['name'], $ext, '_xlarge'),
+                'desired_width' => 1440
+            ],
+            'original' => [
+                'dest' => self::getFileDestination($imageData['path'], $imageData['name'], $ext),
+            ]
+        ];
+
+        $uploadsResult = $this->moveUploaded($photo, $destinations);
+
+
+        foreach($uploadsResult as $result) {
+
+            if($result['desired_width'] == 'thumb' && $result['result'])  {
+                $imageData['hasThumb'] = true;
+            } else if($result['desired_width'] == 'small' && $result['result'])  {
+                $imageData['hasSmall'] = true;
+            } else if($result['desired_width'] == 'medium' && $result['result'])  {
+                $imageData['hasMedium'] = true;
+            } else if($result['desired_width'] == 'large' && $result['result'])  {
+                $imageData['hasLarge'] = true;
+            } else if($result['desired_width'] == 'xlarge' && $result['result'])  {
+                $imageData['hasXLarge'] = true;
+            }
+        }
+
+        $imageData['alt'] = 'Foto do proprietário da conta';
+        $imageData['width'] = $imagesize[0];
+        $imageData['height'] = $imagesize[1];
+        $imageData['filetype'] = $ext;
+
+        return new \DABase\Entity\Image($imageData);
     }
 
     public function moveUploaded($tmp_file, array $destinations)

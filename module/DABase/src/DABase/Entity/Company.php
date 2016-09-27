@@ -23,28 +23,28 @@ class Company implements CompanyInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-	protected $id;
+	private $id;
 
 	/**
      * @var string
      *
      * @ORM\Column(name="type", type="enum_companytype")
      */
-	protected $type;
+	private $type;
 
 	/**
      * @var string
      *
      * @ORM\Column(name="trading_name", type="string", length=100, unique=true, nullable=false)
      */
-	protected $tradingName;
+	private $tradingName;
 
 	/**
      * @var string
      *
      * @ORM\Column(name="company_mame", type="string", length=100, unique=true, nullable=true)
      */
-	protected $companyName;
+	private $companyName;
 
 	/**
 	 * @var \DACore\Entity\Base\CompanyCategoryInterface
@@ -53,14 +53,14 @@ class Company implements CompanyInterface
 	 * @ORM\JoinColumn(name="company_category_id", referencedColumnName="id", nullable=true)
 	 *
 	 */
-	protected $category;
+	private $category;
 
 	/**
      * @var string
      *
      * @ORM\Column(name="website", type="string", length=200, unique=true, nullable=true)
      */
-	protected $website;
+	private $website;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -73,13 +73,13 @@ class Company implements CompanyInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="telephone_id", referencedColumnName="id")}
      *      )
      **/
-	protected $telephones;
+    protected $telephones;
 
-	/**
+    /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      * @ORM\OneToMany(targetEntity="DACore\Entity\Base\DocumentInterface", mappedBy="company", cascade={"persist", "remove"})
      */
-	protected $documents;
+    private $documents;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -92,7 +92,7 @@ class Company implements CompanyInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="email_id", referencedColumnName="id")}
      *      )
      **/
-	protected $emails;
+    protected $emails;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -105,7 +105,20 @@ class Company implements CompanyInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="social_network_id", referencedColumnName="id")}
      *      )
      **/
-    protected $socialNetworks;
+    private $socialNetworks;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     * 
+     * emails
+     * 
+     * @ORM\ManyToMany(targetEntity="DACore\Entity\Base\PersonInterface", cascade={"persist", "remove"})
+     * @ORM\JoinTable(name="dabase_company_contacts",
+     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")}
+     *      )
+     **/
+    private $contacts;
 
 	/**
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -118,14 +131,14 @@ class Company implements CompanyInterface
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="address_id", referencedColumnName="id")}
 	 *      )
 	 **/
-	protected $addresses;
+	private $addresses;
 
 	/**
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
-	protected $description;
+	private $description;
 
 	/**
      * Logo da empresa
@@ -134,7 +147,7 @@ class Company implements CompanyInterface
      * @ORM\ManyToOne(targetEntity="DACore\Entity\Base\ImageInterface")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
-	protected $logo;
+	private $logo;
 
 	/**
      * Bens, produtos ou serviços que a empresa fornece
@@ -145,14 +158,14 @@ class Company implements CompanyInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="good_tag_id", referencedColumnName="id")}
      *      )
      */
-	protected $goodTags;
+	private $goodTags;
 
 	/**
      * @var string
      *
      * @ORM\Column(name="notes", type="text", nullable=true)
      */
-	protected $notes;
+	private $notes;
 
     /**
      * @ORM\OneToOne(targetEntity="DACore\Entity\User\UserInterface", inversedBy="company", cascade={"persist", "remove"})
@@ -165,20 +178,22 @@ class Company implements CompanyInterface
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-	protected $createdAt;
+	private $createdAt;
 
 	/**
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
-	protected $updatedAt;
+	private $updatedAt;
 
 	public function __construct(array $data)
 	{
 		$this->telephones = new ArrayCollection();
 		$this->documents = new ArrayCollection();
-		$this->emails = new ArrayCollection();
+        $this->emails = new ArrayCollection();
+        $this->socialNetworks = new ArrayCollection();
+		$this->contacts = new ArrayCollection();
 		$this->addresses = new ArrayCollection();
 		$this->goodTags = new ArrayCollection();
 
@@ -188,8 +203,6 @@ class Company implements CompanyInterface
         (new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
-
-
     /**
      * Gets the value of id.
      *
@@ -198,6 +211,20 @@ class Company implements CompanyInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param integer $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -273,7 +300,7 @@ class Company implements CompanyInterface
     }
 
     /**
-     * Gets the estado.
+     * Gets the value of category.
      *
      * @return \DACore\Entity\Base\CompanyCategoryInterface
      */
@@ -283,7 +310,7 @@ class Company implements CompanyInterface
     }
 
     /**
-     * Sets the estado.
+     * Sets the value of category.
      *
      * @param \DACore\Entity\Base\CompanyCategoryInterface $category the category
      *
@@ -321,9 +348,9 @@ class Company implements CompanyInterface
     }
 
     /**
-     * Gets the estado.
+     * Gets the value of telephones.
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return mixed
      */
     public function getTelephones()
     {
@@ -331,13 +358,13 @@ class Company implements CompanyInterface
     }
 
     /**
-     * Sets the estado.
+     * Sets the value of telephones.
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection $telephones the telephones
+     * @param mixed $telephones the telephones
      *
      * @return self
      */
-    public function setTelephones(\Doctrine\Common\Collections\ArrayCollection $telephones)
+    public function setTelephones($telephones)
     {
         $this->telephones = $telephones;
 
@@ -369,9 +396,9 @@ class Company implements CompanyInterface
     }
 
     /**
-     * Gets the estado.
+     * Gets the value of emails.
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return mixed
      */
     public function getEmails()
     {
@@ -379,15 +406,63 @@ class Company implements CompanyInterface
     }
 
     /**
-     * Sets the estado.
+     * Sets the value of emails.
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection $emails the emails
+     * @param mixed $emails the emails
      *
      * @return self
      */
-    public function setEmails(\Doctrine\Common\Collections\ArrayCollection $emails)
+    public function setEmails($emails)
     {
         $this->emails = $emails;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of socialNetworks.
+     *
+     * @return mixed
+     */
+    public function getSocialNetworks()
+    {
+        return $this->socialNetworks;
+    }
+
+    /**
+     * Sets the value of socialNetworks.
+     *
+     * @param mixed $socialNetworks the social networks
+     *
+     * @return self
+     */
+    public function setSocialNetworks($socialNetworks)
+    {
+        $this->socialNetworks = $socialNetworks;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of contacts.
+     *
+     * @return mixed
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * Sets the value of contacts.
+     *
+     * @param mixed $contacts the contacts
+     *
+     * @return self
+     */
+    public function setContacts($contacts)
+    {
+        $this->contacts = $contacts;
 
         return $this;
     }
@@ -466,8 +541,8 @@ class Company implements CompanyInterface
 
     /**
      * Gets the Bens, produtos ou serviços que a empresa fornece
-joinColumns={@JoinColumn(name="company_id", referencedColumnName="id")},
-inverseJoinColumns={@JoinColumn(name="good_tags_id", referencedColumnName="id")}
+joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+inverseJoinColumns={@ORM\JoinColumn(name="good_tag_id", referencedColumnName="id")}
 ).
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
@@ -479,8 +554,8 @@ inverseJoinColumns={@JoinColumn(name="good_tags_id", referencedColumnName="id")}
 
     /**
      * Sets the Bens, produtos ou serviços que a empresa fornece
-joinColumns={@JoinColumn(name="company_id", referencedColumnName="id")},
-inverseJoinColumns={@JoinColumn(name="good_tags_id", referencedColumnName="id")}
+joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+inverseJoinColumns={@ORM\JoinColumn(name="good_tag_id", referencedColumnName="id")}
 ).
      *
      * @param \Doctrine\Common\Collections\ArrayCollection $goodTags the good tags
@@ -514,6 +589,30 @@ inverseJoinColumns={@JoinColumn(name="good_tags_id", referencedColumnName="id")}
     public function setNotes($notes)
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of user.
+     *
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Sets the value of user.
+     *
+     * @param mixed $user the user
+     *
+     * @return self
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
 
         return $this;
     }
@@ -558,12 +657,10 @@ inverseJoinColumns={@JoinColumn(name="good_tags_id", referencedColumnName="id")}
      * @param \DateTime $updatedAt the updated at
      *
      * @return self
-     * 
-     * @ORM\PrePersist
      */
-    public function setUpdatedAt()
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
-        $this->updatedAt = new \DateTime("now");
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
