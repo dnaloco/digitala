@@ -42,6 +42,7 @@ class Department implements DepartmentInterface
 	private $isDisabled;
 
 	public function __construct(array $data = array()) {
+        $this->isDisabled = false;
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 

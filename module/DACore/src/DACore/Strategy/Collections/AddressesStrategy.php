@@ -6,10 +6,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 trait AddressesStrategy
 {
 
-	public function getAddress($address)
+	public function getAddress($key, $address)
 	{
 		if (!isset($address['type'])) {
-			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'type');
+			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'address_type');
 			return false;
 		} else {
 			$address['type'] = static::checkType($key, 'DACore\Enum\AddressType', $address['type']);
@@ -72,6 +72,7 @@ trait AddressesStrategy
 
 	public function getAddressesCollection($key, $addresses, $entity)
 	{
+
 		if (!($this instanceof \DACore\Service\AbstractCrudService))
 			throw new \Exception('TO USE AddressesStrategy TRAIT NEED TO BE INSTANCE OF  DACore\Service\AbstractCrudService');
 
@@ -96,16 +97,21 @@ trait AddressesStrategy
 				if (is_null($address->getId())) {
 					$addressesCollection->add($address);
 				} else {
+					$address = $this->em->merge($address);
+				}
+				$arrAddresses->add($address);
 
-					$addressEntity = $this->em->getReference('DABase\Entity\Address', $address->getId());
-					if ($addressesCollection->contains($addressEntity)) {
-						$this->em->merge($address);
-					}
+			}
+
+			foreach($addressesCollection as $address) {
+				if (!$arrAddresses->contains($address)) {
+					$addressesCollection->removeElement($address);
+					$this->em->remove($address);
 				}
 			}
 
-			$this->em->flush();
-			return null;
+
+			return $addressesCollection;
 
 		}
 

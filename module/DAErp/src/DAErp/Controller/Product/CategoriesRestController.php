@@ -1,9 +1,9 @@
 <?php
-namespace DABase\Controller\Product;
+namespace DAErp\Controller\Product;
 
 use DACore\Controller\AbstractCrudRestController;
 
-class CategoiriesRestController extends AbstractCrudRestController
+class CategoriesRestController extends AbstractCrudRestController
 {
     protected $aclResource = 'productCategories';
 }

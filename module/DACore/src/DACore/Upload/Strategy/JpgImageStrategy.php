@@ -3,8 +3,6 @@ namespace DACore\Upload\Strategy;
 
 class JpgImageStrategy extends AbstractFileStrategy implements UploadStrategyInterface
 {
-	protected $source;
-	protected $dest;
 
 	public function move($src, $dest, $desired_width)
 	{

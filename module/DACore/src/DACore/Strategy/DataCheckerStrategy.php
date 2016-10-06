@@ -176,7 +176,7 @@ trait DataCheckerStrategy
 	{
 
 		$checkDate = strtotime($date);
-
+		$format = "Y-m-d H:i:s";
 		if ($checkDate !== false) {
 		 	$checkDate = new \DateTime(date('Y-m-d', $checkDate));
 		}

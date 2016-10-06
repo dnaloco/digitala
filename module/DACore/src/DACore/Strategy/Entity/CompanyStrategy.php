@@ -3,7 +3,7 @@ namespace DACore\Strategy\Entity;
 
 trait CompanyStrategy
 {
-	public function getCompany($key, $company, $hasParent = false)
+	public function getCompany($key, $company, $hasParent = false, $userId = null)
 	{
 		if (!($this instanceof \DACore\Service\AbstractCrudService))
 			throw new \Exception('TO USE AddressesStrategy TRAIT NEED TO BE INSTANCE OF  DACore\Service\AbstractCrudService');
@@ -48,7 +48,7 @@ trait CompanyStrategy
 		}
 
 		if (!isset($company['type'])) {
-			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'type');
+			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'comp_type');
 			return false;
 		} else {
 			$company['type'] = static::checkType($key, 'DACore\Enum\CompanyType', $company['type']);
@@ -80,61 +80,115 @@ trait CompanyStrategy
 		}
 
 		if (isset($company['telephones'])) {
-			$company['telephones'] = static::getTelephonesCollection($key, $company['telephones'], $entity);
+
+			if (empty($company['telephones'])) {
+				if ($entity) $entity->getTelephones()->clear();
+				unset($company['telephones']);
+			} else {
+				$company['telephones'] = static::getTelephonesCollection($key, $company['telephones'], $entity);
+			}
 		}
 
+
 		if (isset($company['documents'])) {
-			$company['documents'] = static::getDocumentsCollection($key, $company['documents'], $entity);
+
+			if (empty($company['documents'])) {
+				if ($entity) $entity->getDocuments()->clear();
+				unset($company['documents']);
+			} else {
+				$company['documents'] = array_map(function($doc) {
+
+					if (empty($doc['images'])) unset($doc['images']);
+					if (empty($doc['files'])) unset($doc['files']);
+
+					return $doc;
+				}, $company['documents']);
+
+				$company['documents'] = $this->getDocumentsCollection($key, $company['documents'], 'company', $entity);
+			}
+
 		}
 
 		if (isset($company['emails'])) {
-			$company['emails'] = static::getEmailsCollection($key, $company['emails'], $entity);
-
+			if (empty($company['emails'])) {
+				if ($entity) $entity->getEmails()->clear();
+				unset($company['emails']);
+			} else {
+				$company['emails'] = static::getEmailsCollection($key, $company['emails'], $entity);
+			}
 		}
 
 		if (isset($company['socialNetworks'])) {
-			$company['socialNetworks'] = static::getSocialNetworksCollection($key, $company['socialNetworks'], $entity);
+
+			if (empty($company['socialNetworks'])) {
+				if ($entity) $entity->getSocialNetworks()->clear();
+				unset($company['socialNetworks']);
+			} else {
+				$company['socialNetworks'] = static::getSocialNetworksCollection($key, $company['socialNetworks'], $entity);
+			}
 		}
 
 		if (isset($company['contacts'])) {
-			$company['contacts'] = static::getPeopleReferences($key, $company['contacts'], 'contacts');
+			if (empty($company['contacts'])) {
+				if ($entity) $entity->getContacts()->clear();
+				unset($company['contacts']);
+			} else {
+				$company['contacts'] = static::getPeopleReferences($key, $company['contacts'], 'contacts');
+			}
+
 		}
 
 		if (isset($company['addresses'])) {
-			$company['addresses'] = static::getAddressesCollection($key, $company['addresses'], $entity);
+			if (empty($company['addresses'])) {
+				if ($entity) $entity->getAddresses()->clear();
+				unset($company['addresses']);
+			} else {
+				$company['addresses'] = static::getAddressesCollection($key, $company['addresses'], $entity);
+			}
+
 		}
 
 		if (isset($company['description'])) {
 			$company['description'] = static::checkString($key, $company['description'], 'description');
 		}
 
-
-		// TODO: FALTA CORRIGIR ISTO DAQUI
 		if (isset($company['logo']) && isset($company['logo']['uploaded']) && isset($company['tradingName'])) {
+
+			if ($entity && !is_null($logo = $entity->getLogo())) {
+				$this->getUploadManager()->removeImage($logo);
+				$logo = $this->em->getReference('DABase\Entity\Image', $logo->getId());
+				$this->em->remove($logo);
+			}
 
 			$imgData = [
 				'title' => 'Logotipo de ' . $company['tradingName'],
 				'author' => 'Logotipo da empresa',
 				'licence' => static::checkType($key, 'DACore\Enum\Licence', 'Attribution-NonCommercial-NoDerivs'),
-				'description' => 'Logotipo da empresa.',
+				'description' => 'Logotipo da empresa ' . $company['tradingName'],
 				'name' => $company['tradingName'],
 				'path' => './build/uploads/company/logos/',
 			];
 
-			$company['logo'] = $this->getUploadManager()->getPhoto($key, $company['logo']['uploaded'], $imgData);
+			$company['logo'] = $this->getUploadManager()->getImage($key, $company['logo']['uploaded'], $imgData, 'company');
+		}
+
+		if (is_array($company['logo']) && isset($company['logo']) && !isset($company['logo']['uploaded'])) {
+			if (empty($company['logo']) && $entity && !is_null($entity->getLogo())) {
+				$logo = $entity->getLogo();
+				$this->getUploadManager()->removeImage($logo);
+				$this->em->remove($logo);
+			} else
+				$company['logo'] = $entity->getLogo();
 		}
 
 		if (isset($company['goodTags'])) {
-			$company['goodTags'] = static::getGoodTagsReferences($key, $company['goodTags'], 'goodTags');
-
-			if ($entity) {
-				$entity->getGoodTags()->clear();
-				$entity->setGoodTags($company['goodTags']);
-
+			if (empty($company['goodTags'])) {
+				if ($entity) $entity->getContacts()->clear();
+				unset($company['goodTags']);
+			} else {
+				$company['goodTags'] = static::getGoodTagsReferences($key, $company['goodTags'], 'goodTags');
 			}
-			//var_dump('I hava goodTags');die;
-			
-			//var_dump($company['goodTags']->count());die;
+
 		}
 
 		$company = array_filter($company);

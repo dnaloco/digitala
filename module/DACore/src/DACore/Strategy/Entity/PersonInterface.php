@@ -3,5 +3,5 @@ namespace DACore\Strategy\Entity;
 
 interface PersonInterface
 {
-	function getPerson($key, $person, $entity = null);
+	function getPerson($key, $person, $hasParent = false, $userId = null);
 }

@@ -27,6 +27,46 @@ class LoadResource extends AbstractFixture implements OrderedFixtureInterface
                 $resource->setName('modules');
                 $manager->persist($resource);
 
+                $resource = new Resource;
+                $resource->setName('manufacturers');
+                $manager->persist($resource);
+
+                $resource = new Resource;
+                $resource->setName('orderStores');
+                $manager->persist($resource);
+
+                $resource = new Resource;
+                $resource->setName('productCategories');
+                $manager->persist($resource);
+
+                $resource = new Resource;
+                $resource->setName('productCoupons');
+                $manager->persist($resource);
+
+                $resource = new Resource;
+                $resource->setName('productDepartments');
+                $manager->persist($resource);
+
+                $resource = new Resource;
+                $resource->setName('productFeatures');
+                $manager->persist($resource);
+
+                $resource = new Resource;
+                $resource->setName('productFeatureGroups');
+                $manager->persist($resource);
+
+                $resource = new Resource;
+                $resource->setName('mixProducts');
+                $manager->persist($resource);
+
+                $resource = new Resource;
+                $resource->setName('productRatings');
+                $manager->persist($resource);
+
+                $resource = new Resource;
+                $resource->setName('products');
+                $manager->persist($resource);
+
 		$manager->flush();
 	}
 

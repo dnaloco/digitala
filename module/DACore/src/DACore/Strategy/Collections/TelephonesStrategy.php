@@ -14,7 +14,7 @@ trait TelephonesStrategy
 		}
 
 		if (!isset($telephone['type'])) {
-			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'type');
+			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'tel_type');
 			return false;
 		} else {
 			$telephone['type'] = static::checkType($key, 'DACore\Enum\TelephoneType', $telephone['type']);
@@ -69,23 +69,29 @@ trait TelephonesStrategy
 			$telephonesCollection = $entity->getTelephones();
 
 			foreach($telephones as $telephone) {
+
 				$telephone = $this->getTelephone($key, $telephone);
 
 				if (!$telephone) continue;
-
+				//var_dump($telephone->getId());die;
 				if (is_null($telephone->getId())) {
 					$telephonesCollection->add($telephone);
 				} else {
+					$telephone = $this->em->merge($telephone);
+				}
+				//die('HERE');
+				$arrTelephones->add($telephone);
 
-					$telEntity = $this->em->getReference('DABase\Entity\Telephone', $telephone->getId());
-					if ($telephonesCollection->contains($telEntity)) {
-						$this->em->merge($telephone);
-					}
+			}
+			//var_dump('OK');die;
+			foreach($telephonesCollection as $telephone) {
+				if (!$arrTelephones->contains($telephone)) {
+					$telephonesCollection->removeElement($telephone);
+					$this->em->remove($telephone);
 				}
 			}
 
-			$this->em->flush();
-			return null;
+			return $telephonesCollection;
 
 		}
 

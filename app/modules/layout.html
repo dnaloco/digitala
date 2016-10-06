@@ -7,25 +7,30 @@
     <title ng-bind="pageTitle"></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="modules/css/main.css">
+    <link rel="stylesheet" href="erp/css/main.css">
 
   </head>
   <body ng-controller="LayoutController as layout">
-
-    <button class="button alert" ng-click="layout.logout()" ng-show="layout.logged">Sair</button>
-    MODULES APPLICATION
-
+    MODULES
+    
     <div id="da-layout-header" data-ui-view="header"></div>
 
     <div id="da-layout-banner" data-ui-view="banner"></div>
 
-    <div id="da-layout-content" data-ui-view="content"></div>
+    <div id="da-layout-leftsidebar" data-ui-view="leftsidebar"></div>
 
-    <div id="da-layout-sidebar" data-ui-view="sidebar"></div>
+    <div id="da-product-topcontent" data-ui-view="topcontent"></div>
+
+    <div id="da-layout-middlecontent" data-ui-view="middlecontent"></div>
+
+    <div id="da-product-bottomcontent" data-ui-view="bottomcontent"></div>
+
+    <div id="da-layout-rightsidebar" data-ui-view="rightsidebar"></div>
 
     <div id="da-layout-footer" data-ui-view="footer"></div>
 
-    <script src="modules/js/main.js"></script>
+
+    <script src="erp/js/main.js"></script>
 
   </body>
 </html>

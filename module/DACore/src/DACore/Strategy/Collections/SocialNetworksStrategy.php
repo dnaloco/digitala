@@ -11,7 +11,7 @@ trait SocialNetworksStrategy
 		$repoSocial = $this->getAnotherRepository('DABase\Entity\SocialNetwork');
 
 		if (!isset($socialNetwork['type'])) {
-			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'type');
+			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'soc_type');
 			return false;
 		} else {
 			$socialNetwork['type'] = static::checkType($key, 'DACore\Enum\SocialType', $socialNetwork['type']);
@@ -62,16 +62,20 @@ trait SocialNetworksStrategy
 				if (is_null($socialNetwork->getId())) {
 					$socialsCollection->add($socialNetwork);
 				} else {
+					$socialNetwork = $this->em->merge($socialNetwork);
+				}
+				$arrSocialNetworks->add($socialNetwork);
 
-					$socialEntity = $this->em->getReference('DABase\Entity\SocialNetwork', $socialNetwork->getId());
-					if ($socialsCollection->contains($socialEntity)) {
-						$this->em->merge($socialNetwork);
-					}
+			}
+
+			foreach($socialsCollection as $socialNetwork) {
+				if (!$arrSocialNetworks->contains($socialNetwork)) {
+					$socialsCollection->removeElement($socialNetwork);
+					$this->em->remove($socialNetwork);
 				}
 			}
 
-			$this->em->flush();
-			return null;
+			return $socialsCollection;
 
 		}
 

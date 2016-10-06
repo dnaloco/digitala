@@ -29,13 +29,14 @@ import 'angular-translate-loader-url';
 import 'angular-translate-loader-static-files';
 import 'angular-smart-table';
 import 'ng-sortable';
+import 'angular-loading-bar';
 import 'ng-autocomplete';
 import 'angular-xeditable';
 import 'angular-busy';
 import 'ng-lodash';
 import 'angular-smart-table';
 import 'ng-xdLocalStorage';
-import 'ng-facebook';
+import 'angular-scroll';
 
 import 'ngEqualizer';
 
@@ -44,6 +45,7 @@ import './filters';
 import './controllers';
 import './services';
 import './directives';
+
 
 // create and bootstrap application
 const requires = [
@@ -62,13 +64,14 @@ const requires = [
   'pascalprecht.translate',
   'smart-table',
   'as.sortable',
+  'angular-loading-bar',
   'ngAutocomplete',
   'xeditable',
   'cgBusy',
   'ngLodash',
   'smart-table',
   'xdLocalStorage',
-  'ngFacebook',
+  'duScroll',
 
   'ngEqualizer',
 

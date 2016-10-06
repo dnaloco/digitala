@@ -3,7 +3,7 @@ namespace DACore\Strategy\Entity;
 
 trait PersonStrategy
 {
-	public function getPerson($key, $person, $hasParent = false)
+	public function getPerson($key, $person, $hasParent = false,  $userId = null)
 	{
 		if (!($this instanceof \DACore\Service\AbstractCrudService))
 			throw new \Exception('TO USE PersonStrategy TRAIT NEED TO BE INSTANCE OF  DACore\Service\AbstractCrudService');
@@ -25,13 +25,10 @@ trait PersonStrategy
 			}
 		}
 
-		// limpar valores nulos e vazios
-		$person = array_filter($person);
-
 		$entity = null;
 
-		if (isset($company['id'])) {
-			$entity = $this->em->getReference('DABase\Entity\Person', $company['id']);
+		if (isset($person['id'])) {
+			$entity = $this->em->getReference('DABase\Entity\Person', $person['id']);
 		}
 
 		// isso aqui não vai para o update obviamente
@@ -48,7 +45,7 @@ trait PersonStrategy
 		}
 
 		if (isset($person['gender'])) {
-			$person['gender'] = static::checkType($key, 'DACore\Enum\GenderType', $person['gender']);
+			$person['gender'] = static::checkType($key, 'DACore\Enum\GenderType', $person['gender'], 'gender');
 		}
 
 		// birthdate
@@ -68,6 +65,12 @@ trait PersonStrategy
 		// TODO: FALTA CORRIGIR ISTO DAQUI
 		if (isset($person['photo']) && isset($person['photo']['uploaded']) && isset($person['name'])) {
 
+			if ($entity && !is_null($photo = $entity->getPhoto())) {
+				$this->getUploadManager()->removeImage($photo);
+				$photo = $this->em->getReference('DABase\Entity\Image', $photo->getId());
+				$this->em->remove($photo);
+			}
+
 			$imgData = [
 				'title' => 'Foto de ' . $person['name'],
 				'author' => 'Foto do proprietário da conta',
@@ -77,28 +80,84 @@ trait PersonStrategy
 				'path' => './build/uploads/person/photos/',
 			];
 
-			$person['photo'] = $this->getUploadManager()->getPhoto($key, $person['photo']['uploaded'], $imgData);
+			$person['photo'] = $this->getUploadManager()->getImage($key, $person['photo']['uploaded'], $imgData, 'photo');
+		}
+
+		if ( is_array($person['photo']) && isset($person['photo']) && !isset($person['photo']['uploaded'])) {
+			if (empty($person['photo']) && $entity && !is_null($entity->getPhoto())) {
+				$photo = $entity->getPhoto();
+				$this->getUploadManager()->removeImage($photo);
+				$this->em->remove($photo);
+			} else
+				$person['photo'] = $entity->getPhoto();
 		}
 
 		if (isset($person['emails'])) {
-			$person['emails'] = static::getEmailsCollection($key, $person['emails'], $entity);
-
+			if (empty($person['emails'])) {
+				if ($entity) $entity->getEmails()->clear();
+				unset($person['emails']);
+			} else {
+				$person['emails'] = static::getEmailsCollection($key, $person['emails'], $entity);
+			}
 		}
 
 		if (isset($person['addresses'])) {
-			$person['addresses'] = static::getAddressesCollection($key, $person['addresses'], $entity);
+			if (empty($person['addresses'])) {
+				if ($entity) $entity->getAddresses()->clear();
+				unset($person['addresses']);
+			} else {
+				$person['addresses'] = static::getAddressesCollection($key, $person['addresses'], $entity);
+			}
+
 		}
 
 		if (isset($person['telephones'])) {
-			$person['telephones'] = static::getTelephonesCollection($key, $person['telephones'], $entity);
+
+			if (empty($person['telephones'])) {
+				if ($entity) $entity->getTelephones()->clear();
+				unset($person['telephones']);
+			} else {
+				$person['telephones'] = static::getTelephonesCollection($key, $person['telephones'], $entity);
+			}
 		}
 
 		if (isset($person['socialNetworks'])) {
-			$person['socialNetworks'] = static::getSocialNetworksCollection($key, $person['socialNetworks'], $entity);
+
+			if (empty($person['socialNetworks'])) {
+				if ($entity) $entity->getSocialNetworks()->clear();
+				unset($person['socialNetworks']);
+			} else {
+				$person['socialNetworks'] = static::getSocialNetworksCollection($key, $person['socialNetworks'], $entity);
+			}
 		}
 
 		if (isset($person['documents'])) {
-			$person['documents'] = static::getDocumentsCollection($key, $person['documents'], $entity);
+
+			if (empty($person['documents'])) {
+				if ($entity) $entity->getDocuments()->clear();
+				unset($person['documents']);
+			} else {
+				$person['documents'] = array_map(function($doc) {
+
+					if (empty($doc['images'])) unset($doc['images']);
+					if (empty($doc['files'])) unset($doc['files']);
+
+					return $doc;
+				}, $person['documents']);
+
+				$person['documents'] = $this->getDocumentsCollection($key, $person['documents'], 'person', $entity);
+			}
+
+		}
+
+		if ($hasParent) {
+			if ($userId) {
+				$userEntity = $this->em->getReference('DAUser\Entity\User', $userId);
+				$person['user'] = $userEntity;
+				//var_dump('USER', $userEntity->getId());die;
+			} elseif($companyId) {
+				$person['company'] = $companyId;
+			}
 		}
 
 		$person = array_filter($person);
@@ -108,7 +167,7 @@ trait PersonStrategy
 			$person['errors'] = static::getErrors();
 			return false;
 		}
-
+		//die('DO NOT PROCEED');
 		if ($hasParent) return new \DABase\Entity\Person($person);
 
 		return $person;

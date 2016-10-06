@@ -44,6 +44,13 @@ class Currency implements CurrencyInterface
 	 */
 	protected $rate;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="standard", type="boolean", unique=true)
+     */
+    protected $standard;
+
 	public function __construct(array $data)
 	{
 		(new Hydrator\ClassMethods)->hydrate($data, $this);

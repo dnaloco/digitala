@@ -12,35 +12,22 @@ function OnRoute(
         templateUrl: 'layout/header.html',
         controller: 'HeaderController as header'
       },
-      'banner': {
-        templateUrl: 'layout/banner.html',
-        controller: 'BannerController as banner'
+      'leftsidebar': {
+        templateUrl: 'layout/left-navbar.html',
+        controller: 'NavbarController as navbar'
       },
-      'content': {
+      'middlecontent': {
         templateUrl: 'layout/home.html',
         controller: 'HomeController as home'
-      },
-      'sidebar': {
-        templateUrl: 'layout/sidebar.html',
-        controller: 'SidebarController as sidebar'
       },
       'footer':{
         templateUrl: 'layout/footer.html',
         controller: 'FooterController as footer'
       }
-    }
-  })
-  .state('Login', {
-    url: '/login',
-    views: {
-        'content@': {
-            templateUrl: 'pages/login.html',
-            controller: 'LoginController as login'
-        }
-    }
+    },
+    title: 'Home'
   });
 
 }
-
 
 export default OnRoute;

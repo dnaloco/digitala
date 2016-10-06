@@ -58,14 +58,18 @@ class PreUploadRestController extends AbstractRestfulController implements Respo
     }
 	public function create ($data)
 	{
+        //var_dump($_FILES);
+        //var_dump($data);die;
 		$response = array('errors' => array(), 'success' => false, 'data' => array());
 
+        // TEMPORARIO TEMPORARIO TEMPORARIO TEMPORARIO !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		if (!$response['success'] = isset($data['data']['type'])) {
             $response['errors'][] = array('A type must be informed');
         	return new JsonModel($response);
         }
 
         $type = $data['data']['type'];
+        //$type = "image/gif";
 
         $uploadService = $this->getUploadService();
 

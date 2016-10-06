@@ -9,7 +9,7 @@ trait DocumentsStrategy
 	public function getDocument($key, $document)
 	{
 		if (!isset($document['type'])) {
-			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'type');
+			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'doc_type');
 			return false;
 		} else {
 			$document['type'] = static::checkType($key, 'DACore\Enum\DocumentType', $document['type']);
@@ -49,7 +49,7 @@ trait DocumentsStrategy
 		return new \DABase\Entity\Document($document);
 	}
 
-	public function getDocumentsCollection($key, $documents, $entity)
+	public function getDocumentsCollection($key, $documents, $entityType, $entity)
 	{
 		if (!($this instanceof \DACore\Service\AbstractCrudService))
 			throw new \Exception('TO USE DocumentsStrategy TRAIT NEED TO BE INSTANCE OF  DACore\Service\AbstractCrudService');
@@ -68,6 +68,7 @@ trait DocumentsStrategy
 			$documentsCollection = $entity->getDocuments();
 
 			foreach($documents as $document) {
+				$document[$entityType] = $entity;
 				$document = $this->getDocument($key, $document);
 
 				if (!$document) continue;
@@ -75,16 +76,21 @@ trait DocumentsStrategy
 				if (is_null($document->getId())) {
 					$documentsCollection->add($document);
 				} else {
+					$document = $this->em->merge($document);
+				}
 
-					$documentEntity = $this->em->getReference('DABase\Entity\Document', $document->getId());
-					if ($documentsCollection->contains($documentEntity)) {
-						$this->em->merge($document);
-					}
+				$arrDocuments->add($document);
+			}
+
+			foreach($documentsCollection as $document) {
+
+				if (!$arrDocuments->contains($document)) {
+					$documentsCollection->removeElement($document);
+					$this->em->remove($document);
 				}
 			}
 
-			$this->em->flush();
-			return null;
+			return $documentsCollection;
 
 		}
 

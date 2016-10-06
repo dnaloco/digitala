@@ -49,11 +49,18 @@
 				Data de nascimento: <br>
 				<input type="date" name="birthdate" ng-model="signup.user.person.birthdate">
 			</label>
+
+
+
 			<label for="photo">
 				Foto: <br>
 				<div class="button" ngf-select ng-model="signup.user.person.photo" name="file" ngf-pattern="'image/*'"
-				    ngf-accept="'image/*'">Select</div>
+				    ngf-accept="'image/*'" ngf-change="signup.selectedUpload">Select</div>
 			</label>
+
+			<button class="button" ng-click="signup.selectedUpload()">Check Photo</button>
+
+
 			<label for="photo">
 				Website: <br>
 				<input type="text" name="website" ng-model="signup.user.website">

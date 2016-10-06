@@ -55,8 +55,8 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
         if (!in_array($_SERVER['HTTP_ORIGIN'], explode(';', getenv('API_AUDIENCES')))) {
             return $this->controller->statusBadRequest('Origem inválida.');
         }
-
-        $parsedToken = (new Parser())->parse((string) $this->token);
+       
+        $parsedToken = (new Parser())->parse($this->token);
 
         $parsed_jti = $parsedToken->getHeader('jti');
         $parsed_ip = $parsedToken->getClaim('ip');
@@ -77,6 +77,7 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
 
         //var_dump($_SERVER['HTTP_HOST']);die;
         //$parsedToken->validate($token)
+        
         if ($parsedToken->validate($token)) {
             
             if ($data_access = $parsedToken->getClaim('access')) {
@@ -108,6 +109,7 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
                     }
 
                     if ($parsed_ip == $_SERVER['REMOTE_ADDR']) {
+                        // SET USER CACHE
                         return;
                     }
 
@@ -175,8 +177,6 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
 
 			return;
 		}
-
-
 
 		$matches =  $e->getRouteMatch();
         $response = $e->getResponse();

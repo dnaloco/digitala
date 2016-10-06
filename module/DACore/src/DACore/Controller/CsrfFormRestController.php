@@ -55,6 +55,8 @@ implements ApcCacheAwareInterface
 
         $this->cache->setItem($_GET['formName'], md5(uniqid(rand() . $_GET['formName'], true)));
 
+        //var_dump('GET TOKEN', $this->cache->getItem('postmanForm'));die;
+
         return new JsonModel(array('formToken' => $this->cache->getItem($_GET['formName'])));
     }
 

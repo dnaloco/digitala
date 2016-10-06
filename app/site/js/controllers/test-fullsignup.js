@@ -22,6 +22,11 @@ function TestFullsignupController(ngDialog, $scope, Upload, Restangular, $q, $ht
         });
     };
 
+
+    vm.selectedUpload = function() {
+        console.log('PHOTO', vm.user.person.photo);
+    }
+
     vm.userTest = {
         "user": "arthur_scostapojjhhkjhlsdasa3@yahoo.com",
         "password": "artdna",
@@ -171,6 +176,7 @@ function TestFullsignupController(ngDialog, $scope, Upload, Restangular, $q, $ht
     };
 
     vm.upload = function(file, data) {
+        console.log('DATA IMAGE', data);
         vm.uploading = true;
 /*
         var deferred = $q.defer();

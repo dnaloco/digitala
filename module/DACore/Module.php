@@ -22,9 +22,7 @@ class Module
         $em = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($em);
-        /*$em->attach(MvcEvent::EVENT_DISPATCH, function($e) {
-            echo $e->getRouteMatch()->getMatchedRouteName();
-        }, 100);*/
+
 
         /*$sharedEvents = $em->getSharedManager();
         $entityManager = $sm->get('Doctrine\ORM\EntityManager');
@@ -32,43 +30,12 @@ class Module
         $acl = $sm->get('DACore\Permissions\Acl');
         $tokenAuth = new \DACore\Auth\JwtTokenDispatcherAuthentication($entityManager, $cacheApc, $acl);
 
-        $sharedEvents->attach('Zend\Mvc\Controller\AbstractRestfulController', MvcEvent::EVENT_DISPATCH, array($tokenAuth, 'onDispatch'), 200);
-*/
+        $sharedEvents->attach('Zend\Mvc\Controller\AbstractRestfulController', MvcEvent::EVENT_DISPATCH, array($tokenAuth, 'onDispatch'), 200);*/
 
-        //$sharedEvents = $em->getSharedManager();
-        //$tokenAuth = new \DACore\Auth\TokenDispatcherAuthentication();
 
-        //$sharedEvents->attach('DACore\Service\AbstractCrudRestController', MvcEvent::EVENT_DISPATCH, array($tokenAuth, 'onDispatch'), 200);
-        //$em->attach(\Zend\Mvc\MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'));
-        //$this->bootstrapSession($e);
-
-        /*$em->attach("finish", array($this, "compressOutput"), 100);
-
-        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
-            $em->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDispatchError'), 0);
-            $em->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'onRenderError'), 0);
-        }*/
-        /*$this->initSession(array(
-            'remember_me_seconds' => 180,
-            'use_cookies' => true,
-            'name' => 'ADA_SESSION',
-            'cookie_domain' => '.agenciadigitala.local',
-            //'cookie_httponly' => true,
-        ));*/
     }
 
-    public function onDispatch(\Zend\Mvc\MvcEvent $e){
-        // ... your logic here ...
-        var_dump('LOGICA PARA VALIDAR TOKENS JWT...');
-        echo '<br>';
-        echo get_class($e->getApplication());
-        echo '<br>';
-        $matches =  $e->getRouteMatch();
-        $response = $e->getResponse();
-        $request =  $e->getRequest();
-        $method =   $request->getMethod();
-        die;
-    }
+
 
 /*
     public function initSession($config)
@@ -198,3 +165,41 @@ class Module
         );
     }
 }
+
+
+/*    public function onDispatch(\Zend\Mvc\MvcEvent $e){
+        // ... your logic here ...
+        var_dump('LOGICA PARA VALIDAR TOKENS JWT...');
+        echo '<br>';
+        echo get_class($e->getApplication());
+        echo '<br>';
+        $matches =  $e->getRouteMatch();
+        $response = $e->getResponse();
+        $request =  $e->getRequest();
+        $method =   $request->getMethod();
+        die;
+    }*/
+/*$em->attach(MvcEvent::EVENT_DISPATCH, function($e) {
+    echo $e->getRouteMatch()->getMatchedRouteName();
+}, 100);*/
+
+//$sharedEvents = $em->getSharedManager();
+//$tokenAuth = new \DACore\Auth\TokenDispatcherAuthentication();
+
+//$sharedEvents->attach('DACore\Service\AbstractCrudRestController', MvcEvent::EVENT_DISPATCH, array($tokenAuth, 'onDispatch'), 200);
+//$em->attach(\Zend\Mvc\MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'));
+//$this->bootstrapSession($e);
+
+/*$em->attach("finish", array($this, "compressOutput"), 100);
+
+if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
+    $em->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDispatchError'), 0);
+    $em->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'onRenderError'), 0);
+}*/
+/*$this->initSession(array(
+    'remember_me_seconds' => 180,
+    'use_cookies' => true,
+    'name' => 'ADA_SESSION',
+    'cookie_domain' => '.agenciadigitala.local',
+    //'cookie_httponly' => true,
+));*/

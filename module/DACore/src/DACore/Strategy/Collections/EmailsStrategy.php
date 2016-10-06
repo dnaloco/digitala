@@ -64,16 +64,20 @@ trait EmailsStrategy
 				if (is_null($email->getId())) {
 					$emailsCollection->add($email);
 				} else {
+					$email = $this->em->merge($email);
+				}
+				$arrEmails->add($email);
 
-					$emailEntity = $this->em->getReference('DABase\Entity\Email', $email->getId());
-					if ($emailsCollection->contains($emailEntity)) {
-						$this->em->merge($email);
-					}
+			}
+
+			foreach($emailsCollection as $email) {
+				if (!$arrEmails->contains($email)) {
+					$emailsCollection->removeElement($email);
+					$this->em->remove($email);
 				}
 			}
 
-			$this->em->flush();
-			return null;
+			return $emailsCollection;
 
 		}
 

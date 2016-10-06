@@ -39,6 +39,8 @@ MyUploadAwareInterface
 
 	protected $uploadManager;
 
+	private $checkUnique = true;
+
 	public function setUploadManager(\DACore\Upload\MyAbstractUpload $uploadManager)
 	{
 		$this->uploadManager = $uploadManager;
@@ -110,19 +112,25 @@ MyUploadAwareInterface
 		return $roles;
 	}
 
-	public function getGoodTagsCollection($key, $goodTags)
-	{
-		$arrGoodTags = new ArrayCollection();
-		$key = $key . '_goodTags';
-	}
-
 	public function prepareData(array $data)
 	{
+		//var_dump('afffff');die;
+		$userId = null;
+		if (isset($data['id'])) {
+			$this->checkUnique = false;
+			
+			$userId = $data['id'];
+			
+			$entity = null;
+			$entity = $this->em->getReference('DAUser\Entity\User', $data['id']);
+
+		}
 
 		if(isset($data['createdAt'])) unset($data['createdAt']);
 		if(isset($data['updatedAt'])) unset($data['updatedAt']);
 		
 		$data = array_filter($data);
+		//var_dump($data);die;
 		$key = 'user';
 
 		if (!isset($data['active'])) $data['active'] = false;
@@ -130,6 +138,8 @@ MyUploadAwareInterface
 		// user role REQUIRED!
 		if (!isset($data['roles'])) {
 			$data['roles'] = $this->getGuestRole();
+		} else {
+			unset($data['roles']);
 		}
 
 		// user validation REQUIRED!
@@ -137,20 +147,32 @@ MyUploadAwareInterface
 			$this->addDataError($key, static::ERROR_REQUIRED_FIELD, 'user');
 		} else {
 			$data['user'] = static::checkEmail($key, $data['user'], 'user');
-			$data['user'] = $data['user'] ? static::checkUnique($key, $data['user'], 'user', $this->getRepository()) : null;
+			if ($this->checkUnique)
+				$data['user'] = $data['user'] ? static::checkUnique($key, $data['user'], 'user', $this->getRepository()) : null;
 		}
 
 		// password validation REQUIRED!
-		if (!isset($data['password'])) {
+		if (!isset($data['password']) && $this->checkUnique) {
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'password');
 		} else {
-			$data['password'] = static::checkString($key, $data['password'], 'password');
-			$data['password'] = static::checkStringLength($key, $data['password'], 'password', 6, 32);
+			if ($this->checkUnique || isset($data['changedPass'])) {
+				$data['password'] = static::checkString($key, $data['password'], 'password');
+				$data['password'] = static::checkStringLength($key, $data['password'], 'password', 6, 32);
+			}
 		}
 
 		// person or company REQUIRED!
 		if (isset($data['person'])) {
-			$data['person'] = static::getPerson($key, $data['person'], true);
+
+			$data['person'] = static::getPerson($key, $data['person'], true, $userId);
+
+			if ($userId) {
+
+				$this->em->merge($data['person']);
+				$this->em->flush();
+
+				unset($data['person']);
+			}
 
 		} else if (isset($data['company'])) {
 
@@ -162,7 +184,7 @@ MyUploadAwareInterface
 			$data['errors'] = [];
 			$data['errors'] = static::getErrors();
 		}
-		//var_dump($data);die;
+
 		return $data;
 	}
 

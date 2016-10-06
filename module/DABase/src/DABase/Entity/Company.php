@@ -140,12 +140,9 @@ class Company implements CompanyInterface
      */
 	private $description;
 
-	/**
-     * Logo da empresa
-     * 
-     * @var \DACore\Entity\Base\ImageInterface
-     * @ORM\ManyToOne(targetEntity="DACore\Entity\Base\ImageInterface")
-     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+    /**
+     * @ORM\OneToOne(targetEntity="DACore\Entity\Base\ImageInterface", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="logo_id", referencedColumnName="id")
      */
 	private $logo;
 

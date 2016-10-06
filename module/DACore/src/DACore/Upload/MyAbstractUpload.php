@@ -34,12 +34,11 @@ abstract class MyAbstractUpload
         return $baseDestination . $title . $prefix . '.' . $ext;
     }
 
-    public function getPhoto($key, $photo, $imageData)
+    public function getImage($key, $image, $imageData, $field = "image")
     {
-        $key = $key . '_photo';
-        $imagesize = getimagesize($this->tmp_path . $photo);
-        self::clearPath($imageData['path']);
-        $ext = pathinfo($photo, PATHINFO_EXTENSION);
+        $key = $key . "_" . $field;
+        $imagesize = getimagesize($this->tmp_path . $image);
+        $ext = pathinfo($image, PATHINFO_EXTENSION);
         $uniqueId = uniqid();
         $imageData['name'] = $uniqueId . $imageData['name'];
 
@@ -69,7 +68,7 @@ abstract class MyAbstractUpload
             ]
         ];
 
-        $uploadsResult = $this->moveUploaded($photo, $destinations);
+        $uploadsResult = $this->moveUploaded($image, $destinations);
 
 
         foreach($uploadsResult as $result) {
@@ -92,11 +91,13 @@ abstract class MyAbstractUpload
         $imageData['height'] = $imagesize[1];
         $imageData['filetype'] = $ext;
 
+        self::clearPath($this->tmp_path);
         return new \DABase\Entity\Image($imageData);
     }
 
     public function moveUploaded($tmp_file, array $destinations)
     {
+        //var_dump($destinations);die;
         $ext = pathinfo($tmp_file, PATHINFO_EXTENSION);
 
         $uploadStrategy = null;
@@ -104,11 +105,15 @@ abstract class MyAbstractUpload
         $src = $this->tmp_path . $tmp_file;
 
         switch($ext) {
-            case 'jpg' || 'jpeg':
+            case 'jpg':
+            case 'jpeg':
                 $uploadStrategy = new Strategy\JpgImageStrategy();
                 break;
-            case 'png';
+            case 'png':
                 $uploadStrategy = new Strategy\PngImageStrategy();
+                break;
+            case 'gif':
+                $uploadStrategy = new Strategy\GifImageStrategy();
                 break;
         }
 
@@ -116,6 +121,7 @@ abstract class MyAbstractUpload
 
         foreach ($destinations as $key => $destination) {
             $dest = $destination['dest'];
+            //var_dump('SHIT', $dest);
             if (isset($destination['desired_width'])) {
                 $desired_width = $destination['desired_width'];
                 $result = $uploadStrategy->move($src, $dest, $desired_width);
@@ -151,19 +157,69 @@ abstract class MyAbstractUpload
             $adapter->addValidator($validator);
         }
 
+
+
 		$files = $adapter->getFileInfo();
+        //var_dump($files);die;
+
 
 		foreach($files as $file) {
-			if (!$response['success'] = $adapter->isValid()) {
+
+			if (!($response['success'] = $adapter->isValid())) {
 				$response['errors'][] = $adapter->getMessages();
 			}
-			if (!$response['success'] = $adapter->isUploaded($file)) {
+			if ($adapter->isUploaded($file)) {
+                $response['success'] = false;
 				$response['errors'][] = array('Not uploaded');
 			}
 			$response['success'] = $adapter->receive();
 			$response['data'] = $file['name'];
 		}
 
+        //var_dump('OK ATE AKI');die;
+
     	return $response;
+    }
+
+    public function removeImage($image)
+    {
+
+        $path = $image->getPath();
+        $name = $image->getName();
+        $type = $image->getFiletype();
+
+        if (is_file($file = $path . $name . '.' . $type)) {
+            unlink($file);
+        }
+
+        if (!is_null($image->getHasThumb())) {
+            if (is_file($file = $path . $name . '_thumb.' . $type)) {
+                unlink($file);
+            }
+        }
+
+        if (!is_null($image->getHasSmall())) {
+            if (is_file($file = $path . $name . '_small.' . $type)) {
+                unlink($file);
+            }
+        }
+
+        if (!is_null($image->getHasMedium())) {
+            if (is_file($file = $path . $name . '_medium.' . $type)) {
+                unlink($file);
+            }
+        }
+
+        if (!is_null($image->getHasLarge())) {
+            if (is_file($file = $path . $name . '_large.' . $type)) {
+                unlink($file);
+            }
+        }
+
+        if (!is_null($image->getHasXLarge())) {
+            if (is_file($file = $path . $name . '_xlarge.' . $type)) {
+                unlink($file);
+            }
+        }
     }
 }

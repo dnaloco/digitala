@@ -417,7 +417,7 @@ class Person implements PersonInterface
      *
      * @return self
      */
-    public function setDocuments(\Doctrine\Common\Collections\ArrayCollection $documents)
+    public function setDocuments($documents)
     {
         $this->documents = $documents;
 
