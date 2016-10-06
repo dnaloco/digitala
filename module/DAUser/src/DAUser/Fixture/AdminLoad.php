@@ -9,7 +9,7 @@ class AdminLoad extends AbstractFixture implements OrderedFixtureInterface
 {
 	public function load(ObjectManager $manager)
 	{
-		$repoRole = $manager->getRepository('DAAcl\Entity\Role');
+		$repoRole = $manager->getRepository('DACore\Entity\Acl\RoleInterface');
 		$admin = $repoRole->findOneBy(array('name' => 'admin'));
 
 		$roles = new \Doctrine\Common\Collections\ArrayCollection();

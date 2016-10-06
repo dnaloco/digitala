@@ -9,7 +9,7 @@ trait EmailsStrategy
 
 	public function getEmail($key, $email)
 	{
-		$repoEmail = $this->getAnotherRepository('DABase\Entity\Email');
+		$repoEmail = $this->getAnotherRepository('DACore\Entity\Base\EmailInterface');
 
 		// email anwserable not required.
 		if (isset($email['anwserable'])) {

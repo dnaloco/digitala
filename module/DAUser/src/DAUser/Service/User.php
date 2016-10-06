@@ -57,7 +57,7 @@ MyUploadAwareInterface
 
 		if ($entity instanceof $this->entity) {
 			if($entity->getPerson()) {
-				$personRepo = $this->getAnotherRepository('DABase\Entity\Person');
+				$personRepo = $this->getAnotherRepository('DACore\Entity\Base\PersonInterface');
 				$person = $personRepo->find((int) $entity->getPerson()->getId());
 				foreach($person->getDocuments() as $document) {
 					$document->setPerson($person);
@@ -67,7 +67,7 @@ MyUploadAwareInterface
 				$this->em->persist($person);
 				$this->em->flush();
 			} else if ($entity->getCompany()) {
-				$companyRepo = $this->getAnotherRepository('DABase\Entity\Company');
+				$companyRepo = $this->getAnotherRepository('DACore\Entity\Base\CompanyInterface');
 				$company = $companyRepo->find((int) $entity->getCompany()->getId());
 				foreach($company->getDocuments() as $document) {
 					$document->setCompany($company);
@@ -106,7 +106,7 @@ MyUploadAwareInterface
 	// REPAIR getGuestRole...
 	public function getGuestRole() {
 		$roles = new ArrayCollection();
-		$roleRepo = $this->getAnotherRepository('DAAcl\Entity\Role');
+		$roleRepo = $this->getAnotherRepository('DACore\Entity\Acl\RoleInterface');
 		$guest = $roleRepo->findOneBy(array('name' => 'guest'));
 		$roles->add($guest);
 		return $roles;
@@ -122,7 +122,7 @@ MyUploadAwareInterface
 			$userId = $data['id'];
 			
 			$entity = null;
-			$entity = $this->em->getReference('DAUser\Entity\User', $data['id']);
+			$entity = $this->em->getReference('DAUser\Entity\User', $userId);
 
 		}
 
@@ -144,7 +144,7 @@ MyUploadAwareInterface
 
 		// user validation REQUIRED!
 		if (!isset($data['user'])) {
-			$this->addDataError($key, static::ERROR_REQUIRED_FIELD, 'user');
+			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'user');
 		} else {
 			$data['user'] = static::checkEmail($key, $data['user'], 'user');
 			if ($this->checkUnique)

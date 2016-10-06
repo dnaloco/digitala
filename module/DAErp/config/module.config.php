@@ -19,6 +19,18 @@ return [
                     ],
                 ],
             ],
+            'daerp-product-products-rest' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/api/private/product/products[/:id]',
+                    'constraints' => [
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => 'DAErp\Controller\Product\ProductsRest',
+                    ],
+                ],
+            ],
             'daerp-product-categories-rest' => [
                 'type' => 'Segment',
                 'options' => [
@@ -212,6 +224,10 @@ return [
             'class_name' => 'DAErp\Service\Product\MixProduct',
             'entity' => 'DAErp\Entity\Product\MixProduct'
         ],
+        'DAErp\Service\Product\Product' => [
+            'class_name' => 'DAErp\Service\Product\Product',
+            'entity' => 'DAErp\Entity\Product\Product'
+        ],
     ],
 
     'service_rest_controller' => [
@@ -247,6 +263,10 @@ return [
             'class_name' => 'DAErp\Controller\Product\MixProductsRestController',
             'service' => 'DAErp\Service\Product\MixProduct'
         ],
+        'DAErp\Controller\Product\ProductsRest' => [
+            'class_name' => 'DAErp\Controller\Product\ProductsRestController',
+            'service' => 'DAErp\Service\Product\Product'
+        ],
     ],
     'view_manager' => [
         'template_map' => [
@@ -269,25 +289,32 @@ return [
                 ],
             ],
         ],
+        'configuration' => [
+            'orm_default' => [
+                'types' => [
+                    'enum_unittype'      => 'DAErp\Enum\UnitType',
+                    'enum_productstatus'      => 'DAErp\Enum\ProductStatus',
+                ]
+            ]
+        ],
         'entity_resolver' => [
             'orm_default' => [
                 'resolvers' => [
                     'DACore\Entity\Erp\Manufacturer\ManufacturerInterface' => 'DAErp\Entity\Manufacturer\Manufacturer',
-                    'DACore\Entity\Erp\Product\CategoryInterface' => 'DAErp\Entity\Product\Category',
-                    'DACore\Entity\Erp\Product\CouponInterface' => 'DAErp\Entity\Product\Coupon',
-                    'DACore\Entity\Erp\Product\DepartmentInterface' => 'DAErp\Entity\Product\Department',
-                    'DACore\Entity\Erp\Product\FeatureInterface' => 'DAErp\Entity\Product\Feature',
-                    'DACore\Entity\Erp\Product\GroupInterface' => 'DAErp\Entity\Product\Group',
-                    'DACore\Entity\Erp\Product\MixProductInterface' => 'DAErp\Entity\Product\MixProduct',
+
                     'DACore\Entity\Erp\Product\ProductInterface' => 'DAErp\Entity\Product\Product',
+                    'DACore\Entity\Erp\Product\CategoryInterface' => 'DAErp\Entity\Product\Category',
+                    'DACore\Entity\Erp\Product\DepartmentInterface' => 'DAErp\Entity\Product\Department',
+                    'DACore\Entity\Erp\Product\GroupInterface' => 'DAErp\Entity\Product\Group',
+                    'DACore\Entity\Erp\Product\FeatureInterface' => 'DAErp\Entity\Product\Feature',
+                    'DACore\Entity\Erp\Product\MixProductInterface' => 'DAErp\Entity\Product\MixProduct',
                     'DACore\Entity\Erp\Product\RatingInterface' => 'DAErp\Entity\Product\Rating',
+                    'DACore\Entity\Erp\Product\CouponInterface' => 'DAErp\Entity\Product\Coupon',
+
                     'DACore\Entity\Erp\Order\Store\OrderInterface' => 'DAErp\Entity\Order\Store\Order',
                     'DACore\Entity\Erp\Order\Store\StoreInterface' => 'DAErp\Entity\Order\Store\Store',
-                    'DACore\Entity\Erp\Product\ProductInterface' => 'DAErp\Entity\Product\Product',
-                    'DACore\Entity\Erp\Product\DepartmentInterface' => 'DAErp\Entity\Product\Department',
-                    'DACore\Entity\Erp\Product\CategoryInterface' => 'DAErp\Entity\Product\Category',
-                    'DACore\Entity\Erp\Product\FeatureInterface' => 'DAErp\Entity\Product\Feature',
-                    'DACore\Entity\Erp\Product\RatingInterface' => 'DAErp\Entity\Product\Rating',
+
+
                     /*'DACore\Entity\Erp\Order\Sale\OrderInterface' => 'DAErp\Entity\Order\Sale\Order',
                     'DACore\Entity\Erp\Order\Sale\SaleInterface' => 'DAErp\Entity\Order\Sale\Sale',*/
                 ],

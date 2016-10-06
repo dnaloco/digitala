@@ -10,7 +10,7 @@ return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
         // Vendor
-        /*'ZendDeveloperTools',
+/*        'ZendDeveloperTools',
         'BjyProfiler',*/
         'ZfrCors',
         'DoctrineModule',

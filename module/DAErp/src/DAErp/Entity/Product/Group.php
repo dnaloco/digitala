@@ -29,7 +29,7 @@ class Group implements GroupInterface
 
 	public function __construct(array $data = array())
 	{
-		
+		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
     /**

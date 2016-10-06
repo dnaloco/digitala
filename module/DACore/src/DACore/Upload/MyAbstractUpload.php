@@ -91,7 +91,6 @@ abstract class MyAbstractUpload
         $imageData['height'] = $imagesize[1];
         $imageData['filetype'] = $ext;
 
-        self::clearPath($this->tmp_path);
         return new \DABase\Entity\Image($imageData);
     }
 
@@ -161,7 +160,7 @@ abstract class MyAbstractUpload
 
 		$files = $adapter->getFileInfo();
         //var_dump($files);die;
-
+        $uploadeds = [];
 
 		foreach($files as $file) {
 
@@ -173,9 +172,10 @@ abstract class MyAbstractUpload
 				$response['errors'][] = array('Not uploaded');
 			}
 			$response['success'] = $adapter->receive();
-			$response['data'] = $file['name'];
+			
+            array_push($uploadeds, $file['name']);
 		}
-
+        $response['uploadeds'] = $uploadeds;
         //var_dump('OK ATE AKI');die;
 
     	return $response;
@@ -221,5 +221,9 @@ abstract class MyAbstractUpload
                 unlink($file);
             }
         }
+    }
+
+    public function getPreUploadFolder() {
+        return $this->tmp_path;
     }
 }

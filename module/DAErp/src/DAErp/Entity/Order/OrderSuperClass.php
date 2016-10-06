@@ -26,6 +26,7 @@ class OrderSuperClass {
 	 */
 	private $id;
 
+	private $noNF;
 
 	/**
 	 * @var \DateTime

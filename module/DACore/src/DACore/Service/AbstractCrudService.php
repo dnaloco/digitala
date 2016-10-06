@@ -27,7 +27,8 @@ abstract class AbstractCrudService implements PrepareDataInterface
 	{
 		if(isset($data['createdAt'])) unset($data['createdAt']);
 		if(isset($data['updatedAt'])) unset($data['updatedAt']);
-		return $data;
+
+		return array_filter($data);
 	}
 
 	public function getRepository()

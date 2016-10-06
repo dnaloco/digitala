@@ -24,7 +24,7 @@ class Product implements ProductInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="reference", type="string", length=255, nullable=false)
+     * @ORM\Column(name="reference", type="string", length=255, nullable=true, unique=true)
      */
     private $reference;
 
@@ -111,16 +111,16 @@ class Product implements ProductInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="unit_type", type="string", length=50, nullable=true)
+	 * @ORM\Column(name="unit_type", type="string", length=50, nullable=false)
 	 */
 	private $unitType;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="package_type", type="string", length=50, nullable=true)
-	 */
-	private $packageType;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="package_qtty", type="float", nullable=true)
+     */
+    private $packageQtty;
 
 	/**
 	 * @var string
@@ -187,6 +187,13 @@ class Product implements ProductInterface
      */
 	private $stores;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="enum_productstatus", nullable=true)
+     */
+    private $status;
+
 	/**
 	 * @var \DateTime
 	 *
@@ -202,6 +209,7 @@ class Product implements ProductInterface
 	private $updatedAt;
 
 	public function __construct(array $data = array()) {
+        $this->status = 'cadastrado';
 		$this->createdAt = new \DateTime("now");
 		$this->updatedAt = new \DateTime("now");
 
@@ -213,7 +221,7 @@ class Product implements ProductInterface
 		$this->alternativeProducts = new ArrayCollection();
 		$this->stores = new ArrayCollection();
 
-		(new Hydrator\ClassMethods)->hydrate($options, $this);
+		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
     /**

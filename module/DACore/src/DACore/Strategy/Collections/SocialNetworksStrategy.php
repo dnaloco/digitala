@@ -8,7 +8,7 @@ trait SocialNetworksStrategy
 	private $checkUnique = true;
 	public function getSocialNetwork($key, $socialNetwork)
 	{
-		$repoSocial = $this->getAnotherRepository('DABase\Entity\SocialNetwork');
+		$repoSocial = $this->getAnotherRepository('DACore\Entity\Base\SocialNetworkInterface');
 
 		if (!isset($socialNetwork['type'])) {
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'soc_type');

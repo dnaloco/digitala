@@ -28,7 +28,7 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
 
 	public function checkUser($id)
     {
-    	$userRepo = $this->em->getRepository('\DAUser\Entity\User');
+    	$userRepo = $this->em->getRepository('DACore\Entity\User\UserInterface');
         $user = $userRepo->find((int) $id);
         $userArray = json_decode(static::getPropertyNamingSerializer()->serialize($user, 'json'), true);
     	return $userArray;
@@ -37,7 +37,7 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
 
     public function getRole($role_id)
     {
-    	$roleRepo = $this->em->getRepository('\DAAcl\Entity\Role');
+    	$roleRepo = $this->em->getRepository('DACore\Entity\Acl\RoleInterface');
     }
 
 	// TODO: implement this method...

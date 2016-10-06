@@ -223,4 +223,18 @@ trait DataCheckerStrategy
 
 		return $checkUrl;
 	}
+
+	public static function checkBoolean($key, $boolean, $field)
+	{
+		$checkBoolean = filter_var($boolean, FILTER_VALIDATE_BOOLEAN);
+
+		if (!$checkBoolean) {
+			self::addDataError($key, static::ERROR_INVALID_BOOLEAN, $field, $boolean);
+			return false;
+		}
+
+		return $checkBoolean;
+
+	}
+
 }

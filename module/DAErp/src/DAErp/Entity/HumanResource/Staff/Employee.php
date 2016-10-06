@@ -9,6 +9,7 @@ class Employee
 	private $post;
 	private $burdens;
 	private $onComission;
+	private $comissions;
 	private $accounts;
 	private $salaries;
 	private $expenses;

@@ -16,6 +16,7 @@ use Zend\Session\SessionManager;
 use Zend\Session\Container;
 use Zend\Mvc\Controller\ControllerManager;
 
+
 return [
     'router' => [
         'routes' => [
@@ -103,9 +104,9 @@ return [
             {
                 $em = $sm->get('Doctrine\ORM\EntityManager');
 
-                $repoRoles = $em->getRepository('DAAcl\Entity\Role');
-                $repoResources = $em->getRepository('DAAcl\Entity\Resource');
-                $repoPrivilege = $em->getRepository('DAAcl\Entity\Privilege');
+                $repoRoles = $em->getRepository('DACore\Entity\Acl\RoleInterface');
+                $repoResources = $em->getRepository('DACore\Entity\Acl\ResourceInterface');
+                $repoPrivilege = $em->getRepository('DACore\Entity\Acl\PrivilegeInterface');
 
                 return new Permissions\Acl($repoRoles->findAll(), $repoResources->findAll(), $repoPrivilege->findAll());
             },

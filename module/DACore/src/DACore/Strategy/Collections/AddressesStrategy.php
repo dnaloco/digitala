@@ -22,8 +22,8 @@ trait AddressesStrategy
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'city');
 			return false;
 		} else {
-			$repoCity = $this->getAnotherRepository('DABase\Entity\City');
-			$address['city'] = static::checkEntityById($key, $address['city']['id'], 'city', $repoCity);
+			$repoCity = $this->getAnotherRepository('DACore\Entity\Base\CityInterface');
+			$address['city'] = static::checkReference($key, $address['city']['id'], 'city', $repoCity);
 			if (!$address['city']) return false;
 		}
 

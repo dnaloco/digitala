@@ -12,6 +12,7 @@ interface DataCheckerStrategyInterface
 	const ERROR_INVALID_STRING = 'String data has an invalid string.';
 	const ERROR_INVALID_NUMBER = 'Number data has an invalid number.';
 	const ERROR_INVALID_DATE = 'Date field has an invalid format.';
+	const ERROR_INVALID_BOOLEAN = 'Date field has an invalid format.';
 
 	static function hasErrors();
 	static function addDataError($key, $error, $field, $value = null);

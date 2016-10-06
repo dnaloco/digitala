@@ -67,7 +67,6 @@ trait PersonStrategy
 
 			if ($entity && !is_null($photo = $entity->getPhoto())) {
 				$this->getUploadManager()->removeImage($photo);
-				$photo = $this->em->getReference('DABase\Entity\Image', $photo->getId());
 				$this->em->remove($photo);
 			}
 
@@ -80,7 +79,13 @@ trait PersonStrategy
 				'path' => './build/uploads/person/photos/',
 			];
 
+
+
 			$person['photo'] = $this->getUploadManager()->getImage($key, $person['photo']['uploaded'], $imgData, 'photo');
+
+			$preupFolder = $this->getUploadManager()->getPreUploadFolder();
+
+			$this->getUploadManager()->clearPath($preupFolder);
 		}
 
 		if ( is_array($person['photo']) && isset($person['photo']) && !isset($person['photo']['uploaded'])) {

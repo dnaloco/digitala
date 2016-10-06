@@ -24,6 +24,8 @@ class Supplier {
 	 **/
 	private $company;
 
+	private $quality;
+
 	public function __construct() {
 
 	}

@@ -68,7 +68,7 @@ trait CompanyStrategy
 		}
 
 		if (isset($company['category'])) {
-			$repoCompanyCategory = $this->getAnotherRepository('DABase\Entity\CompanyCategory');
+			$repoCompanyCategory = $this->getAnotherRepository('DACore\Entity\Base\CompanyCategoryInterface');
 			if(isset($company['category']['id'])) {
 				$company['category'] = $company['category']['id'];
 			}

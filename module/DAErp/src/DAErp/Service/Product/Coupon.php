@@ -33,7 +33,7 @@ DataCheckerStrategyInterface
 		}
 
 		if (isset($data['category'])) {
-			$repoDepartment = $this->getAnotherRepository('DABase\Entity\CompanyCategory');
+			$repoDepartment = $this->getAnotherRepository('DACore\Entity\Base\CompanyCategoryInterface');
 			if(isset($data['category']['id'])) {
 				$data['category'] = $data['category']['id'];
 			}

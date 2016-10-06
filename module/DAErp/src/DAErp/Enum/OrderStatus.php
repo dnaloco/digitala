@@ -6,7 +6,7 @@ use DACore\Types\EnumType;
 class SupplierStatus extends EnumType
 {
     protected $name = 'enum_addresstype';
-    protected $values = array('cadastrado', 'aprovado', 'atendido', 'cancelado');
+    protected $values = array('cadastrado', 'liberado/ativo', 'cancalado');
 
     public static function getValues()
     {

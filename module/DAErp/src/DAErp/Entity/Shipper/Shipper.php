@@ -23,6 +23,8 @@ class Shipper {
 	 **/
 	public $company;
 
+	private $timely;
+
 	public function __construct() {
 
 	}

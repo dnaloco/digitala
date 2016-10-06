@@ -72,6 +72,8 @@ class Payment {
 	 */
 	private $paymentMethod;
 
+	private $paymentType;
+
 	/**
 	 * @var \DateTime
 	 *
