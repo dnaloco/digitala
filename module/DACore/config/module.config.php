@@ -63,23 +63,6 @@ return [
         ],
     ],
 
-    'doctrine' => [
-        'configuration' => [
-            'orm_default' => [
-                'types' => [
-                    'enum_addresstype'      => 'DACore\Enum\AddressType',
-                    'enum_companytype'      => 'DACore\Enum\CompanyType',
-                    'enum_gendertype'       => 'DACore\Enum\GenderType',
-                    'enum_imagefiletype'    => 'DACore\Enum\ImageFiletype',
-                    'enum_licence'          => 'DACore\Enum\Licence',
-                    'enum_mobileoperator'   => 'DACore\Enum\MobileOperator',
-                    'enum_socialtype'       => 'DACore\Enum\SocialType',
-                    'enum_telephonetype'    => 'DACore\Enum\TelephoneType',
-                    'enum_documenttype'     => 'DACore\Enum\DocumentType',
-                ]
-            ]
-        ]
-    ],
     'view_manager' => [
         'strategies' => [
             'ViewJsonStrategy',
@@ -104,9 +87,9 @@ return [
             {
                 $em = $sm->get('Doctrine\ORM\EntityManager');
 
-                $repoRoles = $em->getRepository('DACore\Entity\Acl\RoleInterface');
-                $repoResources = $em->getRepository('DACore\Entity\Acl\ResourceInterface');
-                $repoPrivilege = $em->getRepository('DACore\Entity\Acl\PrivilegeInterface');
+                $repoRoles = $em->getRepository('DACore\IEntities\Acl\RoleInterface');
+                $repoResources = $em->getRepository('DACore\IEntities\Acl\ResourceInterface');
+                $repoPrivilege = $em->getRepository('DACore\IEntities\Acl\PrivilegeInterface');
 
                 return new Permissions\Acl($repoRoles->findAll(), $repoResources->findAll(), $repoPrivilege->findAll());
             },

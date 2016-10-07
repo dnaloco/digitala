@@ -37,7 +37,7 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
 
     public function getRole($role_id)
     {
-    	$roleRepo = $this->em->getRepository('DACore\Entity\Acl\RoleInterface');
+    	$roleRepo = $this->em->getRepository('DACore\IEntities\Acl\RoleInterface');
     }
 
 	// TODO: implement this method...

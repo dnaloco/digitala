@@ -44,7 +44,7 @@ class User implements UserInterface, EncryptInterface
     protected $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity="DACore\Entity\Acl\RoleInterface")
+     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Acl\RoleInterface")
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=false)
      * @ORM\JoinTable(name="dauser_users_role",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -98,12 +98,12 @@ class User implements UserInterface, EncryptInterface
     protected $notes;
 
     /**
-     * @ORM\OneToOne(targetEntity="DACore\Entity\Base\PersonInterface", mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="DACore\IEntities\Base\PersonInterface", mappedBy="user", cascade={"persist", "remove"})
      */
     protected $person;
 
     /**
-     * @ORM\OneToOne(targetEntity="DACore\Entity\Base\CompanyInterface", mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="DACore\IEntities\Base\CompanyInterface", mappedBy="user", cascade={"persist", "remove"})
      */
     protected $company;
 

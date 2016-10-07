@@ -3,7 +3,7 @@ namespace DAAcl\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
-use DACore\Entity\Acl\RoleInterface;
+use DACore\IEntities\Acl\RoleInterface;
 
 /**
  * @ORM\Entity
@@ -19,20 +19,18 @@ class Role implements RoleInterface {
 	protected $id;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="DACore\Entity\Acl\RoleInterface")
+	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\Acl\RoleInterface")
 	 * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
 	 */
 	protected $parent;
 
 	/**
 	 * @ORM\Column(type="text")
-	 * @var string
 	 */
 	protected $name;
 
 	/**
 	 * @ORM\Column(type="boolean", name="is_admin")
-	 * @var boolean
 	 */
 	protected $isAdmin;
 
@@ -54,148 +52,4 @@ class Role implements RoleInterface {
 	}
 
 
-
-    /**
-     * Gets the value of id.
-     *
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Sets the value of id.
-     *
-     * @param mixed $id the id
-     *
-     * @return self
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of parent.
-     *
-     * @return mixed
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * Sets the value of parent.
-     *
-     * @param mixed $parent the parent
-     *
-     * @return self
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Sets the value of name.
-     *
-     * @param string $name the name
-     *
-     * @return self
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of isAdmin.
-     *
-     * @return boolean
-     */
-    public function getIsAdmin()
-    {
-        return $this->isAdmin;
-    }
-
-    /**
-     * Sets the value of isAdmin.
-     *
-     * @param boolean $isAdmin the is admin
-     *
-     * @return self
-     */
-    public function setIsAdmin($isAdmin)
-    {
-        $this->isAdmin = $isAdmin;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of createdAt.
-     *
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Sets the value of createdAt.
-     *
-     * @param mixed $createdAt the created at
-     *
-     * @return self
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of updatedAt.
-     *
-     * @return mixed
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * Sets the value of updatedAt.
-     *
-     * @param mixed $updatedAt the updated at
-     *
-     * @return self
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
 }

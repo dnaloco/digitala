@@ -3,7 +3,7 @@ namespace DAErp\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
-use DACore\Entity\Erp\Product\CategoryInterface;
+use DACore\IEntities\Erp\Product\CategoryInterface;
 /**
  *
  * @ORM\Table(name="daerp_product_categories")
@@ -46,99 +46,4 @@ class Category implements CategoryInterface
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
-    /**
-     * Gets the value of id.
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Sets the value of id.
-     *
-     * @param integer $id the id
-     *
-     * @return self
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Sets the value of name.
-     *
-     * @param string $name the name
-     *
-     * @return self
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of seoDescription.
-     *
-     * @return string
-     */
-    public function getSeoDescription()
-    {
-        return $this->seoDescription;
-    }
-
-    /**
-     * Sets the value of seoDescription.
-     *
-     * @param string $seoDescription the seo description
-     *
-     * @return self
-     */
-    public function setSeoDescription($seoDescription)
-    {
-        $this->seoDescription = $seoDescription;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of isDisabled.
-     *
-     * @return string
-     */
-    public function getIsDisabled()
-    {
-        return $this->isDisabled;
-    }
-
-    /**
-     * Sets the value of isDisabled.
-     *
-     * @param string $isDisabled the is disabled
-     *
-     * @return self
-     */
-    public function setIsDisabled($isDisabled)
-    {
-        $this->isDisabled = $isDisabled;
-
-        return $this;
-    }
 }

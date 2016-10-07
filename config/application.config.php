@@ -9,8 +9,9 @@
 return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
-        // Vendor
-/*        'ZendDeveloperTools',
+        // VVENDOR MODULES
+        // ZendDeveloperTools & BjyProfiler to debuging
+        /*'ZendDeveloperTools',
         'BjyProfiler',*/
         'ZfrCors',
         'DoctrineModule',
@@ -18,23 +19,16 @@ return array(
         'DoctrineDataFixtureModule',
         'JMSSerializerModule',
         //'Codeacious\OAuth2Provider',
-        
-        'DACore',
-        'DABase',
+
+        // MY MODULES
         'DAAcl',
-        'DAUser',
-        'DAAdmin',
-        'DASite',
+        'DABase',
+        'DACore',
         'DAErp',
         'DAModules',
-        //'DABase',
-        //'DABlog',
-        //'Tweet',
+        'DASite',
+        'DAUser',
 
-        // 'DADummy',
-        //'DAAcl',
-        //'DAUser',
-        // 'DAAdmin',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

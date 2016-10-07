@@ -148,7 +148,7 @@ ProductReferenceInterface
 				$imgData = [
 					'title' => 'Foto de ' . $data['title'],
 					'author' => 'Foto do proprietário da conta',
-					'licence' => static::checkType($key, 'DACore\Enum\Licence', 'Attribution-NonCommercial-NoDerivs'),
+					'licence' => static::checkType($key, 'DABase\Enum\Licence', 'Attribution-NonCommercial-NoDerivs'),
 					'description' => 'Imagem de foto do usuário fornecida pelo próprio.',
 					'name' => $data['title'],
 					'path' => './build/uploads/products/images/',

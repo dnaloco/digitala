@@ -1,7 +1,7 @@
 <?php
 namespace DABase\Entity;
 
-use DACore\Entity\Base\StateInterface;
+use DACore\IEntities\Base\StateInterface;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
@@ -15,7 +15,6 @@ use Zend\Stdlib\Hydrator;
 class State implements StateInterface
 {
 	/**
-     * @var integer
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -39,7 +38,7 @@ class State implements StateInterface
 	protected $code;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="DACore\Entity\Base\CountryInterface")
+	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\CountryInterface")
 	 * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
 	 **/
 	protected $country;
@@ -49,123 +48,4 @@ class State implements StateInterface
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
-    /**
-     * Gets the value of id.
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Gets the value of ibgeCode.
-     *
-     * @return mixed
-     */
-    public function getIbgeCode()
-    {
-        return $this->ibgeCode;
-    }
-
-    /**
-     * Sets the value of ibgeCode.
-     *
-     * @param mixed $ibgeCode the ibge code
-     *
-     * @return self
-     */
-    public function setIbgeCode($ibgeCode)
-    {
-        $this->ibgeCode = $ibgeCode;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of name.
-     *
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Sets the value of name.
-     *
-     * @param mixed $name the name
-     *
-     * @return self
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of code.
-     *
-     * @return mixed
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * Sets the value of code.
-     *
-     * @param mixed $code the code
-     *
-     * @return self
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of country.
-     *
-     * @return mixed
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * Sets the value of country.
-     *
-     * @param mixed $country the country
-     *
-     * @return self
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Sets the value of id.
-     *
-     * @param integer $id the id
-     *
-     * @return self
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 }

@@ -27,9 +27,9 @@ return [
 		'entity_resolver' => [
             'orm_default' => [
                 'resolvers' => [
-                    'DACore\Entity\Acl\RoleInterface' 		=> 'DAAcl\Entity\Role',
-                    'DACore\Entity\Acl\ResourceInterface' 	=> 'DAAcl\Entity\Resource',
-                    'DACore\Entity\Acl\PrivilegeInterface' 	=> 'DAAcl\Entity\Privilege',
+                    'DACore\IEntities\Acl\RoleInterface' 		=> 'DAAcl\Entity\Role',
+                    'DACore\IEntities\Acl\ResourceInterface' 	=> 'DAAcl\Entity\Resource',
+                    'DACore\IEntities\Acl\PrivilegeInterface' 	=> 'DAAcl\Entity\Privilege',
                 ],
             ],
         ],

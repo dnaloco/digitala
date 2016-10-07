@@ -57,7 +57,7 @@ MyUploadAwareInterface
 
 		if ($entity instanceof $this->entity) {
 			if($entity->getPerson()) {
-				$personRepo = $this->getAnotherRepository('DACore\Entity\Base\PersonInterface');
+				$personRepo = $this->getAnotherRepository('DACore\IEntities\Base\PersonInterface');
 				$person = $personRepo->find((int) $entity->getPerson()->getId());
 				foreach($person->getDocuments() as $document) {
 					$document->setPerson($person);
@@ -67,7 +67,7 @@ MyUploadAwareInterface
 				$this->em->persist($person);
 				$this->em->flush();
 			} else if ($entity->getCompany()) {
-				$companyRepo = $this->getAnotherRepository('DACore\Entity\Base\CompanyInterface');
+				$companyRepo = $this->getAnotherRepository('DACore\IEntities\Base\CompanyInterface');
 				$company = $companyRepo->find((int) $entity->getCompany()->getId());
 				foreach($company->getDocuments() as $document) {
 					$document->setCompany($company);
@@ -106,7 +106,7 @@ MyUploadAwareInterface
 	// REPAIR getGuestRole...
 	public function getGuestRole() {
 		$roles = new ArrayCollection();
-		$roleRepo = $this->getAnotherRepository('DACore\Entity\Acl\RoleInterface');
+		$roleRepo = $this->getAnotherRepository('DACore\IEntities\Acl\RoleInterface');
 		$guest = $roleRepo->findOneBy(array('name' => 'guest'));
 		$roles->add($guest);
 		return $roles;

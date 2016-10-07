@@ -68,6 +68,7 @@ MyUploadAwareInterface
 			$this->addDataError($key, static::ERROR_REQUIRED_FIELD, 'company');
 			return $data;
 		} else {
+			$data['company']['type'] = 'manufacturer';
 			$data['company'] = $this->getCompany($key, $data['company'], true);
 
 			//var_dump($data['company']->getGoodTags()->count());die;

@@ -1,9 +1,10 @@
 <?php
 namespace DAErp\Entity\Order\Store;
 
-
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
+use DACore\IEntities\Erp\Order\Store\StoreInterface;
 
 /**
  *
@@ -11,7 +12,8 @@ use Zend\Stdlib\Hydrator;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
-class Store {
+class Store implements StoreInterface
+{
 	/**
 	 * @var integer
 	 *
@@ -22,7 +24,7 @@ class Store {
 	private $id;
 
 	/**
-     * @ORM\ManyToOne(targetEntity="DACore\Entity\Erp\Product\ProductInterface", inversedBy="stores")
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Product\ProductInterface", inversedBy="stores")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;
@@ -69,30 +71,38 @@ class Store {
 	 */
 	private $discount;
 
-
+ 	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="discount_type", type="string", length=60, unique=true, nullable=true)
+	 */
 	private $discountType;
 
-// validade;
+	/**
+	 * @var \DateTime
+	 *
+	 * @ORM\Column(name="shelf_life", type="datetime", nullable=false)
+	 */
 	private $shelfLife;
-// promoções
-	private $salesPromotions;
-// devoluções
+
+
+	private $storePromotion;
+
+
 	private $devolutions;
-// não achados
+
 	private $discrepancies;
-// aluguéis
-	private $locations;
-// reservas
+
 	private $reservations;
-// armazenamento
+
 	private $storages;
 
 	/**
-	 * @var string
+	 * @var \DateTime
 	 *
-	 * @ORM\Column(name="store_status", type="string", length=20, nullable=false)
+	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
 	 */
-	private $storeStatus;
+	private $createdAt;
 
 	/**
 	 * @var \DateTime
