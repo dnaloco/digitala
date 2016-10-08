@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Strategy;
+namespace DACore\Strategy\Core;
 
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\ValidationData;

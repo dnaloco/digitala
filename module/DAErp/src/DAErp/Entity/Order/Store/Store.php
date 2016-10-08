@@ -85,17 +85,17 @@ class Store implements StoreInterface
 	 */
 	private $shelfLife;
 
-
-	private $storePromotion;
-
-
-	private $devolutions;
-
-	private $discrepancies;
-
-	private $reservations;
-
+	/**
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Inventory\Warehouse\StorageInterface", mappedBy="store")
+     */
 	private $storages;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="enum_storetatus", nullable=false)
+     */
+    private $status;
 
 	/**
 	 * @var \DateTime
@@ -111,192 +111,352 @@ class Store implements StoreInterface
 	 */
 	private $updatedAt;
 
-	public function __construct(array $options = array()) {
-		$this->updatedAt = new \DateTime("now");
+	public function __construct(array $options = array())
+	{
+		$this->storages = new ArrayCollection();
+
 		(new Hydrator\ClassMethods)->hydrate($options, $this);
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getId() {
-		return $this->id;
-	}
+	
 
-	/**
-	 * @param int $id
-	 * @return Store
-	 */
-	public function setId($id) {
-		$this->id = $id;
-		return $this;
-	}
+    /**
+     * Gets the value of id.
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getProduct() {
-		return $this->product;
-	}
+    /**
+     * Sets the value of id.
+     *
+     * @param integer $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
 
-	/**
-	 * @param mixed $product
-	 * @return Store
-	 */
-	public function setProduct($product) {
-		$this->product = $product;
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getQuantity() {
-		return $this->quantity;
-	}
+    /**
+     * Gets the value of product.
+     *
+     * @return mixed
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
 
-	/**
-	 * @param string $quantity
-	 * @return Store
-	 */
-	public function setQuantity($quantity) {
-		$this->quantity = $quantity;
-		return $this;
-	}
+    /**
+     * Sets the value of product.
+     *
+     * @param mixed $product the product
+     *
+     * @return self
+     */
+    public function setProduct($product)
+    {
+        $this->product = $product;
 
-	/**
-	 * @return string
-	 */
-	public function getMinimalQtdeOnStock() {
-		return $this->minimalQtdeOnStock;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $minimalQtdeOnStock
-	 * @return Store
-	 */
-	public function setMinimalQtdeOnStock($minimalQtdeOnStock) {
-		$this->minimalQtdeOnStock = $minimalQtdeOnStock;
-		return $this;
-	}
+    /**
+     * Gets the value of reference.
+     *
+     * @return string
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getInventory() {
-		return $this->inventory;
-	}
+    /**
+     * Sets the value of reference.
+     *
+     * @param string $reference the reference
+     *
+     * @return self
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
 
-	/**
-	 * @param mixed $inventory
-	 * @return Store
-	 */
-	public function setInventory($inventory) {
-		$this->inventory = $inventory;
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getUnitCost() {
-		return $this->unitCost;
-	}
+    /**
+     * Gets the value of quantity.
+     *
+     * @return string
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
 
-	/**
-	 * @param string $unitCost
-	 * @return Store
-	 */
-	public function setUnitCost($unitCost) {
-		$this->unitCost = $unitCost;
-		return $this;
-	}
+    /**
+     * Sets the value of quantity.
+     *
+     * @param string $quantity the quantity
+     *
+     * @return self
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
 
-	/**
-	 * @return string
-	 */
-	public function getUnitPrice() {
-		return $this->unitPrice;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $unitPrice
-	 * @return Store
-	 */
-	public function setUnitPrice($unitPrice) {
-		$this->unitPrice = $unitPrice;
-		return $this;
-	}
+    /**
+     * Gets the value of minimalQtdeOnStock.
+     *
+     * @return string
+     */
+    public function getMinimalQtdeOnStock()
+    {
+        return $this->minimalQtdeOnStock;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getUnitDiscountPrice() {
-		return $this->unitDiscountPrice;
-	}
+    /**
+     * Sets the value of minimalQtdeOnStock.
+     *
+     * @param string $minimalQtdeOnStock the minimal qtde on stock
+     *
+     * @return self
+     */
+    public function setMinimalQtdeOnStock($minimalQtdeOnStock)
+    {
+        $this->minimalQtdeOnStock = $minimalQtdeOnStock;
 
-	/**
-	 * @param string $unitDiscountPrice
-	 * @return Store
-	 */
-	public function setUnitDiscountPrice($unitDiscountPrice) {
-		$this->unitDiscountPrice = $unitDiscountPrice;
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function isSellDiscountPrice() {
-		return $this->sellDiscountPrice;
-	}
+    /**
+     * Gets the value of unitCost.
+     *
+     * @return string
+     */
+    public function getUnitCost()
+    {
+        return $this->unitCost;
+    }
 
-	/**
-	 * @param boolean $sellDiscountPrice
-	 * @return Store
-	 */
-	public function setSellDiscountPrice($sellDiscountPrice) {
-		$this->sellDiscountPrice = $sellDiscountPrice;
-		return $this;
-	}
+    /**
+     * Sets the value of unitCost.
+     *
+     * @param string $unitCost the unit cost
+     *
+     * @return self
+     */
+    public function setUnitCost($unitCost)
+    {
+        $this->unitCost = $unitCost;
 
-	/**
-	 * @return string
-	 */
-	public function getStoreStatus() {
-		return $this->storeStatus;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $storeStatus
-	 * @return Store
-	 */
-	public function setStoreStatus($storeStatus) {
-		$this->storeStatus = $storeStatus->value();
-		return $this;
-	}
+    /**
+     * Gets the value of unitPrice.
+     *
+     * @return string
+     */
+    public function getUnitPrice()
+    {
+        return $this->unitPrice;
+    }
 
-	/**
-	 * Gets the value of updatedAt.
-	 *
-	 * @return \DateTime
-	 */
-	public function getUpdatedAt() {
-		return $this->updatedAt;
-	}
+    /**
+     * Sets the value of unitPrice.
+     *
+     * @param string $unitPrice the unit price
+     *
+     * @return self
+     */
+    public function setUnitPrice($unitPrice)
+    {
+        $this->unitPrice = $unitPrice;
 
-	/**
-	 * Sets the value of updatedAt.
-	 *
-	 * @param \DateTime $updatedAt the updated at
-	 *
-	 * @return self
-	 *
-	 * @ORM\PrePersist
-	 */
-	public function setUpdatedAt() {
-		$this->updatedAt = new \Datetime("now");
+        return $this;
+    }
 
-		return $this;
-	}
+    /**
+     * Gets the value of discount.
+     *
+     * @return string
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * Sets the value of discount.
+     *
+     * @param string $discount the discount
+     *
+     * @return self
+     */
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of discountType.
+     *
+     * @return string
+     */
+    public function getDiscountType()
+    {
+        return $this->discountType;
+    }
+
+    /**
+     * Sets the value of discountType.
+     *
+     * @param string $discountType the discount type
+     *
+     * @return self
+     */
+    public function setDiscountType($discountType)
+    {
+        $this->discountType = $discountType;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of shelfLife.
+     *
+     * @return \DateTime
+     */
+    public function getShelfLife()
+    {
+        return $this->shelfLife;
+    }
+
+    /**
+     * Sets the value of shelfLife.
+     *
+     * @param \DateTime $shelfLife the shelf life
+     *
+     * @return self
+     */
+    public function setShelfLife(\DateTime $shelfLife)
+    {
+        $this->shelfLife = $shelfLife;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of storages.
+     *
+     * @return mixed
+     */
+    public function getStorages()
+    {
+        return $this->storages;
+    }
+
+    /**
+     * Sets the value of storages.
+     *
+     * @param mixed $storages the storages
+     *
+     * @return self
+     */
+    public function setStorages($storages)
+    {
+        $this->storages = $storages;
+
+        return $this;
+    }
+
+    
+
+    /**
+     * Gets the value of status.
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Sets the value of status.
+     *
+     * @param string $status the status
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of createdAt.
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Sets the value of createdAt.
+     *
+     * @param \DateTime $createdAt the created at
+     *
+     * @return self
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of updatedAt.
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Sets the value of updatedAt.
+     *
+     * @param \DateTime $updatedAt the updated at
+     *
+     * @ORM\PrePersist
+     */
+    public function setUpdatedAt()
+    {
+        $this->createdAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime("now");
+
+        return $this;
+    }
+
 }

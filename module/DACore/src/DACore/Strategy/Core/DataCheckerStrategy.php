@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Strategy;
+namespace DACore\Strategy\Core;
 
 use Zend\Validator\{EmailAddress, StringLength, Regex, Uri};
 use Zend\I18n\Validator\Alnum;

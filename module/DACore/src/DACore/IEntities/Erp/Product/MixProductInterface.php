@@ -6,6 +6,7 @@ interface MixProductInterface
 	function getId();
 	function getProducts();
 	function getDiscount();
+	function getDiscountType();
 	function getIsHighlighted();
 	function getIsLaunch();
 	function getCreatedAt();

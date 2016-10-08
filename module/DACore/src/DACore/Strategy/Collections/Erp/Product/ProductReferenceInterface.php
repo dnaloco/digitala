@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Strategy;
+namespace DACore\Strategy\Collections\Erp\Product;
 
 interface ProductReferenceInterface
 {

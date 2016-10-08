@@ -56,7 +56,7 @@ class Payment {
 	private $paymentDate;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="R2Erp\Entity\Order\OrderSuperClass", inversedBy="payments")
+	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Order\OrderSuperclassInterface", inversedBy="payments")
 	 * @ORM\JoinColumn(name="order", referencedColumnName="id")
 	 */
 	private $order;

@@ -1,7 +1,7 @@
 <?php
 namespace DAModules\Entity;
 
-use DACore\Entity\Modules\ModuleInterface;
+use DACore\IEntities\Modules\ModuleInterface;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;

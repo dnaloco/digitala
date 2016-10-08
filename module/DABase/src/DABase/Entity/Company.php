@@ -57,7 +57,7 @@ class Company implements CompanyInterface
 
     /**
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\TelephoneInterface", cascade={"persist", "remove"})
-     * @ORM\JoinTable(name="dabase_company_telephones",
+     * @ORM\JoinTable(name="dabase_companies_telephones",
      *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="telephone_id", referencedColumnName="id")}
      *      )
@@ -71,7 +71,7 @@ class Company implements CompanyInterface
 
     /**
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\EmailInterface", cascade={"persist", "remove"})
-     * @ORM\JoinTable(name="dabase_company_emails",
+     * @ORM\JoinTable(name="dabase_companies_emails",
      *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="email_id", referencedColumnName="id")}
      *      )
@@ -83,7 +83,7 @@ class Company implements CompanyInterface
      * addresses
      * 
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\SocialNetworkInterface", cascade={"persist", "remove"})
-     * @ORM\JoinTable(name="dabase_company_social_networks",
+     * @ORM\JoinTable(name="dabase_companies_social_networks",
      *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="social_network_id", referencedColumnName="id")}
      *      )
@@ -95,7 +95,7 @@ class Company implements CompanyInterface
      * emails
      * 
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\PersonInterface", cascade={"persist", "remove"})
-     * @ORM\JoinTable(name="dabase_company_contacts",
+     * @ORM\JoinTable(name="dabase_companies_contacts",
      *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")}
      *      )
@@ -104,7 +104,7 @@ class Company implements CompanyInterface
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\AddressInterface", cascade={"persist", "remove"})
-	 * @ORM\JoinTable(name="dabase_company_addresses",
+	 * @ORM\JoinTable(name="dabase_companies_addresses",
 	 *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="address_id", referencedColumnName="id")}
 	 *      )
@@ -125,7 +125,7 @@ class Company implements CompanyInterface
 
 	/**
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\GoodTagInterface")
-     * @ORM\JoinTable(name="dabase_company_good_tags",
+     * @ORM\JoinTable(name="dabase_companies_good_tags",
      *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="good_tag_id", referencedColumnName="id")}
      *      )
@@ -172,4 +172,466 @@ class Company implements CompanyInterface
         (new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
+
+    /**
+     * Gets the value of id.
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param mixed $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of type.
+     *
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Sets the value of type.
+     *
+     * @param mixed $type the type
+     *
+     * @return self
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of tradingName.
+     *
+     * @return mixed
+     */
+    public function getTradingName()
+    {
+        return $this->tradingName;
+    }
+
+    /**
+     * Sets the value of tradingName.
+     *
+     * @param mixed $tradingName the trading name
+     *
+     * @return self
+     */
+    public function setTradingName($tradingName)
+    {
+        $this->tradingName = $tradingName;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of companyName.
+     *
+     * @return mixed
+     */
+    public function getCompanyName()
+    {
+        return $this->companyName;
+    }
+
+    /**
+     * Sets the value of companyName.
+     *
+     * @param mixed $companyName the company name
+     *
+     * @return self
+     */
+    public function setCompanyName($companyName)
+    {
+        $this->companyName = $companyName;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of category.
+     *
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Sets the value of category.
+     *
+     * @param mixed $category the category
+     *
+     * @return self
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of website.
+     *
+     * @return mixed
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Sets the value of website.
+     *
+     * @param mixed $website the website
+     *
+     * @return self
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of telephones.
+     *
+     * @return mixed
+     */
+    public function getTelephones()
+    {
+        return $this->telephones;
+    }
+
+    /**
+     * Sets the value of telephones.
+     *
+     * @param mixed $telephones the telephones
+     *
+     * @return self
+     */
+    public function setTelephones($telephones)
+    {
+        $this->telephones = $telephones;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of documents.
+     *
+     * @return mixed
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
+    }
+
+    /**
+     * Sets the value of documents.
+     *
+     * @param mixed $documents the documents
+     *
+     * @return self
+     */
+    public function setDocuments($documents)
+    {
+        $this->documents = $documents;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of emails.
+     *
+     * @return mixed
+     */
+    public function getEmails()
+    {
+        return $this->emails;
+    }
+
+    /**
+     * Sets the value of emails.
+     *
+     * @param mixed $emails the emails
+     *
+     * @return self
+     */
+    public function setEmails($emails)
+    {
+        $this->emails = $emails;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of socialNetworks.
+     *
+     * @return mixed
+     */
+    public function getSocialNetworks()
+    {
+        return $this->socialNetworks;
+    }
+
+    /**
+     * Sets the value of socialNetworks.
+     *
+     * @param mixed $socialNetworks the social networks
+     *
+     * @return self
+     */
+    public function setSocialNetworks($socialNetworks)
+    {
+        $this->socialNetworks = $socialNetworks;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of contacts.
+     *
+     * @return mixed
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * Sets the value of contacts.
+     *
+     * @param mixed $contacts the contacts
+     *
+     * @return self
+     */
+    public function setContacts($contacts)
+    {
+        $this->contacts = $contacts;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of addresses.
+     *
+     * @return mixed
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * Sets the value of addresses.
+     *
+     * @param mixed $addresses the addresses
+     *
+     * @return self
+     */
+    public function setAddresses($addresses)
+    {
+        $this->addresses = $addresses;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of description.
+     *
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Sets the value of description.
+     *
+     * @param mixed $description the description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of logo.
+     *
+     * @return mixed
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    /**
+     * Sets the value of logo.
+     *
+     * @param mixed $logo the logo
+     *
+     * @return self
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Gets the joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+inverseJoinColumns={@ORM\JoinColumn(name="good_tag_id", referencedColumnName="id")}
+).
+     *
+     * @return mixed
+     */
+    public function getGoodTags()
+    {
+        return $this->goodTags;
+    }
+
+    /**
+     * Sets the joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+inverseJoinColumns={@ORM\JoinColumn(name="good_tag_id", referencedColumnName="id")}
+).
+     *
+     * @param mixed $goodTags the good tags
+     *
+     * @return self
+     */
+    public function setGoodTags($goodTags)
+    {
+        $this->goodTags = $goodTags;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of notes.
+     *
+     * @return mixed
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * Sets the value of notes.
+     *
+     * @param mixed $notes the notes
+     *
+     * @return self
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of user.
+     *
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Sets the value of user.
+     *
+     * @param mixed $user the user
+     *
+     * @return self
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of createdAt.
+     *
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Sets the value of createdAt.
+     *
+     * @param mixed $createdAt the created at
+     *
+     * @return self
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of updatedAt.
+     *
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Sets the value of updatedAt.
+     *
+     * @param mixed $updatedAt the updated at
+     *
+     * @return self
+     * 
+     * @ORM\PrePersist
+     */
+    public function setUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime("now");
+
+        return $this;
+    }
 }

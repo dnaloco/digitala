@@ -226,10 +226,6 @@ return [
             'class_name' => 'DAErp\Service\Product\Feature',
             'entity'     => 'DAErp\Entity\Product\Feature',
         ],
-        'DAErp\Service\Product\Coupon'            => [
-            'class_name' => 'DAErp\Service\Product\Coupon',
-            'entity'     => 'DAErp\Entity\Product\Coupon',
-        ],
         'DAErp\Service\Product\Rating'            => [
             'class_name' => 'DAErp\Service\Product\Rating',
             'entity'     => 'DAErp\Entity\Product\Rating',
@@ -268,10 +264,6 @@ return [
         'DAErp\Controller\Product\FeaturesRest'           => [
             'class_name' => 'DAErp\Controller\Product\FeaturesRestController',
             'service'    => 'DAErp\Service\Product\Feature',
-        ],
-        'DAErp\Controller\Product\CouponsRest'            => [
-            'class_name' => 'DAErp\Controller\Product\CouponsRestController',
-            'service'    => 'DAErp\Service\Product\Coupon',
         ],
         'DAErp\Controller\Product\RatingsRest'            => [
             'class_name' => 'DAErp\Controller\Product\RatingsRestController',
@@ -314,10 +306,20 @@ return [
         'configuration'   => [
             'orm_default' => [
                 'types' => [
+                    'enum_devolutionstatus'       => 'DAErp\Enum\DevolutionStatus',
+                    'enum_discounttype'       => 'DAErp\Enum\DiscountType',
+                    'enum_discrepancytype'       => 'DAErp\Enum\DiscrepancyType',
+                    'enum_ordertatus'       => 'DAErp\Enum\OrderStatus',
+                    'enum_paymentmethod'       => 'DAErp\Enum\PaymentMethod',
+                    'enum_paymentstatus'       => 'DAErp\Enum\PaymentStatus',
+                    'enum_paymenttype'       => 'DAErp\Enum\PaymentType',
+                    'enum_placedestination'       => 'DAErp\Enum\PlaceDestination',
+                    'enum_productstatus'       => 'DAErp\Enum\ProductStatus',
+                    'enum_reservationstatus'       => 'DAErp\Enum\ReservationStatus',
+                    'enum_shippingtype'       => 'DAErp\Enum\ShippingType',
+                    'enum_storetatus'       => 'DAErp\Enum\StoreStatus',
+                    'enum_supplierstatus'       => 'DAErp\Enum\SupplierStatus',
                     'enum_unittype'       => 'DAErp\Enum\UnitType',
-                    'enum_productstatus'  => 'DAErp\Enum\ProductStatus',
-                    'enum_paymenttype'    => 'DAErp\Enum\PaymentType',
-                    'enum_supplierstatus' => 'DAErp\Enum\SupplierStatus',
                 ],
             ],
         ],
@@ -333,7 +335,6 @@ return [
                     'DACore\IEntities\Erp\Product\FeatureInterface'           => 'DAErp\Entity\Product\Feature',
                     'DACore\IEntities\Erp\Product\MixProductInterface'        => 'DAErp\Entity\Product\MixProduct',
                     'DACore\IEntities\Erp\Product\RatingInterface'            => 'DAErp\Entity\Product\Rating',
-                    'DACore\IEntities\Erp\Product\CouponInterface'            => 'DAErp\Entity\Product\Coupon',
 
                     'DACore\IEntities\Erp\Supplier\SupplierInterface'         => 'DAErp\Entity\Supplier\Supplier',
                     'DACore\IEntities\Erp\Supplier\BudgetInterface'           => 'DAErp\Entity\Supplier\Budget',
@@ -343,8 +344,8 @@ return [
                     'DACore\IEntities\Erp\Order\Store\OrderInterface'         => 'DAErp\Entity\Order\Store\Order',
                     'DACore\IEntities\Erp\Order\Store\StoreInterface'         => 'DAErp\Entity\Order\Store\Store',
 
-                    /*'DACore\Entity\Erp\Order\Sale\OrderInterface' => 'DAErp\Entity\Order\Sale\Order',
-                'DACore\Entity\Erp\Order\Sale\SaleInterface' => 'DAErp\Entity\Order\Sale\Sale',*/
+                    /*'DACore\IEntities\Erp\Order\Sale\OrderInterface' => 'DAErp\Entity\Order\Sale\Order',
+                'DACore\IEntities\Erp\Order\Sale\SaleInterface' => 'DAErp\Entity\Order\Sale\Sale',*/
                 ],
             ],
         ],

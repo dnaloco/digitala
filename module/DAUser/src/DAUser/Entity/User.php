@@ -57,7 +57,7 @@ class User implements UserInterface, EncryptInterface
     protected $roles;
 
     /**
-     * @ORM\ManyToMany(targetEntity="DACore\Entity\Modules\ModuleInterface")
+     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Modules\ModuleInterface")
      * @ORM\JoinColumn(name="module_id", referencedColumnName="id")
      * @ORM\JoinTable(name="dauser_users_module",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -406,6 +406,7 @@ class User implements UserInterface, EncryptInterface
      */
     public function setUpdatedAt()
     {
+        $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
 
         return $this;

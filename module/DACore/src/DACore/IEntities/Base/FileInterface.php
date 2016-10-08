@@ -11,5 +11,4 @@ interface FileInterface
     function getName();
     function getPath();
     function getFiletype();
-    function getCreatedAt();
 }

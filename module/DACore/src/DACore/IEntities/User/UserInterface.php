@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Entity\User;
+namespace DACore\IEntities\User;
 
 interface UserInterface
 {

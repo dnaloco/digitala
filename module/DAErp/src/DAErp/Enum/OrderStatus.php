@@ -1,11 +1,11 @@
 <?php
-namespace DACore\Enum;
+namespace DAErp\Enum;
 
 use DACore\Types\EnumType;
 
-class SupplierStatus extends EnumType
+class OrderStatus extends EnumType
 {
-    protected $name = 'enum_addresstype';
+    protected $name = 'enum_ordertatus';
     protected $values = array('cadastrado', 'liberado/ativo', 'cancalado');
 
     public static function getValues()

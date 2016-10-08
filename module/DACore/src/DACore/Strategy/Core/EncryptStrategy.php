@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Strategy;
+namespace DACore\Strategy\Core;
 
 use Zend\Crypt\Key\Derivation\Pbkdf2;
 use Zend\Math\Rand;

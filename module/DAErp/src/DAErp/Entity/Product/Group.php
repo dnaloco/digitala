@@ -3,7 +3,7 @@ namespace DAErp\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
-use DACore\Entity\Erp\Product\GroupInterface;
+use DACore\IEntities\Erp\Product\GroupInterface;
 /**
  *
  * @ORM\Table(name="daerp_product_groups")
@@ -32,5 +32,53 @@ class Group implements GroupInterface
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
- 
+ 	
+
+    /**
+     * Gets the value of id.
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param integer $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Sets the value of name.
+     *
+     * @param string $name the name
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 }

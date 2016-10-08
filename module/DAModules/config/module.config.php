@@ -87,7 +87,7 @@ return [
         'entity_resolver' => [
             'orm_default' => [
                 'resolvers' => [
-                    'DACore\Entity\Modules\ModuleInterface' => 'DAModules\Entity\Module',
+                    'DACore\IEntities\Modules\ModuleInterface' => 'DAModules\Entity\Module',
                 ],
             ],
         ],

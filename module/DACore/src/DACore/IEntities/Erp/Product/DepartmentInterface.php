@@ -5,4 +5,6 @@ interface DepartmentInterface
 {
 	function getId();
 	function getName();
+	function getSeoDescription();
+	function getIsDisabled();
 }

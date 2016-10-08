@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Enum;
+namespace DAErp\Enum;
 
 use DACore\Types\EnumType;
 

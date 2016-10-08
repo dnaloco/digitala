@@ -1,5 +1,5 @@
 <?php 
-namespace DACore\Strategy;
+namespace DACore\Strategy\Core;
 interface ResponsesInterface {
 	const CODE_OK = 200;
 	const CODE_CREATED = 201;

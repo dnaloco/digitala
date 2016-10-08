@@ -4,7 +4,7 @@ namespace DAErp\Entity\Supplier;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
-use DACore\Entity\Erp\Supplier\QualityRatingInterface;
+use DACore\IEntities\Erp\Supplier\QualityRatingInterface;
 /**
  *
  * @ORM\Table(name="daerp_supplier_quality_ratings")
@@ -29,7 +29,7 @@ class QualityRating implements QualityRatingInterface
 	private $rating;
 
 	/**
-     * @ORM\ManyToMany(targetEntity="DACore\Entity\Erp\Order\Store\OrderInterface")
+     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Order\Store\OrderInterface")
      * @ORM\JoinTable(name="daerp_supplier_quality_ratings_orders",
      *      joinColumns={@ORM\JoinColumn(name="quality_rating_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id", unique=true)}
@@ -44,7 +44,22 @@ class QualityRating implements QualityRatingInterface
 	 */
 	private $notes;
 
+	/**
+	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
+	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+	 **/
+	private $user;
+
+	/**
+	 * @var \DateTime
+	 *
+	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
+	 */
+	private $createdAt;
+
 	public function __construct(array $data = array()) {
+		$this->createdAt = new \DateTime("now");
+		
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 

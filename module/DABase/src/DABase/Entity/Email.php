@@ -39,4 +39,77 @@ class Email implements EmailInterface
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
+     
+
+    /**
+     * Gets the value of id.
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param mixed $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of answerable.
+     *
+     * @return mixed
+     */
+    public function getAnswerable()
+    {
+        return $this->answerable;
+    }
+
+    /**
+     * Sets the value of answerable.
+     *
+     * @param mixed $answerable the answerable
+     *
+     * @return self
+     */
+    public function setAnswerable($answerable)
+    {
+        $this->answerable = $answerable;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of address.
+     *
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Sets the value of address.
+     *
+     * @param mixed $address the address
+     *
+     * @return self
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
 }

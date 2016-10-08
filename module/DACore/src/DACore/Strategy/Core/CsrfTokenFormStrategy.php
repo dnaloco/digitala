@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Strategy;
+namespace DACore\Strategy\Core;
 
 trait CsrfTokenFormStrategy
 {

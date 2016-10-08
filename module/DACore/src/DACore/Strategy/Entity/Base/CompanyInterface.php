@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Strategy\Entity;
+namespace DACore\Strategy\Entity\Base;
 
 interface CompanyInterface
 {

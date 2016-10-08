@@ -38,6 +38,7 @@ return array(
     'DABase\Enum\SocialType'                            => __DIR__ . '/src/DABase/Enum/SocialType.php',
     'DABase\Enum\AddressType'                           => __DIR__ . '/src/DABase/Enum/AddressType.php',
     'DABase\Enum\DocumentType'                          => __DIR__ . '/src/DABase/Enum/DocumentType.php',
+    'DABase\Enum\FileType'                              => __DIR__ . '/src/DABase/Enum/FileType.php',
     'DABase\Enum\ImageFiletype'                         => __DIR__ . '/src/DABase/Enum/ImageFiletype.php',
     'DABase\Enum\MobileOperator'                        => __DIR__ . '/src/DABase/Enum/MobileOperator.php',
 );

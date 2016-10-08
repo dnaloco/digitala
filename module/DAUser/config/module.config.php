@@ -95,7 +95,7 @@ return [
         'entity_resolver' => [
             'orm_default' => [
                 'resolvers' => [
-                    'DACore\Entity\User\UserInterface' => 'DAUser\Entity\User',
+                    'DACore\IEntities\User\UserInterface' => 'DAUser\Entity\User',
                 ],
             ],
         ],

@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Entity\Modules;
+namespace DACore\IEntities\Modules;
 
 interface ModuleInterface
 {

@@ -138,5 +138,391 @@ class Person implements PersonInterface
         (new Hydrator\ClassMethods)->hydrate($data, $this);
 
     }
+    
 
+    /**
+     * Gets the value of id.
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param mixed $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of name.
+     *
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Sets the value of name.
+     *
+     * @param mixed $name the name
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of gender.
+     *
+     * @return mixed
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Sets the value of gender.
+     *
+     * @param mixed $gender the gender
+     *
+     * @return self
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of birthdate.
+     *
+     * @return mixed
+     */
+    public function getBirthdate()
+    {
+        return $this->birthdate;
+    }
+
+    /**
+     * Sets the value of birthdate.
+     *
+     * @param mixed $birthdate the birthdate
+     *
+     * @return self
+     */
+    public function setBirthdate($birthdate)
+    {
+        $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of description.
+     *
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Sets the value of description.
+     *
+     * @param mixed $description the description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of photo.
+     *
+     * @return mixed
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * Sets the value of photo.
+     *
+     * @param mixed $photo the photo
+     *
+     * @return self
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of addresses.
+     *
+     * @return mixed
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * Sets the value of addresses.
+     *
+     * @param mixed $addresses the addresses
+     *
+     * @return self
+     */
+    public function setAddresses($addresses)
+    {
+        $this->addresses = $addresses;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of telephones.
+     *
+     * @return mixed
+     */
+    public function getTelephones()
+    {
+        return $this->telephones;
+    }
+
+    /**
+     * Sets the value of telephones.
+     *
+     * @param mixed $telephones the telephones
+     *
+     * @return self
+     */
+    public function setTelephones($telephones)
+    {
+        $this->telephones = $telephones;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of emails.
+     *
+     * @return mixed
+     */
+    public function getEmails()
+    {
+        return $this->emails;
+    }
+
+    /**
+     * Sets the value of emails.
+     *
+     * @param mixed $emails the emails
+     *
+     * @return self
+     */
+    public function setEmails($emails)
+    {
+        $this->emails = $emails;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of socialNetworks.
+     *
+     * @return mixed
+     */
+    public function getSocialNetworks()
+    {
+        return $this->socialNetworks;
+    }
+
+    /**
+     * Sets the value of socialNetworks.
+     *
+     * @param mixed $socialNetworks the social networks
+     *
+     * @return self
+     */
+    public function setSocialNetworks($socialNetworks)
+    {
+        $this->socialNetworks = $socialNetworks;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of documents.
+     *
+     * @return mixed
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
+    }
+
+    /**
+     * Sets the value of documents.
+     *
+     * @param mixed $documents the documents
+     *
+     * @return self
+     */
+    public function setDocuments($documents)
+    {
+        $this->documents = $documents;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of website.
+     *
+     * @return mixed
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Sets the value of website.
+     *
+     * @param mixed $website the website
+     *
+     * @return self
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of notes.
+     *
+     * @return mixed
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * Sets the value of notes.
+     *
+     * @param mixed $notes the notes
+     *
+     * @return self
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of user.
+     *
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Sets the value of user.
+     *
+     * @param mixed $user the user
+     *
+     * @return self
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of createdAt.
+     *
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Sets the value of createdAt.
+     *
+     * @param mixed $createdAt the created at
+     *
+     * @return self
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of updatedAt.
+     *
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Sets the value of updatedAt.
+     *
+     * @param mixed $updatedAt the updated at
+     *
+     * @return self
+     *
+     * @ORM\PrePersist
+     */
+    public function setUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime("now");
+
+        return $this;
+    }
 }

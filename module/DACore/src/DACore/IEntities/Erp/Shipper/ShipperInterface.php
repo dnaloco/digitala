@@ -1,8 +1,9 @@
 <?php
-namespace DACore\Entity\Erp\Shipper;
+namespace DACore\IEntities\Erp\Shipper;
 
 interface ShipperInterface
 {
 	function getId();
-
+	function getCompany();
+	function getTimelyRatings();
 }

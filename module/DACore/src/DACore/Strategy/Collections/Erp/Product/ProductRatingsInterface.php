@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Strategy\Collections;
+namespace DACore\Strategy\Collections\Erp\Product;
 
 interface ProductRatingsInterface
 {

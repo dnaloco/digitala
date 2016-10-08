@@ -23,7 +23,6 @@ class Address implements AddressInterface
 
 	/**
      *
-     * tipo de endereco('residential', 'comercial', 'delivery', 'billing', 'work')
      *
      * @ORM\Column(name="type", type="enum_addresstype", nullable=false)
      */
@@ -83,5 +82,197 @@ class Address implements AddressInterface
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
-  
+     
+
+    /**
+     * Gets the value of id.
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param mixed $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of type.
+     *
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Sets the value of type.
+     *
+     * @param mixed $type the type
+     *
+     * @return self
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Gets the cidade.
+     *
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Sets the cidade.
+     *
+     * @param mixed $city the city
+     *
+     * @return self
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Gets the logradouro.
+     *
+     * @return mixed
+     */
+    public function getAddress1()
+    {
+        return $this->address1;
+    }
+
+    /**
+     * Sets the logradouro.
+     *
+     * @param mixed $address1 the address1
+     *
+     * @return self
+     */
+    public function setAddress1($address1)
+    {
+        $this->address1 = $address1;
+
+        return $this;
+    }
+
+    /**
+     * Gets the complemento.
+     *
+     * @return mixed
+     */
+    public function getAddress2()
+    {
+        return $this->address2;
+    }
+
+    /**
+     * Sets the complemento.
+     *
+     * @param mixed $address2 the address2
+     *
+     * @return self
+     */
+    public function setAddress2($address2)
+    {
+        $this->address2 = $address2;
+
+        return $this;
+    }
+
+    /**
+     * Gets the número.
+     *
+     * @return mixed
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Sets the número.
+     *
+     * @param mixed $number the number
+     *
+     * @return self
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Gets the bairro.
+     *
+     * @return mixed
+     */
+    public function getResidentialArea()
+    {
+        return $this->residentialArea;
+    }
+
+    /**
+     * Sets the bairro.
+     *
+     * @param mixed $residentialArea the residential area
+     *
+     * @return self
+     */
+    public function setResidentialArea($residentialArea)
+    {
+        $this->residentialArea = $residentialArea;
+
+        return $this;
+    }
+
+    /**
+     * Gets the cep.
+     *
+     * @return mixed
+     */
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * Sets the cep.
+     *
+     * @param mixed $postalCode the postal code
+     *
+     * @return self
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+
+        return $this;
+    }
 }
