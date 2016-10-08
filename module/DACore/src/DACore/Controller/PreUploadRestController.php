@@ -4,7 +4,7 @@ namespace DACore\Controller;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
-use DACore\Strategy\{ResponsesInterface, ResponseStrategy};
+use DACore\Strategy\Core\{ResponsesInterface, ResponseStrategy};
 
 class PreUploadRestController extends AbstractRestfulController implements ResponsesInterface
 {

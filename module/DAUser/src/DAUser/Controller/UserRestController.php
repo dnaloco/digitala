@@ -7,7 +7,7 @@ use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 
 use DACore\Controller\Aware\ApcCacheAwareInterface;
-use DACore\Strategy\{CsrfTokenFormInterface, CsrfTokenFormStrategy};
+use DACore\Strategy\Core\{CsrfTokenFormInterface, CsrfTokenFormStrategy};
 
 class UserRestController extends AbstractCrudRestController
 implements ApcCacheAwareInterface, CsrfTokenFormInterface, EventManagerAwareInterface

@@ -1,5 +1,6 @@
 <?php
-namespace R2Erp\Entity\Inventory;
+namespace DAErp\Entity\Inventory\Parked;
+
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;

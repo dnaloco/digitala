@@ -1,5 +1,5 @@
 <?php
-namespace R2Erp\Entity\Inventory;
+namespace DAErp\Entity\Inventory\Parked;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
@@ -24,16 +24,16 @@ class Reservation implements ReservationInterface
 	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\PersonInterface")
 	 * @ORM\JoinColumn(name="to_customer_id", referencedColumnName="id", nullable=false)
 	 **/
-	private $fromCustomer;
+	private $toCustomer;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="DACore\Entity\User\UserInterface")
+	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
 	 * @ORM\JoinColumn(name="vendor_id", referencedColumnName="id", nullable=true)
 	 **/
 	private $user;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="R2Erp\Entity\Order\Store\Store")
+	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Order\Store\StoreInterface")
 	 * @ORM\JoinColumn(name="store", referencedColumnName="id", nullable=false)
 	 **/
 	private $store;
@@ -112,7 +112,7 @@ class Reservation implements ReservationInterface
      *
      * @return mixed
      */
-    public function getFromCustomer()
+    public function getToCustomer()
     {
         return $this->fromCustomer;
     }
@@ -124,7 +124,7 @@ class Reservation implements ReservationInterface
      *
      * @return self
      */
-    public function setFromCustomer($fromCustomer)
+    public function setToCustomer($fromCustomer)
     {
         $this->fromCustomer = $fromCustomer;
 

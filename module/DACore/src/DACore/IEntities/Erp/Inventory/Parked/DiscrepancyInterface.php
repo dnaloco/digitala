@@ -8,7 +8,7 @@ interface DiscrepancyInterface
 	function getStore();
 	function getQuantity();
 	function getReason();
-	function getDiscrepancyStatus();
+	function getType();
 	function getCreatedAt();
 	function getUpdatedAt();
 }

@@ -1,9 +1,9 @@
 <?php
-namespace DACore\IEntities\Erp\Inventory\Parked\DiscrepancyInterface;
+namespace DAErp\Entity\Inventory\Parked;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
-
+use DACore\IEntities\Erp\Inventory\Parked\DiscrepancyInterface;
 /**
  *
  * @ORM\Table(name="daerp_inventory_parked_discrepancies")
@@ -20,7 +20,7 @@ class Discrepancy implements DiscrepancyInterface
 	private $id;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="DACore\Entity\User\UserInterface")
+	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
 	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
 	 **/
 	private $user;

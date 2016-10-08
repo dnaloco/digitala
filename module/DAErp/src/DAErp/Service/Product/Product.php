@@ -5,15 +5,17 @@ use DACore\Service\AbstractCrudService;
 use Doctrine\Common\Collections\ArrayCollection;
 use DACore\Upload\MyUploadAwareInterface;
 
-use DACore\Strategy\{DataCheckerStrategyInterface, DataCheckerStrategy};
-use DACore\Strategy\{ProductReferenceInterface, ProductReferenceStrategy};
+use DACore\Strategy\Core\{DataCheckerStrategyInterface, DataCheckerStrategy};
+use DACore\Strategy\Collections\Erp\Product\{
+	FeaturesInterface,FeaturesStrategy,
+	ProductsInterface,ProductsStrategy,
+	ProductRatingsInterface,ProductRatingsStrategy
+	ProductReferenceInterface, ProductReferenceStrategy
+};
 
-use DACore\Strategy\Collections\{
-    FeaturesInterface,FeaturesStrategy,
+use DACore\Strategy\Collections\Base\{
     ImagesInterface,ImagesStrategy,
     VideosInterface,VideosStrategy,
-    ProductsInterface,ProductsStrategy,
-    ProductRatingsInterface,ProductRatingsStrategy
 };
 
 class Product extends AbstractCrudService
@@ -95,7 +97,7 @@ ProductReferenceInterface
 
 		if (isset($data['manufacturer'])) {
 			if (isset($data['manufacturer']['id'])) $data['manufacturer'] = $data['manufacturer']['id'];
-			$repoManuf = $this->getAnotherRepository('DACore\Entity\Erp\Manufacturer\ManufacturerInterface');
+			$repoManuf = $this->getAnotherRepository('DACore\IEntities\Erp\Manufacturer\ManufacturerInterface');
 			$data['manufacturer'] = static::checkReference($key, $data['manufacturer'], 'manufacturer', $repoManuf);
 		}
 
@@ -113,13 +115,13 @@ ProductReferenceInterface
 
 		if (isset($data['department'])) {
 			if (isset($data['department']['id'])) $data['department'] = $data['department']['id'];
-			$repoDept = $this->getAnotherRepository('DACore\Entity\Erp\Product\DepartmentInterface');
+			$repoDept = $this->getAnotherRepository('DACore\IEntities\Erp\Product\DepartmentInterface');
 			$data['department'] = static::checkReference($key, $data['department'], 'department', $repoDept);
 		}
 
 		if (isset($data['category'])) {
 			if (isset($data['category']['id'])) $data['category'] = $data['category']['id'];
-			$repoCateg = $this->getAnotherRepository('DACore\Entity\Erp\Product\CategoryInterface');
+			$repoCateg = $this->getAnotherRepository('DACore\IEntities\Erp\Product\CategoryInterface');
 			$data['category'] = static::checkReference($key, $data['category'], 'category', $repoCateg);
 		}
 

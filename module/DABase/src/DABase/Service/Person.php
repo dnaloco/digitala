@@ -4,15 +4,15 @@ namespace DABase\Service;
 use DACore\Service\AbstractCrudService;
 
 use DACore\Upload\MyUploadAwareInterface;
-use DACore\Strategy\{DataCheckerStrategyInterface, DataCheckerStrategy};
-use DACore\Strategy\Collections\{
+use DACore\Strategy\Core\{DataCheckerStrategyInterface, DataCheckerStrategy};
+use DACore\Strategy\Collections\Base\{
     AddressesInterface,AddressesStrategy,
     DocumentsInterface,DocumentsStrategy,
     EmailsInterface,EmailsStrategy,
     SocialNetworksInterface,SocialNetworksStrategy,
     TelephonesInterface,TelephonesStrategy
 };
-use DACore\Strategy\Entity\{
+use DACore\Strategy\Entity\Base\{
     PersonInterface,PersonStrategy
 };
 

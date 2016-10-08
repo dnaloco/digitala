@@ -5,8 +5,8 @@ use DACore\Service\AbstractCrudService;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use DACore\Upload\MyUploadAwareInterface;
-use DACore\Strategy\{DataCheckerStrategyInterface, DataCheckerStrategy};
-use DACore\Strategy\Collections\{
+use DACore\Strategy\Core\{DataCheckerStrategyInterface, DataCheckerStrategy};
+use DACore\Strategy\Collections\Base\{
     AddressesInterface,AddressesStrategy,
     DocumentsInterface,DocumentsStrategy,
     EmailsInterface,EmailsStrategy,
@@ -14,7 +14,7 @@ use DACore\Strategy\Collections\{
     TelephonesInterface,TelephonesStrategy
 };
 
-use DACore\Strategy\Entity\{
+use DACore\Strategy\Entity\Base\{
     PersonInterface,PersonStrategy
 };
 class User extends AbstractCrudService

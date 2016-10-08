@@ -31,7 +31,7 @@ trait CheckTokenStrategy
     public function checkUser($id)
     {
         if ($this instanceof \DACore\Controller\AbstractCrudRestController) {
-            $userRepo = $this->service->getAnotherRepository('DACore\Entity\User\UserInterface');
+            $userRepo = $this->service->getAnotherRepository('DACore\IEntities\User\UserInterface');
             $user = $userRepo->find((int) $id);
 
             if ($user) return $user;

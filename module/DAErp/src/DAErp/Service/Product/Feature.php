@@ -2,7 +2,7 @@
 namespace DAErp\Service\Product;
 
 use DACore\Service\AbstractCrudService;
-use DACore\Strategy\{DataCheckerStrategyInterface, DataCheckerStrategy};
+use DACore\Strategy\Core\{DataCheckerStrategyInterface, DataCheckerStrategy};
 
 class Feature extends AbstractCrudService
 implements
@@ -17,7 +17,7 @@ DataCheckerStrategyInterface
 			return $data;
 		} else {
 			if (isset($data['group']['id'])) $data['group'] = $data['group']['id'];
-			$repo = $this->getAnotherRepository('DACore\Entity\Erp\Product\GroupInterface');
+			$repo = $this->getAnotherRepository('DACore\IEntities\Erp\Product\GroupInterface');
 			$data['group'] = static::checkReference($key, $data['group'], 'group', $repo);
 		}
 

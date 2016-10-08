@@ -43,8 +43,8 @@ trait SocialNetworksStrategy
 
 		$myTraits = class_uses($this);
 
-		if (!in_array('DACore\Strategy\DataCheckerStrategy', $myTraits)) {
-			throw new \Exception('TO USE SocialNetworksStrategy TRAIT NEED TO HAVE DACore\Strategy\DataCheckerStrategy');
+		if (!in_array('DACore\Strategy\Core\DataCheckerStrategy', $myTraits)) {
+			throw new \Exception('TO USE SocialNetworksStrategy TRAIT NEED TO HAVE DACore\Strategy\Core\DataCheckerStrategy');
 		}
 
 		$arrSocialNetworks = new ArrayCollection();

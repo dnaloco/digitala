@@ -14,7 +14,7 @@ use DACore\IEntities\Erp\Order\Store\OrderInterface;
 class Order extends OrderSuperclass implements OrderInterface
 {
 	/**
-	 * @ORM\ManyToMany(targetEntity="DAErp\IEntities\Order\Store\Store")
+	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Order\Store\StoreInterface")
 	 * @ORM\JoinTable(name="daerp_store_order_stores",
 	 *      joinColumns={@ORM\JoinColumn(name="order_store_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="store_id", referencedColumnName="id", unique=true)}

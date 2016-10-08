@@ -7,7 +7,7 @@ use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\EventManager\EventManagerInterface;
 
 use DACore\Auth\JwtTokenInterface;
-use DACore\Strategy\{ResponsesInterface, ResponseStrategy};
+use DACore\Strategy\Core\{ResponsesInterface, ResponseStrategy};
 
 class ActivateUserRestController extends AbstractRestfulController
 implements JwtTokenInterface, ResponsesInterface

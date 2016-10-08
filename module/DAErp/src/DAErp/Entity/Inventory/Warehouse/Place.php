@@ -1,5 +1,5 @@
 <?php
-namespace R2Erp\Entity\Inventory;
+namespace DAErp\Entity\Inventory\Warehouse;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
@@ -27,21 +27,10 @@ class Place implements PlaceInterface
 	private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="features")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Inventory\Warehouse\WarehouseInterface", inversedBy="places")
+     * @ORM\JoinColumn(name="warehouse_id", referencedColumnName="id")
      */
 	private $warehouse;
-
-	/**
-     * @OneToMany(targetEntity="Category", mappedBy="parent")
-     */
-    private $children;
-
-    /**
-     * @ManyToOne(targetEntity="Category", inversedBy="children")
-     * @JoinColumn(name="parent_id", referencedColumnName="id")
-     */
-    private $parent;
 
     /**
 	 * @var string
@@ -128,53 +117,6 @@ class Place implements PlaceInterface
         return $this;
     }
 
-    /**
-     * Gets the value of children.
-     *
-     * @return mixed
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
-     * Sets the value of children.
-     *
-     * @param mixed $children the children
-     *
-     * @return self
-     */
-    public function setChildren($children)
-    {
-        $this->children = $children;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of parent.
-     *
-     * @return mixed
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * Sets the value of parent.
-     *
-     * @param mixed $parent the parent
-     *
-     * @return self
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
 
     /**
      * Gets the value of destination.

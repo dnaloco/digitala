@@ -22,7 +22,7 @@ class ModulesLoad extends AbstractFixture implements OrderedFixtureInterface
 			$collModules->add($module);
 		}
 
-		$repoUser = $manager->getRepository('DACore\Entity\User\UserInterface');
+		$repoUser = $manager->getRepository('DACore\IEntities\User\UserInterface');
 
 		$allUsers = $repoUser->findAll();
 

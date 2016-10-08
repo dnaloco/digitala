@@ -11,8 +11,8 @@ return array(
     'modules' => array(
         // VVENDOR MODULES
         // ZendDeveloperTools & BjyProfiler to debuging
-        /*'ZendDeveloperTools',
-        'BjyProfiler',*/
+        'ZendDeveloperTools',
+        'BjyProfiler',
         'ZfrCors',
         'DoctrineModule',
         'DoctrineORMModule',

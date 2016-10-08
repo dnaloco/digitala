@@ -1,5 +1,5 @@
 <?php
-namespace R2Erp\Entity\Inventory;
+namespace DAErp\Entity\Inventory\Warehouse;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
@@ -55,17 +55,17 @@ class Storage implements StorageInterface
 	private $reservations;
 
 	/**
-     * @ManyToMany(targetEntity="Phonenumber")
-     * @JoinTable(name="users_phonenumbers",
-     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="phonenumber_id", referencedColumnName="id", unique=true)}
+     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Inventory\Parked\DiscrepancyInterface")
+     * @ORM\JoinTable(name="daerp_inventory_warehouse_storage_discrepancies",
+     *      joinColumns={@ORM\JoinColumn(name="discrepancy_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="storage_id", referencedColumnName="id", unique=true)}
      *      )
-     */
+     **/
 	private $discrepancies;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Inventory\Parked\LocationInterface")
-	 * @ORM\JoinTable(name="daerp_inventory_warehouse_storage_ordersout",
+	 * @ORM\JoinTable(name="daerp_inventory_warehouse_storage_locations",
 	 *      joinColumns={@ORM\JoinColumn(name="location_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="storage_id", referencedColumnName="id", unique=true)}
 	 *      )

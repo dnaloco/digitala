@@ -117,7 +117,7 @@ return [
                     ],
                 ],
             ],
-            'daerp-product-suppliers-rest'       => [
+            'daerp-product-suppliers-rest'          => [
                 'type'    => 'Segment',
                 'options' => [
                     'route'       => '/api/private/supplier/suppliers[/:id]',
@@ -238,7 +238,7 @@ return [
             'class_name' => 'DAErp\Service\Product\Product',
             'entity'     => 'DAErp\Entity\Product\Product',
         ],
-        'DAErp\Service\Supplier\Supplier'           => [
+        'DAErp\Service\Supplier\Supplier'         => [
             'class_name' => 'DAErp\Service\Supplier\Supplier',
             'entity'     => 'DAErp\Entity\Supplier\Supplier',
         ],
@@ -277,7 +277,7 @@ return [
             'class_name' => 'DAErp\Controller\Product\ProductsRestController',
             'service'    => 'DAErp\Service\Product\Product',
         ],
-        'DAErp\Controller\Supplier\SuppliersRest'           => [
+        'DAErp\Controller\Supplier\SuppliersRest'         => [
             'class_name' => 'DAErp\Controller\Supplier\SuppliersRestController',
             'service'    => 'DAErp\Service\Supplier\Supplier',
         ],
@@ -306,43 +306,58 @@ return [
         'configuration'   => [
             'orm_default' => [
                 'types' => [
-                    'enum_devolutionstatus'       => 'DAErp\Enum\DevolutionStatus',
-                    'enum_discounttype'       => 'DAErp\Enum\DiscountType',
-                    'enum_discrepancytype'       => 'DAErp\Enum\DiscrepancyType',
-                    'enum_ordertatus'       => 'DAErp\Enum\OrderStatus',
-                    'enum_paymentmethod'       => 'DAErp\Enum\PaymentMethod',
-                    'enum_paymentstatus'       => 'DAErp\Enum\PaymentStatus',
+                    'enum_devolutionstatus'  => 'DAErp\Enum\DevolutionStatus',
+                    'enum_discounttype'      => 'DAErp\Enum\DiscountType',
+                    'enum_discrepancytype'   => 'DAErp\Enum\DiscrepancyType',
+                    'enum_ordertatus'        => 'DAErp\Enum\OrderStatus',
+                    'enum_paymentmethod'     => 'DAErp\Enum\PaymentMethod',
+                    'enum_paymentstatus'     => 'DAErp\Enum\PaymentStatus',
                     'enum_paymenttype'       => 'DAErp\Enum\PaymentType',
-                    'enum_placedestination'       => 'DAErp\Enum\PlaceDestination',
-                    'enum_productstatus'       => 'DAErp\Enum\ProductStatus',
-                    'enum_reservationstatus'       => 'DAErp\Enum\ReservationStatus',
-                    'enum_shippingtype'       => 'DAErp\Enum\ShippingType',
-                    'enum_storetatus'       => 'DAErp\Enum\StoreStatus',
-                    'enum_supplierstatus'       => 'DAErp\Enum\SupplierStatus',
-                    'enum_unittype'       => 'DAErp\Enum\UnitType',
+                    'enum_placedestination'  => 'DAErp\Enum\PlaceDestination',
+                    'enum_productstatus'     => 'DAErp\Enum\ProductStatus',
+                    'enum_reservationstatus' => 'DAErp\Enum\ReservationStatus',
+                    'enum_shippingtype'      => 'DAErp\Enum\ShippingType',
+                    'enum_storetatus'        => 'DAErp\Enum\StoreStatus',
+                    'enum_supplierstatus'    => 'DAErp\Enum\SupplierStatus',
+                    'enum_unittype'          => 'DAErp\Enum\UnitType',
                 ],
             ],
         ],
         'entity_resolver' => [
             'orm_default' => [
                 'resolvers' => [
-                    'DACore\IEntities\Erp\Manufacturer\ManufacturerInterface' => 'DAErp\Entity\Manufacturer\Manufacturer',
+                    'DACore\IEntities\Erp\Financial\PaymentInterface'             => 'DAErp\Entity\Financial\Payment',
 
-                    'DACore\IEntities\Erp\Product\ProductInterface'           => 'DAErp\Entity\Product\Product',
-                    'DACore\IEntities\Erp\Product\CategoryInterface'          => 'DAErp\Entity\Product\Category',
-                    'DACore\IEntities\Erp\Product\DepartmentInterface'        => 'DAErp\Entity\Product\Department',
-                    'DACore\IEntities\Erp\Product\GroupInterface'             => 'DAErp\Entity\Product\Group',
-                    'DACore\IEntities\Erp\Product\FeatureInterface'           => 'DAErp\Entity\Product\Feature',
-                    'DACore\IEntities\Erp\Product\MixProductInterface'        => 'DAErp\Entity\Product\MixProduct',
-                    'DACore\IEntities\Erp\Product\RatingInterface'            => 'DAErp\Entity\Product\Rating',
+                    'DACore\IEntities\Erp\Inventory\Parked\DevolutionInterface'   => 'DAErp\Entity\Inventory\Parked\Devolution',
+                    'DACore\IEntities\Erp\Inventory\Parked\DiscrepancyInterface'  => 'DAErp\Entity\Inventory\Parked\Discrepancy',
+                    'DACore\IEntities\Erp\Inventory\Parked\LocationInterface'     => 'DAErp\Entity\Inventory\Parked\Location',
+                    'DACore\IEntities\Erp\Inventory\Parked\ReservationInterface'  => 'DAErp\Entity\Inventory\Parked\Reservation',
+                    'DACore\IEntities\Erp\Inventory\Warehouse\PlaceInterface'     => 'DAErp\Entity\Inventory\Warehouse\Place',
+                    'DACore\IEntities\Erp\Inventory\Warehouse\StorageInterface'   => 'DAErp\Entity\Inventory\Warehouse\Storage',
+                    'DACore\IEntities\Erp\Inventory\Warehouse\WarehouseInterface' => 'DAErp\Entity\Inventory\Warehouse\Warehouse',
 
-                    'DACore\IEntities\Erp\Supplier\SupplierInterface'         => 'DAErp\Entity\Supplier\Supplier',
-                    'DACore\IEntities\Erp\Supplier\BudgetInterface'           => 'DAErp\Entity\Supplier\Budget',
-                    'DACore\IEntities\Erp\Supplier\QualityRatingInterface'    => 'DAErp\Entity\Supplier\QualityRating',
-                    'DACore\IEntities\Erp\Supplier\ProductBudgetInterface'    => 'DAErp\Entity\Supplier\ProductBudget',
+                    'DACore\IEntities\Erp\Manufacturer\ManufacturerInterface'     => 'DAErp\Entity\Manufacturer\Manufacturer',
 
-                    'DACore\IEntities\Erp\Order\Store\OrderInterface'         => 'DAErp\Entity\Order\Store\Order',
-                    'DACore\IEntities\Erp\Order\Store\StoreInterface'         => 'DAErp\Entity\Order\Store\Store',
+                    'DACore\IEntities\Erp\Order\OrderSuperclassInterface'         => 'DAErp\Entity\Order\OrderSuperclass',
+                    'DACore\IEntities\Erp\Order\Store\OrderInterface'             => 'DAErp\Entity\Order\Store\Order',
+                    'DACore\IEntities\Erp\Order\Store\StoreInterface'             => 'DAErp\Entity\Order\Store\Store',
+
+                    'DACore\IEntities\Erp\Product\CategoryInterface'              => 'DAErp\Entity\Product\Category',
+                    'DACore\IEntities\Erp\Product\DepartmentInterface'            => 'DAErp\Entity\Product\Department',
+                    'DACore\IEntities\Erp\Product\FeatureInterface'               => 'DAErp\Entity\Product\Feature',
+                    'DACore\IEntities\Erp\Product\GroupInterface'                 => 'DAErp\Entity\Product\Group',
+                    'DACore\IEntities\Erp\Product\MixProductInterface'            => 'DAErp\Entity\Product\MixProduct',
+                    'DACore\IEntities\Erp\Product\ProductInterface'               => 'DAErp\Entity\Product\Product',
+                    'DACore\IEntities\Erp\Product\RatingInterface'                => 'DAErp\Entity\Product\Rating',
+
+                    'DACore\IEntities\Erp\Promotion\CouponInterface'              => 'DAErp\Entity\Promotion\Coupon',
+
+                    'DACore\IEntities\Erp\Shipper\ShipperInterface'              => 'DAErp\Entity\Shipper\Shipper',
+
+                    'DACore\IEntities\Erp\Supplier\SupplierInterface'             => 'DAErp\Entity\Supplier\Supplier',
+                    'DACore\IEntities\Erp\Supplier\BudgetInterface'               => 'DAErp\Entity\Supplier\Budget',
+                    'DACore\IEntities\Erp\Supplier\QualityRatingInterface'        => 'DAErp\Entity\Supplier\QualityRating',
+                    'DACore\IEntities\Erp\Supplier\ProductBudgetInterface'        => 'DAErp\Entity\Supplier\ProductBudget',
 
                     /*'DACore\IEntities\Erp\Order\Sale\OrderInterface' => 'DAErp\Entity\Order\Sale\Order',
                 'DACore\IEntities\Erp\Order\Sale\SaleInterface' => 'DAErp\Entity\Order\Sale\Sale',*/

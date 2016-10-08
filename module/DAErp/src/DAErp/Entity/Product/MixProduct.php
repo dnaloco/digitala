@@ -7,7 +7,7 @@ use DACore\IEntities\Erp\Product\MixProductInterface;
 
 /**
  *
- * @ORM\Table(name="r2_erp_mix_products")
+ * @ORM\Table(name="daerp_product_mix_products")
  * @ORM\Entity
  */
 class MixProduct implements MixProductInterface
@@ -40,7 +40,7 @@ class MixProduct implements MixProductInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="discount", type="decimal")
+	 * @ORM\Column(name="discount_type", type="decimal")
 	 */
 	private $discountType;
 

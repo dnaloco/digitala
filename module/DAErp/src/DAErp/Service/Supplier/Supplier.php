@@ -5,8 +5,8 @@ use DACore\Service\AbstractCrudService;
 
 use DACore\Upload\MyUploadAwareInterface;
 
-use DACore\Strategy\{DataCheckerStrategyInterface, DataCheckerStrategy};
-use DACore\Strategy\Collections\{
+use DACore\Strategy\Core\{DataCheckerStrategyInterface, DataCheckerStrategy};
+use DACore\Strategy\Collections\Base\{
     AddressesInterface,AddressesStrategy,
     DocumentsInterface,DocumentsStrategy,
     EmailsInterface,EmailsStrategy,
@@ -15,7 +15,7 @@ use DACore\Strategy\Collections\{
     PeopleInterface,PeopleStrategy,
     GoodTagsInterface,GoodTagsStrategy
 };
-use DACore\Strategy\Entity\{
+use DACore\Strategy\Entity\Base\{
     CompanyInterface,CompanyStrategy
 };
 

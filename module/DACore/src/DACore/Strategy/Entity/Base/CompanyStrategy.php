@@ -11,14 +11,14 @@ trait CompanyStrategy
 		$myTraits = class_uses($this);
 
 		$requiredTraits = [
-			'DACore\Strategy\DataCheckerStrategy',
-			'DACore\Strategy\Collections\AddressesStrategy',
-			'DACore\Strategy\Collections\DocumentsStrategy',
-			'DACore\Strategy\Collections\EmailsStrategy',
-			'DACore\Strategy\Collections\SocialNetworksStrategy',
-			'DACore\Strategy\Collections\TelephonesStrategy',
-			'DACore\Strategy\Collections\PeopleStrategy',
-			'DACore\Strategy\Collections\GoodTagsStrategy',
+			'DACore\Strategy\Core\DataCheckerStrategy',
+			'DACore\Strategy\Collections\Base\AddressesStrategy',
+			'DACore\Strategy\Collections\Base\DocumentsStrategy',
+			'DACore\Strategy\Collections\Base\EmailsStrategy',
+			'DACore\Strategy\Collections\Base\SocialNetworksStrategy',
+			'DACore\Strategy\Collections\Base\TelephonesStrategy',
+			'DACore\Strategy\Collections\Base\PeopleStrategy',
+			'DACore\Strategy\Collections\Base\GoodTagsStrategy',
 		];
 
 		foreach($requiredTraits as $required) {

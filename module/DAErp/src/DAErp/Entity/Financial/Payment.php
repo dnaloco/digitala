@@ -1,5 +1,5 @@
 <?php
-namespace R2Erp\Entity\Financial;
+namespace DAErp\Entity\Financial;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;

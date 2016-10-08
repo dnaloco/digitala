@@ -1,5 +1,5 @@
 <?php
-namespace R2Erp\Entity\Inventory;
+namespace DAErp\Entity\Inventory\Parked;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
@@ -28,12 +28,12 @@ class Devolution implements DevolutionInterface
 	private $fromCustomer;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="DACore\Entity\User\UserInterface")
+	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
 	 * @ORM\JoinColumn(name="vendor_id", referencedColumnName="id", nullable=true)
 	 **/
 	private $vendor;
 
-//@ORM\ManyToOne(targetEntity="R2Erp\Entity\Order\Sale\Order")
+//@ORM\ManyToOne(targetEntity="DAErp\Entity\Order\Sale\Order")
 //@ORM\JoinColumn(name="sale_order_id", referencedColumnName="id", nullable=false)
 	//private $saleOrder;
 

@@ -142,6 +142,7 @@ return [
                 'types' => [
                     'enum_addresstype'      => 'DABase\Enum\AddressType',
                     'enum_companytype'      => 'DABase\Enum\CompanyType',
+                    'enum_filetype'         => 'DABase\Enum\FileType',
                     'enum_gendertype'       => 'DABase\Enum\GenderType',
                     'enum_imagefiletype'    => 'DABase\Enum\ImageFiletype',
                     'enum_licence'          => 'DABase\Enum\Licence',

@@ -7,8 +7,8 @@ use Lcobucci\JWT\Parser;
 
 use DACore\Controller\Aware\FirephpAwareInterface;
 use DACore\Exception\HttpStatusCodeException;
-use DACore\Strategy\{SerializerInterface, SerializerStrategy};
-use DACore\Strategy\{ResponsesInterface, ResponseStrategy};
+use DACore\Strategy\Core\{SerializerInterface, SerializerStrategy};
+use DACore\Strategy\Core\{ResponsesInterface, ResponseStrategy};
 use DACore\Auth\JwtTokenInterface;
 
 abstract class AbstractCrudRestController extends AbstractRestfulController implements ResponsesInterface, SerializerInterface, FirephpAwareInterface, JwtTokenInterface

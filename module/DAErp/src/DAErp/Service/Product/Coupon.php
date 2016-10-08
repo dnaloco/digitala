@@ -3,7 +3,7 @@ namespace DAErp\Service\Product;
 
 use DACore\Service\AbstractCrudService;
 
-use DACore\Strategy\{DataCheckerStrategyInterface, DataCheckerStrategy};
+use DACore\Strategy\Core\{DataCheckerStrategyInterface, DataCheckerStrategy};
 
 class Coupon extends AbstractCrudService
 implements

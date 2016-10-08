@@ -1,5 +1,5 @@
 <?php
-namespace R2Erp\Entity\Inventory;
+namespace DAErp\Entity\Inventory\Warehouse;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
@@ -21,6 +21,13 @@ class Warehouse implements WarehouseInterface
 	 */
 	private $id;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
+     */
+    private $name;
+
 	/**
 	 * @var string
 	 *
@@ -29,19 +36,19 @@ class Warehouse implements WarehouseInterface
 	private $description;
 
 	/**
-	 * @ORM\OneToOne(targetEntity="R2Base\Entity\Address", cascade={"persist", "remove"})
+	 * @ORM\OneToOne(targetEntity="DACore\IEntities\Base\AddressInterface", cascade={"persist", "remove"})
 	 * @ORM\JoinColumn(name="address_id", referencedColumnName="id", nullable=true)
 	 **/
 	private $address;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="R2Base\Entity\Company")
+	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\CompanyInterface")
 	 * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=false)
 	 **/
 	private $company;
 
 	/**
-     * @OneToMany(targetEntity="Feature", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Inventory\Warehouse\PlaceInterface", mappedBy="warehouse")
      */
 	private $places;
 
@@ -75,6 +82,32 @@ class Warehouse implements WarehouseInterface
         return $this;
     }
 
+
+
+    /**
+     * Gets the value of name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Sets the value of name.
+     *
+     * @param string $name the name
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+    
     /**
      * Gets the value of description.
      *
@@ -170,4 +203,5 @@ class Warehouse implements WarehouseInterface
 
         return $this;
     }
+
 }

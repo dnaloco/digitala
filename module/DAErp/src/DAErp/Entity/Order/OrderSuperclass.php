@@ -33,7 +33,7 @@ class OrderSuperclass implements OrderSuperclassInterface
 	private $noNF;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="DACore\Entity\User\UserInterface")
+	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
 	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
 	 **/
 	private $user;

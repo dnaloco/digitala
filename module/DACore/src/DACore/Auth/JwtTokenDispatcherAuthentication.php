@@ -8,7 +8,7 @@ use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
-use DACore\Strategy\{SerializerInterface, SerializerStrategy};
+use DACore\Strategy\Core\{SerializerInterface, SerializerStrategy};
 
 class JwtTokenDispatcherAuthentication implements SerializerInterface
 {
@@ -28,7 +28,7 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
 
 	public function checkUser($id)
     {
-    	$userRepo = $this->em->getRepository('DACore\Entity\User\UserInterface');
+    	$userRepo = $this->em->getRepository('DACore\IEntities\User\UserInterface');
         $user = $userRepo->find((int) $id);
         $userArray = json_decode(static::getPropertyNamingSerializer()->serialize($user, 'json'), true);
     	return $userArray;

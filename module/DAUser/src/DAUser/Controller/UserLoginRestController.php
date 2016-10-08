@@ -8,9 +8,11 @@ use Lcobucci\JWT\Signer\Hmac\Sha256;
 use DACore\Controller\Aware\ApcCacheAwareInterface;
 
 
-use DACore\Strategy\{DataCheckerStrategyInterface, DataCheckerStrategy};
-use DACore\Strategy\{SerializerInterface, SerializerStrategy};
-use DACore\Strategy\{CsrfTokenFormInterface, CsrfTokenFormStrategy};
+use DACore\Strategy\Core\{
+    SerializerInterface, SerializerStrategy,
+    CsrfTokenFormInterface, CsrfTokenFormStrategy,
+    DataCheckerStrategyInterface, DataCheckerStrategy
+};
 
 class UserLoginRestController extends AbstractCrudRestController
 implements ApcCacheAwareInterface,

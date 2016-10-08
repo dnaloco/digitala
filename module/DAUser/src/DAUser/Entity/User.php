@@ -5,12 +5,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
 
-use DACore\Entity\User\UserInterface;
-use DACore\Strategy\{EncryptInterface, EncryptStrategy};
+use DACore\IEntities\User\UserInterface;
+use DACore\Strategy\Core\{EncryptInterface, EncryptStrategy};
 
 
 /**
- * R2Users
  *
  * @ORM\Table(name="dauser_users")
  * @ORM\Entity
