@@ -1,9 +1,10 @@
 <?php
-namespace DAErp\Controller\Product;
+namespace DAErp\Controller\Promotion;
 
 use DACore\Controller\AbstractCrudRestController;
 
 class CouponsRestController extends AbstractCrudRestController
 {
-    protected $aclResource = 'productCoupons';
+    protected $aclResource = 'coupons';
+
 }

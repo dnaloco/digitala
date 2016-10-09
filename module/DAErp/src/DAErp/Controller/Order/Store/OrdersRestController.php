@@ -1,12 +1,10 @@
 <?php
-namespace DABase\Controller\Product;
+namespace DAErp\Controller\Order\Store;
 
 use DACore\Controller\AbstractCrudRestController;
 
-class CategoriesRestController extends AbstractCrudRestController
+class OrdersRestController extends AbstractCrudRestController
 {
-    protected $aclResource = 'orderStores';
+    protected $aclResource = 'ordersStores';
 
-
-    public function __consrtrucaj(
 }

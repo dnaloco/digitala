@@ -1,5 +1,5 @@
 <?php
-namespace DABase\Controller\Product;
+namespace DABase\Controller\Shipper;
 
 use DACore\Controller\AbstractCrudRestController;
 

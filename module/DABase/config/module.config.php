@@ -9,7 +9,19 @@ use Zend\ServiceManager\ServiceManager;
 return [
     'router' => [
         'routes' => [
-
+            'dabase-cities-rest' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/api/:access/cities[/:id]',
+                    'constraints' => [
+                        'id' => '[0-9]+',
+                        'access' => 'private|public'
+                    ],
+                    'defaults' => [
+                        'controller' => 'DABase\Controller\CitiesRest',
+                    ],
+                ],
+            ],
             'dabase-company-categories-rest' => [
                 'type' => Segment::class,
                 'options' => [
@@ -19,18 +31,6 @@ return [
                     ],
                     'defaults' => [
                         'controller' =>  'DABase\Controller\CompanyCategoriesRest',
-                    ],
-                ],
-            ],
-            'dabase-people-rest' => [
-                'type' => Segment::class,
-                'options' => [
-                    'route' => '/api/private/people[/:id]',
-                    'constraints' => [
-                        'id' => '[0-9]+',
-                    ],
-                    'defaults' => [
-                        'controller' =>  'DABase\Controller\PeopleRest',
                     ],
                 ],
             ],
@@ -46,16 +46,15 @@ return [
                     ],
                 ],
             ],
-            'dabase-cities-rest' => [
-                'type' => 'Segment',
+            'dabase-people-rest' => [
+                'type' => Segment::class,
                 'options' => [
-                    'route' => '/api/:access/cities[/:id]',
+                    'route' => '/api/private/people[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
-                        'access' => 'private|public'
                     ],
                     'defaults' => [
-                        'controller' => 'DABase\Controller\CitiesRest',
+                        'controller' =>  'DABase\Controller\PeopleRest',
                     ],
                 ],
             ],
