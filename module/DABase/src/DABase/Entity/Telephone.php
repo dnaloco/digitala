@@ -39,7 +39,7 @@ class Telephone implements TelephoneInterface
 
 	/**
      *
-     * @ORM\Column(name="number", type="integer", nullable=false)
+     * @ORM\Column(name="number", type="string", nullable=false)
      */
 	protected $number;
 

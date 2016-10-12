@@ -23,43 +23,43 @@ class Document implements DocumentInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-	protected $id;
+	private $id;
 
     /**
      *
      * @ORM\Column(name="type", type="enum_documenttype", nullable=true)
      */
-    protected $type;
+    private $type;
 
 	/**
      *
-     * @ORM\Column(name="field_1", type="string", nullable=false)
+     * @ORM\Column(name="field_1", type="string", nullable=false, unique=true)
      */
-	protected $field1;
+	private $field1;
 
 	/**
      *
      * @ORM\Column(name="field_2", type="string", nullable=true)
      */
-	protected $field2;
+	private $field2;
 
 	/**
      *
      * @ORM\Column(name="field_3", type="string", nullable=true)
      */
-	protected $field3;
+	private $field3;
 
 	/**
      *
      * @ORM\Column(name="field_4", type="string", nullable=true)
      */
-	protected $field4;
+	private $field4;
 
 	/**
      *
      * @ORM\Column(name="field_5", type="string", nullable=true)
      */
-	protected $field5;
+	private $field5;
 
 	/**
      *
@@ -69,7 +69,7 @@ class Document implements DocumentInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="image_id", referencedColumnName="id")}
      *      )
      **/
-	protected $images;
+	private $images;
 
      /**
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\FileInterface", cascade={"persist", "remove"})
@@ -78,29 +78,29 @@ class Document implements DocumentInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id")}
      *      )
      **/
-     protected $files;
+     private $files;
 
 	/**
      * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\CompanyInterface", inversedBy="documents")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
-	protected $company;
+	private $company;
 
 	/**
      * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\PersonInterface", inversedBy="documents")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
-	protected $person;
+	private $person;
 
      /**
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-     protected $createdAt;
+     private $createdAt;
 
      /**
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
-     protected $updatedAt;
+     private $updatedAt;
 
 	public function __construct(array $data)
 	{

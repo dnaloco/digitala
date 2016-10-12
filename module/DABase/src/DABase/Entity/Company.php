@@ -91,9 +91,6 @@ class Company implements CompanyInterface
     private $socialNetworks;
 
     /**
-     * 
-     * emails
-     * 
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\PersonInterface", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="dabase_companies_contacts",
      *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},

@@ -28,6 +28,7 @@ return array(
         'DAModules',
         'DASite',
         'DAUser',
+        'DADummyTest',
 
     ),
 

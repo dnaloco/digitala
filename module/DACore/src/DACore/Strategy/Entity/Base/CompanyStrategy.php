@@ -129,6 +129,11 @@ trait CompanyStrategy
 				if ($entity) $entity->getContacts()->clear();
 				unset($company['contacts']);
 			} else {
+				foreach ($company['contacts'] as $contact) {
+					if (is_numeric($contact)) {
+						die('é ID!');
+					}
+				}
 				$company['contacts'] = static::getPeopleReferences($key, $company['contacts'], 'contacts');
 			}
 

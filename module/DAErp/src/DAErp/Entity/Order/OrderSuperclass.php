@@ -34,9 +34,15 @@ class OrderSuperclass implements OrderSuperclassInterface
 
 	/**
 	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
-	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+	 * @ORM\JoinColumn(name="claimant_id", referencedColumnName="id", nullable=true)
 	 **/
-	private $user;
+	private $claimant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
+     * @ORM\JoinColumn(name="receiver_id", referencedColumnName="id", nullable=true)
+     **/
+    private $receiver;
 
 	/**
 	 *
@@ -110,6 +116,15 @@ class OrderSuperclass implements OrderSuperclassInterface
      * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Financial\PaymentInterface", mappedBy="order")
      */
 	private $payments;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Financial\TaxInterface")
+     * @ORM\JoinTable(name="users_phonenumbers",
+     *      joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tax_id", referencedColumnName="id")}
+     *      )
+     */
+    private $taxes;
 
 	/**
 	 * @var string

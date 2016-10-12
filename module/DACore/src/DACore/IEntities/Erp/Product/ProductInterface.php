@@ -23,7 +23,7 @@ interface ProductInterface
 	function getDimensionLength();
 	function getDimensionHeight();
 	function getDimensionWidth();
-	function getProductRatings();
+	function getRatings();
 	function getAlternativeProducts();
 	function getIsHighlighted();
 	function getIsLaunch();

@@ -158,12 +158,12 @@ class Product implements ProductInterface
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Product\RatingInterface")
-	 * @ORM\JoinTable(name="daerp_product_products_ratings",
+	 * @ORM\JoinTable(name="daerp_product_ratings",
 	 *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
-	 *      inverseJoinColumns={@ORM\JoinColumn(name="product_rating_id", referencedColumnName="id", unique=true)}
+	 *      inverseJoinColumns={@ORM\JoinColumn(name="rating_id", referencedColumnName="id", unique=true)}
 	 *      )
 	 */
-	private $productRatings;
+	private $ratings;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Product\ProductInterface")
@@ -223,7 +223,7 @@ class Product implements ProductInterface
 		$this->features = new ArrayCollection();
 		$this->images = new ArrayCollection();
 		$this->videos = new ArrayCollection();
-		$this->produtoRating = new ArrayCollection();
+		$this->ratings = new ArrayCollection();
 		$this->mixProducts = new ArrayCollection();
 		$this->alternativeProducts = new ArrayCollection();
 		$this->stores = new ArrayCollection();
@@ -231,7 +231,6 @@ class Product implements ProductInterface
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
-	
 
     /**
      * Gets the value of id.
@@ -728,9 +727,9 @@ inverseJoinColumns={@ORM\JoinColumn(name="product_rating_id", referencedColumnNa
      *
      * @return mixed
      */
-    public function getProductRatings()
+    public function getRatings()
     {
-        return $this->productRatings;
+        return $this->ratings;
     }
 
     /**
@@ -742,9 +741,9 @@ inverseJoinColumns={@ORM\JoinColumn(name="product_rating_id", referencedColumnNa
      *
      * @return self
      */
-    public function setProductRatings($productRatings)
+    public function setRatings($productRatings)
     {
-        $this->productRatings = $productRatings;
+        $this->productRatings = $ratings;
 
         return $this;
     }

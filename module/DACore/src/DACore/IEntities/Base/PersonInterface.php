@@ -10,12 +10,13 @@ interface PersonInterface
     function getDescription();
     function getPhoto();
     function getAddresses();
-    function getSocialNetworks();
     function getTelephones();
     function getEmails();
+    function getSocialNetworks();
     function getDocuments();
     function getWebsite();
     function getNotes();
+    function getUser();
     function getCreatedAt();
     function getUpdatedAt();
 }

@@ -99,6 +99,7 @@ return array(
     'DACore\IEntities\Erp\Supplier\SupplierInterface'                     => __DIR__ . '/src/DACore/IEntities/Erp/Supplier/SupplierInterface.php',
     'DACore\IEntities\Erp\Supplier\BudgetInterface'                       => __DIR__ . '/src/DACore/IEntities/Erp/Supplier/BudgetInterface.php',
     'DACore\IEntities\Erp\Supplier\QualityRatingInterface'                => __DIR__ . '/src/DACore/IEntities/Erp/Supplier/QualityRatingInterface.php',
+    'DACore\IEntities\Erp\Promotion\CouponInterface'                      => __DIR__ . '/src/DACore/IEntities/Erp/Promotion/CouponInterface.php',
     'DACore\IEntities\Erp\Inventory\Parked\DevolutionInterface'           => __DIR__ . '/src/DACore/IEntities/Erp/Inventory/Parked/DevolutionInterface.php',
     'DACore\IEntities\Erp\Inventory\Parked\ReservationInterface'          => __DIR__ . '/src/DACore/IEntities/Erp/Inventory/Parked/ReservationInterface.php',
     'DACore\IEntities\Erp\Inventory\Parked\LocationInterface'             => __DIR__ . '/src/DACore/IEntities/Erp/Inventory/Parked/LocationInterface.php',

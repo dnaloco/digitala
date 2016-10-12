@@ -12,6 +12,8 @@ interface DocumentInterface
 	function getField5();
 	function getImages();
 	function getFiles();
+	function getCompany();
+	function getPerson();
 	function getCreatedAt();
 	function getUpdatedAt();
 }

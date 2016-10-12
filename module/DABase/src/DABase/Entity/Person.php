@@ -22,37 +22,37 @@ class Person implements PersonInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    private $id;
 
     /**
      *
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
      */
-    protected $name;
+    private $name;
 
     /**
      * @ORM\Column(name="gender", type="enum_gendertype", nullable=true)
      */
-    protected $gender;
+    private $gender;
 
     /**
      *
      *
      * @ORM\Column(name="birthdate", type="datetime", nullable=true)
      */
-    protected $birthdate;
+    private $birthdate;
 
     /**
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
-    protected $description;
+    private $description;
 
     /**
      * @ORM\OneToOne(targetEntity="DACore\IEntities\Base\ImageInterface", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
      */
-    protected $photo;
+    private $photo;
 
     /**
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\AddressInterface", cascade={"persist", "remove"})
@@ -61,7 +61,7 @@ class Person implements PersonInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="address_id", referencedColumnName="id")}
      *      )
      **/
-    protected $addresses;
+    private $addresses;
 
     /**
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\TelephoneInterface", cascade={"persist", "remove"})
@@ -70,7 +70,7 @@ class Person implements PersonInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="telephone_id", referencedColumnName="id")}
      *      )
      **/
-    protected $telephones;
+    private $telephones;
 
     /**
      *
@@ -80,7 +80,7 @@ class Person implements PersonInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="email_id", referencedColumnName="id")}
      *      )
      **/
-    protected $emails;
+    private $emails;
 
     /**
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\SocialNetworkInterface", cascade={"persist", "remove"})
@@ -89,23 +89,26 @@ class Person implements PersonInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="social_network_id", referencedColumnName="id")}
      *      )
      **/
-    protected $socialNetworks;
+    private $socialNetworks;
 
     /**
      * @ORM\OneToMany(targetEntity="DACore\IEntities\Base\DocumentInterface", mappedBy="person", cascade={"persist", "remove"})
      */
-    protected $documents;
+    private $documents;
 
     /**
      * @ORM\Column(name="website", type="string", length=200, unique=true, nullable=true)
      */
-    protected $website;
+    private $website;
+
+    
+    
 
     /**
      *
      * @ORM\Column(name="notes", type="text", nullable=true)
      */
-    protected $notes;
+    private $notes;
 
     /**
      * @ORM\OneToOne(targetEntity="DACore\IEntities\User\UserInterface", inversedBy="person", cascade={"persist", "remove"})
@@ -116,13 +119,13 @@ class Person implements PersonInterface
     /**
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     public function __construct(array $data = array())
     {

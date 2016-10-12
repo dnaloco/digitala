@@ -46,8 +46,6 @@ class CompanyCategory implements CompanyCategoryInterface
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
-     
-
     /**
      * Gets the value of id.
      *

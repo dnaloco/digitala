@@ -23,13 +23,13 @@ class Payment implements PaymentInterface
 
 	/**
 	 *
-	 * @ORM\Column(name="amount_income", type="decimal", precision=2, nullable=false)
+	 * @ORM\Column(name="amount_income", type="decimal", precision=8, nullable=false)
 	 */
 	private $amountIncome;
 
 	/**
 	 *
-	 * @ORM\Column(name="amount_outcome", type="decimal", precision=2, nullable=false)
+	 * @ORM\Column(name="amount_outcome", type="decimal", precision=8, nullable=false)
 	 */
 	private $amountOutcome;
 
@@ -403,10 +403,12 @@ class Payment implements PaymentInterface
      * @param mixed $updatedAt the updated at
      *
      * @return self
+     * 
+     * @ORM\PrePersist
      */
     public function setUpdatedAt()
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime("now");
 
         return $this;
     }
