@@ -5,4 +5,5 @@ interface ExpenseCateogoryInterface
 {
 	function getId();
 	function getName();
+	function getDescription();
 }

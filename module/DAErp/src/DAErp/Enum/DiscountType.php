@@ -6,7 +6,7 @@ use DACore\Types\EnumType;
 class DiscountType extends EnumType
 {
     protected $name = 'enum_discounttype';
-    protected $values = array('subtammount', 'percentage');
+    protected $values = array('ammount', 'percentage');
 
     public static function getValues()
     {

@@ -30,6 +30,8 @@ class Person implements PersonInterface
      */
     private $name;
 
+    private $post;
+
     /**
      * @ORM\Column(name="gender", type="enum_gendertype", nullable=true)
      */
@@ -102,7 +104,7 @@ class Person implements PersonInterface
     private $website;
 
     
-    
+    private $literacy;
 
     /**
      *

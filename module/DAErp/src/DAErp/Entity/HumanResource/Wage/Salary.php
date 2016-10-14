@@ -12,6 +12,7 @@ use DACore\IEntities\Erp\HumanResource\Wage\SalaryInterface;
  * @ORM\HasLifecycleCallbacks
  */
 class Salary
+implements SalaryInterface
 {
 	/**
      *
@@ -42,8 +43,8 @@ class Salary
 	private $payDays;
 
 	/**
-     * @OneToOne(targetEntity="DACore\IEntities\Erp\HumanResource\PartnerSuperclassInterface", inversedBy="registeredSalary")
-     * @JoinColumn(name="customer_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="DACore\IEntities\Erp\HumanResource\PartnerSuperclassInterface", inversedBy="registeredSalary")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
 	private $partner;
 
@@ -61,7 +62,7 @@ class Salary
      */
     protected $updatedAt;
 
-    public function __construct(array $data = array)
+    public function __construct(array $data = array())
     {
         $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");

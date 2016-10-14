@@ -51,11 +51,18 @@ class Budget implements BudgetInterface
 	private $total;
 
 	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="discount_percentage", type="decimal", precision=8, nullable=true)
-	 */
-	private $discountPercentage;
+     * @var string
+     *
+     * @ORM\Column(name="discount", type="decimal", precision=8, nullable=true)
+     */
+    private $discount;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="discount_type", type="enum_discounttype", nullable=true)
+     */
+    private $discountType;
 
 	/**
 	 * @var string
@@ -218,25 +225,49 @@ class Budget implements BudgetInterface
     }
 
     /**
-     * Gets the value of discountPercentage.
+     * Gets the value of discount.
      *
      * @return string
      */
-    public function getDiscountPercentage()
+    public function getDiscount()
     {
-        return $this->discountPercentage;
+        return $this->discount;
     }
 
     /**
-     * Sets the value of discountPercentage.
+     * Sets the value of discount.
      *
-     * @param string $discountPercentage the discount percentage
+     * @param string $discount the discount
      *
      * @return self
      */
-    public function setDiscountPercentage($discountPercentage)
+    public function setDiscount($discount)
     {
-        $this->discountPercentage = $discountPercentage;
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of discountType.
+     *
+     * @return string
+     */
+    public function getDiscountType()
+    {
+        return $this->discountType;
+    }
+
+    /**
+     * Sets the value of discountType.
+     *
+     * @param string $discountType the discount type
+     *
+     * @return self
+     */
+    public function setDiscountType($discountType)
+    {
+        $this->discountType = $discountType;
 
         return $this;
     }
@@ -328,11 +359,12 @@ class Budget implements BudgetInterface
      *
      * @param \DateTime $updatedAt the updated at
      *
+     * @return self
+     * 
      * @ORM\PrePersist
      */
     public function setUpdatedAt()
     {
-        $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
 
         return $this;

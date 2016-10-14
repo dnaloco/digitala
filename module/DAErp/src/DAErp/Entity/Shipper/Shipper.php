@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use DACore\IEntities\Erp\Shipper\ShipperInterface;
 /**
  *
- * @ORM\Table(name="r2_erp_shippers")
+ * @ORM\Table(name="daerp_shippers")
  * @ORM\Entity
  */
 class Shipper implements ShipperInterface

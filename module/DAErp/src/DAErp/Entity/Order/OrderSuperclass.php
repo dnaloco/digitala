@@ -9,11 +9,17 @@ use DACore\IEntities\Erp\Order\OrderSuperclassInterface;
  * @ORM\Table(name="daerp__order_superclass_orders")
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap(
  * 		{
- *   		"OrderSuperclass" = "OrderSuperclass",
- *       	"StoreOrder" = "DAErp\Entity\Order\Store\Order"
+ *   		"OrderSuperclass"   = "OrderSuperclass",
+ *          "ExpenseOrder"      = "DACore\IEntities\Erp\Order\Expense\OrderInterface",
+ *          "ProductionOrder"   = "DACore\IEntities\Erp\Order\Production\OrderInterface",
+ *          "RentalOrder"       = "DACore\IEntities\Erp\Order\Rental\OrderInterface",
+ *          "SaleOrder"         = "DACore\IEntities\Erp\Order\Sale\OrderInterface",
+ *          "ServiceOrder"      = "DACore\IEntities\Erp\Order\Service\OrderInterface",
+ *       	"StoreOrder"        = "DACore\IEntities\Erp\Order\Store\OrderInterface"
  *      })
  */
 class OrderSuperclass implements OrderSuperclassInterface
@@ -46,7 +52,7 @@ class OrderSuperclass implements OrderSuperclassInterface
 
 	/**
 	 *
-	 * @ORM\Column(name="date_approved", type="datetime", nullable=false)
+	 * @ORM\Column(name="date_approved", type="datetime", nullable=true)
 	 */
 	private $dateApproved;
 
@@ -70,24 +76,33 @@ class OrderSuperclass implements OrderSuperclassInterface
 	 */
 	private $shippingCost;
 
-	/**
-	 * @var \DateTime
-	 *
-	 * @ORM\Column(name="date_shipped", type="datetime", nullable=false)
-	 */
-	private $dateShipped;
+
 
 	/**
 	 * @var \DateTime
 	 *
-	 * @ORM\Column(name="expected_delivery_date", type="datetime", nullable=false)
+	 * @ORM\Column(name="date_shipped", type="datetime", nullable=true)
+	 */
+	private $dateShipped;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="tracking_code", type="string", length=100, nullable=true)
+     */
+    private $trackingCode;
+
+	/**
+	 * @var \DateTime
+	 *
+	 * @ORM\Column(name="expected_delivery_date", type="datetime", nullable=true)
 	 */
 	private $expectedDeliveryDate;
 
 	/**
 	 * @var \DateTime
 	 *
-	 * @ORM\Column(name="date_delivered", type="datetime", nullable=false)
+	 * @ORM\Column(name="date_delivered", type="datetime", nullable=true)
 	 */
 	private $dateDelivered;
 
@@ -101,9 +116,16 @@ class OrderSuperclass implements OrderSuperclassInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="discount_percentage", type="decimal", precision=8, nullable=true)
+	 * @ORM\Column(name="discount", type="decimal", precision=8, nullable=true)
 	 */
-	private $discountPercentage;
+	private $discount;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="discount_type", type="enum_discounttype", nullable=true)
+     */
+    private $discountType;
 
 	/**
 	 * @var string
@@ -129,7 +151,7 @@ class OrderSuperclass implements OrderSuperclassInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="payment_type", type="enum_paymenttype", nullable=false)
+	 * @ORM\Column(name="payment_type", type="enum_paymenttype", nullable=true)
 	 */
 	private $paymentType;
 
@@ -165,13 +187,13 @@ class OrderSuperclass implements OrderSuperclassInterface
 		$this->createdAt = new \DateTime("now");
 		$this->updatedAt = new \DateTime("now");
 
-		$this->$payments = new ArrayCollection();
+        $this->payments = new ArrayCollection();
+		$this->taxes = new ArrayCollection();
 
 		(new Hydrator\ClassMethods)->hydrate($options, $this);
 
 	}
 
-	
 
     /**
      * Gets the value of id.
@@ -222,25 +244,49 @@ class OrderSuperclass implements OrderSuperclassInterface
     }
 
     /**
-     * Gets the value of user.
+     * Gets the value of claimant.
      *
      * @return mixed
      */
-    public function getUser()
+    public function getClaimant()
     {
-        return $this->user;
+        return $this->claimant;
     }
 
     /**
-     * Sets the value of user.
+     * Sets the value of claimant.
      *
-     * @param mixed $user the user
+     * @param mixed $claimant the claimant
      *
      * @return self
      */
-    public function setUser($user)
+    public function setClaimant($claimant)
     {
-        $this->user = $user;
+        $this->claimant = $claimant;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of receiver.
+     *
+     * @return mixed
+     */
+    public function getReceiver()
+    {
+        return $this->receiver;
+    }
+
+    /**
+     * Sets the value of receiver.
+     *
+     * @param mixed $receiver the receiver
+     *
+     * @return self
+     */
+    public function setReceiver($receiver)
+    {
+        $this->receiver = $receiver;
 
         return $this;
     }
@@ -366,6 +412,30 @@ class OrderSuperclass implements OrderSuperclassInterface
     }
 
     /**
+     * Gets the value of trackingCode.
+     *
+     * @return \DateTime
+     */
+    public function getTrackingCode()
+    {
+        return $this->trackingCode;
+    }
+
+    /**
+     * Sets the value of trackingCode.
+     *
+     * @param \DateTime $trackingCode the tracking code
+     *
+     * @return self
+     */
+    public function setTrackingCode(\DateTime $trackingCode)
+    {
+        $this->trackingCode = $trackingCode;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of expectedDeliveryDate.
      *
      * @return \DateTime
@@ -438,25 +508,49 @@ class OrderSuperclass implements OrderSuperclassInterface
     }
 
     /**
-     * Gets the value of discountPercentage.
+     * Gets the value of discount.
      *
      * @return string
      */
-    public function getDiscountPercentage()
+    public function getDiscount()
     {
-        return $this->discountPercentage;
+        return $this->discount;
     }
 
     /**
-     * Sets the value of discountPercentage.
+     * Sets the value of discount.
      *
-     * @param string $discountPercentage the discount percentage
+     * @param string $discount the discount
      *
      * @return self
      */
-    public function setDiscountPercentage($discountPercentage)
+    public function setDiscount($discount)
     {
-        $this->discountPercentage = $discountPercentage;
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of discountType.
+     *
+     * @return string
+     */
+    public function getDiscountType()
+    {
+        return $this->discountType;
+    }
+
+    /**
+     * Sets the value of discountType.
+     *
+     * @param string $discountType the discount type
+     *
+     * @return self
+     */
+    public function setDiscountType($discountType)
+    {
+        $this->discountType = $discountType;
 
         return $this;
     }
@@ -505,6 +599,34 @@ class OrderSuperclass implements OrderSuperclassInterface
     public function setPayments($payments)
     {
         $this->payments = $payments;
+
+        return $this;
+    }
+
+    /**
+     * Gets the joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id")},
+inverseJoinColumns={@ORM\JoinColumn(name="tax_id", referencedColumnName="id")}
+).
+     *
+     * @return mixed
+     */
+    public function getTaxes()
+    {
+        return $this->taxes;
+    }
+
+    /**
+     * Sets the joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id")},
+inverseJoinColumns={@ORM\JoinColumn(name="tax_id", referencedColumnName="id")}
+).
+     *
+     * @param mixed $taxes the taxes
+     *
+     * @return self
+     */
+    public function setTaxes($taxes)
+    {
+        $this->taxes = $taxes;
 
         return $this;
     }
@@ -620,15 +742,14 @@ class OrderSuperclass implements OrderSuperclassInterface
      *
      * @param \DateTime $updatedAt the updated at
      *
+     * @return self
+     * 
      * @ORM\PrePersist
      */
     public function setUpdatedAt()
     {
-        $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
 
         return $this;
     }
-
-    
 }

@@ -30,7 +30,7 @@ class Tax implements TaxInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="rate", type="decimal", precision=4, nullable=false)
+     * @ORM\Column(name="rate", type="decimal", precision=8, nullable=false)
      */
     private $rate;
 
@@ -56,13 +56,13 @@ class Tax implements TaxInterface
     private $isMunicipal;
 
     /**
-     * @ORM\ManyToOne(targetEntity="R2Base\Entity\State")
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\StateInterface")
      * @ORM\JoinColumn(name="state_id", referencedColumnName="id", nullable=true)
      **/
     private $state;
 
     /**
-     * @ORM\ManyToOne(targetEntity="R2Base\Entity\City")
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\CityInterface")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id", nullable=true)
      **/
     private $city;

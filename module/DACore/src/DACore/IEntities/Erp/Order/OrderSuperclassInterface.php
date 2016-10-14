@@ -5,17 +5,19 @@ interface OrderSuperclassInterface
 {
 	function getId();
 	function getNoNF();
-	function getUser();
+	function getClaimant();
+	function getReceiver();
 	function getDateApproved();
 	function getShipper();
 	function getShippingType();
 	function getShippingCost();
-
 	function getDateShipped();
+	function getTrackingCode();
 	function getExpectedDeliveryDate();
 	function getDateDelivered();
 	function getTotalOrderCost();
-	function getDiscountPercentage();
+	function getDiscount();
+	function getDiscountType();
 	function getTotalWithDiscount();
 	function getPayments();
 	function getPaymentType();

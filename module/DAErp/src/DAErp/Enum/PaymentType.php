@@ -16,7 +16,7 @@ class PaymentType extends EnumType
 
     public static function getValues()
     {
-    	return array('venda', 'compra', 'despesa', 'salario', 'benefício', 'comissao');
+    	return array('venda', 'serviço', 'aluguel', 'compra', 'despesa', 'salario', 'benefício', 'comissao');
     }
 }
 

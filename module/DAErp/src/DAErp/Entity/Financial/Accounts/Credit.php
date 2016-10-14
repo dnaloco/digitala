@@ -2,7 +2,7 @@
 namespace DAErp\Entity\Financial\Accounts;
 
 use Doctrine\ORM\Mapping as ORM;
-use R2Erp\Entity\Financial\AccountSuperClass;
+use DAErp\Entity\Financial\AccountSuperclass;
 use Zend\Stdlib\Hydrator;
 
 use DACore\IEntities\Erp\Financial\Accounts\CreditInterface;
@@ -12,7 +12,7 @@ use DACore\IEntities\Erp\Financial\Accounts\CreditInterface;
  * @ORM\Table(name="daerp_financial_accounts_credits")
  * @ORM\Entity
  */
-class Credit extends AccountSuperClass
+class Credit extends AccountSuperclass
 implements CreditInterface
 {
 	/**

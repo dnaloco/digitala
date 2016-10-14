@@ -80,6 +80,7 @@ class Supplier implements SupplierInterface
 		$this->createdAt = new \DateTime("now");
 		$this->updatedAt = new \DateTime("now");
 
+        $this->products = new ArrayCollection();
 		$this->budgets = new ArrayCollection();
 		$this->qualityRatings = new ArrayCollection();
 

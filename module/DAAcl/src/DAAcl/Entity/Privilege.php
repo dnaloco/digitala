@@ -187,6 +187,8 @@ class Privilege implements PrivilegeInterface {
      * @param mixed $updatedAt the updated at
      *
      * @return self
+     * 
+     * @ORM\PrePersist
      */
     public function setUpdatedAt()
     {

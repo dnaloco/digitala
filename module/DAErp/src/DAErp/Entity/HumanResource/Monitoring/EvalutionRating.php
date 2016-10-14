@@ -10,7 +10,7 @@ use DACore\IEntities\Erp\HumanResource\Monitoring\EvaluationRatingInterface;
  * @ORM\Table(name="daerp_human_resource_monitoring_evaluation_ratings")
  * @ORM\Entity
  */
-class Evaluation
+class EvaluationRating
 {
 	/**
 	 *

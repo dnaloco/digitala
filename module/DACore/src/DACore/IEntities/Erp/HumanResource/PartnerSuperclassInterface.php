@@ -17,7 +17,7 @@ interface PartnerSuperclassInterface
 	function getRewards();
 	function getBenefits();
 	function getSalaries();
-	function profitShares();
+	function getProfitShares();
 
 	function getHiredDate();
 	function getFiredDate();

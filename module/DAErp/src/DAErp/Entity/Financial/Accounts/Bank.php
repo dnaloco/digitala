@@ -2,16 +2,16 @@
 namespace DAErp\Entity\Financial\Accounts;
 
 use Doctrine\ORM\Mapping as ORM;
-use R2Erp\Entity\Financial\AccountSuperClass;
+use DAErp\Entity\Financial\AccountSuperclass;
 use Zend\Stdlib\Hydrator;
 
 use DACore\IEntities\Erp\Financial\Accounts\BankInterface;
 /**
  *
- * @ORM\Table(name="r2_erp_financial_accounts_banks")
+ * @ORM\Table(name="daerp_financial_accounts_banks")
  * @ORM\Entity
  */
-class Bank extends AccountSuperClass
+class Bank extends AccountSuperclass
 implements BankInterface
 {
 	/**

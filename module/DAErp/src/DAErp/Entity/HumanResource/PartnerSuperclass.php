@@ -14,8 +14,8 @@ use DACore\IEntities\Erp\HumanResource\PartnerSuperclassInterface;
  * @ORM\DiscriminatorMap(
  * 		{
  *   		"PartnerSuperclass" = "PartnerSuperclass",
- *   		"CopartnerPartner" = "DACore\IEntities\Erp\HumanResource\Partner\CopartnerInterface",
- *   		"EmployeePartner" = "DACore\IEntities\Erp\HumanResource\Partner\EmployeeInterface",
+ *   		"CopartnerPartner" = "DAErp\Entity\HumanResource\Partner\Copartner",
+ *   		"EmployeePartner" = "DAErp\Entity\HumanResource\Partner\Employee",
  *      })
  */
 class PartnerSuperclass implements PartnerSuperclassInterface
@@ -47,9 +47,9 @@ class PartnerSuperclass implements PartnerSuperclassInterface
 	private $company;
 
 	/**
-     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Financia\AccountsSuperclassInterface", mappedBy="partner")
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Financial\AccountSuperclassInterface", mappedBy="partner")
      */
-	private $accounts
+	private $accounts;
 
 	/**
 	 *
@@ -86,21 +86,21 @@ class PartnerSuperclass implements PartnerSuperclassInterface
 
 	/**
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Order\Expense\OrderInterface")
-     * @ORM\JoinTable(name="daerp_human_resource_superclass_partners_benefits",
+     * @ORM\JoinTable(name="daerp_human_resource_superclass_partners_salaries",
      *      joinColumns={@ORM\JoinColumn(name="partner_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="benefit_id", referencedColumnName="id", unique=true)}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="salary_id", referencedColumnName="id", unique=true)}
      *      )
      */
 	private $salaries;
 
 	/**
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Order\Expense\OrderInterface")
-     * @ORM\JoinTable(name="daerp_human_resource_superclass_partners_profif_shares,
+     * @ORM\JoinTable(name="daerp_human_resource_superclass_partners_profit_shares",
      *      joinColumns={@ORM\JoinColumn(name="partner_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="profif_share_id", referencedColumnName="id", unique=true)}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="profit_share_id", referencedColumnName="id", unique=true)}
      *      )
      */
-	private $profifShares;
+	private $profitShares;
 
 	/**
      * @var \DateTime
@@ -138,7 +138,7 @@ class PartnerSuperclass implements PartnerSuperclassInterface
         $this->rewards = new ArrayCollection();
         $this->benefits = new ArrayCollection();
         $this->salaries = new ArrayCollection();
-        $this->profifShares = new ArrayCollection();
+        $this->profitShares = new ArrayCollection();
 
         $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
@@ -240,6 +240,30 @@ class PartnerSuperclass implements PartnerSuperclassInterface
     public function setCompany($company)
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of accounts.
+     *
+     * @return mixed
+     */
+    public function getAccounts()
+    {
+        return $this->accounts;
+    }
+
+    /**
+     * Sets the value of accounts.
+     *
+     * @param mixed $accounts the accounts
+     *
+     * @return self
+     */
+    public function setAccounts($accounts)
+    {
+        $this->accounts = $accounts;
 
         return $this;
     }
@@ -382,28 +406,28 @@ inverseJoinColumns={@ORM\JoinColumn(name="benefit_id", referencedColumnName="id"
 
     /**
      * Gets the joinColumns={@ORM\JoinColumn(name="partner_id", referencedColumnName="id")},
-inverseJoinColumns={@ORM\JoinColumn(name="profif_share_id", referencedColumnName="id", unique=true)}
+inverseJoinColumns={@ORM\JoinColumn(name="profit_share_id", referencedColumnName="id", unique=true)}
 ).
      *
      * @return mixed
      */
-    public function getProfifShares()
+    public function getProfitShares()
     {
-        return $this->profifShares;
+        return $this->profitShares;
     }
 
     /**
      * Sets the joinColumns={@ORM\JoinColumn(name="partner_id", referencedColumnName="id")},
-inverseJoinColumns={@ORM\JoinColumn(name="profif_share_id", referencedColumnName="id", unique=true)}
+inverseJoinColumns={@ORM\JoinColumn(name="profit_share_id", referencedColumnName="id", unique=true)}
 ).
      *
-     * @param mixed $profifShares the profif shares
+     * @param mixed $profitShares the profit shares
      *
      * @return self
      */
-    public function setProfifShares($profifShares)
+    public function setProfitShares($profitShares)
     {
-        $this->profifShares = $profifShares;
+        $this->profitShares = $profitShares;
 
         return $this;
     }
@@ -472,8 +496,6 @@ inverseJoinColumns={@ORM\JoinColumn(name="profif_share_id", referencedColumnName
      * @param \DateTime $createdAt the created at
      *
      * @return self
-     * 
-     * @ORM\PrePersist
      */
     public function setCreatedAt(\DateTime $createdAt)
     {
@@ -498,10 +520,12 @@ inverseJoinColumns={@ORM\JoinColumn(name="profif_share_id", referencedColumnName
      * @param \DateTime $updatedAt the updated at
      *
      * @return self
+     * 
+     * @ORM\PrePersist
      */
     public function setUpdatedAt()
     {
-        $this->updatedAt = new \DateTime('now');
+        $this->updatedAt = new \DateTime("now");
 
         return $this;
     }

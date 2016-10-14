@@ -158,7 +158,7 @@ class Product implements ProductInterface
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Product\RatingInterface")
-	 * @ORM\JoinTable(name="daerp_product_ratings",
+	 * @ORM\JoinTable(name="daerp_products_ratings",
 	 *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="rating_id", referencedColumnName="id", unique=true)}
 	 *      )
@@ -224,7 +224,6 @@ class Product implements ProductInterface
 		$this->images = new ArrayCollection();
 		$this->videos = new ArrayCollection();
 		$this->ratings = new ArrayCollection();
-		$this->mixProducts = new ArrayCollection();
 		$this->alternativeProducts = new ArrayCollection();
 		$this->stores = new ArrayCollection();
 

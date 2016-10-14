@@ -10,7 +10,7 @@ use DACore\IEntities\Erp\MyBusiness\MatrixInterface;
  * @ORM\Table(name="daerp_mybusiness_matrix")
  * @ORM\Entity
  */
-class Manufacturer implements MatrixInterface
+class Matrix implements MatrixInterface
 {
 	/**
 	 *

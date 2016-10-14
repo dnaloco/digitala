@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use DAErp\Entity\Order\OrderSuperclass;
 use Zend\Stdlib\Hydrator;
 use DACore\IEntities\Erp\Order\Store\OrderInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  *
  * @ORM\Table(name="daerp_store_orders")
@@ -22,13 +23,18 @@ class Order extends OrderSuperclass implements OrderInterface
 	 **/
 	private $stores;
 
-	public function __construct() {
-		$this->paymentType = 'OUTCOME';
-		$this->stores = new ArrayCollection();
-		(new Hydrator\ClassMethods)->hydrate($options, $this);
-	}
+    /**
+     * @ORM\Column(name="from_production", type="boolean",)
+     */
+    private $fromProduction;
 
-	
+	public function __construct(array $data = array()) {
+        parent::__construct($data);
+		$this->setPaymentType('compra');
+		$this->stores = new ArrayCollection();
+		(new Hydrator\ClassMethods)->hydrate($data, $this);
+	}
+    
 
     /**
      * Gets the value of stores.
@@ -50,6 +56,30 @@ class Order extends OrderSuperclass implements OrderInterface
     public function setStores($stores)
     {
         $this->stores = $stores;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of fromProduction.
+     *
+     * @return mixed
+     */
+    public function getFromProduction()
+    {
+        return $this->fromProduction;
+    }
+
+    /**
+     * Sets the value of fromProduction.
+     *
+     * @param mixed $fromProduction the from production
+     *
+     * @return self
+     */
+    public function setFromProduction($fromProduction)
+    {
+        $this->fromProduction = $fromProduction;
 
         return $this;
     }

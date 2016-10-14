@@ -38,7 +38,7 @@ implements EvaluationInterface
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\HumanResource\Monitoring\EvaluationRatingInterface")
-	 * @ORM\JoinTable(name="daerp_human_resource_monitoring_evaluation_ratings",
+	 * @ORM\JoinTable(name="daerp_human_resource_monitoring_evaluations_evaluation_ratings",
 	 *      joinColumns={@ORM\JoinColumn(name="evaluation_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="rating_id", referencedColumnName="id", unique=true)}
 	 *      )

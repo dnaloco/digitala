@@ -4,7 +4,7 @@ namespace DACore\IEntities\Erp\Order\Expense;
 interface ExpenseInterface
 {
 	function getId();
-	function getTile();
+	function getTitle();
 	function getCategory();
 	function getConsumption();
 	function getStore();

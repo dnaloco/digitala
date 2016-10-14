@@ -1,14 +1,17 @@
 <?php
-namespace R2Erp\Entity\Order\Production;
+namespace DAErp\Entity\Order\Production;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Zend\Stdlib\Hydrator;
+use DACore\IEntities\Erp\Order\Production\ProcessInterface;
 /**
  *
- * @ORM\Table(name="r2_erp_order__production_process")
+ * @ORM\Table(name="daerp_order__production_processes")
  * @ORM\Entity
  */
-class Process {
+class Process
+implements ProcessInterface
+{
 	/**
 	 * @var integer
 	 *
@@ -21,11 +24,92 @@ class Process {
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="name", type="string", nullable=true)
+	 * @ORM\Column(name="name", type="string", nullable=false)
 	 */
 	private $name;
 
-	public function __construct(array $options = array()) {
-		(new Hydrator\ClassMethods)->hydrate($options, $this);
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="description", type="text", nullable=true)
+	 */
+	private $description;
+
+	public function __construct(array $data = array()) {
+		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
+
+
+
+    /**
+     * Gets the value of id.
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param integer $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Sets the value of name.
+     *
+     * @param string $name the name
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Sets the value of description.
+     *
+     * @param string $description the description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 }

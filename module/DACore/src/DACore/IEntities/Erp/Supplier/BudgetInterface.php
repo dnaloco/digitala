@@ -8,7 +8,8 @@ interface BudgetInterface
 	function getSupplier();
 	function getValidity();
 	function getTotal();
-	function getDiscountPercentage();
+	function getDiscount();
+	function getDiscountType();
 	function getTotalWithDiscount();
 	function getMainContact();
 	function getCreatedAt();

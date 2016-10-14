@@ -48,8 +48,8 @@ class Benefit implements BenefitInterface
 	private $payDays;
 
 	/**
-     * @ManyToOne(targetEntity="DACore\IEntities\Erp\HumanResource\PartnerSuperclassInterface", inversedBy="registeredBenefits")
-     * @JoinColumn(name="partner_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\HumanResource\PartnerSuperclassInterface", inversedBy="registeredBenefits")
+     * @ORM\JoinColumn(name="partner_id", referencedColumnName="id")
      */
 	private $partner;
 
@@ -67,7 +67,7 @@ class Benefit implements BenefitInterface
      */
     protected $updatedAt;
 
-    public function __construct(array $data = array)
+    public function __construct(array $data = array())
     {
         $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");

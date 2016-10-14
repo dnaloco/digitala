@@ -4,5 +4,10 @@ namespace DACore\IEntities\Erp\Order\Production;
 interface ProductionInterface
 {
 	function getId();
-	function getName();
+	function getProductionProcess();
+	function getIsFinished();
+	function getStoreOrder();
+	function getCreatedAt();
+	function getUpdatedAt();
+	
 }

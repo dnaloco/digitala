@@ -24,9 +24,9 @@ implements DepartmentInterface
 	/**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=60, nullable=false)
+     * @ORM\Column(name="name", type="string", length=60, nullable=false)
      */
-	private $title;
+	private $name;
 
 	/**
      * @var string
@@ -66,25 +66,25 @@ implements DepartmentInterface
     }
 
     /**
-     * Gets the value of title.
+     * Gets the value of name.
      *
      * @return string
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
+        return $this->name;
     }
 
     /**
-     * Sets the value of title.
+     * Sets the value of name.
      *
-     * @param string $title the title
+     * @param string $name the name
      *
      * @return self
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }

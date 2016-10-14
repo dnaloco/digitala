@@ -1,7 +1,7 @@
 <?php
 namespace DACore\IEntities\Erp\Financial;
 
-interface PaymentInterface
+interface TaxInterface
 {
 	function getId();
 	function getName();

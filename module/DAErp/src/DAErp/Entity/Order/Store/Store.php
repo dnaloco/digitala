@@ -53,7 +53,7 @@ class Store implements StoreInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="unit_cost", type="decimal", precision=2, nullable=true)
+	 * @ORM\Column(name="unit_cost", type="decimal", precision=8, nullable=true)
 	 */
 	private $unitCost;
 
@@ -65,18 +65,18 @@ class Store implements StoreInterface
 	private $unitPrice;
 
 	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="unit_discount_price", type="decimal", precision=8, scale=2, nullable=true)
-	 */
-	private $discount;
+     * @var string
+     *
+     * @ORM\Column(name="discount", type="decimal", precision=8, nullable=true)
+     */
+    private $discount;
 
- 	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="discount_type", type="string", length=60, unique=true, nullable=true)
-	 */
-	private $discountType;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="discount_type", type="enum_discounttype", nullable=true)
+     */
+    private $discountType;
 
 	/**
 	 * @var \DateTime
@@ -97,28 +97,31 @@ class Store implements StoreInterface
      */
     private $status;
 
-	/**
-	 * @var \DateTime
-	 *
-	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
-	 */
-	private $createdAt;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
 
-	/**
-	 * @var \DateTime
-	 *
-	 * @ORM\Column(name="updated_at", type="datetime", nullable=false)
-	 */
-	private $updatedAt;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
 
-	public function __construct(array $options = array())
+	public function __construct(array $data = array())
 	{
+        $this->createdAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime("now");
+
 		$this->storages = new ArrayCollection();
 
-		(new Hydrator\ClassMethods)->hydrate($options, $this);
+		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
-	
+
 
     /**
      * Gets the value of id.
@@ -384,8 +387,6 @@ class Store implements StoreInterface
         return $this;
     }
 
-    
-
     /**
      * Gets the value of status.
      *
@@ -449,14 +450,14 @@ class Store implements StoreInterface
      *
      * @param \DateTime $updatedAt the updated at
      *
+     * @return self
+     * 
      * @ORM\PrePersist
      */
     public function setUpdatedAt()
     {
-        $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
 
         return $this;
     }
-
 }

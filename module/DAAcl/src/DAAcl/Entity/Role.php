@@ -187,6 +187,8 @@ class Role implements RoleInterface {
      * @param mixed $updatedAt the updated at
      *
      * @return self
+     * 
+     * @ORM\PrePersist
      */
     public function setUpdatedAt()
     {

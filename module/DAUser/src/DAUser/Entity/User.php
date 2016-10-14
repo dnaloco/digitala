@@ -405,7 +405,6 @@ class User implements UserInterface, EncryptInterface
      */
     public function setUpdatedAt()
     {
-        $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
 
         return $this;

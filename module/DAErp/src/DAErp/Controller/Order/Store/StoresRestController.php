@@ -5,6 +5,6 @@ use DACore\Controller\AbstractCrudRestController;
 
 class StoresRestController extends AbstractCrudRestController
 {
-    protected $aclResource = 'stores';
+    protected $aclResource = 'orderStores';
 
 }
