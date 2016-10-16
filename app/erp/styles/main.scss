@@ -1,15 +1,7 @@
 @import 'bourbon';
 
-@import 'vars';
-@import 'typography';
-@import 'icons';
-@import 'animations';
-
 @import 'settings';
 @import 'foundation';
-
-@import 'assets/ngdialog';
-//@import 'assets/ngDialogThemeDefault';
 
 /* Foundation Includes */
 @include foundation-global-styles;
@@ -56,11 +48,23 @@
 //
 //
 
+
+/* ASSETS */
+@import 'assets/ngdialog';
+@import 'assets/loading-bar';
+@import 'assets/angular-material';
+@import 'assets/angular-material-sidemenu';
+@import 'assets/sir-accordion';
+//@import 'assets/ngDialogThemeDefault';
+
+
+@import 'vars';
+@import 'typography';
+@import 'icons';
+@import 'animations';
+@import "normalize";
 @import "forms";
 @import "generics";
 @import "dialogs";
-
-
 @import "damw-menu";
 @import "footer";
-

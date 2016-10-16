@@ -11,6 +11,10 @@
     "angular": "./node_modules/angular/angular.js",
     "ngCart": "./node_modules/ngCart/dist/ngCart.js",
     "angular-masonry": "./node_modules/angular-masonry/angular-masonry.js",
+    "angular-animate": "./node_modules/angular-animate/angular-animate.js",
+    "velocity": "./bower_components/velocity/velocity.js",
+    "sir-accordion": "./library/angular/vendor/sirAccordion-master/dist/scripts/sir-accordion.js",
+    "angular-foundation": "./library/angular/vendor/angular-foundation-6-gh-pages/angular-foundation.js",
     "restangular": "./node_modules/restangular/dist/restangular.js",
     "da-authentication": "./library/angular/modules/da-authentication/da-authentication.js",
     "XdUtils": "./library/angular/vendor/cross-domain-local-storage/app/scripts/services/xd-utils.js",
@@ -28,6 +32,10 @@
     },
     "imagesloaded": {
       "exports": "ImagesLoaded"
+    },
+    "velocity": {
+      "exports": "Velocity",
+      "depends": "jquery"
     },
     "lodash": {
       "exports": "_"
@@ -71,6 +79,32 @@
       "depends": [
         "angular",
         "masonry"
+      ]
+    },
+    "angular-animate": {
+      "exports": "angular.module('ngAnimate')",
+      "depends": [
+        "angular"
+      ]
+    },
+    "angular-aria": {
+      "exports": "angular.module('ngAria')",
+      "depends": [
+        "angular"
+      ]
+    },
+    "angular-foundation": {
+      "exports": "angular.module('mm.foundation')",
+      "depends": [
+        "angular",
+        "angular-animate"
+      ]
+    },
+    "sir-accordion": {
+      "exports": "angular.module('sir-accordion')",
+      "depends": [
+        "velocity",
+        "angular"
       ]
     },
     "restangular": {
@@ -120,14 +154,17 @@
   "devDependencies": {
     "aliasify": "^2.0.0",
     "angular": "^1.5.0",
+    "angular-aria": "^1.5.8",
     "angular-busy": "^4.1.3",
     "angular-facebook": "0.0.2",
-    "angular-foundation-6": "^0.10.10",
     "angular-google-analytics": "^1.1.7",
     "angular-input-masks": "^2.4.0",
     "angular-jwt": "^0.1.3",
     "angular-loading-bar": "^0.9.0",
     "angular-masonry": "^0.16.0",
+    "angular-material": "^1.1.1",
+    "angular-material-sidemenu": "^1.0.2",
+    "angular-material-sidenav": "^0.1.1",
     "angular-messages": "^1.5.8",
     "angular-mocks": "^1.3.15",
     "angular-scroll": "^1.0.0",

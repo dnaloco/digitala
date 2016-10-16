@@ -26,12 +26,17 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
         $this->acl = $acl;
 	}
 
+    public function registerUser($user)
+    {
+        $this->cache->setItem('user', $user);
+    }
+
 	public function checkUser($id)
     {
     	$userRepo = $this->em->getRepository('DACore\IEntities\User\UserInterface');
         $user = $userRepo->find((int) $id);
-        $userArray = json_decode(static::getPropertyNamingSerializer()->serialize($user, 'json'), true);
-    	return $userArray;
+        //$userArray = json_decode(static::getPropertyNamingSerializer()->serialize($user, 'json'), true);
+    	return $user;
         //if ($user) return $user;
     }
 
@@ -92,13 +97,13 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
 
                     if (!$user) return $this->controller->statusBadRequest('Code: 234 from TokenService. Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
 
-                    if(!$user['active']) {
+                    if(!$user->getActive()) {
                         return $this->controller->statusForbidden('Code: 111 from TokenService (Usuário inativo). Contact the administrator of this api -> "arthur_scosta@yahoo.com.br" or "dnaloco@gmail.com" for more information.');
                     }
 
                     $hasAccess = false;
 
-                    foreach($user['roles'] as $role) {
+                    foreach($user->getRoles() as $role) {
                         $hasAccess =  $this->acl->isAllowed($role['name'], $resourceAcl, $this->privilege);
 
                         if ($hasAccess) break;
@@ -109,7 +114,7 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
                     }
 
                     if ($parsed_ip == $_SERVER['REMOTE_ADDR']) {
-                        // SET USER CACHE
+                        $this->registerUser($user);
                         return;
                     }
 

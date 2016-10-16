@@ -13,7 +13,8 @@ import onRoute     from './on_route';
 import onRun        from './on_run';
 
 import 'angular-ui-router';
-import 'angular-foundation-6';
+
+
 import 'angular-masonry';
 import 'ng-dialog';
 import 'angular-messages';
@@ -37,8 +38,13 @@ import 'ng-lodash';
 import 'angular-smart-table';
 import 'ng-xdLocalStorage';
 import 'angular-scroll';
-
+import 'angular-animate';
+import 'angular-aria';
+import 'angular-foundation';
+import 'angular-material';
 import 'ngEqualizer';
+import 'sir-accordion';
+import 'angular-material-sidemenu';
 
 import './templates';
 import './filters';
@@ -51,7 +57,6 @@ import './directives';
 const requires = [
 // vendors in node_modules
   'ui.router',
-  'mm.foundation',
   'wu.masonry',
   'ngDialog',
   'ngMessages',
@@ -72,8 +77,13 @@ const requires = [
   'smart-table',
   'xdLocalStorage',
   'duScroll',
-
+  'ngAnimate',
+  'ngAria',
+  'mm.foundation',
+  'ngMaterial',
   'ngEqualizer',
+  'sir-accordion',
+  'ngMaterialSidemenu',
 
   'templates',
   'app.filters',

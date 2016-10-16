@@ -20,16 +20,7 @@ use Zend\Mvc\Controller\ControllerManager;
 return [
     'router' => [
         'routes' => [
-            'daapi-subdomain' => [
-                'type' => Hostname::class,
-                'options' => [
-                    'route' => 'api.agenciadigitala.[:tail]',
-                    'constraints' => [
-                        'tail' => '[a-zA-Z._-]*',
-                    ],
-                ],
-                'may_terminate' => false,
-            ],
+            
             'dacore-preupload-rest' => [
                 'type' => Segment::class,
                 'options' => [

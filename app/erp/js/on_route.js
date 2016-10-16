@@ -8,10 +8,10 @@ function OnRoute(
   .state('Home', {
     url: '/',
     views: {
-      'header': {
+/*      'header': {
         templateUrl: 'layout/header.html',
         controller: 'HeaderController as header'
-      },
+      },*/
       'leftsidebar': {
         templateUrl: 'layout/left-navbar.html',
         controller: 'NavbarController as navbar'
@@ -37,8 +37,18 @@ function OnRoute(
     },
     title: 'Login'
   })
-  .state('Produtos', {
-    url: '/produtos',
+  .state('Home.mybusiness', {
+    abstract: true,
+    url: 'meu-negocio',
+    template: ''
+  })
+  .state('Home.mybusiness.accounts', {
+    abstract: true,
+    url: '/contas',
+    template: ''
+  })
+  .state('Home.produtos', {
+    url: 'produtos',
     views: {
         'middlecontent@': {
             templateUrl: 'pages/products/home.html',

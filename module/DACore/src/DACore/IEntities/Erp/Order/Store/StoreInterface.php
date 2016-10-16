@@ -16,4 +16,5 @@ interface StoreInterface
 	function getStorages();
 	function getStatus();
 	function getUpdatedAt();
+	function getCreatedAt();
 }

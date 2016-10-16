@@ -26,13 +26,11 @@ function OnInterceptor(
     return response.data;
   });
 
-
-
   jwtOptionsProvider.config({
       whiteListedDomains: ['api.agenciadigitala.local', 'api.agenciadigitala.com.br'],
-      tokenGetter: ['options', 'PublicTokenService', 'LoginService', 'jwtHelper', '$q', '$state',
+      tokenGetter: ['options', 'PublicTokenService', 'LoginService', 'jwtHelper', '$q', '$state', '$rootScope',
 
-        function(options, PublicTokenService, LoginService, jwtHelper, $q, $state) {
+        function(options, PublicTokenService, LoginService, jwtHelper, $q, $state, $rootScope) {
 
           var publicApi = new RegExp("/api/public/");
           var privateApi = new RegExp("/api/private/");
@@ -78,17 +76,22 @@ function OnInterceptor(
           if (privateApi.test(options.url)) {
             console.log('Verificando token privado');
             var deferred = $q.defer();
+            $rootScope.$watch('iframeLoaded', function (newVal) {
+              console.log('iframeLoaded', newVal);
+              if (newVal) {
+                LoginService.getToken().then(function(response) {
+                console.log('LoginService Verificando token privado response', response);
+                  if (response.value == null) {
+                    deferred.reject(response.value);
+                    $state.go('Login');
+                    return;
+                  }
+                  console.log('Enviando token', response.value);
+                  deferred.resolve(response.value);
+                });
+              }
 
-            LoginService.getToken().then(function(response) {
-              console.log('LoginService Verificando token privado response', response);
-                if (response.value == null) {
-                  deferred.reject(response.value);
-                  $state.go('Login');
-                  return;
-                }
-                console.log('Enviando token', response.value);
-                deferred.resolve(response.value);
-              });
+            });
 
             return deferred.promise;
 

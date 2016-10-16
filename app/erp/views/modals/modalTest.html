@@ -1,0 +1,13 @@
+<h3>I'm a modal from views!</h3>
+<ul>
+  <li ng-repeat="item in items track by $index">
+    <a ng-click="selected.item = item">{{ item }}</a>
+  </li>
+</ul>
+<p>Selected: <b>{{ selected.item }}</b></p>
+
+<button class="button" ng-click="openNested()">Open nested</button>
+<button class="button" ng-click="ok()">OK</button>
+<button ng-click="cancel()" class="close-button" aria-label="Close reveal" type="button">
+    <span aria-hidden="true">&times;</span>
+</button>

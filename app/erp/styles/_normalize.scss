@@ -1,0 +1,19 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+table, table tr, table td {
+	padding: 0 !important;
+	margin: 0 !important;
+	background: transparent !important;
+}
+
+
+
+button, input {
+	margin: 0 !important;
+}
+
+form {
+	padding: 0 !important;
+}

@@ -1,9 +1,14 @@
-function ProductsTabController() {
+function ProductsTabController(StatesService) {
   // injetando dependência
   'ngInject';
 
+  StatesService.getList().then(function(data) {
+    console.log('DATA: ', data);
+  })
   // ViewModel
   const vm = this;
+
+
 
   console.log('ProductsTabController');
 }

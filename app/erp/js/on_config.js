@@ -2,7 +2,8 @@ function OnConfig(
   $locationProvider,
   $compileProvider,
   RestangularProvider,
-  AppSettings
+  AppSettings,
+  cfpLoadingBarProvider
   ) {
 
   'ngInject';
@@ -10,6 +11,8 @@ function OnConfig(
   if (process.env.NODE_ENV === 'production') {
     $compileProvider.debugInfoEnabled(false);
   }
+  cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+  cfpLoadingBarProvider.spinnerTemplate = '<div class="loading-bar-block"><span class="fa fa-spinner">Carregando...</div>';
 
   $locationProvider.html5Mode(true);
 

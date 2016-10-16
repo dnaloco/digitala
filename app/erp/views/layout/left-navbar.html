@@ -1,3 +1,26 @@
 <div>
-	SIDEBAR
+	<md-sidemenu>
+	  <md-sidemenu-group>
+	    <md-subheader class="md-no-sticky">Menu</md-subheader>
+
+	    <md-sidemenu-content md-icon="business" md-heading="Meu Negócio" md-arrow="true">
+	      <md-sidemenu-button ui-sref="Home.mybusiness.matriz"><span class="da-icon icon-building"></span>Matriz</md-sidemenu-button>
+	      <md-sidemenu-button ui-sref="Home.mybusiness.subsidiaries"><span class="icon-office2"></span>Filiais</md-sidemenu-button>
+	    </md-sidemenu-content>
+
+	    <md-sidemenu-content md-icon="attach_money" md-heading="Financeiro" md-arrow="true">
+	      <md-sidemenu-button ui-sref="Home.fiancprodutos">Contas</md-sidemenu-button>
+	      <md-sidemenu-button ui-sref="Home.produtos">Pagementos</md-sidemenu-button>
+	    </md-sidemenu-content>
+	  </md-sidemenu-group>
+
+	  <md-sidemenu-group>
+	    <md-divider></md-divider>
+
+	    <md-subheader class="md-no-sticky">Caption</md-subheader>
+
+	    <md-sidemenu-button href="#">Menu 4</md-sidemenu-button>
+	  </md-sidemenu-group>
+	</md-sidemenu>
+
 </div>

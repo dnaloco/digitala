@@ -1,7 +1,11 @@
 <?php
 namespace DABase;
 
-use Zend\Mvc\Router\Http\Segment;
+use Zend\Mvc\Router\Http\{
+    Literal,
+    Hostname,
+    Segment
+};
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 use Zend\ServiceManager\ServiceManager;
@@ -9,6 +13,16 @@ use Zend\ServiceManager\ServiceManager;
 return [
     'router' => [
         'routes' => [
+            'daapi-subdomain' => [
+                'type' => Hostname::class,
+                'options' => [
+                    'route' => 'api.agenciadigitala.[:tail]',
+                    'constraints' => [
+                        'tail' => '[a-zA-Z._-]*',
+                    ],
+                ],
+                'may_terminate' => false,
+            ],
             'dabase-cities-rest' => [
                 'type' => 'Segment',
                 'options' => [

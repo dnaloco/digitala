@@ -1,21 +1,41 @@
 <div>
-	<form novalidate ng-submit="login.testLogin()" name="signinForm" ng-init="login.getToken('signinForm', login.login)">
+	<form id="da-login-form" novalidate ng-submit="login.testLogin()" name="signinForm" ng-init="login.getToken('signinForm', login.login)">
+		<input type="hidden" name="signinFormToken" ng-model="silenceIsGold" required>
 
-			<input type="hidden" name="signinFormToken" ng-model="silenceIsGold" required>
+		<div ng-show="signinForm.signinFormToken.$invalid">
+			Missing token form...
+		</div>
+			<table>
+				<caption>Login - Módulo ERP</caption>
+				<tr>
+					<td>
+						<label for="signin_user">Usuário:</label>
+					</td>
+					<td>
+						<input type="email" name="signin_user" ng-model="login.login.user" required>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="signin_password">Senha:</label></td>
+					<td><input type="password" name="signin_password" ng-model="login.login.password" required></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="rememberMe" class="float-left">Lembrar a minha senha?</label>
+						<input class="float-right" type="checkbox" name="signin_rememberMe" id="rememberMe">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button class="button warning small expanded" ng-disabled="signinForm.signin_user.$invalid">Esqueci a senha</button>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button class="button success expanded" type="submit" ng-disabled="signinForm.$invalid">Login</button>
+					</td>
+				</tr>
+			</table>
 
-			<div ng-show="signinForm.signinFormToken.$invalid">
-				Missing token form...
-			</div>
-
-			<label for="signin_user">
-				Usuário: <br>
-				<input type="text" name="signin_user" ng-model="login.login.user" required>	
-			</label>
-			<label for="signin_password">
-				Senha: <br>
-				<input type="password" name="signin_password" ng-model="login.login.password" required>
-			</label>
-
-			<button class="button success" type="submit" ng-disabled="signinForm.$invalid">Login</button>
 		</form>
 </div>

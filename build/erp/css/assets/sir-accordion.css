@@ -1,0 +1,96 @@
+/* line 1, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  display: block; }
+
+/* line 8, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-wrapper > div > .sir-accordion-header {
+  background-color: #323232; }
+
+/* line 12, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-wrapper > div > .sir-accordion-header:hover {
+  background-color: #3E3E3E; }
+
+/* line 16, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-wrapper > div > .sir-accordion-header.active-header {
+  background-color: #22354C; }
+
+/* line 20, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-wrapper > div > .sir-accordion-header.active-header:hover {
+  background-color: #2E4765; }
+
+/* line 24, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-wrapper > div > .sir-accordion-header * {
+  color: white; }
+
+/* line 28, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-group {
+  overflow: hidden;
+  width: 100%; }
+
+/* line 33, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-group > div > .sir-accordion-header {
+  background-color: #f0f0f0; }
+
+/* line 37, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-group > div > .sir-accordion-header:hover {
+  background-color: #f6f6f6; }
+
+/* line 41, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-group > div > .sir-accordion-header.active-header {
+  background-color: #3F5F8B; }
+
+/* line 45, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-group > div > .sir-accordion-header.active-header:hover {
+  background-color: #2860A8; }
+
+/* line 49, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-group .sir-accordion-header * {
+  color: black; }
+
+/* line 53, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-group .sir-accordion-header.active-header * {
+  color: white; }
+
+/* line 57, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-header {
+  height: 40px;
+  cursor: pointer;
+  overflow: hidden;
+  margin-bottom: 2px;
+  padding: 0px 15px;
+  position: relative;
+  z-index: 1; }
+
+/* line 67, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-content {
+  overflow: hidden;
+  padding-left: 15px; }
+
+/* line 75, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-content > div {
+  height: 0px; }
+
+/* line 79, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-content > div > div {
+  overflow: auto; }
+
+/* line 86, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-content-margin {
+  height: 2px; }
+
+/* line 90, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-vertical-align {
+  display: table;
+  height: 100%;
+  width: 100%; }
+
+/* line 96, /home/familia/Sites/agenciadigitala.local/app/erp/styles/assets/sir-accordion.scss */
+.sir-accordion-vertical-align > * {
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%; }
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNpci1hY2NvcmRpb24uY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGdHQUFnRztBQUNoRztFQUNFLGlCQUFpQjtFQUNqQixZQUFZO0VBQ1osbUJBQW1CO0VBQ25CLGVBQWUsRUFBRTs7QUFFbkIsZ0dBQWdHO0FBQ2hHO0VBQ0UsMEJBQTBCLEVBQUU7O0FBRTlCLGlHQUFpRztBQUNqRztFQUNFLDBCQUEwQixFQUFFOztBQUU5QixpR0FBaUc7QUFDakc7RUFDRSwwQkFBMEIsRUFBRTs7QUFFOUIsaUdBQWlHO0FBQ2pHO0VBQ0UsMEJBQTBCLEVBQUU7O0FBRTlCLGlHQUFpRztBQUNqRztFQUNFLGFBQWEsRUFBRTs7QUFFakIsaUdBQWlHO0FBQ2pHO0VBQ0UsaUJBQWlCO0VBQ2pCLFlBQVksRUFBRTs7QUFFaEIsaUdBQWlHO0FBQ2pHO0VBQ0UsMEJBQTBCLEVBQUU7O0FBRTlCLGlHQUFpRztBQUNqRztFQUNFLDBCQUEwQixFQUFFOztBQUU5QixpR0FBaUc7QUFDakc7RUFDRSwwQkFBMEIsRUFBRTs7QUFFOUIsaUdBQWlHO0FBQ2pHO0VBQ0UsMEJBQTBCLEVBQUU7O0FBRTlCLGlHQUFpRztBQUNqRztFQUNFLGFBQWEsRUFBRTs7QUFFakIsaUdBQWlHO0FBQ2pHO0VBQ0UsYUFBYSxFQUFFOztBQUVqQixpR0FBaUc7QUFDakc7RUFDRSxhQUFhO0VBQ2IsZ0JBQWdCO0VBQ2hCLGlCQUFpQjtFQUNqQixtQkFBbUI7RUFDbkIsa0JBQWtCO0VBQ2xCLG1CQUFtQjtFQUNuQixXQUFXLEVBQUU7O0FBRWYsaUdBQWlHO0FBQ2pHO0VBQ0UsaUJBQWlCO0VBQ2pCLG1CQUFtQixFQUFFOztBQUV2QixpR0FBaUc7QUFDakc7RUFDRSxZQUFZLEVBQUU7O0FBRWhCLGlHQUFpRztBQUNqRztFQUNFLGVBQWUsRUFBRTs7QUFFbkIsaUdBQWlHO0FBQ2pHO0VBQ0UsWUFBWSxFQUFFOztBQUVoQixpR0FBaUc7QUFDakc7RUFDRSxlQUFlO0VBQ2YsYUFBYTtFQUNiLFlBQVksRUFBRTs7QUFFaEIsaUdBQWlHO0FBQ2pHO0VBQ0Usb0JBQW9CO0VBQ3BCLHVCQUF1QjtFQUN2QixhQUFhLEVBQUUiLCJmaWxlIjoiYXNzZXRzL3Npci1hY2NvcmRpb24uY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogbGluZSAxLCAvaG9tZS9mYW1pbGlhL1NpdGVzL2FnZW5jaWFkaWdpdGFsYS5sb2NhbC9hcHAvZXJwL3N0eWxlcy9hc3NldHMvc2lyLWFjY29yZGlvbi5zY3NzICovXG4uc2lyLWFjY29yZGlvbi13cmFwcGVyIHtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgd2lkdGg6IDEwMCU7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgZGlzcGxheTogYmxvY2s7IH1cblxuLyogbGluZSA4LCAvaG9tZS9mYW1pbGlhL1NpdGVzL2FnZW5jaWFkaWdpdGFsYS5sb2NhbC9hcHAvZXJwL3N0eWxlcy9hc3NldHMvc2lyLWFjY29yZGlvbi5zY3NzICovXG4uc2lyLWFjY29yZGlvbi13cmFwcGVyID4gZGl2ID4gLnNpci1hY2NvcmRpb24taGVhZGVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzMyMzIzMjsgfVxuXG4vKiBsaW5lIDEyLCAvaG9tZS9mYW1pbGlhL1NpdGVzL2FnZW5jaWFkaWdpdGFsYS5sb2NhbC9hcHAvZXJwL3N0eWxlcy9hc3NldHMvc2lyLWFjY29yZGlvbi5zY3NzICovXG4uc2lyLWFjY29yZGlvbi13cmFwcGVyID4gZGl2ID4gLnNpci1hY2NvcmRpb24taGVhZGVyOmhvdmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzNFM0UzRTsgfVxuXG4vKiBsaW5lIDE2LCAvaG9tZS9mYW1pbGlhL1NpdGVzL2FnZW5jaWFkaWdpdGFsYS5sb2NhbC9hcHAvZXJwL3N0eWxlcy9hc3NldHMvc2lyLWFjY29yZGlvbi5zY3NzICovXG4uc2lyLWFjY29yZGlvbi13cmFwcGVyID4gZGl2ID4gLnNpci1hY2NvcmRpb24taGVhZGVyLmFjdGl2ZS1oZWFkZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMjIzNTRDOyB9XG5cbi8qIGxpbmUgMjAsIC9ob21lL2ZhbWlsaWEvU2l0ZXMvYWdlbmNpYWRpZ2l0YWxhLmxvY2FsL2FwcC9lcnAvc3R5bGVzL2Fzc2V0cy9zaXItYWNjb3JkaW9uLnNjc3MgKi9cbi5zaXItYWNjb3JkaW9uLXdyYXBwZXIgPiBkaXYgPiAuc2lyLWFjY29yZGlvbi1oZWFkZXIuYWN0aXZlLWhlYWRlcjpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMyRTQ3NjU7IH1cblxuLyogbGluZSAyNCwgL2hvbWUvZmFtaWxpYS9TaXRlcy9hZ2VuY2lhZGlnaXRhbGEubG9jYWwvYXBwL2VycC9zdHlsZXMvYXNzZXRzL3Npci1hY2NvcmRpb24uc2NzcyAqL1xuLnNpci1hY2NvcmRpb24td3JhcHBlciA+IGRpdiA+IC5zaXItYWNjb3JkaW9uLWhlYWRlciAqIHtcbiAgY29sb3I6IHdoaXRlOyB9XG5cbi8qIGxpbmUgMjgsIC9ob21lL2ZhbWlsaWEvU2l0ZXMvYWdlbmNpYWRpZ2l0YWxhLmxvY2FsL2FwcC9lcnAvc3R5bGVzL2Fzc2V0cy9zaXItYWNjb3JkaW9uLnNjc3MgKi9cbi5zaXItYWNjb3JkaW9uLWdyb3VwIHtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgd2lkdGg6IDEwMCU7IH1cblxuLyogbGluZSAzMywgL2hvbWUvZmFtaWxpYS9TaXRlcy9hZ2VuY2lhZGlnaXRhbGEubG9jYWwvYXBwL2VycC9zdHlsZXMvYXNzZXRzL3Npci1hY2NvcmRpb24uc2NzcyAqL1xuLnNpci1hY2NvcmRpb24tZ3JvdXAgPiBkaXYgPiAuc2lyLWFjY29yZGlvbi1oZWFkZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjBmMGYwOyB9XG5cbi8qIGxpbmUgMzcsIC9ob21lL2ZhbWlsaWEvU2l0ZXMvYWdlbmNpYWRpZ2l0YWxhLmxvY2FsL2FwcC9lcnAvc3R5bGVzL2Fzc2V0cy9zaXItYWNjb3JkaW9uLnNjc3MgKi9cbi5zaXItYWNjb3JkaW9uLWdyb3VwID4gZGl2ID4gLnNpci1hY2NvcmRpb24taGVhZGVyOmhvdmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y2ZjZmNjsgfVxuXG4vKiBsaW5lIDQxLCAvaG9tZS9mYW1pbGlhL1NpdGVzL2FnZW5jaWFkaWdpdGFsYS5sb2NhbC9hcHAvZXJwL3N0eWxlcy9hc3NldHMvc2lyLWFjY29yZGlvbi5zY3NzICovXG4uc2lyLWFjY29yZGlvbi1ncm91cCA+IGRpdiA+IC5zaXItYWNjb3JkaW9uLWhlYWRlci5hY3RpdmUtaGVhZGVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzNGNUY4QjsgfVxuXG4vKiBsaW5lIDQ1LCAvaG9tZS9mYW1pbGlhL1NpdGVzL2FnZW5jaWFkaWdpdGFsYS5sb2NhbC9hcHAvZXJwL3N0eWxlcy9hc3NldHMvc2lyLWFjY29yZGlvbi5zY3NzICovXG4uc2lyLWFjY29yZGlvbi1ncm91cCA+IGRpdiA+IC5zaXItYWNjb3JkaW9uLWhlYWRlci5hY3RpdmUtaGVhZGVyOmhvdmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzI4NjBBODsgfVxuXG4vKiBsaW5lIDQ5LCAvaG9tZS9mYW1pbGlhL1NpdGVzL2FnZW5jaWFkaWdpdGFsYS5sb2NhbC9hcHAvZXJwL3N0eWxlcy9hc3NldHMvc2lyLWFjY29yZGlvbi5zY3NzICovXG4uc2lyLWFjY29yZGlvbi1ncm91cCAuc2lyLWFjY29yZGlvbi1oZWFkZXIgKiB7XG4gIGNvbG9yOiBibGFjazsgfVxuXG4vKiBsaW5lIDUzLCAvaG9tZS9mYW1pbGlhL1NpdGVzL2FnZW5jaWFkaWdpdGFsYS5sb2NhbC9hcHAvZXJwL3N0eWxlcy9hc3NldHMvc2lyLWFjY29yZGlvbi5zY3NzICovXG4uc2lyLWFjY29yZGlvbi1ncm91cCAuc2lyLWFjY29yZGlvbi1oZWFkZXIuYWN0aXZlLWhlYWRlciAqIHtcbiAgY29sb3I6IHdoaXRlOyB9XG5cbi8qIGxpbmUgNTcsIC9ob21lL2ZhbWlsaWEvU2l0ZXMvYWdlbmNpYWRpZ2l0YWxhLmxvY2FsL2FwcC9lcnAvc3R5bGVzL2Fzc2V0cy9zaXItYWNjb3JkaW9uLnNjc3MgKi9cbi5zaXItYWNjb3JkaW9uLWhlYWRlciB7XG4gIGhlaWdodDogNDBweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBtYXJnaW4tYm90dG9tOiAycHg7XG4gIHBhZGRpbmc6IDBweCAxNXB4O1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHotaW5kZXg6IDE7IH1cblxuLyogbGluZSA2NywgL2hvbWUvZmFtaWxpYS9TaXRlcy9hZ2VuY2lhZGlnaXRhbGEubG9jYWwvYXBwL2VycC9zdHlsZXMvYXNzZXRzL3Npci1hY2NvcmRpb24uc2NzcyAqL1xuLnNpci1hY2NvcmRpb24tY29udGVudCB7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIHBhZGRpbmctbGVmdDogMTVweDsgfVxuXG4vKiBsaW5lIDc1LCAvaG9tZS9mYW1pbGlhL1NpdGVzL2FnZW5jaWFkaWdpdGFsYS5sb2NhbC9hcHAvZXJwL3N0eWxlcy9hc3NldHMvc2lyLWFjY29yZGlvbi5zY3NzICovXG4uc2lyLWFjY29yZGlvbi1jb250ZW50ID4gZGl2IHtcbiAgaGVpZ2h0OiAwcHg7IH1cblxuLyogbGluZSA3OSwgL2hvbWUvZmFtaWxpYS9TaXRlcy9hZ2VuY2lhZGlnaXRhbGEubG9jYWwvYXBwL2VycC9zdHlsZXMvYXNzZXRzL3Npci1hY2NvcmRpb24uc2NzcyAqL1xuLnNpci1hY2NvcmRpb24tY29udGVudCA+IGRpdiA+IGRpdiB7XG4gIG92ZXJmbG93OiBhdXRvOyB9XG5cbi8qIGxpbmUgODYsIC9ob21lL2ZhbWlsaWEvU2l0ZXMvYWdlbmNpYWRpZ2l0YWxhLmxvY2FsL2FwcC9lcnAvc3R5bGVzL2Fzc2V0cy9zaXItYWNjb3JkaW9uLnNjc3MgKi9cbi5zaXItYWNjb3JkaW9uLWNvbnRlbnQtbWFyZ2luIHtcbiAgaGVpZ2h0OiAycHg7IH1cblxuLyogbGluZSA5MCwgL2hvbWUvZmFtaWxpYS9TaXRlcy9hZ2VuY2lhZGlnaXRhbGEubG9jYWwvYXBwL2VycC9zdHlsZXMvYXNzZXRzL3Npci1hY2NvcmRpb24uc2NzcyAqL1xuLnNpci1hY2NvcmRpb24tdmVydGljYWwtYWxpZ24ge1xuICBkaXNwbGF5OiB0YWJsZTtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTsgfVxuXG4vKiBsaW5lIDk2LCAvaG9tZS9mYW1pbGlhL1NpdGVzL2FnZW5jaWFkaWdpdGFsYS5sb2NhbC9hcHAvZXJwL3N0eWxlcy9hc3NldHMvc2lyLWFjY29yZGlvbi5zY3NzICovXG4uc2lyLWFjY29yZGlvbi12ZXJ0aWNhbC1hbGlnbiA+ICoge1xuICBkaXNwbGF5OiB0YWJsZS1jZWxsO1xuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuICBoZWlnaHQ6IDEwMCU7IH1cbiJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ== */
