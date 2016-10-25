@@ -20,6 +20,12 @@ implements BankInterface
 	 */
 	private $name;
 
+    /**
+     *
+     * @ORM\Column(name="code", type="smallint", nullable=false)
+     */
+    private $code;
+
 	/**
      * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\PersonInterface")
      * @ORM\JoinColumn(name="manager_id", referencedColumnName="id")
@@ -40,7 +46,7 @@ implements BankInterface
 
 	/**
 	 *
-	 * @ORM\Column(name="digit", type="integer", nullable=false)
+	 * @ORM\Column(name="digit", type="smallint", nullable=false)
 	 */
 	private $digit;
 

@@ -31,9 +31,15 @@ class Document implements DocumentInterface
      */
     private $type;
 
+    /**
+     *
+     * @ORM\Column(name="number", type="string", nullable=false, unique=true)
+     */
+    private $number;
+
 	/**
      *
-     * @ORM\Column(name="field_1", type="string", nullable=false, unique=true)
+     * @ORM\Column(name="field_1", type="string", nullable=false)
      */
 	private $field1;
 

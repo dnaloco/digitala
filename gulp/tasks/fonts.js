@@ -4,9 +4,9 @@ import gulp        from 'gulp';
 import browserSync from 'browser-sync';
 
 function fonts(src, dest) {
-	return gulp.src(config.sourceDir + src)
-    .pipe(changed(config.buildDir + dest)) // Ignore unchanged files
-    .pipe(gulp.dest(config.buildDir + dest))
+	return gulp.src(src)
+    .pipe(changed(dest)) // Ignore unchanged files
+    .pipe(gulp.dest(dest))
     .pipe(browserSync.stream());
 }
 

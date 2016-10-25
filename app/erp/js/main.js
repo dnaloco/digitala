@@ -45,6 +45,7 @@ import 'angular-material';
 import 'ngEqualizer';
 import 'sir-accordion';
 import 'angular-material-sidemenu';
+import 'angular-breadcrumb';
 
 import './templates';
 import './filters';
@@ -84,6 +85,7 @@ const requires = [
   'ngEqualizer',
   'sir-accordion',
   'ngMaterialSidemenu',
+  'ncy-angular-breadcrumb',
 
   'templates',
   'app.filters',

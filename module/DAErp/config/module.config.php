@@ -827,7 +827,210 @@ return [
                                     ),
                                 ),
                             ),
+                            'daerp-my-business' => array(
+                                'type'          => Literal::class,
+                                'options'       => array(
+                                    'route'    => 'meu-negocio/',
+                                    'defaults' => array(
+                                        'controller' => Controller\IndexController::class,
+                                        'action'     => 'index',
+                                    ),
+                                ),
+                                'may_terminate' => false,
+                                'child_routes'  => array(
+                                    'daerp-my-business-matrix'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'matriz[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                    'daerp-my-business-subsidiaries'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'filiais[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                            'daerp-financial' => array(
+                                'type'          => Literal::class,
+                                'options'       => array(
+                                    'route'    => 'financeiro/',
+                                    'defaults' => array(
+                                        'controller' => Controller\IndexController::class,
+                                        'action'     => 'index',
+                                    ),
+                                ),
+                                'may_terminate' => false,
+                                'child_routes'  => array(
+                                    'daerp-financial-accounts'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'contas[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                    'daerp-financial-payments'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'pagamentos[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                    'daerp-financial-taxes'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'impostos[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                            'daerp-human-resource' => array(
+                                'type'          => Literal::class,
+                                'options'       => array(
+                                    'route'    => 'recursos-humanos/',
+                                    'defaults' => array(
+                                        'controller' => Controller\IndexController::class,
+                                        'action'     => 'index',
+                                    ),
+                                ),
+                                'may_terminate' => false,
+                                'child_routes'  => array(
+                                    'daerp-human-resource-monitoring'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'monitoramento[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                    'daerp-human-resource-organization'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'organizacao[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                    'daerp-human-resource-partners'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'colaboradores[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                    'daerp-human-resource-recruitment'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'recrutamento[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                    'daerp-human-resource-support'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'suporte[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                    'daerp-human-resource-wage'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'remuneracao[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                            'daerp-inventory' => array(
+                                'type'          => Literal::class,
+                                'options'       => array(
+                                    'route'    => 'inventario/',
+                                    'defaults' => array(
+                                        'controller' => Controller\IndexController::class,
+                                        'action'     => 'index',
+                                    ),
+                                ),
+                                'may_terminate' => true,
+                                'child_routes'  => array(
+                                    'daerp-inventory-parkeds'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'estacionados[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                    'daerp-inventory-warehouses'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'armazens[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                    'daerp-inventory-storages'           => array(
+                                        'type'    => Segment::class,
+                                        'options' => array(
+                                            'route'    => 'estoques[/]',
+                                            'defaults' => array(
+                                                'controller' => Controller\IndexController::class,
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
                             'daerp-products' => array(
+                                'type'          => Segment::class,
+                                'options'       => array(
+                                    'route'    => 'produtos[/]',
+                                    'defaults' => array(
+                                        'controller' => Controller\IndexController::class,
+                                        'action'     => 'index',
+                                    ),
+                                ),
+                                'may_terminate' => true
+                            ),
+                            /*'daerp-products' => array(
                                 'type'          => Segment::class,
                                 'options'       => array(
                                     'route'    => 'produtos[/]',
@@ -838,7 +1041,7 @@ return [
                                 ),
                                 'may_terminate' => true,
                                 'child_routes'  => array(
-                                    'daerp-products-new'           => array(
+                                    'daerp-save-product'           => array(
                                         'type'    => Segment::class,
                                         'options' => array(
                                             'route'    => 'novo[/]',
@@ -848,17 +1051,7 @@ return [
                                             ),
                                         ),
                                     ),
-                                    'daerp-products-manufacturers' => array(
-                                        'type'    => Segment::class,
-                                        'options' => array(
-                                            'route'    => 'fabricantes[/]',
-                                            'defaults' => array(
-                                                'controller' => Controller\IndexController::class,
-                                                'action'     => 'index',
-                                            ),
-                                        ),
-                                    ),
-                                ),
+                                ),*/
                             ),
                         ),
                     ),

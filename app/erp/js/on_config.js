@@ -3,10 +3,15 @@ function OnConfig(
   $compileProvider,
   RestangularProvider,
   AppSettings,
-  cfpLoadingBarProvider
+  cfpLoadingBarProvider,
+  $breadcrumbProvider
   ) {
 
   'ngInject';
+
+  $breadcrumbProvider.setOptions({
+    includeAbstract: true
+  });
 
   if (process.env.NODE_ENV === 'production') {
     $compileProvider.debugInfoEnabled(false);
