@@ -40,11 +40,6 @@ class PartnerSuperclass implements PartnerSuperclassInterface
      */
 	private $occupation;
 
-	/**
-     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\CompanyInterface")
-     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
-     */
-	private $company;
 
 	/**
      * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Financial\AccountSuperclassInterface", mappedBy="partner")
@@ -216,30 +211,6 @@ class PartnerSuperclass implements PartnerSuperclassInterface
     public function setOccupation($occupation)
     {
         $this->occupation = $occupation;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of company.
-     *
-     * @return mixed
-     */
-    public function getCompany()
-    {
-        return $this->company;
-    }
-
-    /**
-     * Sets the value of company.
-     *
-     * @param mixed $company the company
-     *
-     * @return self
-     */
-    public function setCompany($company)
-    {
-        $this->company = $company;
 
         return $this;
     }

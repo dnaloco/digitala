@@ -1,7 +1,7 @@
 function ManufacturersService(Restangular) {
   'ngInject';
 
-  var privateUrl = 'private/manufacturer/manufacturers';
+  var privateUrl = 'private/manufacturers';
 
   const service = {
     getList:   getList,
@@ -12,15 +12,15 @@ function ManufacturersService(Restangular) {
   };
 
   function getList(options) {
-    return Restangular.all(publicUrl).getList(options);
+    return Restangular.all(privateUrl).getList(options);
   }
 
   function getOne(userId, options) {
-    return Restangular.one(publicUrl, userId).get(options);
+    return Restangular.one(privateUrl, userId).get(options);
   }
 
   function save(scope) {
-    return Restangular.all(publicUrl).post(scope);
+    return Restangular.all(privateUrl).post(scope);
   }
 
 

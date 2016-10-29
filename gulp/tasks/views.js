@@ -5,8 +5,6 @@ import templateCache  from 'gulp-angular-templatecache';
 import rename         from 'gulp-rename';
 
 function views(index, src, dest, layoutSrc, layoutDest) {
-  console.log('IS PROD', global.isProd);
-  // Put our index.html in the dist folder
   const indexFile = gulp.src(config.sourceDir + index)
       .pipe(rename(layoutSrc))
       .pipe(gulp.dest(layoutDest));
@@ -21,10 +19,12 @@ function views(index, src, dest, layoutSrc, layoutDest) {
   return merge(indexFile, views);
 }
 
-
 gulp.task('blogViews', function() {
 
-  return views(config.blog.views.index, config.blog.views.src, config.blog.views.dest);
+  return views(
+    config.blog.views.index, 
+    config.blog.views.src, 
+    config.blog.views.dest);
 });
 
 gulp.task('siteViews', function() {

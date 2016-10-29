@@ -4,6 +4,8 @@ namespace DACore\IEntities\Base;
 interface PersonInterface
 {
     function getId();
+    function getReference();
+    function getCompany();
     function getName();
     function getGender();
     function getBirthdate();
@@ -15,6 +17,8 @@ interface PersonInterface
     function getSocialNetworks();
     function getDocuments();
     function getWebsite();
+    function getLiteracy();
+    function getPost();
     function getNotes();
     function getUser();
     function getCreatedAt();

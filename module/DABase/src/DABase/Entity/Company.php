@@ -23,11 +23,20 @@ class Company implements CompanyInterface
      */
 	private $id;
 
-	/**
+    /**
      *
-     * @ORM\Column(name="type", type="enum_companytype")
+     * @ORM\Column(name="reference", type="string", length=255, nullable=true, unique=true)
      */
-	private $type;
+    private $reference;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\CompanyTypeInterface")
+     * @ORM\JoinTable(name="dabase_companies_types",
+     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="type_id", referencedColumnName="id")}
+     *      )
+     **/
+	private $types;
 
 	/**
      *
@@ -97,6 +106,10 @@ class Company implements CompanyInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")}
      *      )
      **/
+
+    /**
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Base\PersonInterface", mappedBy="company", cascade={"persist"})
+     */
     private $contacts;
 
 	/**
@@ -155,6 +168,7 @@ class Company implements CompanyInterface
 
 	public function __construct(array $data)
 	{
+        $this->types = new ArrayCollection();
 		$this->telephones = new ArrayCollection();
 		$this->documents = new ArrayCollection();
         $this->emails = new ArrayCollection();
@@ -168,6 +182,8 @@ class Company implements CompanyInterface
 
         (new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
+
+
 
 
     /**
@@ -195,25 +211,63 @@ class Company implements CompanyInterface
     }
 
     /**
-     * Gets the value of type.
+     * Gets the value of reference.
      *
      * @return mixed
      */
-    public function getType()
+    public function getReference()
     {
-        return $this->type;
+        return $this->reference;
     }
 
     /**
-     * Sets the value of type.
+     * Sets the value of reference.
      *
-     * @param mixed $type the type
+     * @param mixed $reference the reference
      *
      * @return self
      */
-    public function setType($type)
+    public function setReference($reference)
     {
-        $this->type = $type;
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of types.
+     *
+     * @return mixed
+     */
+    public function getTypes()
+    {
+        return $this->types;
+    }
+
+    /**
+     * Sets the value of types.
+     *
+     * @param mixed $types the types
+     *
+     * @return self
+     */
+    public function setTypes($types)
+    {
+        $this->types = $types;
+
+        return $this;
+    }
+
+    public function addType(\DACore\IEntities\Base\CompanyTypeInterface $type)
+    {
+        $this->types->add($type);
+
+        return $this;
+    }
+
+    public function removeType(\DACore\IEntities\Base\CompanyTypeInterface $type)
+    {
+        $this->types->removeElement($type);
 
         return $this;
     }
@@ -627,7 +681,7 @@ inverseJoinColumns={@ORM\JoinColumn(name="good_tag_id", referencedColumnName="id
      */
     public function setUpdatedAt()
     {
-        $this->updatedAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime('now');
 
         return $this;
     }

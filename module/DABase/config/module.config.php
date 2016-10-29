@@ -173,6 +173,7 @@ return [
                     'DACore\IEntities\Base\CityInterface'              => 'DABase\Entity\City',
                     'DACore\IEntities\Base\CompanyInterface'           => 'DABase\Entity\Company',
                     'DACore\IEntities\Base\CompanyCategoryInterface'   => 'DABase\Entity\CompanyCategory',
+                    'DACore\IEntities\Base\CompanyTypeInterface'   => 'DABase\Entity\CompanyType',
                     'DACore\IEntities\Base\CountryInterface'           => 'DABase\Entity\Country',
                     'DACore\IEntities\Base\CurrencyInterface'          => 'DABase\Entity\Currency',
                     'DACore\IEntities\Base\DocumentInterface'          => 'DABase\Entity\Document',

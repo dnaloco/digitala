@@ -1,4 +1,4 @@
-function LayoutController($rootScope, LoginService, jwtHelper, $state) {
+function LayoutController($rootScope, LoginService, jwtHelper, $state, StatesService) {
 	'ngInject';
 
 	const vm = this;
@@ -10,6 +10,10 @@ function LayoutController($rootScope, LoginService, jwtHelper, $state) {
 	console.log('LAYOUT CONTROLLER');
 
 	vm.logged = false;
+
+	StatesService.getList().then(function(result) {
+		console.log('RESULT', result);
+	})
 
 	$rootScope.$on('isLogged', function(value) {
 		vm.logged = true;

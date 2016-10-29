@@ -6,4 +6,5 @@ use DACore\Controller\AbstractCrudRestController;
 class FeaturesRestController extends AbstractCrudRestController
 {
     protected $aclResource = 'productFeatures';
+
 }

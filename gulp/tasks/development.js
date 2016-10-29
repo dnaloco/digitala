@@ -20,8 +20,8 @@ gulp.task('erpDev', ['clean'], function(cb) {
   runSequence(
     'crossDomainStorage',
     ['erpStyles', 'erpImages', 'erpViews'],
-  	'erpBrowserify',
-  	'fonts', 'indexFile', 'uploadsDir', 'erpWatch', cb);
+    'erpBrowserify',
+  	'fonts', 'fontsWatch', 'indexFile', 'uploadsDir', 'erpWatch', cb);
 
 });
 
@@ -31,9 +31,11 @@ gulp.task('modulesDev', ['clean'], function(cb) {
 
   runSequence(
     'crossDomainStorage',
+    ['baseStyles', 'baseImages', 'baseViews'],
+    'baseBrowserify',
     ['modulesStyles', 'modulesImages', 'modulesViews'],
     'modulesBrowserify',
-    'fonts', 'indexFile', 'uploadsDir', 'modulesWatch', cb);
+    'fonts', 'indexFile', 'uploadsDir', 'baseWatch', 'modulesWatch', cb);
 
 });
 
@@ -44,13 +46,10 @@ gulp.task('dev', ['clean'], function(cb) {
     'crossDomainStorage',
   	['erpStyles', 'erpImages', 'erpViews'],
   	'erpBrowserify',
-  	['siteStyles', 'siteImages', 'siteViews'],
-  	'siteBrowserify',
     ['modulesStyles', 'modulesImages', 'modulesViews'],
     'modulesBrowserify',
   	'fonts', 'indexFile', 'uploadsDir',
     'erpWatch',
-    'siteWatch',
     'modulesWatch',
     cb);
 })

@@ -33,6 +33,7 @@ gulp.task('blogStyles', function() {
   return styles(config.blog.styles.src, config.blog.styles.dest);
 });
 
+
 gulp.task('siteStyles', function() {
   return styles(config.site.styles.src, config.site.styles.dest);
 });

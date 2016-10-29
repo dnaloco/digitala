@@ -33,13 +33,13 @@ class Document implements DocumentInterface
 
     /**
      *
-     * @ORM\Column(name="number", type="string", nullable=false, unique=true)
+     * @ORM\Column(name="reference", type="string", nullable=false, unique=true)
      */
-    private $number;
+    private $reference;
 
 	/**
      *
-     * @ORM\Column(name="field_1", type="string", nullable=false)
+     * @ORM\Column(name="field_1", type="string", nullable=true)
      */
 	private $field1;
 
@@ -120,7 +120,6 @@ class Document implements DocumentInterface
 	}
 
 
-
     /**
      * Gets the value of id.
      *
@@ -165,6 +164,30 @@ class Document implements DocumentInterface
     public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of reference.
+     *
+     * @return mixed
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+
+    /**
+     * Sets the value of reference.
+     *
+     * @param mixed $reference the reference
+     *
+     * @return self
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
 
         return $this;
     }
@@ -425,12 +448,12 @@ class Document implements DocumentInterface
      * @param mixed $updatedAt the updated at
      *
      * @return self
-     * 
+     *
      * @ORM\PrePersist
      */
     public function setUpdatedAt()
     {
-        $this->updatedAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime('now');
 
         return $this;
     }

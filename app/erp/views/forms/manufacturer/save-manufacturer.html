@@ -1,8 +1,10 @@
 <div>
 	<!-- controller as manuf -->
-	{{manuf.pageTitle}}
+	<h2>{{pageTitle}}</h2>
 	<form>
-		<button>Selecionar Empresa Existente</button>
-		<button>Cadastrar Nova Empresa</button>
+		<div ng-show="newEntity">
+			<button class="button">Selecionar Empresa Existente</button>
+			<button class="button">Cadastrar Nova Empresa</button>
+		</div>
 	</form>
 </div>

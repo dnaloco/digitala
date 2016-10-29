@@ -13,3 +13,7 @@ function fonts(src, dest) {
 gulp.task('fonts', function() {
   return fonts(config.fonts.src, config.fonts.dest);
 });
+
+gulp.task('fontsWatch', function() {
+  return gulp.watch(config.sourceDir + config.fonts.src,   ['fonts']);
+});

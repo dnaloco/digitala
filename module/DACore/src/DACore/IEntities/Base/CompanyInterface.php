@@ -4,7 +4,10 @@ namespace DACore\IEntities\Base;
 interface CompanyInterface
 {
 	function getId();
-	function getType();
+	function getReference();
+	function getTypes();
+	function addType(\DACore\IEntities\Base\CompanyTypeInterface $type);
+	function removeType(\DACore\IEntities\Base\CompanyTypeInterface $type);
 	function getTradingName();
 	function getCompanyName();
 	function getCategory();

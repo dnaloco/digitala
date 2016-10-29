@@ -34,6 +34,30 @@ export default {
     dest: './build/fonts'
   },
 
+  base: {
+    styles: {
+      src: 'base/styles/**/*.scss',
+      dest: 'base/css',
+    },
+
+    scripts: {
+      src: 'base/js/**/*.js',
+      dest: './library/angular/modules/base',
+      test: 'test/base/**/*.js',
+    },
+
+    images: {
+      src: 'base/images/**/*',
+      dest: 'base/images'
+    },
+
+    views: {
+      index: 'base/index.html',
+      src: 'base/views/**/*.html',
+      dest: './library/angular/modules/base'
+    },
+  },
+
   blog: {
     styles: {
       src: 'blog/styles/**/*.scss',
@@ -171,6 +195,10 @@ export default {
     this.blog.views.watch = [
       this.sourceDir + this.blog.views.index,
       this.sourceDir + this.blog.views.src
+    ];
+
+    this.base.views.watch = [
+      this.sourceDir + this.base.views.src
     ];
 
     this.site.views.watch = [

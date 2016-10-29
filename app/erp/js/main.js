@@ -14,7 +14,6 @@ import onRun        from './on_run';
 
 import 'angular-ui-router';
 
-
 import 'angular-masonry';
 import 'ng-dialog';
 import 'angular-messages';
@@ -86,6 +85,7 @@ const requires = [
   'sir-accordion',
   'ngMaterialSidemenu',
   'ncy-angular-breadcrumb',
+  'myApp.baseModule',
 
   'templates',
   'app.filters',
@@ -96,18 +96,18 @@ const requires = [
 
 
 // mount on window for testing
-window.app = angular.module('app', requires);
+window.myApp = angular.module('myApp', requires);
 
-angular.module('app').constant('AppSettings', constants);
-angular.module('app').constant('DocumentsConfig', documentsConfig);
-angular.module('app').constant('ErrorsConfig', errorsConfig);
+angular.module('myApp').constant('AppSettings', constants);
+angular.module('myApp').constant('DocumentsConfig', documentsConfig);
+angular.module('myApp').constant('ErrorsConfig', errorsConfig);
 
-angular.module('app').config(onConfig);
-angular.module('app').config(onInterceptor);
-angular.module('app').config(onRoute);
+angular.module('myApp').config(onConfig);
+angular.module('myApp').config(onInterceptor);
+angular.module('myApp').config(onRoute);
 
-angular.module('app').run(onRun);
+angular.module('myApp').run(onRun);
 
-angular.bootstrap(document, ['app'], {
+angular.bootstrap(document, ['myApp'], {
   strictDi: true
 });

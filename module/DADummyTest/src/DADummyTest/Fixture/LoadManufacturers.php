@@ -55,12 +55,12 @@ class LoadManufacturers extends AbstractFixture implements OrderedFixtureInterfa
                 "documents"      => [
                     0 => [
                         "type"   => "rg",
-                        "field1" => "4564564564",
-                        "field2" => "ssp"
+                        "reference" => "4564564564",
+                        "field1" => "ssp"
                     ],
                     1 => [
                         "type"   => "cpf",
-                        "field1" => '34534534534'
+                        "reference" => '34534534534'
                     ],
                 ],
             ],
@@ -79,13 +79,16 @@ class LoadManufacturers extends AbstractFixture implements OrderedFixtureInterfa
             }
             $arrCollContacts->add($contact);
         }
+        $manufacturerType = $manager->getReference('DACore\IEntities\Base\CompanyTypeInterface', 3);
+        $arrTypes = new ArrayCollection();
+        $arrTypes->add($manufacturerType);
 
         $company1 = static::getCompany([
-            "tradingName"    => "Empresa Teste Ltda asdasdad.",
-            "companyName"    => "Minha Mega Empresa asdasdasd",
+            "tradingName"    => "Fabricante 1 Empresa",
+            "companyName"    => "Fabricante 1 Teste Ltda",
             "category"       => 1,
-            "website"        => "http://www.asdasdadqweqw.combr",
-            'type' => 'manufacturer',
+            "website"        => "http://www.fabricante1.combr",
+            'types' => $arrTypes,
             "telephones"     => [
                 0 => [
                     "answerable"     => "FAC",
@@ -99,13 +102,13 @@ class LoadManufacturers extends AbstractFixture implements OrderedFixtureInterfa
             "emails"         => [
                 0 => [
                     "answerable" => "Gerencia",
-                    "address"    => "gerencia@asdasdas.com.br",
+                    "address"    => "gerencia@fabricante1.com.br",
                 ],
             ],
             "socialNetworks" => [
                 0 => [
                     "type"    => "facebook",
-                    "address" => "https://facebook.com/asdasdasasd",
+                    "address" => "https://facebook.com/fabricante1",
                 ],
             ],
             'contacts' => $arrCollContacts
@@ -115,7 +118,43 @@ class LoadManufacturers extends AbstractFixture implements OrderedFixtureInterfa
             'company' => $company1
         ]);
 
+        $company2 = static::getCompany([
+            "tradingName"    => "Fabricante Empresa 2",
+            "companyName"    => "Fabricante Teste 2 Ltda",
+            "category"       => 1,
+            "website"        => "http://www.fabricante2.combr",
+            'types' => $arrTypes,
+            "telephones"     => [
+                0 => [
+                    "answerable"     => "FAC",
+                    "type"           => "mobile",
+                    "number"         => '0800123222',
+                    "mobileOperator" => "vivo",
+                    "DDD"            => 11,
+                    "notes"          => "11",
+                ],
+            ],
+            "emails"         => [
+                0 => [
+                    "answerable" => "Gerencia",
+                    "address"    => "gerencia@fabricante2.com.br",
+                ],
+            ],
+            "socialNetworks" => [
+                0 => [
+                    "type"    => "facebook",
+                    "address" => "https://facebook.com/fabricante2",
+                ],
+            ],
+            'contacts' => $arrCollContacts
+        ]);
+
+        $manufacturer2 = new \DAErp\Entity\Manufacturer\Manufacturer([
+            'company' => $company2
+        ]);
+
         $manager->persist($manufacturer1);
+        $manager->persist($manufacturer2);
         $manager->flush();
     }
 

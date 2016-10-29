@@ -26,11 +26,21 @@ class Person implements PersonInterface
 
     /**
      *
+     * @ORM\Column(name="reference", type="string", length=255, nullable=true, unique=true)
+     */
+    private $reference;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\CompanyInterface", inversedBy="contacts")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     */
+    private $company;
+
+    /**
+     *
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
      */
     private $name;
-
-    private $post;
 
     /**
      * @ORM\Column(name="gender", type="enum_gendertype", nullable=true)
@@ -103,8 +113,15 @@ class Person implements PersonInterface
      */
     private $website;
 
-    
+    /**
+     * @ORM\Column(name="literacy", type="string", length=100, nullable=true)
+     */
     private $literacy;
+
+    /**
+     * @ORM\Column(name="post", type="string", length=100, nullable=true)
+     */
+    private $post;
 
     /**
      *
@@ -169,6 +186,54 @@ class Person implements PersonInterface
         return $this;
     }
 
+    /**
+     * Gets the value of reference.
+     *
+     * @return mixed
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+
+    /**
+     * Sets the value of reference.
+     *
+     * @param mixed $reference the reference
+     *
+     * @return self
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+
+    /**
+     * Gets the value of company.
+     *
+     * @return mixed
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Sets the value of company.
+     *
+     * @param mixed $company the company
+     *
+     * @return self
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
     /**
      * Gets the value of name.
      *
@@ -434,6 +499,54 @@ class Person implements PersonInterface
     }
 
     /**
+     * Gets the value of literacy.
+     *
+     * @return mixed
+     */
+    public function getLiteracy()
+    {
+        return $this->literacy;
+    }
+
+    /**
+     * Sets the value of literacy.
+     *
+     * @param mixed $literacy the literacy
+     *
+     * @return self
+     */
+    public function setLiteracy($literacy)
+    {
+        $this->literacy = $literacy;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of post.
+     *
+     * @return mixed
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
+
+    /**
+     * Sets the value of post.
+     *
+     * @param mixed $post the post
+     *
+     * @return self
+     */
+    public function setPost($post)
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of notes.
      *
      * @return mixed
@@ -521,13 +634,14 @@ class Person implements PersonInterface
      * @param mixed $updatedAt the updated at
      *
      * @return self
-     *
+     * 
      * @ORM\PrePersist
      */
     public function setUpdatedAt()
     {
-        $this->updatedAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime('now');
 
         return $this;
     }
+    
 }

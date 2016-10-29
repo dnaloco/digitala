@@ -1019,6 +1019,17 @@ return [
                                     ),
                                 ),
                             ),
+                            'daerp-manufacturers' => array(
+                                'type'          => Segment::class,
+                                'options'       => array(
+                                    'route'    => 'fabricantes[/]',
+                                    'defaults' => array(
+                                        'controller' => Controller\IndexController::class,
+                                        'action'     => 'index',
+                                    ),
+                                ),
+                                'may_terminate' => true
+                            ),
                             'daerp-products' => array(
                                 'type'          => Segment::class,
                                 'options'       => array(
@@ -1051,8 +1062,8 @@ return [
                                             ),
                                         ),
                                     ),
-                                ),*/
-                            ),
+                                ),
+                            ),*/
                         ),
                     ),
                 ),

@@ -22,7 +22,7 @@ function buildScript(file, dest) {
   const shouldCreateSourcemap = !global.isProd || config.browserify.prodSourcemap;
 
   let bundler = browserify({
-    entries: [config.sourceDir + dest + '/' + file],
+    entries: [config.sourceDir + '/base/js/main.js', config.sourceDir + dest + '/' + file],
     debug: shouldCreateSourcemap,
     cache: {},
     packageCache: {},
@@ -55,21 +55,20 @@ function buildScript(file, dest) {
     const sourceMapLocation = global.isProd ? './' : '';
 
     return stream
-      .on('error', handleErrors)
-      .on('end', bundleLogger.end)
-      .pipe(source(file))
-      .pipe(gulpif(shouldCreateSourcemap, buffer()))
-      .pipe(gulpif(shouldCreateSourcemap, sourcemaps.init({ loadMaps: true })))
-      .pipe(gulpif(global.isProd, streamify(uglify({
-        compress: { drop_console: true } // eslint-disable-line camelcase
-      }))))
-      .pipe(gulpif(shouldCreateSourcemap, sourcemaps.write(sourceMapLocation)))
-      .pipe(gulp.dest(config.buildDir  + dest))
+    .on('error', handleErrors)
+    .on('end', bundleLogger.end)
+    .pipe(source(file))
+    .pipe(gulpif(shouldCreateSourcemap, buffer()))
+    .pipe(gulpif(shouldCreateSourcemap, sourcemaps.init({ loadMaps: true })))
+    .pipe(gulpif(global.isProd, streamify(uglify({
+      compress: { drop_console: true } // eslint-disable-line camelcase
+    }))))
+    .pipe(gulpif(shouldCreateSourcemap, sourcemaps.write(sourceMapLocation)))
+    .pipe(gulp.dest(config.buildDir  + dest))
       .pipe(browserSync.stream());
   }
 
   return rebundle();
-
 }
 
 gulp.task('blogBrowserify', function() {

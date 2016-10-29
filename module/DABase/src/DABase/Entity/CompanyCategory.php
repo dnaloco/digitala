@@ -29,7 +29,7 @@ class CompanyCategory implements CompanyCategoryInterface
 	protected $name;
 
 	/**
-     * @ORM\OneToMany(targetEntity="DACore\IEntities\Base\CompanyCategoryInterface", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Base\CompanyCategoryInterface", mappedBy="parent", cascade={"remove"})
      */
     private $children;
 

@@ -13,7 +13,7 @@ import onRoute     from './on_route';
 import onRun        from './on_run';
 
 import 'angular-ui-router';
-import 'angular-foundation-6';
+import 'angular-foundation';
 import 'angular-masonry';
 import 'ng-dialog';
 import 'angular-messages';
@@ -84,18 +84,18 @@ const requires = [
 
 
 // mount on window for testing
-window.app = angular.module('app', requires);
+window.modulesApp = angular.module('modulesApp', requires);
 
-angular.module('app').constant('AppSettings', constants);
-angular.module('app').constant('DocumentsConfig', documentsConfig);
-angular.module('app').constant('ErrorsConfig', errorsConfig);
+angular.module('modulesApp').constant('AppSettings', constants);
+angular.module('modulesApp').constant('DocumentsConfig', documentsConfig);
+angular.module('modulesApp').constant('ErrorsConfig', errorsConfig);
 
-angular.module('app').config(onConfig);
-angular.module('app').config(onInterceptor);
-angular.module('app').config(onRoute);
+angular.module('modulesApp').config(onConfig);
+angular.module('modulesApp').config(onInterceptor);
+angular.module('modulesApp').config(onRoute);
 
-angular.module('app').run(onRun);
+angular.module('modulesApp').run(onRun);
 
-angular.bootstrap(document, ['app'], {
+angular.bootstrap(document, ['modulesApp'], {
   strictDi: true
 });

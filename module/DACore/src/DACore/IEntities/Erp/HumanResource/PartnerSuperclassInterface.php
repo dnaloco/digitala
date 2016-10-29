@@ -5,7 +5,6 @@ interface PartnerSuperclassInterface
 {
 	function getId();
 	function getPerson();
-	function getCompany();
 
 	function getOccupation();
 
