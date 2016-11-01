@@ -1,0 +1,82 @@
+{
+	"company": {
+		"tradingName": "",
+		"companyName": "",
+		"category": 0,
+		"website": "",
+		"telephones": [
+			{
+				"answerable": "",
+				"type": "enum",
+				"mobileOperator": "enum",
+				"DDD": "",
+				"number": "",
+				"notes": ""
+			}
+		],
+		"documents": [
+			{
+				"type": "enum",
+				"reference": ""
+			}
+		],
+		"emails": [
+			{
+				"answerable": "",
+				"address": ""
+			}
+		],
+		"socialNetworks": [
+			{
+				"address": ""
+			}
+		],
+		"contacts": [
+			0, 0, 0,
+			{
+				"name": "",
+				"gender": "enum",
+				"birthdate": "0000-00-00",
+				"photo": {
+					"uploaded": ""
+				},
+				"addresses": [
+					{
+
+					}
+				],
+				"telephones": [
+					{
+
+					}
+				],
+				"emails": [
+					{
+
+					}
+				],
+				"socialNetworks": [
+
+				],
+				"documents": [
+
+				],
+				"website": "",
+				"literacy": "",
+				"post": "",
+				"notes": ""
+			}
+		],
+		"addresses": [
+			{
+
+			}
+		],
+		"description": "",
+		"logo": {
+			"uploaded": ""
+		},
+		"goodTags": [ 0, 0, 0 ],
+		"notes": ""
+	}
+}

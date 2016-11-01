@@ -134,7 +134,7 @@ class Company implements CompanyInterface
 	private $logo;
 
 	/**
-     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\GoodTagInterface")
+     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\GoodTagInterface", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="dabase_companies_good_tags",
      *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="good_tag_id", referencedColumnName="id")}

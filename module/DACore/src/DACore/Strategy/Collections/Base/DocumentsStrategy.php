@@ -16,10 +16,15 @@ trait DocumentsStrategy
 			if (!$document['type']) return false;
 		}
 
-		if (!isset($document['field1'])) {
-			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'field1');
+		if (!isset($document['reference'])) {
+			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'reference');
 			return false;
 		} else {
+			$document['reference'] = static::checkString($key, $document['reference'], 'reference');
+			if (!$document['reference']) return false;
+		}
+
+		if (isset($document['field1'])) {
 			$document['field1'] = static::checkString($key, $document['field1'], 'field1');
 			if (!$document['field1']) return false;
 		}

@@ -27,6 +27,17 @@ class Category implements CategoryInterface
 	 */
 	private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Base\CompanyCategoryInterface", mappedBy="parent", cascade={"remove"})
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\CompanyCategoryInterface", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    protected $parent;
+
 	/**
 	 * @var string
 	 *
@@ -43,9 +54,11 @@ class Category implements CategoryInterface
 
 	public function __construct(array $data = array()) {
         $this->isDisabled = false;
+
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
-
 	
 
     /**
@@ -92,6 +105,54 @@ class Category implements CategoryInterface
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of children.
+     *
+     * @return mixed
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Sets the value of children.
+     *
+     * @param mixed $children the children
+     *
+     * @return self
+     */
+    public function setChildren($children)
+    {
+        $this->children = $children;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of parent.
+     *
+     * @return mixed
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Sets the value of parent.
+     *
+     * @param mixed $parent the parent
+     *
+     * @return self
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
 
         return $this;
     }

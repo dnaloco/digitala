@@ -24,9 +24,15 @@ class Order extends OrderSuperclass implements OrderInterface
 	private $stores;
 
     /**
-     * @ORM\Column(name="from_production", type="boolean",)
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Supplier\SupplierInterface")
+     * @ORM\JoinColumn(name="supplier_id", referencedColumnName="id", nullable=false)
+     **/
+    private $supplier;
+
+    /**
+     * @ORM\OneToOne(targetEntity="DACore\IEntities\Erp\Order\Production\ProductionInterface", mappedBy="storeOrder")
      */
-    private $fromProduction;
+    private $production;
 
 	public function __construct(array $data = array()) {
         parent::__construct($data);
@@ -34,7 +40,7 @@ class Order extends OrderSuperclass implements OrderInterface
 		$this->stores = new ArrayCollection();
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
-    
+
 
     /**
      * Gets the value of stores.
@@ -61,25 +67,25 @@ class Order extends OrderSuperclass implements OrderInterface
     }
 
     /**
-     * Gets the value of fromProduction.
+     * Gets the value of production.
      *
      * @return mixed
      */
-    public function getFromProduction()
+    public function getProduction()
     {
-        return $this->fromProduction;
+        return $this->production;
     }
 
     /**
-     * Sets the value of fromProduction.
+     * Sets the value of production.
      *
-     * @param mixed $fromProduction the from production
+     * @param mixed $production the production
      *
      * @return self
      */
-    public function setFromProduction($fromProduction)
+    public function setProduction($production)
     {
-        $this->fromProduction = $fromProduction;
+        $this->production = $production;
 
         return $this;
     }

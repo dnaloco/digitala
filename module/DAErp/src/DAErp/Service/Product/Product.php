@@ -9,13 +9,13 @@ use DACore\Strategy\Core\{DataCheckerStrategyInterface, DataCheckerStrategy};
 use DACore\Strategy\Collections\Erp\Product\{
 	FeaturesInterface,FeaturesStrategy,
 	ProductsInterface,ProductsStrategy,
-	ProductRatingsInterface,ProductRatingsStrategy
+	ProductRatingsInterface,ProductRatingsStrategy,
 	ProductReferenceInterface, ProductReferenceStrategy
 };
 
 use DACore\Strategy\Collections\Base\{
     ImagesInterface,ImagesStrategy,
-    VideosInterface,VideosStrategy,
+    VideosInterface,VideosStrategy
 };
 
 class Product extends AbstractCrudService
@@ -56,7 +56,7 @@ ProductReferenceInterface
 	{
 		$entity = parent::insert($data);
 
-		$prodId = $entity->getId();
+		/*$prodId = $entity->getId();
 		$deptId = $entity->getDepartment() ? $entity->getDepartment()->getId() : 0;
 		$categId = $entity->getCategory() ? $entity->getCategory()->getId() : 0;
 
@@ -64,7 +64,7 @@ ProductReferenceInterface
 
 		$entity->setReference($ref);
 		$this->em->persist($entity);
-		$this->em->flush();
+		$this->em->flush();*/
 
 		return $entity;
 	}
@@ -72,10 +72,10 @@ ProductReferenceInterface
 	public function prepareData(array $data)
 	{
 		$productId = null;
+		$entity = null;
 		if (isset($data['id'])) {
 			$productId = $data['id'];
 
-			$entity = null;
 			$entity = $this->em->getReference('DAErp\Entity\Product\Product', $productId);
 
 		}
@@ -168,7 +168,7 @@ ProductReferenceInterface
 			$data['images'] = $productImages;
 		}
 
-		if ( is_array($data['images']) && isset($data['images']) && !isset($data['images']['uploadeds'])) {
+		if (isset($data['images']) && is_array($data['images']) && isset($data['images']) && !isset($data['images']['uploadeds'])) {
 
 			if (empty($data['images']) && $entity) {
 

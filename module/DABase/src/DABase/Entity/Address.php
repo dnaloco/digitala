@@ -37,7 +37,6 @@ class Address implements AddressInterface
 	 */
 	protected $city;
 
-
 	/**
      *
      * logradouro
@@ -65,9 +64,9 @@ class Address implements AddressInterface
      *
      * bairro
      *
-     * @ORM\Column(name="residential_area", type="string", length=100, nullable=false)
+     * @ORM\Column(name="district", type="string", length=100, nullable=false)
      */
-	protected $residentialArea;
+	protected $district;
 
 	/**
      *
@@ -77,12 +76,18 @@ class Address implements AddressInterface
      */
 	protected $postalCode;
 
+    /**
+     *
+     * @ORM\Column(name="notes", type="text", nullable=true)
+     */
+    protected $notes;
+
 	public function __construct(array $data)
 	{
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
-     
+
 
     /**
      * Gets the value of id.
@@ -233,21 +238,21 @@ class Address implements AddressInterface
      *
      * @return mixed
      */
-    public function getResidentialArea()
+    public function getDistrict()
     {
-        return $this->residentialArea;
+        return $this->district;
     }
 
     /**
      * Sets the bairro.
      *
-     * @param mixed $residentialArea the residential area
+     * @param mixed $district the district
      *
      * @return self
      */
-    public function setResidentialArea($residentialArea)
+    public function setDistrict($district)
     {
-        $this->residentialArea = $residentialArea;
+        $this->district = $district;
 
         return $this;
     }
@@ -272,6 +277,30 @@ class Address implements AddressInterface
     public function setPostalCode($postalCode)
     {
         $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of notes.
+     *
+     * @return mixed
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * Sets the value of notes.
+     *
+     * @param mixed $notes the notes
+     *
+     * @return self
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
 
         return $this;
     }

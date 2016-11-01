@@ -44,6 +44,19 @@ class Storage implements StorageInterface
 	 **/
 	private $ordersOut;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Order\Production\RawMaterialInterface")
+     * @ORM\JoinTable(name="daerp_inventory_warehouse_storage_raw_materials",
+     *      joinColumns={@ORM\JoinColumn(name="raw_material_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="storage_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
+
+    /**
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Order\Production\RawMaterialInterface", mappedBy="storage")
+     */
+    private $rawMaterials;
+
 	/**
      * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Inventory\Parked\DevolutionInterface", mappedBy="storage")
      */

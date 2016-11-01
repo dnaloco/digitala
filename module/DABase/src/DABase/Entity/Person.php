@@ -31,7 +31,7 @@ class Person implements PersonInterface
     private $reference;
 
     /**
-     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\CompanyInterface", inversedBy="contacts")
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\CompanyInterface", inversedBy="contacts", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
     private $company;

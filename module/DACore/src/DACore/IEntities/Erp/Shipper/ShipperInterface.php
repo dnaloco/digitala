@@ -5,5 +5,7 @@ interface ShipperInterface
 {
 	function getId();
 	function getCompany();
-	function getTimelyRatings();
+	function getRatings();
+	function getStatus();
+	function getNotes();
 }

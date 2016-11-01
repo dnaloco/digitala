@@ -20,17 +20,24 @@ class EvaluationRating
 	 */
 	private $id;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subtitle", type="string", length=60, nullable=false)
+     */
+    private $subtitle;
+
 	/**
      * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
      * @ORM\JoinColumn(name="appraiser_id", referencedColumnName="id", nullable=true)
      **/
 	private $appraiser;
 
-	/**
-     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\HumanResource\PartnerSuperclassInterface")
-     * @ORM\JoinColumn(name="appraiser_id", referencedColumnName="id", nullable=true)
-     **/
-	private $partner;
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\HumanResource\Monitoring\EvaluationInterface", inversedBy="ratings")
+     * @ORM\JoinColumn(name="evaluation_id", referencedColumnName="id")
+     */
+    private $evaluation;
 
 	/**
 	 * @var string
@@ -59,7 +66,6 @@ class EvaluationRating
 		(new Hydrator\ClassMethods)->hydrate($options, $this);
 
 	}
-
 
     /**
      * Gets the value of id.

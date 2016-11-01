@@ -1,0 +1,98 @@
+{
+	"tradingName": "",
+	"companyName": "",
+	"category": 0,
+	"website": "",
+	"telephones": [
+		{
+			"answerable": "",
+			"type": enum,
+			"mobileOperator": enum,
+			"DDD": "",
+			"number": "",
+			"notes": ""
+		}
+	],
+	"documents": [
+		{
+			"type": enum,
+			"reference": ""
+		}
+	],
+	"emails": [
+		{
+			"answerable": "",
+			"address": ""
+		}
+	],
+	"socialNetworks": [
+		{
+			"address": ""
+		}
+	],
+	"contacts": [
+		{
+			"name": "",
+			"gender": enum,
+			"birthdate": "0000-00-00",
+			"photo": {
+				"uploaded": ""
+			},
+			"addresses": [
+				{
+
+				}
+			],
+			"telephones": [
+				{
+					"answerable": "",
+					"type": enum,
+					"mobileOperator": enum,
+					"DDD": "",
+					"number": "",
+					"notes": ""
+				}
+			],
+			"emails": [
+				{
+					"answerable": "",
+					"address": ""
+				}
+			],
+			"socialNetworks": [
+				{
+					"address": ""
+				}
+			],
+			"documents": [
+				{
+					"type": enum,
+					"reference": ""
+				}
+			],
+			"website": "",
+			"literacy": "",
+			"post": "",
+			"notes": ""
+		}
+	],
+	"addresses": [
+		{
+			"type": enum,
+			"state": 0,
+			"city": 0,
+			"address1": "",
+			"address2": "",
+			"number": "",
+			"district": "",
+			"postalCode": "",
+			"notes": ""
+		}
+	],
+	"description": "",
+	"logo": {
+		"uploaded": ""
+	},
+	"goodTags": [ 0, 0, 0 ],
+	"notes": ""
+}

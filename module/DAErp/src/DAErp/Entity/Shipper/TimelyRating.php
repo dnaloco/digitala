@@ -1,16 +1,16 @@
 <?php
-namespace DAErp\Entity\Supplier;
+namespace DAErp\Entity\Shipper;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
-use DACore\IEntities\Erp\Supplier\QualityRatingInterface;
+use DACore\IEntities\Erp\Shipper\TimelyRatingInterface;
 /**
  *
  * @ORM\Table(name="daerp_shipper_timely_ratings")
  * @ORM\Entity
  */
-class TimelyRating implements QualityRatingInterface
+class TimelyRating implements TimelyRatingInterface
 {
 	/**
 	 * @var integer
@@ -21,6 +21,12 @@ class TimelyRating implements QualityRatingInterface
 	 */
 	private $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
+     * @ORM\JoinColumn(name="appraiser_id", referencedColumnName="id", nullable=true)
+     **/
+    private $appraiser;
+
 	/**
 	 * @var string
 	 *
@@ -28,14 +34,17 @@ class TimelyRating implements QualityRatingInterface
 	 */
 	private $rating;
 
-	/**
-     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Order\OrderSuperclassInterface")
-     * @ORM\JoinTable(name="daerp_shipper_orders_timely_ratings",
-     *      joinColumns={@ORM\JoinColumn(name="quality_rating_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id", unique=true)}
-     *      )
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Order\OrderSuperclassInterface")
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      */
 	private $order;
+
+	/**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Shipper\ShipperInterface", inversedBy="ratings")
+     * @ORM\JoinColumn(name="shipper_id", referencedColumnName="id")
+     */
+    private $shipper;
 
 	/**
 	 * @var string
@@ -43,12 +52,6 @@ class TimelyRating implements QualityRatingInterface
 	 * @ORM\Column(name="notes", type="text", nullable=true)
 	 */
 	private $notes;
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
-	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
-	 **/
-	private $user;
 
 	/**
 	 * @var \DateTime
@@ -62,7 +65,8 @@ class TimelyRating implements QualityRatingInterface
 		
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
-	
+
+
 
     /**
      * Gets the value of id.
@@ -84,6 +88,30 @@ class TimelyRating implements QualityRatingInterface
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of appraiser.
+     *
+     * @return mixed
+     */
+    public function getAppraiser()
+    {
+        return $this->appraiser;
+    }
+
+    /**
+     * Sets the value of appraiser.
+     *
+     * @param mixed $appraiser the appraiser
+     *
+     * @return self
+     */
+    public function setAppraiser($appraiser)
+    {
+        $this->appraiser = $appraiser;
 
         return $this;
     }
@@ -113,9 +141,7 @@ class TimelyRating implements QualityRatingInterface
     }
 
     /**
-     * Gets the joinColumns={@ORM\JoinColumn(name="quality_rating_id", referencedColumnName="id")},
-inverseJoinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id", unique=true)}
-).
+     * Gets the value of order.
      *
      * @return mixed
      */
@@ -125,9 +151,7 @@ inverseJoinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id", 
     }
 
     /**
-     * Sets the joinColumns={@ORM\JoinColumn(name="quality_rating_id", referencedColumnName="id")},
-inverseJoinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id", unique=true)}
-).
+     * Sets the value of order.
      *
      * @param mixed $order the order
      *
@@ -136,6 +160,30 @@ inverseJoinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id", 
     public function setOrder($order)
     {
         $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of shipper.
+     *
+     * @return mixed
+     */
+    public function getShipper()
+    {
+        return $this->shipper;
+    }
+
+    /**
+     * Sets the value of shipper.
+     *
+     * @param mixed $shipper the shipper
+     *
+     * @return self
+     */
+    public function setShipper($shipper)
+    {
+        $this->shipper = $shipper;
 
         return $this;
     }
@@ -160,30 +208,6 @@ inverseJoinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id", 
     public function setNotes($notes)
     {
         $this->notes = $notes;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of user.
-     *
-     * @return mixed
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Sets the value of user.
-     *
-     * @param mixed $user the user
-     *
-     * @return self
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
 
         return $this;
     }

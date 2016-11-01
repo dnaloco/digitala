@@ -7,8 +7,9 @@ interface ExpenseInterface
 	function getTitle();
 	function getCategory();
 	function getConsumption();
+	function getCost();
 	function getStore();
 	function getUnitType();
 	function getDescription();
-	function getExpenseType();
+	function getType();
 }

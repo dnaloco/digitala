@@ -83,7 +83,7 @@ trait DataCheckerStrategy
 	{
 
 		$accentedCharacters = "àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ";
-		$validator = new Regex(array('pattern' => '/^(([' . $accentedCharacters . 'A-Za-z.\\(\\)\s])+)$/'));
+		$validator = new Regex(array('pattern' => '/^(([' . $accentedCharacters . '0-9A-Za-z.-_\\(\\)\s])+)$/'));
 
 		if (!$validator->isValid($name)) {
 			foreach($validator->getMessages() as $message) {
@@ -163,6 +163,8 @@ trait DataCheckerStrategy
 	public static function checkDateBetween($key, $date, $field = 'date', $mindate, $maxdate)
 	{
 
+
+
 		$checkDate = strtotime($date);
 		$format = "Y-m-d H:i:s";
 		if ($checkDate !== false) {
@@ -175,6 +177,7 @@ trait DataCheckerStrategy
 		}
 
 		if ($checkDate instanceof \DateTimeInterface) {
+
 	    	if ($checkDate < $mindate) {
 	    		self::addDataError($key, 'Invalid date. Date cannot be lesser than ' . $mindate->format($format) .'.', $field, $checkDate->format($format));
 	    		return false;
@@ -214,9 +217,9 @@ trait DataCheckerStrategy
 
 	public static function checkBoolean($key, $boolean, $field)
 	{
-		$checkBoolean = filter_var($boolean, FILTER_VALIDATE_BOOLEAN);
+		$checkBoolean = filter_var($boolean, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) === NULL;
 
-		if (!$checkBoolean) {
+		if ($checkBoolean) {
 			self::addDataError($key, static::ERROR_INVALID_BOOLEAN, $field, $boolean);
 			return false;
 		}

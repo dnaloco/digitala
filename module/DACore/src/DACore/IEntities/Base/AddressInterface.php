@@ -9,7 +9,7 @@ interface AddressInterface
 	function getAddress1();
 	function getAddress2();
 	function getNumber();
-	function getResidentialArea();
+	function getDistrict();
 	function getPostalCode();
 
 }

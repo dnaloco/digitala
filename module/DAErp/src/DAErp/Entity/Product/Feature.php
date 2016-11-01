@@ -29,7 +29,7 @@ class Feature implements FeatureInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="value", type="decimal", precision=8, nullable=false)
+	 * @ORM\Column(name="value", type="string", nullable=false)
 	 */
 	private $value;
 

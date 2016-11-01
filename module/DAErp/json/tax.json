@@ -1,0 +1,10 @@
+{
+	"name": "",
+	"rate": "",
+	"isFederal": "bool",
+	"isState": "bool",
+	"isMunicipal": "bool",
+	"state": 0,
+	"city": 0,
+	"info": ""
+}

@@ -36,18 +36,36 @@ implements EvaluationInterface
      */
 	private $description;
 
-	/**
-	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\HumanResource\Monitoring\EvaluationRatingInterface")
-	 * @ORM\JoinTable(name="daerp_human_resource_monitoring_evaluations_evaluation_ratings",
-	 *      joinColumns={@ORM\JoinColumn(name="evaluation_id", referencedColumnName="id")},
-	 *      inverseJoinColumns={@ORM\JoinColumn(name="rating_id", referencedColumnName="id", unique=true)}
-	 *      )
-	 */
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\HumanResource\PartnerSuperclassInterface")
+     * @ORM\JoinColumn(name="appraiser_id", referencedColumnName="id", nullable=true)
+     **/
+    private $partner;
+
+    /**
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\HumanResource\Monitoring\EvaluationRatingInterface", mappedBy="evaluation")
+     */
 	private $ratings;
 
-	public function __construct(array $data = array()) {
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
 
-		$this->ratings = new ArrayCollection();
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+	public function __construct(array $data = array()) {
+        $this->createdAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime("now");
+
+		$this->evaluationRatings = new ArrayCollection();
 
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
@@ -126,9 +144,31 @@ implements EvaluationInterface
     }
 
     /**
-     * Gets the joinColumns={@ORM\JoinColumn(name="evaluation_id", referencedColumnName="id")},
-inverseJoinColumns={@ORM\JoinColumn(name="rating_id", referencedColumnName="id", unique=true)}
-).
+     * Gets the value of partner.
+     *
+     * @return mixed
+     */
+    public function getPartner()
+    {
+        return $this->partner;
+    }
+
+    /**
+     * Sets the value of partner.
+     *
+     * @param mixed $partner the partner
+     *
+     * @return self
+     */
+    public function setPartner($partner)
+    {
+        $this->partner = $partner;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of ratings.
      *
      * @return mixed
      */
@@ -138,9 +178,7 @@ inverseJoinColumns={@ORM\JoinColumn(name="rating_id", referencedColumnName="id",
     }
 
     /**
-     * Sets the joinColumns={@ORM\JoinColumn(name="evaluation_id", referencedColumnName="id")},
-inverseJoinColumns={@ORM\JoinColumn(name="rating_id", referencedColumnName="id", unique=true)}
-).
+     * Sets the value of ratings.
      *
      * @param mixed $ratings the ratings
      *
@@ -149,6 +187,56 @@ inverseJoinColumns={@ORM\JoinColumn(name="rating_id", referencedColumnName="id",
     public function setRatings($ratings)
     {
         $this->ratings = $ratings;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of createdAt.
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Sets the value of createdAt.
+     *
+     * @param \DateTime $createdAt the created at
+     *
+     * @return self
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of updatedAt.
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Sets the value of updatedAt.
+     *
+     * @param \DateTime $updatedAt the updated at
+     *
+     * @return self
+     *
+     * @ORM\PrePersist
+     */
+    public function setUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime("now");
 
         return $this;
     }

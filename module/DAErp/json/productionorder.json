@@ -1,0 +1,62 @@
+{
+	"noNF": "",
+	"claimant": 0,
+	"appraiser": 0,
+	"receiver": 0,
+	"dateApproved": "0000-00-00",
+	"shipper": 0,
+	"shippingType": "enum",
+	"shippingCost": 0.0,
+	"dateShipped": "0000-00-00",
+	"trackindCode": "",
+	"expectedDeliveryDate": "0000-00-00",
+	"dateDelivery": "0000-00-00",
+	"totalOrderCost": 0.0,
+	"discount": 0.0,
+	"discountType": "enum",
+	"totalWithDiscount": 0.0,
+	"rawMaterials": [
+		{
+			"store": 0,
+			"quantity": 0,
+			"isReceived": "bool",
+			"storage": 0
+		}
+	],
+	"subitems": [
+		{
+			"name": "",
+			"consumption": "",
+			"cost": "",
+			"costBy": "enum"
+		}
+	],
+	"production": {
+		"productionProcess": 0,
+		"isFinished": "bool",
+		"storeOrder": {
+
+		}
+	},
+	"payments": [
+		{
+			"installments": 0,
+			"installment_index": 0,
+			"amountOutcome": 0.0,
+			"invoiceDate": "0000-00-00",
+			"expirationDate": "0000-00-00",
+			"paymentDate": "0000-00-00",
+			"order": 0,
+			"paymentMethod": "enum",
+			"paymentType": "enum",
+			"status": "enum",
+			"creditCardAuthCode": ""
+
+		}
+	],
+	"taxes": [
+		0, 0, 0
+	],
+	"orderReason": "",
+	"status": "enum"
+}

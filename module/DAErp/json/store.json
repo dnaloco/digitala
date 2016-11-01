@@ -1,0 +1,12 @@
+{
+	"product": 0,
+	"reference": "",
+	"quantity": 0.0,
+	"minimalQtdeStock": 0.0,
+	"unitCost": 0.0,
+	"unitPrice": 0.0,
+	"discountType": "enum",
+	"shelfLife": "0000-00-00",
+	"storages": [],
+	"status": "enum"
+}

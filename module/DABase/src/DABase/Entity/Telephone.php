@@ -37,24 +37,24 @@ class Telephone implements TelephoneInterface
      */
 	protected $type;
 
-	/**
-     *
-     * @ORM\Column(name="number", type="string", nullable=false)
-     */
-	protected $number;
-
-	/**
+    /**
      *
      *
      * @ORM\Column(name="mobile_operator", type="enum_mobileoperator", nullable=true)
      */
-	protected $mobileOperator;
+    protected $mobileOperator;
+
+    /**
+     *
+     * @ORM\Column(name="DDD", type="string", length=5, nullable=false)
+     */
+    protected $DDD;
 
 	/**
      *
-     * @ORM\Column(name="DDD", type="smallint", nullable=false)
+     * @ORM\Column(name="number", length=15, type="string", nullable=false)
      */
-	protected $DDD;
+	protected $number;
 
 	/**
      *

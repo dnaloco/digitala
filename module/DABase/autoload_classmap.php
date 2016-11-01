@@ -22,6 +22,7 @@ return array(
     'DABase\Entity\State'                               => __DIR__ . '/src/DABase/Entity/State.php',
     'DABase\Entity\Telephone'                           => __DIR__ . '/src/DABase/Entity/Telephone.php',
     'DABase\Entity\Country'                             => __DIR__ . '/src/DABase/Entity/Country.php',
+    'DABase\Entity\CompanyType'                         => __DIR__ . '/src/DABase/Entity/CompanyType.php',
     'DABase\Entity\Company'                             => __DIR__ . '/src/DABase/Entity/Company.php',
     'DABase\Entity\CompanyCategory'                     => __DIR__ . '/src/DABase/Entity/CompanyCategory.php',
     'DABase\Entity\Address'                             => __DIR__ . '/src/DABase/Entity/Address.php',

@@ -1,0 +1,11 @@
+{
+	"fromCustomer": 0,
+	"vendor": 0,
+	"store": 0,
+	"storage": 0,
+	"replaceds": [],
+	"quantity": 0,
+	"devolutionDate": "0000-00-00",
+	"reason": "",
+	"status": "enum"
+}

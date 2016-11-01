@@ -35,7 +35,7 @@ class Place implements PlaceInterface
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="status", type="enum_devolutionstatus", nullable=true)
+	 * @ORM\Column(name="status", type="enum_destination", nullable=true)
 	 */
     private $destination;
 

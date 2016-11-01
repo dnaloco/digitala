@@ -37,10 +37,10 @@ implements ProductionInterface
 	 */
 	private $isFinished;
 
-	/**
-	 * @ORM\OneToOne(targetEntity="DACore\IEntities\Erp\Order\Store\OrderInterface")
-	 * @ORM\JoinColumn(name="store_order_id", referencedColumnName="id", nullable=true)
-	 **/
+    /**
+     * @ORM\OneToOne(targetEntity="DACore\IEntities\Erp\Order\Store\OrderInterface", inversedBy="production", cascade={"persist"})
+     * @ORM\JoinColumn(name="store_order_id", referencedColumnName="id", nullable=true)
+     */
 	private $storeOrder;
 
 	/**

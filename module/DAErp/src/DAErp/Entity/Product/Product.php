@@ -163,6 +163,10 @@ class Product implements ProductInterface
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="rating_id", referencedColumnName="id", unique=true)}
 	 *      )
 	 */
+
+    /**
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Product\RatingInterface", mappedBy="product")
+     */
 	private $ratings;
 
 	/**

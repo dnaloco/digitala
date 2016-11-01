@@ -42,7 +42,6 @@ implements ProductProcessInterface
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
-	
 
     /**
      * Gets the value of id.

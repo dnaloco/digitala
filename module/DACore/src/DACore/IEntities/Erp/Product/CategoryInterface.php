@@ -5,6 +5,8 @@ interface CategoryInterface
 {
 	function getId();
 	function getName();
+	function getChildren();
+	function getParent();
 	function getSeoDescription();
 	function getIsDisabled();
 }

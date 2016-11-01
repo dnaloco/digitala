@@ -9,7 +9,7 @@ trait GoodTagsStrategy
 	{
 		$arrGoodTags = new ArrayCollection();
 		foreach ($goodTags as $goodTagId) {
-			if(isset($goodTagId['id'])) $goodTagId = $goodTagId['id'];
+			if (isset($goodTagId['id'])) $goodTagId = $goodTagId['id'];
 			$goodTag = $this->em->getReference('DABase\Entity\GoodTag', $goodTagId);
 
 			if ($goodTag) $arrGoodTags->add($goodTag);

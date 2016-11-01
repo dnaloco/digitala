@@ -1,0 +1,51 @@
+{
+	"noNF": "",
+	"claimant": 0,
+	"receiver": 0,
+	"appraiser": 0,
+	"dateApproved": "0000-00-00",
+	"shipper": 0,
+	"shippingType": "enum",
+	"shippingCost": 0.0,
+	"dateShipped": "0000-00-00",
+	"trackindCode": "0000-00-00",
+	"expectedDeliveryDate": "0000-00-00",
+	"dateDelivery": "0000-00-00",
+	"totalOrderCost": 0.0,
+	"discount": 0.0,
+	"discountType": "enum",
+	"totalWithDiscount": 0.0,
+	"expenses": [
+		{
+			"title": "",
+			"category": 0,
+			"consumption": 0.0,
+			"cost": 0.0,
+			"store": 0,
+			"unitType": "enum",
+			"description": "",
+			"type": "enum"
+		}
+	],
+	"payments": [
+		{
+			"installments": 0,
+			"installment_index": 0,
+			"amountOutcome": 0.0,
+			"invoiceDate": "0000-00-00",
+			"expirationDate": "0000-00-00",
+			"paymentDate": "0000-00-00",
+			"order": 0,
+			"paymentMethod": "enum",
+			"paymentType": "enum",
+			"status": "enum",
+			"creditCardAuthCode": ""
+
+		}
+	],
+	"taxes": [
+		0, 0, 0
+	],
+	"orderReason": "",
+	"status": "enum"
+}

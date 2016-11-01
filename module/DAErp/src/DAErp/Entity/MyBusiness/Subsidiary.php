@@ -20,6 +20,12 @@ class Subsidiary implements SubsidiaryInterface
 	 */
 	private $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\MyBusiness\MatrixInterface")
+     * @ORM\JoinColumn(name="matrix_id", referencedColumnName="id")
+     */
+    private $matrix;
+
 	/**
 	 * @ORM\OneToOne(targetEntity="DACore\IEntities\Base\CompanyInterface", cascade={"persist", "remove"})
 	 * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=false)

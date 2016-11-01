@@ -35,11 +35,18 @@ implements ProcessInterface
 	 */
 	private $description;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sequence", type="smallint", nullable=false)
+     */
+    private $sequence;
+
 	public function __construct(array $data = array()) {
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
-
+    
 
     /**
      * Gets the value of id.
@@ -109,6 +116,30 @@ implements ProcessInterface
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of sequence.
+     *
+     * @return string
+     */
+    public function getSequence()
+    {
+        return $this->sequence;
+    }
+
+    /**
+     * Sets the value of sequence.
+     *
+     * @param string $sequence the sequence
+     *
+     * @return self
+     */
+    public function setSequence($sequence)
+    {
+        $this->sequence = $sequence;
 
         return $this;
     }

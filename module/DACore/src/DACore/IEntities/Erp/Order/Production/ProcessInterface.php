@@ -6,4 +6,5 @@ interface ProcessInterface
 	function getId();
 	function getName();
 	function getDescription();
+	function getSequence();
 }

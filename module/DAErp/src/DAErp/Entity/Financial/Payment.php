@@ -21,6 +21,18 @@ class Payment implements PaymentInterface
 	 */
 	private $id;
 
+    /**
+     *
+     * @ORM\Column(name="installments", type="smallint", nullable=false)
+     */
+    private $installments;
+
+    /**
+     *
+     * @ORM\Column(name="installment_index", type="smallint", nullable=false)
+     */
+    private $installmentIndex;
+
 	/**
 	 *
 	 * @ORM\Column(name="amount_income", type="decimal", precision=8, nullable=false)

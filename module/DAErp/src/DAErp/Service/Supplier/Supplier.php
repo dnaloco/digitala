@@ -1,6 +1,9 @@
 <?php 
 namespace DAErp\Service\Supplier;
 
+
+use Doctrine\Common\Collections\ArrayCollection;
+
 use DACore\Service\AbstractCrudService;
 
 use DACore\Upload\MyUploadAwareInterface;
@@ -56,8 +59,36 @@ MyUploadAwareInterface
 		return $this->uploadManager;
 	}
 
+	public function insert(array $data)
+	{
+		$entity = parent::insert($data);
+
+		if ($entity instanceof $this->entity) {
+
+			foreach($entity->getCompany()->getContacts() as $contact) {
+				$contact->setCompany($entity->getCompany());
+
+				foreach($contact->getDocuments() as $document) {
+					$document->setPerson($contact);
+					$this->em->persist($document);
+				}
+
+				$this->em->persist($contact);
+			}
+
+			foreach($entity->getCompany()->getDocuments() as $document) {
+				$document->setCompany($entity->getCompany());
+				$this->em->persist($document);
+			}
+			$this->em->flush();
+		}
+
+		return $entity;
+	}
+
 	public function prepareData(array $data)
 	{
+
 		if(isset($data['createdAt'])) unset($data['createdAt']);
 		if(isset($data['updatedAt'])) unset($data['updatedAt']);
 
@@ -65,29 +96,43 @@ MyUploadAwareInterface
 		$key = 'supplier';
 
 		if (!isset($data['company'])) {
-			$this->addDataError($key, static::ERROR_REQUIRED_FIELD, 'company');
+			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'company');
 			return $data;
 		} else {
-			$data['company']['type'] = 'shipper';
-			$data['company'] = $this->getCompany($key, $data['company'], true);
+
+			if (is_numeric($data['company'])) {
+				$data['company'] = $this->em->getReference('DACore\IEntities\Base\CompanyInterface', $data['company']);
+			} else {
+				$data['company'] = static::getCompany($key, $data['company'], true);
+			}
+
+			$type = $this->getAnotherRepository('DACore\IEntities\Base\CompanyTypeInterface')->findOneBy(array('name' => 'supplier'));
+			$data['company']->getTypes()->add($type);
 
 			//var_dump($data['company']->getGoodTags()->count());die;
+
+			//unset($data['compact']['contacts']);
+
+
 			if (isset($data['id'])) {
 				$this->em->merge($data['company']);
+
+
+
 				$this->em->flush();
+
 				unset($data['company']);
 			}
 		}
-
+		//die;
+		//var_dump('...');die;
+		//var_dump($data['company']->getId());die;
 		if (static::hasErrors()) {
 			$data['errors'] = [];
 			$data['errors'] = static::getErrors();
 		}
-		//die('debuging');
-
-		//products budgets qualityRatings status notes...
 		$data = array_filter($data);
+
 		return $data;
-		//var_dump('DATA', $data);die;
 	}
 }

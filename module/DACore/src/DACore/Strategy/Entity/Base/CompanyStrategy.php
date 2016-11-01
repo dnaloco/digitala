@@ -1,6 +1,8 @@
 <?php
 namespace DACore\Strategy\Entity\Base;
 
+use Zend\Stdlib\Hydrator;
+
 trait CompanyStrategy
 {
 	public function getCompany($key, $company, $hasParent = false, $userId = null)
@@ -31,8 +33,10 @@ trait CompanyStrategy
 
 		$entity = null;
 
+		//var_dump($company['id']);die;
+
 		if (isset($company['id'])) {
-			$entity = $this->em->getReference('DABase\Entity\Company', $company['id']);
+			$entity = $this->em->getReference('DACore\IEntities\Base\CompanyInterface', $company['id']);
 		}
 
 
@@ -43,21 +47,12 @@ trait CompanyStrategy
 		if ($hasParent) $key = $key . '_company';
 		else $key = 'company';
 
-		if (!isset($company['type'])) {
-			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'comp_type');
-			return false;
-		} else {
-			$company['type'] = static::checkType($key, 'DABase\Enum\CompanyType', $company['type']);
-			if (!$company['type']) return false;
-		}
-		
 		if (!isset($company['tradingName'])) {
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'tradingName');
 			return false;
 		} else {
 			$company['tradingName'] = static::checkNameWithSpecials($key, $company['tradingName']);
 		}
-		
 
 		if (isset($company['companyName'])) {
 			$company['companyName'] = static::checkNameWithSpecials($key, $company['companyName'], 'companyName');
@@ -93,7 +88,8 @@ trait CompanyStrategy
 				unset($company['documents']);
 			} else {
 				$company['documents'] = array_map(function($doc) {
-
+					unset($doc['createdAt']);
+					unset($doc['updatedAt']);
 					if (empty($doc['images'])) unset($doc['images']);
 					if (empty($doc['files'])) unset($doc['files']);
 
@@ -124,17 +120,19 @@ trait CompanyStrategy
 			}
 		}
 
+		//var_dump($company['contacts']);die;
+
 		if (isset($company['contacts'])) {
 			if (empty($company['contacts'])) {
 				if ($entity) $entity->getContacts()->clear();
 				unset($company['contacts']);
 			} else {
-				foreach ($company['contacts'] as $contact) {
+				/*foreach ($company['contacts'] as $contact) {
 					if (is_numeric($contact)) {
-						die('é ID!');
+						$contact = $this->em->getReference('DACore\IEntities\Base\PersonInterface', $contact);
 					}
-				}
-				$company['contacts'] = static::getPeopleReferences($key, $company['contacts'], 'contacts');
+				}*/
+				$company['contacts'] = static::getContactCollection($key, $company['contacts'], $entity);
 			}
 
 		}
@@ -182,12 +180,16 @@ trait CompanyStrategy
 				$company['logo'] = $entity->getLogo();
 		}
 
+		$newGoodTags = null;
+
 		if (isset($company['goodTags'])) {
 			if (empty($company['goodTags'])) {
-				if ($entity) $entity->getContacts()->clear();
+				if ($entity) $entity->getAddresses()->clear();
 				unset($company['goodTags']);
 			} else {
-				$company['goodTags'] = static::getGoodTagsReferences($key, $company['goodTags'], 'goodTags');
+				$company['goodTags'] = static::getGoodTagsReferences($key, $company['goodTags'], $entity);
+				//unset($company['goodTags']);
+
 			}
 
 		}
@@ -199,9 +201,17 @@ trait CompanyStrategy
 			$company['errors'] = static::getErrors();
 			return false;
 		}
-	
+
 		//var_dump($asdas->getGoodTags()->count());die;
-		if ($hasParent) return new \DABase\Entity\Company($company);
+		if ($hasParent) {
+
+			if ($entity) {
+				(new Hydrator\ClassMethods())->hydrate($company, $entity);
+				return $entity;
+			} else {
+				return new \DABase\Entity\Company($company);
+			}
+		}
 
 		return $company;
 	}

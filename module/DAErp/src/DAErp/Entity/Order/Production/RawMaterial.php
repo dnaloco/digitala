@@ -41,10 +41,15 @@ implements RawMaterialInterface
 	 */
 	private $isReceived;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Inventory\Warehouse\StorageInterface", inversedBy="rawMaterials")
+     * @ORM\JoinColumn(name="raw_material_id", referencedColumnName="id")
+     */
+    private $storage;
+
 	public function __construct(array $data = array()) {
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
-	
 
     /**
      * Gets the value of id.
@@ -138,6 +143,30 @@ implements RawMaterialInterface
     public function setIsReceived($isReceived)
     {
         $this->isReceived = $isReceived;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of storage.
+     *
+     * @return mixed
+     */
+    public function getStorage()
+    {
+        return $this->storage;
+    }
+
+    /**
+     * Sets the value of storage.
+     *
+     * @param mixed $storage the storage
+     *
+     * @return self
+     */
+    public function setStorage($storage)
+    {
+        $this->storage = $storage;
 
         return $this;
     }

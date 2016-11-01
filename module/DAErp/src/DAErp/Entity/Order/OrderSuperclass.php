@@ -50,6 +50,12 @@ class OrderSuperclass implements OrderSuperclassInterface
      **/
     private $receiver;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
+     * @ORM\JoinColumn(name="appraiser_id", referencedColumnName="id", nullable=true)
+     **/
+    private $appraiser;
+
 	/**
 	 *
 	 * @ORM\Column(name="date_approved", type="datetime", nullable=true)

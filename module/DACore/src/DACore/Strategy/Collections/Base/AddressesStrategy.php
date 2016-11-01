@@ -16,7 +16,11 @@ trait AddressesStrategy
 			if (!$address['type']) return false;
 		}
 
-
+		if (isset($address['city']) && is_numeric($address['city'])) {
+			$cityId = $address['city'];
+			$address['city'] = [];
+			$address['city']['id'] = $cityId;
+		}
 
 		if (!isset($address['city']) && !isset($address['city']['id'])) {
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'city');
@@ -48,12 +52,12 @@ trait AddressesStrategy
 			if (!$address['number']) return false;
 		}
 
-		if (!isset($address['residentialArea'])) {
-			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'residentialArea');
+		if (!isset($address['district'])) {
+			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'district');
 			return false;
 		} else {
-			$address['residentialArea'] = static::checkString($key, $address['residentialArea']);
-			if (!$address['residentialArea']) return false;
+			$address['district'] = static::checkString($key, $address['district']);
+			if (!$address['district']) return false;
 		}
 
 		if (!isset($address['postalCode'])) {

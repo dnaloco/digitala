@@ -556,7 +556,7 @@ return [
             'daerp-order-store-orders-rest' => [
                 'type'    => 'Segment',
                 'options' => [
-                    'route'       => '/api/private/orders-stores[/:id]',
+                    'route'       => '/api/private/store-orders[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
@@ -568,7 +568,7 @@ return [
             'daerp-order-store-stores-rest' => [
                 'type'    => 'Segment',
                 'options' => [
-                    'route'       => '/api/private/stores[/:id]',
+                    'route'       => '/api/private/order-stores[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
@@ -1663,6 +1663,7 @@ return [
             'orm_default' => [
                 'types' => [
                     'enum_costby'  => 'DAErp\Enum\CostBy',
+                    'enum_destination'  => 'DAErp\Enum\Destination',
                     'enum_devolutionstatus'  => 'DAErp\Enum\DevolutionStatus',
                     'enum_discounttype'      => 'DAErp\Enum\DiscountType',
                     'enum_discrepancytype'   => 'DAErp\Enum\DiscrepancyType',
@@ -1679,6 +1680,7 @@ return [
                     'enum_promotiontype'     => 'DAErp\Enum\PromotionType',
                     'enum_recruitmentstep'     => 'DAErp\Enum\RecruitmentStep',
                     'enum_reservationstatus' => 'DAErp\Enum\ReservationStatus',
+                    'enum_shipperstatus'      => 'DAErp\Enum\ShipperStatus',
                     'enum_shippingtype'      => 'DAErp\Enum\ShippingType',
                     'enum_storetatus'        => 'DAErp\Enum\StoreStatus',
                     'enum_supplierstatus'    => 'DAErp\Enum\SupplierStatus',
@@ -1786,6 +1788,7 @@ return [
 
                     // ::: Shipper Resolvers :::
                     'DACore\IEntities\Erp\Shipper\ShipperInterface'              => 'DAErp\Entity\Shipper\Shipper',
+                    'DACore\IEntities\Erp\Shipper\TimelyRatingInterface'         => 'DAErp\Entity\Shipper\TimelyRating',
 
                     // ::: Supplier Resolvers :::
                     'DACore\IEntities\Erp\Supplier\SupplierInterface'             => 'DAErp\Entity\Supplier\Supplier',

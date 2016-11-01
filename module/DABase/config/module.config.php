@@ -48,6 +48,18 @@ return [
                     ],
                 ],
             ],
+            'dabase-company-types-rest' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/api/private/company-types[/:id]',
+                    'constraints' => [
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' =>  'DABase\Controller\CompanyTypesRest',
+                    ],
+                ],
+            ],
             'dabase-good-tags-rest' => [
                 'type' => Segment::class,
                 'options' => [
@@ -100,6 +112,10 @@ return [
             'class_name' => 'DABase\Service\CompanyCategory',
             'entity' => 'DABase\Entity\CompanyCategory'
         ],
+        'DABase\Service\CompanyType' => [
+            'class_name' => 'DABase\Service\CompanyType',
+            'entity' => 'DABase\Entity\CompanyType'
+        ],
         'DABase\Service\GoodTag' => [
             'class_name' => 'DABase\Service\GoodTag',
             'entity' => 'DABase\Entity\GoodTag'
@@ -122,6 +138,10 @@ return [
         'DABase\Controller\CompanyCategoriesRest' => [
             'class_name' => 'DABase\Controller\CompanyCategoriesRestController',
             'service' => 'DABase\Service\CompanyCategory'
+        ],
+        'DABase\Controller\CompanyTypesRest' => [
+            'class_name' => 'DABase\Controller\CompanyTypesRestController',
+            'service' => 'DABase\Service\CompanyType'
         ],
         'DABase\Controller\PeopleRest' => [
             'class_name' => 'DABase\Controller\PeopleRestController',
@@ -173,7 +193,7 @@ return [
                     'DACore\IEntities\Base\CityInterface'              => 'DABase\Entity\City',
                     'DACore\IEntities\Base\CompanyInterface'           => 'DABase\Entity\Company',
                     'DACore\IEntities\Base\CompanyCategoryInterface'   => 'DABase\Entity\CompanyCategory',
-                    'DACore\IEntities\Base\CompanyTypeInterface'   => 'DABase\Entity\CompanyType',
+                    'DACore\IEntities\Base\CompanyTypeInterface'        => 'DABase\Entity\CompanyType',
                     'DACore\IEntities\Base\CountryInterface'           => 'DABase\Entity\Country',
                     'DACore\IEntities\Base\CurrencyInterface'          => 'DABase\Entity\Currency',
                     'DACore\IEntities\Base\DocumentInterface'          => 'DABase\Entity\Document',

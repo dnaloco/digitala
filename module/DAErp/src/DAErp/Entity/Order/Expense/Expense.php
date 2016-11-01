@@ -39,6 +39,12 @@ class Expense implements ExpenseInterface
 	 */
 	private $consumption;
 
+    /**
+     *
+     * @ORM\Column(name="cost", type="decimal", precision=8, nullable=false)
+     */
+    private $cost;
+
 	/**
 	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Order\Store\StoreInterface")
 	 * @ORM\JoinColumn(name="store", referencedColumnName="id", nullable=false)
@@ -56,9 +62,9 @@ class Expense implements ExpenseInterface
 	private $description;
 
 	/**
-	 * @ORM\Column(name="expense_type", type="string", length=15, nullable=false)
+	 * @ORM\Column(name="type", type="enum_expensetype", nullable=false)
 	 */
-	private $expenseType;
+	private $type;
 
 	public function __construct(array $data = array()) {
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
@@ -161,6 +167,30 @@ class Expense implements ExpenseInterface
     }
 
     /**
+     * Gets the value of cost.
+     *
+     * @return mixed
+     */
+    public function getCost()
+    {
+        return $this->cost;
+    }
+
+    /**
+     * Sets the value of cost.
+     *
+     * @param mixed $cost the cost
+     *
+     * @return self
+     */
+    public function setCost($cost)
+    {
+        $this->cost = $cost;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of store.
      *
      * @return mixed
@@ -233,25 +263,25 @@ class Expense implements ExpenseInterface
     }
 
     /**
-     * Gets the value of expenseType.
+     * Gets the value of type.
      *
      * @return mixed
      */
-    public function getExpenseType()
+    public function getType()
     {
-        return $this->expenseType;
+        return $this->type;
     }
 
     /**
-     * Sets the value of expenseType.
+     * Sets the value of type.
      *
-     * @param mixed $expenseType the expense type
+     * @param mixed $type the type
      *
      * @return self
      */
-    public function setExpenseType($expenseType)
+    public function setType($type)
     {
-        $this->expenseType = $expenseType;
+        $this->type = $type;
 
         return $this;
     }

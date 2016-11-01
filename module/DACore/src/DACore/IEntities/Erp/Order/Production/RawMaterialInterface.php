@@ -7,4 +7,5 @@ interface RawMaterialInterface
 	function getStore();
 	function getQuantity();
 	function getIsReceived();
+	function getStorage();
 }

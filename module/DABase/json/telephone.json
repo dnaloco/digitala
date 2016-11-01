@@ -1,0 +1,8 @@
+{
+	"answerable": "",
+	"type": enum,
+	"mobileOperator": enum,
+	"DDD": "",
+	"number": "",
+	"notes": ""
+}

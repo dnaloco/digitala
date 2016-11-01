@@ -29,17 +29,23 @@ class Rating implements RatingInterface
 	private $rating;
 
     /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
+     * @ORM\JoinColumn(name="appraiser_id", referencedColumnName="id", nullable=true)
+     **/
+    private $appraiser;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Product\ProductInterface", inversedBy="ratings")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     */
+    private $product;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="notes", type="text", nullable=true)
      */
     private $notes;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="DACore\IEntities\User\UserInterface")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
-     **/
-    private $user;
 
 	/**
 	 * @var \DateTime
@@ -55,9 +61,7 @@ class Rating implements RatingInterface
 
 		(new Hydrator\ClassMethods)->hydrate($options, $this);
 	}
-
 	
-
 
     /**
      * Gets the value of id.
@@ -108,6 +112,54 @@ class Rating implements RatingInterface
     }
 
     /**
+     * Gets the value of appraiser.
+     *
+     * @return mixed
+     */
+    public function getAppraiser()
+    {
+        return $this->appraiser;
+    }
+
+    /**
+     * Sets the value of appraiser.
+     *
+     * @param mixed $appraiser the appraiser
+     *
+     * @return self
+     */
+    public function setAppraiser($appraiser)
+    {
+        $this->appraiser = $appraiser;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of product.
+     *
+     * @return mixed
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Sets the value of product.
+     *
+     * @param mixed $product the product
+     *
+     * @return self
+     */
+    public function setProduct($product)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of notes.
      *
      * @return string
@@ -127,30 +179,6 @@ class Rating implements RatingInterface
     public function setNotes($notes)
     {
         $this->notes = $notes;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of user.
-     *
-     * @return mixed
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Sets the value of user.
-     *
-     * @param mixed $user the user
-     *
-     * @return self
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -178,6 +206,4 @@ class Rating implements RatingInterface
 
         return $this;
     }
-
-    
 }

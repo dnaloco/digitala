@@ -1,0 +1,35 @@
+{
+	"reference": "",
+	"title": "",
+	"subtitle": "",
+	"manufacturer": 0,
+	"seoDescription": "",
+	"description": "",
+	"category": 0,
+	"features": [0, 0, 0],
+	"images": {
+		"uploadeds": [
+			{
+				"name": ""
+			}
+		]
+	},
+	"videos": [
+		{
+			"title": "",
+			"address": "",
+			"author": "",
+			"description": ""
+		}
+	],
+	"unitType": "enum",
+	"packageQtty": 0.0,
+	"weight": 0.0,
+	"dimensionLength": 0.0,
+	"dimensionHeight": 0.0,
+	"dimensionWidth": 0.0,
+	"alternativeProducts": [0, 0, 0],
+	"isHighlighted": "bool",
+	"isLaunch": "bool",
+	"status": "enum"
+}

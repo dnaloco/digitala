@@ -1,0 +1,52 @@
+{
+	"name": "",
+	"gender": "enum",
+	"birthdate": "0000-00-00",
+	"photo": {
+		"uploaded": ""
+	},
+	"addresses": [
+		{
+			"type": "enum",
+			"state": 0,
+			"city": 0,
+			"address1": "",
+			"address2": "",
+			"number": "",
+			"district": "",
+			"postalCode": "",
+			"notes": ""
+		}
+	],
+	"telephones": [
+		{
+			"answerable": "",
+			"type": "enum",
+			"mobileOperator": "enum",
+			"DDD": "",
+			"number": "",
+			"notes": ""
+		}
+	],
+	"emails": [
+		{
+			"answerable": "",
+			"address": ""
+		}
+	],
+	"socialNetworks": [
+		{
+			"address": ""
+		}
+	],
+	"documents": [
+		{
+			"type": "enum",
+			"reference": ""
+		}
+	],
+	"website": "",
+	"literacy": "",
+	"post": "",
+	"notes": ""
+}

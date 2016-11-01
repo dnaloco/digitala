@@ -1,0 +1,11 @@
+{
+	"type": "enum",
+	"state": 0,
+	"city": 0,
+	"address1": "",
+	"address2": "",
+	"number": "",
+	"district": "",
+	"postalCode": "",
+	"notes": ""
+}

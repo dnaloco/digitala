@@ -1,0 +1,14 @@
+{
+	"installments": 0,
+	"installment_index": 0,
+	"amountIncome": 0.0,
+	"invoiceDate": "0000-00-00",
+	"expirationDate": "0000-00-00",
+	"paymentDate": "0000-00-00",
+	"order": 0,
+	"paymentMethod": "enum",
+	"paymentType": "enum",
+	"status": "enum",
+	"creditCardAuthCode": ""
+
+}

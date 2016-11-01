@@ -111,6 +111,9 @@ class PartnerSuperclass implements PartnerSuperclassInterface
      */
 	private $firedDate;
 
+    // TODO: criar enum de status de funcionário;
+    private $status;
+
 	/**
      * @var \DateTime
      *

@@ -1,0 +1,10 @@
+
+{
+	"toCustomer": 0,
+	"user": 0,
+	"store": 0,
+	"storage": 0,
+	"status": "enum",
+	"quantity": 0,
+	"keepUpUnitl": "0000-00-00"
+}

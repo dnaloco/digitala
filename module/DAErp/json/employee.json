@@ -1,0 +1,10 @@
+{
+	"person": {
+
+	},
+	"occupation": 0,
+	"accounts": [],
+	"onComision": "bool",
+	"hiredDate": "0000-00-00",
+	"firedDate": "0000-00-00"
+}

@@ -4,7 +4,9 @@ return array(
     'DADummyTest\Module'                          => __DIR__ . '/Module.php',
     'DADummyTest\Controller\DummyIndexController' => __DIR__ . '/src/DADummyTest/Controller/DummyIndexController.php',
     'DADummyTest\Fixture\LoadGoodTags'            => __DIR__ . '/src/DADummyTest/Fixture/LoadGoodTags.php',
-    'DADummyTest\Fixture\LoadManufacturers'       => __DIR__ . '/src/DADummyTest/Fixture/LoadManufacturers.php',
+    'DADummyTest\Fixture\LoadManufacturers'       => __DIR__ . '/src/DADummyTest/Fixture/LoadShippers.php',
+    'DADummyTest\Fixture\LoadCompanyTypes'        => __DIR__ . '/src/DADummyTest/Fixture/LoadCompanyTypes.php',
     'DADummyTest\Fixture\LoadCompanyCategories'   => __DIR__ . '/src/DADummyTest/Fixture/LoadCompanyCategories.php',
+    'DADummyTest\Fixture\LoadSuppliers'           => __DIR__ . '/src/DADummyTest/Fixture/LoadSuppliers.php',
     'DADummyTest\DummyStrategy\FixtureStrategies' => __DIR__ . '/src/DADummyTest/DummyStrategy/FixtureStrategies.php',
 );

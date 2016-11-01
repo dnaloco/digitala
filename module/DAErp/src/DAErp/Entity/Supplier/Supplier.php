@@ -38,14 +38,10 @@ class Supplier implements SupplierInterface
      */
 	private $budgets;
 
-	/**
-     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Supplier\QualityRatingInterface")
-     * @ORM\JoinTable(name="daerp_supplier_suppliers_quality_ratings",
-     *      joinColumns={@ORM\JoinColumn(name="supplier_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="quality_rating_id", referencedColumnName="id")}
-     *      )
+    /**
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Supplier\QualityRatingInterface", mappedBy="supplier")
      */
-	private $qualityRatings;
+	private $ratings;
 
 	/**
 	 * @var string
