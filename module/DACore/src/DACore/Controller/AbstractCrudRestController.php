@@ -5,7 +5,7 @@ use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Lcobucci\JWT\Parser;
 
-use DACore\Controller\Aware\FirephpAwareInterface;
+use DACore\Aware\FirephpAwareInterface;
 use DACore\Exception\HttpStatusCodeException;
 use DACore\Strategy\Core\{SerializerInterface, SerializerStrategy};
 use DACore\Strategy\Core\{ResponsesInterface, ResponseStrategy};

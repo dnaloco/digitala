@@ -65,11 +65,26 @@ return [
         ],
         'initializers' => [
             function ($service, $sm) {
-                if(!$service instanceof Upload\MyUploadAwareInterface) {
-                    return;
+                if($service instanceof \DACore\Aware\Upload\MyUploadAwareInterface) {
+                    $service->setUploadManager($sm->get('MyUploadService'));
                 }
 
-                $service->setUploadManager($sm->get('MyUploadService'));
+                if ($service instanceof \DACore\Aware\ApcCacheAwareInterface) {
+                    $service->getCache($sm->get('apc'));
+                }
+
+                if ($service instanceof \DACore\Aware\MemcachedCacheAwareInterface) {
+                    $service->getCache($sm->get('memcached'));
+                }
+
+                if ($service instanceof \DACore\Aware\FirephpAwareInterface) {
+                    $log = new Logger('DA_FirePHP_Logger');
+                    $log->pushHandler(new FirePHPHandler());
+
+                    $service->getFirephp($log);
+                }
+
+                return;
             }
         ],
         'factories' => [
@@ -141,17 +156,17 @@ return [
         'initializers' => [
             function ($instance, $cm) {
                 $sm   = $cm->getServiceLocator();
-                if ($instance instanceof \DACore\Controller\Aware\ApcCacheAwareInterface) {
+                if ($instance instanceof \DACore\Aware\ApcCacheAwareInterface) {
                     $cache = $sm->get('apc');
                     $instance->getCache($cache);
                 }
 
-                if ($instance instanceof \DACore\Controller\Aware\MemcachedCacheAwareInterface) {
+                if ($instance instanceof \DACore\Aware\MemcachedCacheAwareInterface) {
                     $cache = $sm->get('memcached');
                     $instance->getCache($cache);
                 }
 
-                if ($instance instanceof \DACore\Controller\Aware\FirephpAwareInterface) {
+                if ($instance instanceof \DACore\Aware\FirephpAwareInterface) {
                     $log = new Logger('DA_FirePHP_Logger');
                     $log->pushHandler(new FirePHPHandler());
 

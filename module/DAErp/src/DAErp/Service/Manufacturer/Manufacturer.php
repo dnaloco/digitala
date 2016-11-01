@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use DACore\Service\AbstractCrudService;
 
-use DACore\Upload\MyUploadAwareInterface;
+use DACore\Aware\Upload\MyUploadAwareInterface;
 
 use DACore\Strategy\Core\{DataCheckerStrategyInterface, DataCheckerStrategy};
 use DACore\Strategy\Collections\Base\{
@@ -49,7 +49,7 @@ MyUploadAwareInterface
 
     protected $uploadManager;
 
-	public function setUploadManager(\DACore\Upload\MyAbstractUpload $uploadManager)
+	public function setUploadManager(\DACore\Aware\Upload\MyAbstractUpload $uploadManager)
 	{
 		$this->uploadManager = $uploadManager;
 	}
@@ -118,9 +118,8 @@ MyUploadAwareInterface
 
 	public function prepareData(array $data)
 	{
-
-		if(isset($data['createdAt'])) unset($data['createdAt']);
-		if(isset($data['updatedAt'])) unset($data['updatedAt']);
+		unset($data['createdAt']);
+		unset($data['updatedAt']);
 
 		$data = array_filter($data);
 		$key = 'manufacturer';
@@ -130,23 +129,20 @@ MyUploadAwareInterface
 			return $data;
 		} else {
 			$type = $this->getAnotherRepository('DACore\IEntities\Base\CompanyTypeInterface')->findOneBy(array('name' => 'manufacturer'));
-			$data['company']['types'] = new ArrayCollection();
-			$data['company']['types']->add($type);
 
-			$data['company'] = static::getCompany($key, $data['company'], true);
-			//$this->em->merge($data['company']);
-			//$this->flush();
-			//die;
-			//var_dump($data['company']->getGoodTags()->count());die;
+			if (is_numeric($data['company']))
+				$data['company'] = $this->em->getReference('DACore\IEntities\Base\CompanyInterface', $data['company']);
+			else {
+				$data['company'] = static::getCompany($key, $data['company'], true);
+			}
 
-			//unset($data['compact']['contacts']);
-			//var_dump(isset($data['company']['newGoodTags']));die;
+			if ($data['company'])
+				$data['company']->getTypes()->add($type);
 
 			if (isset($data['id'])) {
-				//var_dump('SHIT', $data['company']->getGoodTags()->count());die;
 
 				$this->em->merge($data['company']);
-				//$this->em->persist($data['company']->getGoodTags());die;
+
 				$this->em->flush();
 
 				$this->em->clear();
@@ -154,9 +150,7 @@ MyUploadAwareInterface
 				unset($data['company']);
 			}
 		}
-		//die;
-		//var_dump('...');die;
-		//var_dump($data['company']->getId());die;
+
 		if (static::hasErrors()) {
 			$data['errors'] = [];
 			$data['errors'] = static::getErrors();

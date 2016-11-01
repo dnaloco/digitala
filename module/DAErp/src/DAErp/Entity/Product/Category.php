@@ -23,17 +23,17 @@ class Category implements CategoryInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="name", type="string", length=30, nullable=false)
+	 * @ORM\Column(name="name", type="string", length=30, nullable=false, unique=true)
 	 */
 	private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="DACore\IEntities\Base\CompanyCategoryInterface", mappedBy="parent", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Product\CategoryInterface", mappedBy="parent", cascade={"remove"})
      */
     private $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\CompanyCategoryInterface", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Product\CategoryInterface", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     protected $parent;

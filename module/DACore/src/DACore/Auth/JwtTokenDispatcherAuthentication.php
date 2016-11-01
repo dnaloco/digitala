@@ -104,7 +104,7 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
                     $hasAccess = false;
 
                     foreach($user->getRoles() as $role) {
-                        $hasAccess =  $this->acl->isAllowed($role['name'], $resourceAcl, $this->privilege);
+                        $hasAccess =  $this->acl->isAllowed($role->getName(), $resourceAcl, $this->privilege);
 
                         if ($hasAccess) break;
                     }

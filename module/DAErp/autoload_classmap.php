@@ -137,7 +137,7 @@ return array(
     'DAErp\Entity\MyBusiness\Subsidiary'                                        => __DIR__ . '/src/DAErp/Entity/MyBusiness/Subsidiary.php',
     'DAErp\Entity\MyBusiness\Matrix'                                            => __DIR__ . '/src/DAErp/Entity/MyBusiness/Matrix.php',
     'DAErp\Entity\Shipper\Shipper'                                              => __DIR__ . '/src/DAErp/Entity/Shipper/Shipper.php',
-    'DAErp\Entity\Supplier\TimelyRating'                                        => __DIR__ . '/src/DAErp/Entity/Shipper/TimelyRating.php',
+    'DAErp\Entity\Shipper\TimelyRating'                                         => __DIR__ . '/src/DAErp/Entity/Shipper/TimelyRating.php',
     'DAErp\Entity\HumanResource\Monitoring\Evaluation'                          => __DIR__ . '/src/DAErp/Entity/HumanResource/Monitoring/Evaluation.php',
     'DAErp\Entity\HumanResource\Monitoring\TimePunchClock'                      => __DIR__ . '/src/DAErp/Entity/HumanResource/Monitoring/TimePunchClock.php',
     'DAErp\Entity\HumanResource\Monitoring\EvaluationRating'                    => __DIR__ . '/src/DAErp/Entity/HumanResource/Monitoring/EvalutionRating.php',

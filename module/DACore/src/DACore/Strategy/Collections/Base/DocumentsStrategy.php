@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 trait DocumentsStrategy
 {
 
-	public function getDocument($key, $document)
+	private function getDocument($key, $document)
 	{
 		if (!isset($document['type'])) {
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'doc_type');

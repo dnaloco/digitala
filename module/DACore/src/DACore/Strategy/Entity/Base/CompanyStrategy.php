@@ -120,18 +120,11 @@ trait CompanyStrategy
 			}
 		}
 
-		//var_dump($company['contacts']);die;
-
 		if (isset($company['contacts'])) {
 			if (empty($company['contacts'])) {
 				if ($entity) $entity->getContacts()->clear();
 				unset($company['contacts']);
 			} else {
-				/*foreach ($company['contacts'] as $contact) {
-					if (is_numeric($contact)) {
-						$contact = $this->em->getReference('DACore\IEntities\Base\PersonInterface', $contact);
-					}
-				}*/
 				$company['contacts'] = static::getContactCollection($key, $company['contacts'], $entity);
 			}
 
@@ -188,8 +181,6 @@ trait CompanyStrategy
 				unset($company['goodTags']);
 			} else {
 				$company['goodTags'] = static::getGoodTagsReferences($key, $company['goodTags'], $entity);
-				//unset($company['goodTags']);
-
 			}
 
 		}
@@ -202,7 +193,6 @@ trait CompanyStrategy
 			return false;
 		}
 
-		//var_dump($asdas->getGoodTags()->count());die;
 		if ($hasParent) {
 
 			if ($entity) {

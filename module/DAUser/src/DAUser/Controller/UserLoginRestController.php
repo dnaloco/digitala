@@ -5,7 +5,7 @@ use DACore\Exception\HttpStatusCodeException;
 use Zend\View\Model\JsonModel;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
-use DACore\Controller\Aware\ApcCacheAwareInterface;
+use DACore\Aware\ApcCacheAwareInterface;
 
 
 use DACore\Strategy\Core\{
@@ -69,7 +69,7 @@ implements ApcCacheAwareInterface,
 	public function create($data)
 	{
         //var_dump($data);die;
-        $tokenKey = $this->checkCsrfToken($data);
+        $csrfTokenKey = $this->checkCsrfToken($data);
 
         if (!isset($data['user'], $data['password'])) {
             $this->statusBadRequest('Data must have user and password to get login!');
@@ -118,6 +118,8 @@ implements ApcCacheAwareInterface,
                 $user_roles = static::getPropertyNamingSerializer()->serialize($hasUser->getRoles(), 'json');
 
                 $newToken = $this->getToken($api_issuer, $api_audience, $api_uid, $api_signer, $api_sign, $api_not_before, $api_expiration, $user_email, $user_name, $user_roles);
+
+                $this->removeCsrfToken($csrfTokenKey);
                 return new JsonModel(array('token' => $newToken->__toString()));
             }
 
@@ -127,3 +129,4 @@ implements ApcCacheAwareInterface,
         $this->statusNotAuthorized('User not found!');
 	}
 }
+

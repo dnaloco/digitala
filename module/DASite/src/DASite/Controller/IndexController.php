@@ -16,7 +16,7 @@ use Monolog\Handler\FirePHPHandler;
 
 
 class IndexController extends AbstractActionController
-implements \DACore\Controller\Aware\ApcCacheAwareInterface
+implements \DACore\Aware\ApcCacheAwareInterface
 {
     protected $cache;
 

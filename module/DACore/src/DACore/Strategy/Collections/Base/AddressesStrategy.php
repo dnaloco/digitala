@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 trait AddressesStrategy
 {
 
-	public function getAddress($key, $address)
+	private function getAddress($key, $address)
 	{
 		if (!isset($address['type'])) {
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'address_type');

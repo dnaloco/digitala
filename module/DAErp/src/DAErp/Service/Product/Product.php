@@ -3,7 +3,7 @@ namespace DAErp\Service\Product;
 
 use DACore\Service\AbstractCrudService;
 use Doctrine\Common\Collections\ArrayCollection;
-use DACore\Upload\MyUploadAwareInterface;
+use DACore\Aware\Upload\MyUploadAwareInterface;
 
 use DACore\Strategy\Core\{DataCheckerStrategyInterface, DataCheckerStrategy};
 use DACore\Strategy\Collections\Erp\Product\{
@@ -42,7 +42,7 @@ ProductReferenceInterface
 
 	protected $uploadManager;
 
-	public function setUploadManager(\DACore\Upload\MyAbstractUpload $uploadManager)
+	public function setUploadManager(\DACore\Aware\Upload\MyAbstractUpload $uploadManager)
 	{
 		$this->uploadManager = $uploadManager;
 	}

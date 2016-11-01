@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Upload;
+namespace DACore\Aware\Upload;
 
 interface MyUploadAwareInterface
 {

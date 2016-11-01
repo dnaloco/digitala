@@ -27,7 +27,7 @@ trait PeopleStrategy
 		return $arrPeople;
 	}
 
-	public function getContact($key, $person)
+	private function getContact($key, $person)
 	{
 
 		$entity = null;

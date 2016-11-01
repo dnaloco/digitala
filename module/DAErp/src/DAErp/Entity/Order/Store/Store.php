@@ -78,6 +78,13 @@ class Store implements StoreInterface
      */
     private $discountType;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="total_with_discount", type="decimal", precision=8, nullable=true)
+     */
+    private $totalWithDiscount;
+
 	/**
 	 * @var \DateTime
 	 *
@@ -340,6 +347,30 @@ class Store implements StoreInterface
     }
 
     /**
+     * Gets the value of totalWithDiscount.
+     *
+     * @return string
+     */
+    public function getTotalWithDiscount()
+    {
+        return $this->totalWithDiscount;
+    }
+
+    /**
+     * Sets the value of totalWithDiscount.
+     *
+     * @param string $totalWithDiscount the total with discount
+     *
+     * @return self
+     */
+    public function setTotalWithDiscount($totalWithDiscount)
+    {
+        $this->totalWithDiscount = $totalWithDiscount;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of shelfLife.
      *
      * @return \DateTime
@@ -460,4 +491,5 @@ class Store implements StoreInterface
 
         return $this;
     }
+
 }

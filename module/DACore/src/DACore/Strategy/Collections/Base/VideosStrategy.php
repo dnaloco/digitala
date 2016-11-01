@@ -6,15 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 trait VideosStrategy
 {
 
-	public function getVideo($key, $video)
+	private function getVideo($key, $video)
 	{
 		//$repoVideo = $this->getAnotherRepository('DACore\IEntities\Base\VideoInterface');
-
-		if (isset($email['anwserable'])) {
-			$email['anwserable'] = static::checkNameWithSpecials($key, $email['anwserable'], 'anwserable');
-			if (!$email['anwserable']) return false;
-
-		}
 
 		if (!isset($video['title'])) {
 			static::addDataError($key, static::ERROR_UNIQUE_FIELD, 'title');

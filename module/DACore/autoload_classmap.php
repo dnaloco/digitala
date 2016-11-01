@@ -60,6 +60,8 @@ return array(
     'DACore\Strategy\Collections\Erp\Product\ProductDepartmentsStrategy'      => __DIR__ . '/src/DACore/Strategy/Collections/Erp/Product/ProductDepartmentsStrategy.php',
     'DACore\Strategy\Collections\Erp\Product\ProductReferenceStrategy'        => __DIR__ . '/src/DACore/Strategy/Collections/Erp/Product/ProductReferenceStrategy.php',
     'DACore\Strategy\Collections\Erp\Product\ProductDepartmentsInterface'     => __DIR__ . '/src/DACore/Strategy/Collections/Erp/Product/ProductDepartmentsInterface.php',
+    'DACore\Strategy\Collections\Erp\Order\StoresInterface'                   => __DIR__ . '/src/DACore/Strategy/Collections/Erp/Order/StoresInterface.php',
+    'DACore\Strategy\Collections\Erp\Order\StoresStrategy'                    => __DIR__ . '/src/DACore/Strategy/Collections/Erp/Order/StoresStrategy.php',
     'DACore\Permissions\Acl'                                                  => __DIR__ . '/src/DACore/Permissions/Acl.php',
     'DACore\Factory\AbsctractRestServiceFactory'                              => __DIR__ . '/src/DACore/Factory/AbstractRestServiceFactory.php',
     'DACore\Factory\AbsctractRestControllerFactory'                           => __DIR__ . '/src/DACore/Factory/AbstractRestControllerFactory.php',

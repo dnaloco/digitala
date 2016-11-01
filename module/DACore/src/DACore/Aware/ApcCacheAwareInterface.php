@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Controller\Aware;
+namespace DACore\Aware;
 
 interface ApcCacheAwareInterface
 {

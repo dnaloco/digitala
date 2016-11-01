@@ -1,5 +1,5 @@
 <?php 
-namespace DACore\Upload;
+namespace DACore\Aware\Upload;
 
 use Zend\File\Transfer\Adapter\Http;
 

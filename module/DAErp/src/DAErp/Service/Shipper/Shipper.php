@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use DACore\Service\AbstractCrudService;
 
-use DACore\Upload\MyUploadAwareInterface;
+use DACore\Aware\Upload\MyUploadAwareInterface;
 
 use DACore\Strategy\Core\{DataCheckerStrategyInterface, DataCheckerStrategy};
 use DACore\Strategy\Collections\Base\{
@@ -49,7 +49,7 @@ MyUploadAwareInterface
 
     protected $uploadManager;
 
-	public function setUploadManager(\DACore\Upload\MyAbstractUpload $uploadManager)
+	public function setUploadManager(\DACore\Aware\Upload\MyAbstractUpload $uploadManager)
 	{
 		$this->uploadManager = $uploadManager;
 	}
@@ -99,35 +99,29 @@ MyUploadAwareInterface
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'company');
 			return $data;
 		} else {
-			
+			$type = $this->getAnotherRepository('DACore\IEntities\Base\CompanyTypeInterface')->findOneBy(array('name' => 'shipper'));
 
-			if (is_numeric($data['company'])) {
+			if (is_numeric($data['company']))
 				$data['company'] = $this->em->getReference('DACore\IEntities\Base\CompanyInterface', $data['company']);
-			} else {
+			else {
 				$data['company'] = static::getCompany($key, $data['company'], true);
 			}
 
-			$type = $this->getAnotherRepository('DACore\IEntities\Base\CompanyTypeInterface')->findOneBy(array('name' => 'shipper'));
-			$data['company']->getTypes()->add($type);
-
-			//var_dump($data['company']->getGoodTags()->count());die;
-
-			//unset($data['compact']['contacts']);
-
+			if ($data['company'])
+				$data['company']->getTypes()->add($type);
 
 			if (isset($data['id'])) {
+
 				$this->em->merge($data['company']);
 
-
-
 				$this->em->flush();
+
+				$this->em->clear();
 
 				unset($data['company']);
 			}
 		}
-		//die;
-		//var_dump('...');die;
-		//var_dump($data['company']->getId());die;
+
 		if (static::hasErrors()) {
 			$data['errors'] = [];
 			$data['errors'] = static::getErrors();

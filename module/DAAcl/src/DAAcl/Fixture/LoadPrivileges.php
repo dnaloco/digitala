@@ -25,24 +25,14 @@ class LoadPrivileges extends AbstractFixture implements OrderedFixtureInterface
 
                 $guestRole = $manager->getReference($roleEntity, 1);
 
-                $generalResource = $manager->getReference($resourceEntity, 1);
-                $citiesResource = $manager->getReference($resourceEntity, 2);
-                $statesResource = $manager->getReference($resourceEntity, 3);
+                $resources = $manager->getRepository('DACore\IEntities\Acl\ResourceInterface')->findAll();
 
-                $viewPrivilege = new Privilege;
-                $viewPrivilege->setName(self::PRIVILEGES['SEE']);
-                $viewPrivilege->setRole($guestRole)->setResource($generalResource);
-                $manager->persist($viewPrivilege);
-
-                $viewPrivilege = new Privilege;
-                $viewPrivilege->setName(self::PRIVILEGES['SEE']);
-                $viewPrivilege->setRole($guestRole)->setResource($citiesResource);
-                $manager->persist($viewPrivilege);
-
-                $viewPrivilege = new Privilege;
-                $viewPrivilege->setName(self::PRIVILEGES['SEE']);
-                $viewPrivilege->setRole($guestRole)->setResource($statesResource);
-                $manager->persist($viewPrivilege);
+                foreach($resources as $resource) {
+                        $viewPrivilege = new Privilege;
+                        $viewPrivilege->setName(self::PRIVILEGES['SEE']);
+                        $viewPrivilege->setRole($guestRole)->setResource($resource);
+                        $manager->persist($viewPrivilege);
+                }
 
                 $manager->flush();
 

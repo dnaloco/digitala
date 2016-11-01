@@ -3,7 +3,7 @@ namespace DABase\Service;
 
 use DACore\Service\AbstractCrudService;
 
-use DACore\Upload\MyUploadAwareInterface;
+use DACore\Aware\Upload\MyUploadAwareInterface;
 use DACore\Strategy\Core\{DataCheckerStrategyInterface, DataCheckerStrategy};
 use DACore\Strategy\Collections\Base\{
     AddressesInterface,AddressesStrategy,
@@ -38,7 +38,7 @@ MyUploadAwareInterface
 
 	protected $uploadManager;
 
-	public function setUploadManager(\DACore\Upload\MyAbstractUpload $uploadManager)
+	public function setUploadManager(\DACore\Aware\Upload\MyAbstractUpload $uploadManager)
 	{
 		$this->uploadManager = $uploadManager;
 	}

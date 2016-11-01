@@ -1,5 +1,5 @@
 <?php
-namespace DACore\Upload\Strategy;
+namespace DACore\Aware\Upload\Strategy;
 
 interface UploadStrategyInterface
 {

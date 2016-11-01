@@ -159,7 +159,6 @@ trait PersonStrategy
 			if ($userId) {
 				$userEntity = $this->em->getReference('DAUser\Entity\User', $userId);
 				$person['user'] = $userEntity;
-				//var_dump('USER', $userEntity->getId());die;
 			} elseif($companyId) {
 				$person['company'] = $companyId;
 			}
@@ -172,8 +171,17 @@ trait PersonStrategy
 			$person['errors'] = static::getErrors();
 			return false;
 		}
-		//die('DO NOT PROCEED');
-		if ($hasParent) return new \DABase\Entity\Person($person);
+
+		if ($hasParent) {
+
+			if ($entity) {
+				(new Hydrator\ClassMethods())->hydrate($person, $entity);
+				return $entity;
+			} else {
+				return new \DABase\Entity\Person($person);
+			}
+		}
+
 
 		return $person;
 	}

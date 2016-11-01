@@ -1,7 +1,7 @@
 <?php
 namespace DACore\Service;
 
-use DACore\Upload\MyAbstractUpload;
+use DACore\Aware\Upload\MyAbstractUpload;
 
 class MyUpload extends MyAbstractUpload
 {

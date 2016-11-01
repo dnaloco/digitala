@@ -8,7 +8,7 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\Session\Config\SessionConfig;
 use Zend\Session\Container;
 use Zend\Session\SessionManager;
-use DACore\Controller\Aware\ApcCacheAwareInterface;
+use DACore\Aware\ApcCacheAwareInterface;
 
 class CsrfFormRestController extends AbstractRestfulController
 implements ApcCacheAwareInterface

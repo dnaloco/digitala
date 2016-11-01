@@ -24,13 +24,13 @@ class Module
         $moduleRouteListener->attach($em);
 
 
-        /*$sharedEvents = $em->getSharedManager();
+        $sharedEvents = $em->getSharedManager();
         $entityManager = $sm->get('Doctrine\ORM\EntityManager');
         $cacheApc = $sm->get('apc');
         $acl = $sm->get('DACore\Permissions\Acl');
         $tokenAuth = new \DACore\Auth\JwtTokenDispatcherAuthentication($entityManager, $cacheApc, $acl);
 
-        $sharedEvents->attach('Zend\Mvc\Controller\AbstractRestfulController', MvcEvent::EVENT_DISPATCH, array($tokenAuth, 'onDispatch'), 200);*/
+        $sharedEvents->attach('Zend\Mvc\Controller\AbstractRestfulController', MvcEvent::EVENT_DISPATCH, array($tokenAuth, 'onDispatch'), 200);
 
 
     }

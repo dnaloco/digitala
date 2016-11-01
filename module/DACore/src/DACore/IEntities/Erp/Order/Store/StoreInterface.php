@@ -13,6 +13,7 @@ interface StoreInterface
 	function getUnitPrice();
 	function getDiscount();
 	function getDiscountType();
+	function getTotalWithDiscount();
 	function getStorages();
 	function getStatus();
 	function getUpdatedAt();
