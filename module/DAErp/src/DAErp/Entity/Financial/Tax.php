@@ -30,7 +30,7 @@ class Tax implements TaxInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="rate", type="decimal", precision=8, nullable=false)
+     * @ORM\Column(name="rate", type="decimal", precision=7, scale=2, nullable=false)
      */
     private $rate;
 

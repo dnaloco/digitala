@@ -24,7 +24,7 @@ class Rating implements RatingInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="rating", type="decimal", precision=8, nullable=false)
+	 * @ORM\Column(name="rating", type="decimal", precision=7, scale=2, nullable=false)
 	 */
 	private $rating;
 

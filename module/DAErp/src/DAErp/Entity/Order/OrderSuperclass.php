@@ -78,7 +78,7 @@ class OrderSuperclass implements OrderSuperclassInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="shipping_cost", type="decimal", precision=8, nullable=true)
+	 * @ORM\Column(name="shipping_cost", type="decimal", precision=7, scale=2, nullable=true)
 	 */
 	private $shippingCost;
 
@@ -115,14 +115,14 @@ class OrderSuperclass implements OrderSuperclassInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="total_order_cost", type="decimal", precision=8, nullable=false)
+	 * @ORM\Column(name="total_order_cost", type="decimal", precision=7, scale=2, nullable=false)
 	 */
 	private $totalOrderCost;
 
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="discount", type="decimal", precision=8, nullable=true)
+	 * @ORM\Column(name="discount", type="decimal", precision=7, scale=2, nullable=true)
 	 */
 	private $discount;
 
@@ -136,7 +136,7 @@ class OrderSuperclass implements OrderSuperclassInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="total_with_discount", type="decimal", precision=8, nullable=true)
+	 * @ORM\Column(name="total_with_discount", type="decimal", precision=7, scale=2, nullable=true)
 	 */
 	private $totalWithDiscount;
 
@@ -293,6 +293,31 @@ class OrderSuperclass implements OrderSuperclassInterface
     public function setReceiver($receiver)
     {
         $this->receiver = $receiver;
+
+        return $this;
+    }
+
+    
+    /**
+     * Gets the value of appraiser.
+     *
+     * @return mixed
+     */
+    public function getAppraiser()
+    {
+        return $this->appraiser;
+    }
+
+    /**
+     * Sets the value of appraiser.
+     *
+     * @param mixed $appraiser the appraiser
+     *
+     * @return self
+     */
+    public function setAppraiser($appraiser)
+    {
+        $this->appraiser = $appraiser;
 
         return $this;
     }
@@ -758,4 +783,5 @@ inverseJoinColumns={@ORM\JoinColumn(name="tax_id", referencedColumnName="id")}
 
         return $this;
     }
+
 }

@@ -41,14 +41,14 @@ implements ServiceInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="time_price", type="decimal", precision=8, nullable=false)
+	 * @ORM\Column(name="time_price", type="decimal", precision=7, scale=2, nullable=false)
 	 */
 	private $unitPrice;
 
 	/**
      * @var string
      *
-     * @ORM\Column(name="discount", type="decimal", precision=8, nullable=true)
+     * @ORM\Column(name="discount", type="decimal", precision=7, scale=2, nullable=true)
      */
     private $discount;
 
@@ -62,7 +62,7 @@ implements ServiceInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="total_price", type="decimal", precision=8, nullable=false)
+	 * @ORM\Column(name="total_price", type="decimal", precision=7, scale=2, nullable=false)
 	 */
 	private $totalPrice;
 

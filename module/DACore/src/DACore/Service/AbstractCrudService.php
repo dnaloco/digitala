@@ -25,8 +25,8 @@ abstract class AbstractCrudService implements PrepareDataInterface
 
 	public function prepareData(array $data)
 	{
-		if(isset($data['createdAt'])) unset($data['createdAt']);
-		if(isset($data['updatedAt'])) unset($data['updatedAt']);
+		unset($data['createdAt']);
+		unset($data['updatedAt']);
 
 		return array_filter($data);
 	}
@@ -71,6 +71,7 @@ abstract class AbstractCrudService implements PrepareDataInterface
 		if (!empty($data['errors'])) return $data;
 
 		try {
+
 			$entity = new $this->entity($data);
 			$this->em->persist($entity);
 			$this->em->flush();

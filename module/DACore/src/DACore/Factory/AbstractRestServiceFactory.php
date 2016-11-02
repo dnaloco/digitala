@@ -47,8 +47,9 @@ class AbsctractRestServiceFactory implements AbstractFactoryInterface
         	throw new \Exception(self::ENTITY_DEFINED);
         }
 
+        //var_dump($config['class_name']);die;
         $className = $config['class_name'];
-        
+
         $entityManager = $this->getEntityManager($serviceLocator);
         $entity = $config['entity'];
 

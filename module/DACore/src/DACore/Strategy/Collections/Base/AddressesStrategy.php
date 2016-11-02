@@ -6,8 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 trait AddressesStrategy
 {
 
-	private function getAddress($key, $address)
+	public function getAddress($key, $address)
 	{
+
+		$address = array_filter($address);
+
 		if (!isset($address['type'])) {
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'address_type');
 			return false;
@@ -35,12 +38,12 @@ trait AddressesStrategy
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'address1');
 			return false;
 		} else {
-			$address['address1'] = static::checkString($key, $address['address1']);
+			$address['address1'] = static::checkString($key, $address['address1'], 'address1');
 			if (!$address['address1']) return false;
 		}
 
 		if (isset($address['address2'])) {
-			$address['address2'] = static::checkString($key, $address['address2']);
+			$address['address2'] = static::checkString($key, $address['address2'], 'address2');
 			if (!$address['address1']) return false;
 		}
 
@@ -56,7 +59,7 @@ trait AddressesStrategy
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'district');
 			return false;
 		} else {
-			$address['district'] = static::checkString($key, $address['district']);
+			$address['district'] = static::checkString($key, $address['district'], 'district');
 			if (!$address['district']) return false;
 		}
 
@@ -64,7 +67,7 @@ trait AddressesStrategy
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'postalCode');
 			return false;
 		} else {
-			$address['postalCode'] = static::checkString($key, $address['postalCode']);
+			$address['postalCode'] = static::checkString($key, $address['postalCode'], 'postalCode');
 			if (!$address['postalCode']) return false;
 		}
 		

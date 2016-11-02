@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 trait VideosStrategy
 {
 
-	private function getVideo($key, $video)
+	public function getVideo($key, $video)
 	{
 		//$repoVideo = $this->getAnotherRepository('DACore\IEntities\Base\VideoInterface');
 

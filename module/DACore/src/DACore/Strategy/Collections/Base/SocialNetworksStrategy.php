@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 trait SocialNetworksStrategy
 {
 	private $checkUnique = true;
-	private function getSocialNetwork($key, $socialNetwork)
+	public function getSocialNetwork($key, $socialNetwork)
 	{
 		$repoSocial = $this->getAnotherRepository('DACore\IEntities\Base\SocialNetworkInterface');
 

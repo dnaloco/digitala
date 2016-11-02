@@ -23,6 +23,12 @@ class Store implements StoreInterface
 	 */
 	private $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Order\Store\OrderInterface", inversedBy="stores")
+     * @ORM\JoinColumn(name="store_order_id", referencedColumnName="id")
+     */
+    private $storeOrder;
+
 	/**
      * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Product\ProductInterface", inversedBy="stores")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
@@ -53,21 +59,21 @@ class Store implements StoreInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="unit_cost", type="decimal", precision=8, nullable=true)
+	 * @ORM\Column(name="unit_cost", type="decimal", precision=7, scale=2, nullable=true)
 	 */
 	private $unitCost;
 
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="unit_price", type="decimal", precision=8, scale=2, nullable=true)
+	 * @ORM\Column(name="unit_price", type="decimal", precision=7, scale=2, scale=2, nullable=true)
 	 */
 	private $unitPrice;
 
 	/**
      * @var string
      *
-     * @ORM\Column(name="discount", type="decimal", precision=8, nullable=true)
+     * @ORM\Column(name="discount", type="decimal", precision=7, scale=2, nullable=true)
      */
     private $discount;
 
@@ -81,7 +87,7 @@ class Store implements StoreInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="total_with_discount", type="decimal", precision=8, nullable=true)
+     * @ORM\Column(name="total_with_discount", type="decimal", precision=7, scale=2, nullable=true)
      */
     private $totalWithDiscount;
 
@@ -150,6 +156,32 @@ class Store implements StoreInterface
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    
+
+    /**
+     * Gets the value of storeOrder.
+     *
+     * @return mixed
+     */
+    public function getStoreOrder()
+    {
+        return $this->storeOrder;
+    }
+
+    /**
+     * Sets the value of storeOrder.
+     *
+     * @param mixed $storeOrder the store order
+     *
+     * @return self
+     */
+    public function setStoreOrder($storeOrder)
+    {
+        $this->storeOrder = $storeOrder;
 
         return $this;
     }

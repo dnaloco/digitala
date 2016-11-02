@@ -46,14 +46,14 @@ class Budget implements BudgetInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="total", type="decimal", precision=8, nullable=false)
+	 * @ORM\Column(name="total", type="decimal", precision=7, scale=2, nullable=false)
 	 */
 	private $total;
 
 	/**
      * @var string
      *
-     * @ORM\Column(name="discount", type="decimal", precision=8, nullable=true)
+     * @ORM\Column(name="discount", type="decimal", precision=7, scale=2, nullable=true)
      */
     private $discount;
 
@@ -67,7 +67,7 @@ class Budget implements BudgetInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="total_with_discount", type="decimal", precision=8, nullable=true)
+	 * @ORM\Column(name="total_with_discount", type="decimal", precision=7, scale=2, nullable=true)
 	 */
 	private $totalWithDiscount;
 

@@ -40,7 +40,7 @@ class AccountSuperclass implements AccountSuperclassInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="amount", type="decimal", precision=8, nullable=false)
+	 * @ORM\Column(name="amount", type="decimal", precision=7, scale=2, nullable=false)
 	 */
 	private $amount;
 

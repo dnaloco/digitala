@@ -36,7 +36,7 @@ class Currency implements CurrencyInterface
 
 	/**
 	 *
-	 * @ORM\Column(name="rate", type="decimal", precision=8, nullable=false)
+	 * @ORM\Column(name="rate", precision=7, scale=2, nullable=false)
 	 */
 	protected $rate;
 

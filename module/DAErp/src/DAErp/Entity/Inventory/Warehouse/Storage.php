@@ -94,7 +94,7 @@ class Storage implements StorageInterface
 
 	/**
 	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Inventory\Warehouse\PlaceInterface")
-	 * @ORM\JoinColumn(name="place_id", referencedColumnName="id", nullable=true)
+	 * @ORM\JoinColumn(name="place_id", referencedColumnName="id", nullable=false)
 	 **/
 	private $place;
 

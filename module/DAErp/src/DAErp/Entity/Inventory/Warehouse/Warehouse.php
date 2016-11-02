@@ -4,6 +4,7 @@ namespace DAErp\Entity\Inventory\Warehouse;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Stdlib\Hydrator;
 use DACore\IEntities\Erp\Inventory\Warehouse\WarehouseInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  *
@@ -53,10 +54,9 @@ class Warehouse implements WarehouseInterface
 	private $places;
 
 	public function __construct(array $options = array()) {
-
+        $this->places = new ArrayCollection();
+        (new Hydrator\ClassMethods)->hydrate($options, $this);
 	}
-
-	
 
     /**
      * Gets the value of id.

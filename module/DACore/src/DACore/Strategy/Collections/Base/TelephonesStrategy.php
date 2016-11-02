@@ -5,7 +5,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 trait TelephonesStrategy
 {
-	private function getTelephone($key, $telephone)
+	public function getTelephone($key, $telephone)
 	{
 		if (isset($telephone['anwserable'])) {
 			$telephone['anwserable'] = static::checkNameWithSpecials($key, $telephone['anwserable'], 'anwserable');

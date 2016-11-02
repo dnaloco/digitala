@@ -7,7 +7,7 @@ trait EmailsStrategy
 {
 	private $checkUnique = true;
 
-	private function getEmail($key, $email)
+	public function getEmail($key, $email)
 	{
 		$repoEmail = $this->getAnotherRepository('DACore\IEntities\Base\EmailInterface');
 

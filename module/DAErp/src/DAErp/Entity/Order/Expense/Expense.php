@@ -41,7 +41,7 @@ class Expense implements ExpenseInterface
 
     /**
      *
-     * @ORM\Column(name="cost", type="decimal", precision=8, nullable=false)
+     * @ORM\Column(name="cost", type="decimal", precision=7, scale=2, nullable=false)
      */
     private $cost;
 

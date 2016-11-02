@@ -33,7 +33,7 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
                 self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
                 self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['CREATE']
             ],
-            self::ACL_RESOURCES['UPDATE'] => [
+            self::ACL_RESOURCES['PUT'] => [
                 self::ACL_RULES['ACCESS'] => self::ACL_ACCESSES['PRIVATE'],
                 self::ACL_RULES['ROLE'] => self::ACL_ROLES['ADMIN'],
                 self::ACL_RULES['PRIVILEGE'] => self::ACL_PRIVILEGES['EDIT']

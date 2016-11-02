@@ -53,7 +53,7 @@ implements BankInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="saving_amount", type="decimal", precision=8, nullable=false)
+	 * @ORM\Column(name="saving_amount", type="decimal", precision=7, scale=2, nullable=false)
 	 */
 	private $savingAmount;
 

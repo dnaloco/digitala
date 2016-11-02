@@ -1479,13 +1479,13 @@ return [
         ],
 
         // ::: My Business Controllers :::
-        'DAErp\Controller\MyBusines\MatrixRest' => [
-            'class_name' => 'DAErp\Controller\MyBusines\MatrixRestController',
-            'service'    => 'DAErp\Service\MyBusines\Matrix',
+        'DAErp\Controller\MyBusiness\MatrixRest' => [
+            'class_name' => 'DAErp\Controller\MyBusiness\MatrixRestController',
+            'service'    => 'DAErp\Service\MyBusiness\Matrix',
         ],
-        'DAErp\Controller\MyBusines\SubsidiariesRest' => [
-            'class_name' => 'DAErp\Controller\MyBusines\SubsidiariesRestController',
-            'service'    => 'DAErp\Service\MyBusines\Subsidiary',
+        'DAErp\Controller\MyBusiness\SubsidiariesRest' => [
+            'class_name' => 'DAErp\Controller\MyBusiness\SubsidiariesRestController',
+            'service'    => 'DAErp\Service\MyBusiness\Subsidiary',
         ],
 
         // ::: Order Controllers :::

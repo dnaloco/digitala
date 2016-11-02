@@ -14,13 +14,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Order extends OrderSuperclass implements OrderInterface
 {
-	/**
-	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Order\Store\StoreInterface", cascade={"persist", "remove"})
-	 * @ORM\JoinTable(name="daerp_store_order_stores",
-	 *      joinColumns={@ORM\JoinColumn(name="order_store_id", referencedColumnName="id")},
-	 *      inverseJoinColumns={@ORM\JoinColumn(name="store_id", referencedColumnName="id", unique=true)}
-	 *      )
-	 **/
+
+    /**
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Order\Store\StoreInterface", mappedBy="storeOrder", cascade={"persist", "remove"})
+     */
 	private $stores;
 
     /**
@@ -66,6 +63,32 @@ class Order extends OrderSuperclass implements OrderInterface
         return $this;
     }
 
+
+
+    /**
+     * Gets the value of supplier.
+     *
+     * @return mixed
+     */
+    public function getSupplier()
+    {
+        return $this->supplier;
+    }
+
+    /**
+     * Sets the value of supplier.
+     *
+     * @param mixed $supplier the supplier
+     *
+     * @return self
+     */
+    public function setSupplier($supplier)
+    {
+        $this->supplier = $supplier;
+
+        return $this;
+    }
+
     /**
      * Gets the value of production.
      *
@@ -89,4 +112,6 @@ class Order extends OrderSuperclass implements OrderInterface
 
         return $this;
     }
+
+
 }

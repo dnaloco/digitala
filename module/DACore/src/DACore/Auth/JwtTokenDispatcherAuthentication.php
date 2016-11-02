@@ -160,6 +160,7 @@ class JwtTokenDispatcherAuthentication
 
                 if ($schema == 'Bearer') {
                 	$rules = $this->controller->getRules();
+
                     $this->token = $splitAuth[1];
                     $this->access = $rules[$method]['access'];
                     $this->role = $rules[$method]['role'];

@@ -8,7 +8,7 @@
 	"shippingType": "enum",
 	"shippingCost": 0.0,
 	"dateShipped": "0000-00-00",
-	"trackindCode": "0000-00-00",
+	"trackindCode": "",
 	"expectedDeliveryDate": "0000-00-00",
 	"dateDelivery": "0000-00-00",
 	"totalOrderCost": 0.0,

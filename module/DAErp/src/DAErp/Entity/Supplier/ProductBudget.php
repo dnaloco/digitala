@@ -30,7 +30,7 @@ class ProductBudget implements ProductBudgetInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="unit_price", type="decimal", precision=8, nullable=true)
+	 * @ORM\Column(name="unit_price", type="decimal", precision=7, scale=2, nullable=true)
 	 */
 	private $unitPrice;
 

@@ -12,7 +12,7 @@ interface JwtTokenInterface
     const ACL_RESOURCES = [
         'GET' => 'GET',
         'POST' => 'POST',
-        'UPDATE' => 'UPDATE',
+        'PUT' => 'PUT',
         'DELETE' => 'DELETE',
     ];
 

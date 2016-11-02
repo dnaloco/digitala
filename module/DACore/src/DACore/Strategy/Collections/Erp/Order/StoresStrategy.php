@@ -11,6 +11,10 @@ trait StoresStrategy
 		unset($store['createdAt']);
 		unset($store['updatedAt']);
 		//$repoVideo = $this->getAnotherRepository('DACore\IEntities\Base\VideoInterface');
+		//
+		if (isset($store['product']) && isset($store['product']['id'])) {
+			$store['product'] = $store['product']['id'];
+		}
 
 		if (!isset($store['product']) || !is_numeric($store['product'])) {
 			static::addDataError($key, static::ERROR_UNIQUE_FIELD, 'product');
@@ -47,9 +51,11 @@ trait StoresStrategy
 		if (!is_null($entity)) {
 			$storesCollection = $entity->getStores();
 
+
+
 			foreach($stores as $store) {
 				$store = $this->getStore($key, $store);
-
+				
 				if (!$store) continue;
 
 				if (is_null($store->getId())) {
