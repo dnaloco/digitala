@@ -193,6 +193,22 @@ trait DataCheckerStrategy
 		return $checkDate;
 	}
 
+	public function checkDate($key, $date, $field = 'date')
+	{
+		$checkDate = strtotime($date);
+		$format = "Y-m-d H:i:s";
+		if ($checkDate !== false) {
+		 	$checkDate = new \DateTime(date('Y-m-d', $checkDate));
+		}
+
+		if (!$checkDate) {
+			self::addDataError($key, self::ERROR_INVALID_DATE, $field, $date);
+			return false;
+		}
+
+		return $checkDate;
+	}
+
 	public static function checkUrl($key, $url, $field = 'url')
 	{
 		$checkUrl = filter_var(trim($url), FILTER_SANITIZE_URL);

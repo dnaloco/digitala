@@ -32,7 +32,7 @@ class Store implements StoreInterface
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="reference", type="string", length=60, unique=true, nullable=true)
+	 * @ORM\Column(name="reference", type="string", length=60, nullable=true)
 	 */
 	private $reference;
 

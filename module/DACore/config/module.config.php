@@ -84,7 +84,7 @@ return [
                     $service->getFirephp($log);
                 }
 
-                return;
+                return $service;
             }
         ],
         'factories' => [

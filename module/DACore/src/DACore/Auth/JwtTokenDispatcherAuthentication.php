@@ -10,9 +10,14 @@ use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
 use DACore\Strategy\Core\{SerializerInterface, SerializerStrategy};
 
-class JwtTokenDispatcherAuthentication implements SerializerInterface
+class JwtTokenDispatcherAuthentication
+    implements
+    SerializerInterface
+
 {
 	use SerializerStrategy;
+
+    private $cache;
 
 	public function __construct(\Doctrine\ORM\EntityManager $em, $cache, $acl)
 	{
@@ -49,7 +54,6 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
     // THE TRICK PART: Se o usuário tentar acessar está api sem ser pelo subdominio 'api', ele dará token inválido :)
 	public function checkCrudToken()
 	{
-
         //if (!isset($this->aclResource)) return $this->status
         if (!isset($this->token)) return $this->controller->statusBadRequest($this->badRequestError ?? 'SERVER ERROR!!! First, you need to execute "checkAuthorization" method.');
 
@@ -88,7 +92,7 @@ class JwtTokenDispatcherAuthentication implements SerializerInterface
             if ($data_access = $parsedToken->getClaim('access')) {
 
                 if ($this->access === 'private' && $data_access === 'private') {
-
+                    
                     // TODO: lógica de api privada...
                     $parsed_uid = $parsedToken->getClaim('uid');
                     $user = $this->checkUser($parsed_uid);

@@ -141,7 +141,7 @@ class OrderSuperclass implements OrderSuperclassInterface
 	private $totalWithDiscount;
 
 	/**
-     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Financial\PaymentInterface", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Financial\PaymentInterface", mappedBy="order", cascade={"persist", "remove"})
      */
 	private $payments;
 

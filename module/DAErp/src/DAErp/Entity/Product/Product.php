@@ -193,7 +193,7 @@ class Product implements ProductInterface
 	private $isLaunch;
 
 	/**
-     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Order\Store\OrderInterface", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Order\Store\StoreInterface", mappedBy="product")
      */
 	private $stores;
 

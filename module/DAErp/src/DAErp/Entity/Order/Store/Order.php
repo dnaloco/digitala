@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Order extends OrderSuperclass implements OrderInterface
 {
 	/**
-	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Order\Store\StoreInterface")
+	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Order\Store\StoreInterface", cascade={"persist", "remove"})
 	 * @ORM\JoinTable(name="daerp_store_order_stores",
 	 *      joinColumns={@ORM\JoinColumn(name="order_store_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="store_id", referencedColumnName="id", unique=true)}
@@ -25,7 +25,7 @@ class Order extends OrderSuperclass implements OrderInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Supplier\SupplierInterface")
-     * @ORM\JoinColumn(name="supplier_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="supplier_id", referencedColumnName="id", nullable=true)
      **/
     private $supplier;
 

@@ -13,6 +13,8 @@ interface DataCheckerStrategyInterface
 	const ERROR_INVALID_NUMBER = 'Number data has an invalid number.';
 	const ERROR_INVALID_DATE = 'Date field has an invalid format.';
 	const ERROR_INVALID_BOOLEAN = 'Date field has an invalid format.';
+	const ERROR_WITHOUT_USER = 'Erro de login. Se logue novamente, por favor.';
+	const ERROR_EMPTY_FIELD = 'O campo não pode ficar vazio. Complete.';
 
 	static function hasErrors();
 	static function addDataError($key, $error, $field, $value = null);

@@ -26,9 +26,9 @@ class Module
 
         $sharedEvents = $em->getSharedManager();
         $entityManager = $sm->get('Doctrine\ORM\EntityManager');
-        $cacheApc = $sm->get('apc');
+        $cache = $sm->get('apc');
         $acl = $sm->get('DACore\Permissions\Acl');
-        $tokenAuth = new \DACore\Auth\JwtTokenDispatcherAuthentication($entityManager, $cacheApc, $acl);
+        $tokenAuth = new \DACore\Auth\JwtTokenDispatcherAuthentication($entityManager, $cache, $acl);
 
         $sharedEvents->attach('Zend\Mvc\Controller\AbstractRestfulController', MvcEvent::EVENT_DISPATCH, array($tokenAuth, 'onDispatch'), 200);
 

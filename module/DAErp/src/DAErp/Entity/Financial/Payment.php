@@ -35,31 +35,31 @@ class Payment implements PaymentInterface
 
 	/**
 	 *
-	 * @ORM\Column(name="amount_income", type="decimal", precision=8, nullable=false)
+	 * @ORM\Column(name="amount_income", type="decimal", precision=7, scale=2, nullable=true)
 	 */
 	private $amountIncome;
 
 	/**
 	 *
-	 * @ORM\Column(name="amount_outcome", type="decimal", precision=8, nullable=false)
+	 * @ORM\Column(name="amount_outcome", type="decimal", precision=7, scale=2, nullable=true)
 	 */
 	private $amountOutcome;
 
 	/**
 	 *
-	 * @ORM\Column(name="invoice_date", type="datetime", nullable=false)
+	 * @ORM\Column(name="invoice_date", type="datetime", nullable=true)
 	 */
 	private $invoiceDate;
 
 	/**
 	 *
-	 * @ORM\Column(name="expiration_date", type="datetime", nullable=false)
+	 * @ORM\Column(name="expiration_date", type="datetime", nullable=true)
 	 */
 	private $expirationDate;
 
 	/**
 	 *
-	 * @ORM\Column(name="payment_date", type="datetime", nullable=false)
+	 * @ORM\Column(name="payment_date", type="datetime", nullable=true)
 	 */
 	private $paymentDate;
 
@@ -109,6 +109,7 @@ class Payment implements PaymentInterface
 		(new Hydrator\ClassMethods)->hydrate($options, $this);
 	}
 
+
     /**
      * Gets the value of id.
      *
@@ -129,6 +130,54 @@ class Payment implements PaymentInterface
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of installments.
+     *
+     * @return mixed
+     */
+    public function getInstallments()
+    {
+        return $this->installments;
+    }
+
+    /**
+     * Sets the value of installments.
+     *
+     * @param mixed $installments the installments
+     *
+     * @return self
+     */
+    public function setInstallments($installments)
+    {
+        $this->installments = $installments;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of installmentIndex.
+     *
+     * @return mixed
+     */
+    public function getInstallmentIndex()
+    {
+        return $this->installmentIndex;
+    }
+
+    /**
+     * Sets the value of installmentIndex.
+     *
+     * @param mixed $installmentIndex the installment index
+     *
+     * @return self
+     */
+    public function setInstallmentIndex($installmentIndex)
+    {
+        $this->installmentIndex = $installmentIndex;
 
         return $this;
     }
@@ -401,8 +450,6 @@ class Payment implements PaymentInterface
      * Gets the value of updatedAt.
      *
      * @return mixed
-     * 
-     * @ORM\PrePersist
      */
     public function getUpdatedAt()
     {

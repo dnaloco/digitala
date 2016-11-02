@@ -29,6 +29,8 @@ trait CompanyStrategy
 			}
 		}
 
+		unset($company['createdAt']);
+		unset($company['updatedAt']);
 		$company = array_filter($company);
 
 		$entity = null;
@@ -38,11 +40,6 @@ trait CompanyStrategy
 		if (isset($company['id'])) {
 			$entity = $this->em->getReference('DACore\IEntities\Base\CompanyInterface', $company['id']);
 		}
-
-
-		// isso aqui não vai para o update obviamente
-		if (isset($company['createdAt'])) unset($company['createdAt']);
-		if (isset($company['updatedAt'])) unset($company['updatedAt']);
 
 		if ($hasParent) $key = $key . '_company';
 		else $key = 'company';

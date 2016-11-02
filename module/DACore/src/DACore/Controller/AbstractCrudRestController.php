@@ -92,16 +92,18 @@ abstract class AbstractCrudRestController extends AbstractRestfulController impl
 
     public function getList()
     {
+
         $where =    $_GET['where'] ?? array();
         $options =  $_GET['options'] ?? array();
         $limit =    $_GET['limit'] ?? null;
         $offset =   $_GET['offset'] ?? null;
-        
+
         $data = $this->service->getList($where, $options, $limit, $offset);
 
         if ($data) {
             $data = json_decode(static::getPropertyNamingSerializer()->serialize($data, 'json'), true);
         }
+
         return new JsonModel(array('data' => $data, 'success' => true));
     }
 

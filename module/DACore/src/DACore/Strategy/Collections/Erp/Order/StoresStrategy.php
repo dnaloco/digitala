@@ -16,14 +16,18 @@ trait StoresStrategy
 			static::addDataError($key, static::ERROR_UNIQUE_FIELD, 'product');
 			return false;
 		} else {
-			$repoProduct = $this->em->getAnotherRepository('DACore\IEntities\Erp\Product\ProductInterface');
+			$repoProduct = $this->em->getRepository('DACore\IEntities\Erp\Product\ProductInterface');
 			$store['product'] = static::checkReference($key, $store['product'], 'product', $repoProduct);
 			if (!$store['product']) return false;
 		}
 
+		if (isset($store['shelfLife'])) {
+			$store['shelfLife'] = static::checkDate($key, $store['shelfLife'], 'shelfLife');
+		}
+
 		if (static::hasErrors()) return false;
 
-		return new \DABase\Entity\Video($video);
+		return new \DAErp\Entity\Order\Store\Store($store);
 	}
 
 	public function getStoresCollection($key, $stores, $entity)
@@ -44,7 +48,7 @@ trait StoresStrategy
 			$storesCollection = $entity->getStores();
 
 			foreach($stores as $store) {
-				$store = $this->getStores($key, $store);
+				$store = $this->getStore($key, $store);
 
 				if (!$store) continue;
 
@@ -69,9 +73,9 @@ trait StoresStrategy
 		}
 
 		foreach($stores as $store) {
-			$store = $this->getStores($key, $store);
+			$store = $this->getStore($key, $store);
 
-			if ($store) $arrVideos->add($store);
+			if ($store) $arrStores->add($store);
 		}
 
 		return $arrStores;

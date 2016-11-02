@@ -582,7 +582,7 @@ return [
             'daerp-product-categories-rest'         => [
                 'type'    => 'Segment',
                 'options' => [
-                    'route'       => '/api/private/product/categories[/:id]',
+                    'route'       => '/api/private/product-categories[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
@@ -594,7 +594,7 @@ return [
             'daerp-product-departments-rest'        => [
                 'type'    => 'Segment',
                 'options' => [
-                    'route'       => '/api/private/product/departments[/:id]',
+                    'route'       => '/api/private/product-departments[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
@@ -606,7 +606,7 @@ return [
             'daerp-product-features-rest'           => [
                 'type'    => 'Segment',
                 'options' => [
-                    'route'       => '/api/private/product/features[/:id]',
+                    'route'       => '/api/private/product-features[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
@@ -618,7 +618,7 @@ return [
             'daerp-product-groups-rest'             => [
                 'type'    => 'Segment',
                 'options' => [
-                    'route'       => '/api/private/product/groups[/:id]',
+                    'route'       => '/api/private/product-groups[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
@@ -627,22 +627,10 @@ return [
                     ],
                 ],
             ],
-            'daerp-product-mix-products-rest'       => [
-                'type'    => 'Segment',
-                'options' => [
-                    'route'       => '/api/private/product/mix-products[/:id]',
-                    'constraints' => [
-                        'id' => '[0-9]+',
-                    ],
-                    'defaults'    => [
-                        'controller' => 'DAErp\Controller\Product\MixProductsRest',
-                    ],
-                ],
-            ],
             'daerp-product-products-rest'           => [
                 'type'    => 'Segment',
                 'options' => [
-                    'route'       => '/api/private/product/products[/:id]',
+                    'route'       => '/api/private/products[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
@@ -654,7 +642,7 @@ return [
             'daerp-product-ratings-rest'            => [
                 'type'    => 'Segment',
                 'options' => [
-                    'route'       => '/api/private/product/ratings[/:id]',
+                    'route'       => '/api/private/product-ratings[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
