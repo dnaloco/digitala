@@ -7,10 +7,12 @@
     <title ng-bind="pageTitle"></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="base/css/base.css">
     <link rel="stylesheet" href="erp/css/main.css">
+    
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
-  <body ng-controller="LayoutController as layout">
+  <body ng-controller="LayoutController as layout" ng-cloak>
     <div id="loading-bar-container"></div>
 
     <div class="off-canvas-wrapper">
@@ -18,8 +20,7 @@
             <nav id="da-admin-top-menu">
                 <div class="title-bar">
                     <div class="title-bar-left">
-                        <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
-                        <span class="title-bar-title">Módulo ERP</span>
+                        <div id="da-admin-layout-header" data-ui-view="header"></div>
                     </div>
                 </div>
             </nav>

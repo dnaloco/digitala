@@ -15,6 +15,7 @@ class Order extends OrderSuperclass
 implements OrderInterface
 {
 
+
 	/**
 	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Order\Production\RawMaterialInterface")
 	 * @ORM\JoinTable(name="daerp_order_production_orders_raw_materials",

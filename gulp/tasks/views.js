@@ -10,13 +10,26 @@ function views(index, src, dest, layoutSrc, layoutDest) {
       .pipe(gulp.dest(layoutDest));
 
   // Process any other view files from app/views
-  const views = gulp.src(config.sourceDir + src)
+  const views = gulp.src([
+      config.sourceDir + src,
+      config.sourceDir + config.base.views.src
+    ])
     .pipe(templateCache({
       standalone: true
     }))
     .pipe(gulp.dest(config.sourceDir + dest));
 
-  return merge(indexFile, views);
+  var merged = merge(indexFile, views);
+
+  /*const baseViews = gulp.src(config.sourceDir + config.base.views.src)
+    .pipe(templateCache({
+      standalone: true
+    }))
+    .pipe(gulp.dest(config.sourceDir + dest));
+
+  merged.add(baseViews);*/
+
+  return merged;
 }
 
 gulp.task('blogViews', function() {
@@ -55,5 +68,15 @@ gulp.task('modulesViews', function() {
     config.modules.views.dest,
     config.modules.layout.phpLayout,
     config.php.layout.modules);
+});
+
+gulp.task('fbViews', function() {
+
+  return views(
+    config.fb.layout.src,
+    config.fb.views.src,
+    config.fb.views.dest,
+    config.fb.layout.phpLayout,
+    config.php.layout.fb);
 });
 

@@ -102,11 +102,11 @@ class Payment implements PaymentInterface
 	 */
 	private $updatedAt;
 
-	public function __construct(array $options = array()) {
+	public function __construct(array $data = array()) {
 		$this->createdAt = new \DateTime("now");
 		$this->updatedAt = new \DateTime("now");
 		$this->invoiceDate = $this->createdAt;
-		(new Hydrator\ClassMethods)->hydrate($options, $this);
+		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
 
 

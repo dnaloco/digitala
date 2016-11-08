@@ -337,6 +337,18 @@ return [
                     ],
                 ],
             ],
+            'daerp-inventory-warehouse-tranferences-rest' => [
+                'type'    => 'Segment',
+                'options' => [
+                    'route'       => '/api/private/inv-transferences[/:id]',
+                    'constraints' => [
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults'    => [
+                        'controller' => 'DAErp\Controller\Inventory\Warehouse\TransferencesRest',
+                    ],
+                ],
+            ],
 
             // ::: Manufacturer Rest Routes ::
             'daerp-manufacturer-manufacturers-rest' => [
@@ -1184,6 +1196,10 @@ return [
             'class_name' => 'DAErp\Service\Inventory\Warehouse\Warehouse',
             'entity'     => 'DAErp\Entity\Inventory\Warehouse\Warehouse',
         ],
+        'DAErp\Service\Inventory\Warehouse\Transference' => [
+            'class_name' => 'DAErp\Service\Inventory\Warehouse\Transference',
+            'entity'     => 'DAErp\Entity\Inventory\Warehouse\Transference',
+        ],
 
         // ::: Manufacturer Services ::
         'DAErp\Service\Manufacturer\Manufacturer' => [
@@ -1471,6 +1487,10 @@ return [
             'class_name' => 'DAErp\Controller\Inventory\Warehouse\WarehousesRestController',
             'service'    => 'DAErp\Service\Inventory\Warehouse\Warehouse',
         ],
+        'DAErp\Controller\Inventory\Warehouse\TransferencesRest' => [
+            'class_name' => 'DAErp\Controller\Inventory\Warehouse\TransferencesRestController',
+            'service'    => 'DAErp\Service\Inventory\Warehouse\Transference',
+        ],
 
         // ::: Manufacturer Controllers ::
         'DAErp\Controller\Manufacturer\ManufacturersRest' => [
@@ -1724,6 +1744,7 @@ return [
                     'DACore\IEntities\Erp\Inventory\Warehouse\PlaceInterface'     => 'DAErp\Entity\Inventory\Warehouse\Place',
                     'DACore\IEntities\Erp\Inventory\Warehouse\StorageInterface'   => 'DAErp\Entity\Inventory\Warehouse\Storage',
                     'DACore\IEntities\Erp\Inventory\Warehouse\WarehouseInterface' => 'DAErp\Entity\Inventory\Warehouse\Warehouse',
+                    'DACore\IEntities\Erp\Inventory\Warehouse\TransferenceInterface' => 'DAErp\Entity\Inventory\Warehouse\Transference',
 
                     // ::: Manufacturer Resolvers :::
                     'DACore\IEntities\Erp\Manufacturer\ManufacturerInterface'     => 'DAErp\Entity\Manufacturer\Manufacturer',
@@ -1765,6 +1786,7 @@ return [
                     'DACore\IEntities\Erp\Product\GroupInterface'                 => 'DAErp\Entity\Product\Group',
                     'DACore\IEntities\Erp\Product\ProductInterface'               => 'DAErp\Entity\Product\Product',
                     'DACore\IEntities\Erp\Product\RatingInterface'                => 'DAErp\Entity\Product\Rating',
+                    'DACore\IEntities\Erp\Product\NCMInterface'                   => 'DAErp\Entity\Product\NCM',
 
                     // ::: Promotion Resolvers :::
                     'DACore\IEntities\Erp\Promotion\CouponInterface'              => 'DAErp\Entity\Promotion\Coupon',

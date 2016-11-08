@@ -9,6 +9,7 @@ function watch(app, scriptsSrc, stylesSrc, imagesSrc, viewsWatch) {
   // Scripts are automatically watched and rebundled by Watchify inside Browserify task
   gulp.watch(config.sourceDir + scriptsSrc, [app + 'Eslint']);
   gulp.watch(config.sourceDir + stylesSrc,  [app + 'Styles']);
+  gulp.watch(config.sourceDir + config.base.styles.src,  ['baseStyles']);
   gulp.watch(config.sourceDir + imagesSrc,  [app + 'Images']);
   gulp.watch(viewsWatch, [app + 'Views']);
 }
@@ -39,4 +40,11 @@ gulp.task('modulesWatch', ['modulesBrowser'], function() {
       config.modules.styles.src,
       config.modules.images.src,
       config.modules.views.watch);
+});
+gulp.task('fbWatch', ['fbBrowser'], function() {
+    return watch('fb',
+      config.fb.scripts.src,
+      config.fb.styles.src,
+      config.fb.images.src,
+      config.fb.views.watch);
 });

@@ -25,3 +25,7 @@ gulp.task('erpEslint', function() {
 gulp.task('modulesEslint', function() {
   return scriptEslint(config.modules.scripts.src, config.modules.scripts.test);
 });
+
+gulp.task('fbEslint', function() {
+  return scriptEslint(config.fb.scripts.src, config.fb.scripts.test);
+});

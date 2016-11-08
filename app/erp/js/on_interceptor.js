@@ -5,6 +5,8 @@ function OnInterceptor(
 
   'ngInject';
 
+  console.log('ASHDKJHIUQHWIUEHQW');
+
   localStorage.removeItem('publicToken');
 
   // TODO: melhorar o interceptador da resposta...

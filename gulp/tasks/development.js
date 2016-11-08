@@ -19,9 +19,21 @@ gulp.task('erpDev', ['clean'], function(cb) {
 
   runSequence(
     'crossDomainStorage',
-    ['erpStyles', 'erpImages', 'erpViews'],
+    ['baseStyles', 'erpStyles', 'erpImages', 'erpViews'],
     'erpBrowserify',
   	'fonts', 'fontsWatch', 'indexFile', 'uploadsDir', 'erpWatch', cb);
+
+});
+
+gulp.task('fbDev', ['clean'], function(cb) {
+
+  global.isProd = false;
+
+  runSequence(
+    'crossDomainStorage',
+    ['baseStyles', 'fbStyles', 'fbImages', 'fbViews'],
+    'fbBrowserify',
+    'fonts', 'fontsWatch', 'indexFile', 'uploadsDir', 'fbWatch', cb);
 
 });
 

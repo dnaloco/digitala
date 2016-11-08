@@ -26,6 +26,7 @@ export default {
       site: './module/DASite/view/layout/',
       erp: './module/DAErp/view/layout/',
       modules: './module/DAModules/view/layout/',
+      fb: './module/DAFamilyBudget/view/layout/',
     }
   },
 
@@ -55,6 +56,34 @@ export default {
       index: 'base/index.html',
       src: 'base/views/**/*.html',
       dest: './library/angular/modules/base'
+    },
+  },
+
+  fb: {
+    layout: {
+      src: 'family-budget/layout.html',
+      phpLayout: 'layout.family-budget.phtml'
+    },
+    styles: {
+      src: 'family-budget/styles/**/*.scss',
+      dest: 'family-budget/css',
+    },
+
+    scripts: {
+      src: 'family-budget/js/**/*.js',
+      dest: 'family-budget/js',
+      test: 'test/family-budget/**/*.js',
+    },
+
+    images: {
+      src: 'family-budget/images/**/*',
+      dest: 'family-budget/images'
+    },
+
+    views: {
+      index: 'family-budget/layout.html',
+      src: 'family-budget/views/**/*.html',
+      dest: 'family-budget/js'
     },
   },
 
@@ -132,7 +161,7 @@ export default {
     },
 
     views: {
-      index: 'erp/index.html',
+      index: 'erp/layout.html',
       src: 'erp/views/**/*.html',
       dest: 'erp/js'
     },
@@ -194,26 +223,32 @@ export default {
   init: function() {
     this.blog.views.watch = [
       this.sourceDir + this.blog.views.index,
-      this.sourceDir + this.blog.views.src
+      this.sourceDir + this.blog.views.src,
+      this.sourceDir + this.base.views.src
     ];
 
-    this.base.views.watch = [
-      this.sourceDir + this.base.views.src
+    this.fb.views.watch = [
+      this.sourceDir + this.fb.views.index,
+      this.sourceDir + this.fb.views.src,
+      this.sourceDir + this.fb.views.src
     ];
 
     this.site.views.watch = [
       this.sourceDir + this.site.layout.src,
-      this.sourceDir + this.site.views.src
+      this.sourceDir + this.site.views.src,
+      this.sourceDir + this.base.views.src
     ];
 
     this.erp.views.watch = [
       this.sourceDir + this.erp.layout.src,
-      this.sourceDir + this.erp.views.src
+      this.sourceDir + this.erp.views.src,
+      this.sourceDir + this.base.views.src
     ];
 
     this.modules.views.watch = [
       this.sourceDir + this.modules.layout.src,
-      this.sourceDir + this.modules.views.src
+      this.sourceDir + this.modules.views.src,
+      this.sourceDir + this.base.views.src
     ];
 
     return this;

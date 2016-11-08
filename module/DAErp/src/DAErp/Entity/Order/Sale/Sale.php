@@ -21,11 +21,11 @@ implements SaleInterface
 	 */
 	private $id;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Order\Store\StoreInterface")
-	 * @ORM\JoinColumn(name="store_id", referencedColumnName="id", nullable=true)
-	 **/
-	private $store;
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Inventory\Warehouse\StorageInterface", inversedBy="sales")
+     * @ORM\JoinColumn(name="storage_id", referencedColumnName="id")
+     */
+    private $storage;
 
 	/**
 	 * @var string

@@ -1,0 +1,90 @@
+@import 'bourbon';
+
+@import "normalize-layout";
+
+
+/* ASSETS */
+@import 'assets/ngdialog';
+@import 'assets/loading-bar';
+@import 'assets/angular-material';
+@import 'assets/angular-material-sidemenu';
+@import 'assets/v-accordion';
+//@import 'assets/ngDialogThemeDefault';
+
+
+@import 'vars';
+@import 'typography';
+@import 'icons';
+@import 'animations';
+@import "normalize";
+@import "forms";
+@import "generics";
+@import "dialogs";
+@import "damw-menu";
+@import "footer";
+@import "tables";
+
+body {
+	color: #555;	
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	text-align: right;	
+}
+
+ul li div {
+	border-right: 1px solid lightblue;
+}
+
+ul li div:last-child {
+	border-right: none;
+}
+
+.table-header {
+	background: lightblue;
+	color: #333;
+}
+
+.ng-scope.ng-isolate-scope {
+	padding: 0;
+	margin: 0;
+}
+
+h2 {
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+.title {
+	margin-left: 25px;	
+}
+
+.teste {
+	position: absolute;
+	width: 20px;
+	height: 20px !important;
+	padding: 0;
+}
+
+.color-green {
+	color: #006309
+}
+
+.color-red {
+	color: #890202
+}
+
+h3 {
+	font-size: 1em;
+	text-decoration: underline;	
+}
+
+.brief-billings {
+	font-size: 0.9em;	
+}

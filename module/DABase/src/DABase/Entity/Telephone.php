@@ -45,6 +45,12 @@ class Telephone implements TelephoneInterface
     protected $mobileOperator;
 
     /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\DDIInterface")
+     * @ORM\JoinColumn(name="DDI_id", referencedColumnName="id")
+     */
+    protected $DDI;
+
+    /**
      *
      * @ORM\Column(name="DDD", type="string", length=5, nullable=false)
      */
@@ -189,6 +195,30 @@ class Telephone implements TelephoneInterface
         return $this;
     }
 
+     /**
+     * Gets the value of DDI.
+     *
+     * @return mixed
+     */
+    public function getDDI()
+    {
+        return $this->DDI;
+    }
+
+    /**
+     * Sets the value of DDI.
+     *
+     * @param mixed $DDI the 
+     *
+     * @return self
+     */
+    public function setDDI($DDI)
+    {
+        $this->DDI = $DDI;
+
+        return $this;
+    }
+
     /**
      * Gets the value of DDD.
      *
@@ -236,4 +266,6 @@ class Telephone implements TelephoneInterface
 
         return $this;
     }
+
+   
 }

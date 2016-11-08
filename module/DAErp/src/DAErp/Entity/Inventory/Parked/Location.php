@@ -10,6 +10,7 @@ use DACore\IEntities\Erp\Inventory\Parked\LocationInterface;
  *
  * @ORM\Table(name="daerp_inventory_parked_locations")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class Location implements LocationInterface
 {

@@ -8,6 +8,7 @@ interface TelephoneInterface
 	function getType();
 	function getNumber();
 	function getMobileOperator();
+	function getDDI();
 	function getDDD();
 	function getNotes();
 }

@@ -7,7 +7,7 @@ use DACore\IEntities\Erp\Inventory\Warehouse\PlaceInterface;
 
 /**
  *
- * @ORM\Table(name="daerp_inventory_parked_places")
+ * @ORM\Table(name="daerp_inventory_warehouse_places")
  * @ORM\Entity
  */
 class Place implements PlaceInterface
@@ -18,6 +18,8 @@ class Place implements PlaceInterface
 	 * @ORM\GeneratedValue(strategy="IDENTITY")
 	 */
 	private $id;
+
+    private $code;
 
 	/**
 	 * @var string

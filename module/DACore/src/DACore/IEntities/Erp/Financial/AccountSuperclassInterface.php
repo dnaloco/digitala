@@ -5,8 +5,11 @@ interface AccountSuperclassInterface
 {
 	function getId();
 	function getPartner();
-	function getAmount();
 	function getDescription();
+	function getAmount();
+	function getAmountMinimun();
+	function getAmountDesired();
+	function getAccountancyCode();
 	function getCreatedAt();
 	function getUpdatedAt();
 }

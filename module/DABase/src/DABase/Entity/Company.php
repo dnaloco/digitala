@@ -30,6 +30,12 @@ class Company implements CompanyInterface
     private $reference;
 
     /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\PersonInterface")
+     * @ORM\JoinColumn(name="spokesman_id", referencedColumnName="id")
+     */
+    private $spokesman;
+
+    /**
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Base\CompanyTypeInterface")
      * @ORM\JoinTable(name="dabase_companies_types",
      *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
@@ -230,6 +236,32 @@ class Company implements CompanyInterface
     public function setReference($reference)
     {
         $this->reference = $reference;
+
+        return $this;
+    }
+
+    
+
+    /**
+     * Gets the value of spokesman.
+     *
+     * @return mixed
+     */
+    public function getSpokesman()
+    {
+        return $this->spokesman;
+    }
+
+    /**
+     * Sets the value of spokesman.
+     *
+     * @param mixed $spokesman the spokesman
+     *
+     * @return self
+     */
+    public function setSpokesman($spokesman)
+    {
+        $this->spokesman = $spokesman;
 
         return $this;
     }
@@ -685,4 +717,5 @@ inverseJoinColumns={@ORM\JoinColumn(name="good_tag_id", referencedColumnName="id
 
         return $this;
     }
+
 }

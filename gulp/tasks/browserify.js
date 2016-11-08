@@ -94,3 +94,8 @@ gulp.task('modulesBrowserify', function() {
   return buildScript(config.browserify.bundleName, config.modules.scripts.dest);
 
 });
+gulp.task('fbBrowserify', function() {
+
+  return buildScript(config.browserify.bundleName, config.fb.scripts.dest);
+
+});

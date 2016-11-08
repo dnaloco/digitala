@@ -111,6 +111,19 @@ class Store implements StoreInterface
     private $status;
 
     /**
+     * @ORM\OneToOne(targetEntity="DACore\IEntities\Erp\Order\Production\ProductionInterface", mappedBy="storeOrder")
+     */
+    private $production;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="is_stored", type="boolean", nullable=true)
+     */
+    private $isStored;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -159,8 +172,6 @@ class Store implements StoreInterface
 
         return $this;
     }
-
-    
 
     /**
      * Gets the value of storeOrder.
@@ -475,6 +486,54 @@ class Store implements StoreInterface
     }
 
     /**
+     * Gets the value of production.
+     *
+     * @return mixed
+     */
+    public function getProduction()
+    {
+        return $this->production;
+    }
+
+    /**
+     * Sets the value of production.
+     *
+     * @param mixed $production the production
+     *
+     * @return self
+     */
+    public function setProduction($production)
+    {
+        $this->production = $production;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of isStored.
+     *
+     * @return mixed
+     */
+    public function getIsStored()
+    {
+        return $this->isStored;
+    }
+
+    /**
+     * Sets the value of isStored.
+     *
+     * @param mixed $isStored the is stored
+     *
+     * @return self
+     */
+    public function setIsStored($isStored)
+    {
+        $this->isStored = $isStored;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of createdAt.
      *
      * @return \DateTime
@@ -514,14 +573,11 @@ class Store implements StoreInterface
      * @param \DateTime $updatedAt the updated at
      *
      * @return self
-     * 
-     * @ORM\PrePersist
      */
-    public function setUpdatedAt()
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
-        $this->updatedAt = new \DateTime("now");
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
-
 }

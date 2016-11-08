@@ -107,7 +107,6 @@ implements ApcCacheAwareInterface,
                 $api_expiration = getenv('API_PUBLIC_EXPIRATION');
 
                 $user_email = $hasUser->getUser();
-
                 $user_name = '[NOME ? / NOME FANTASIA ?]';
 
                 if (!is_null($hasUser->getPerson())) {

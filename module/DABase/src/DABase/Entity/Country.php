@@ -24,21 +24,31 @@ class Country implements CountryInterface
 
 	/**
      *
-     * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     * @ORM\Column(name="name_en", type="string", length=100, nullable=false)
      */
-	protected $name;
+	protected $nameEn;
+
+    /**
+     *
+     * @ORM\Column(name="name_pt", type="string", length=100, nullable=false)
+     */
+    protected $namePt;
 
 	/**
-	 * @ORM\Column(name="code", type="string", length=10, nullable=false)
+	 * @ORM\Column(name="initials", type="string", length=10, nullable=false)
 	 */
-	protected $code;
+	protected $initials;
+
+    /**
+     * @ORM\Column(name="bacen", type="smallint", nullable=false)
+     */
+    protected $bacen;
 
 	public function __construct(array $data)
 	{
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
-	
-
+    
 
     /**
      * Gets the value of id.
@@ -65,49 +75,97 @@ class Country implements CountryInterface
     }
 
     /**
-     * Gets the value of name.
+     * Gets the value of nameEn.
      *
      * @return mixed
      */
-    public function getName()
+    public function getNameEn()
     {
-        return $this->name;
+        return $this->nameEn;
     }
 
     /**
-     * Sets the value of name.
+     * Sets the value of nameEn.
      *
-     * @param mixed $name the name
+     * @param mixed $nameEn the name en
      *
      * @return self
      */
-    public function setName($name)
+    public function setNameEn($nameEn)
     {
-        $this->name = $name;
+        $this->nameEn = $nameEn;
 
         return $this;
     }
 
     /**
-     * Gets the value of code.
+     * Gets the value of namePt.
      *
      * @return mixed
      */
-    public function getCode()
+    public function getNamePt()
     {
-        return $this->code;
+        return $this->namePt;
     }
 
     /**
-     * Sets the value of code.
+     * Sets the value of namePt.
      *
-     * @param mixed $code the code
+     * @param mixed $namePt the name pt
      *
      * @return self
      */
-    public function setCode($code)
+    public function setNamePt($namePt)
     {
-        $this->code = $code;
+        $this->namePt = $namePt;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of initials.
+     *
+     * @return mixed
+     */
+    public function getInitials()
+    {
+        return $this->initials;
+    }
+
+    /**
+     * Sets the value of initials.
+     *
+     * @param mixed $initials the initials
+     *
+     * @return self
+     */
+    public function setInitials($initials)
+    {
+        $this->initials = $initials;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of bacen.
+     *
+     * @return mixed
+     */
+    public function getBacen()
+    {
+        return $this->bacen;
+    }
+
+    /**
+     * Sets the value of bacen.
+     *
+     * @param mixed $bacen the bacen
+     *
+     * @return self
+     */
+    public function setBacen($bacen)
+    {
+        $this->bacen = $bacen;
 
         return $this;
     }

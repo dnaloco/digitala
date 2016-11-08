@@ -45,13 +45,18 @@ import 'ngEqualizer';
 import 'sir-accordion';
 import 'angular-material-sidemenu';
 import 'angular-breadcrumb';
+import 'angular-fontawesome';
+import 'angular-moment';
+
+
+// add to module
+import 'angular-ui-sortable';
 
 import './templates';
 import './filters';
 import './controllers';
 import './services';
 import './directives';
-
 
 // create and bootstrap application
 const requires = [
@@ -85,6 +90,8 @@ const requires = [
   'sir-accordion',
   'ngMaterialSidemenu',
   'ncy-angular-breadcrumb',
+  'picardy.fontawesome',
+  'angularMoment',
 
   'templates',
   'base.filters',

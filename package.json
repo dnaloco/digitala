@@ -24,7 +24,12 @@
     "imagesloaded": "./bower_components/imagesloaded/imagesloaded.pkgd.js",
     "masonry": "./bower_components/masonry/dist/masonry.pkgd.js",
     "lodash": "./bower_components/lodash/dist/lodash.js",
-    "jquery": "./bower_components/jquery/dist/jquery.js"
+    "jquery": "./bower_components/jquery/dist/jquery.js",
+    "moment": "./node_modules/moment/min/moment-with-locales.js",
+    "angular-fontawesome": "./node_modules/angular-fontawesome/dist/angular-fontawesome.js",
+    "angular-datepicker": "./library/angular/vendor/angular-datepicker/build/angular-datepicker.js",
+    "angular-moment": "./node_modules/angular-moment/angular-moment.js",
+    "v-accordion": "./node_modules/v-accordion/dist/v-accordion.js"
   },
   "browserify-shim": {
     "jquery": {
@@ -117,6 +122,31 @@
     "ngEqualizer": {
       "exports": "angular.module('ngEqualizer')",
       "depends": "angular"
+    },
+    "angular-fontawesome": {
+      "exports": "angular.module('picardy.fontawesome')",
+      "depends": "angular"
+    },
+    "angular-datepicker": {
+      "exports": "angular.module('angular-datepicker')",
+      "depends": "angular"
+    },
+    "moment": {
+      "exports": "moment"
+    },
+    "angular-moment": {
+      "exports": "angular.module('angularMoment')",
+      "depends": [
+        "moment",
+        "angular"
+      ]
+    },
+    "v-accordion": {
+      "exports": "angular.module('vAccordion')",
+      "depends": [
+        "angular",
+        "angular-animate"
+      ]
     }
   },
   "browserify": {
@@ -149,7 +179,13 @@
     "unit": "cross-env NODE_ENV=test ./node_modules/.bin/gulp unit"
   },
   "dependencies": {
-    "cross-env": "^1.0.8"
+    "angular-datepicker": "^1.0.5",
+    "angular-fontawesome": "^1.0.0",
+    "angular-moment": "^1.0.0",
+    "angular-ui-sortable": "^0.15.0",
+    "angularjs-datepicker": "^2.1.6",
+    "cross-env": "^1.0.8",
+    "moment": "^2.15.2"
   },
   "devDependencies": {
     "aliasify": "^2.0.0",
@@ -238,6 +274,7 @@
     "run-sequence": "^1.1.5",
     "tiny-lr": "^0.2.1",
     "uglifyify": "^3.0.1",
+    "v-accordion": "^1.6.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"

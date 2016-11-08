@@ -35,6 +35,13 @@ class Matrix implements MatrixInterface
      **/
     private $partners;
 
+
+    private $capital;
+
+    private $fiscalMonth;
+
+    private $isIntoICMS;
+
 	public function __construct(array $data = array()) {
 		$this->partners = new ArrayCollection();
 

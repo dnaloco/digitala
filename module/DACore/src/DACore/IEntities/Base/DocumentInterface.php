@@ -5,6 +5,8 @@ namespace DACore\IEntities\Base;
 interface DocumentInterface
 {
 	function getId();
+	function getType();
+	function getReference();
 	function getField1();
 	function getField2();
 	function getField3();

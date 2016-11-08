@@ -1,0 +1,88 @@
+    	/*$contacts = [
+            1 => [
+                'name'           => 'João Carlos Manfred',
+                'gender'         => 'male',
+                'birthdate'      => '1987-08-01',
+                "addresses"      => [
+                    0 => [
+                        "type"            => "residential",
+                        "city"            => 521500,
+                        "address1"        => "Avenida Ministro Alvaro de Souza Lima",
+                        "address2"        => "Casa 21",
+                        "number"          => "599",
+                        "residentialArea" => "Bairro dos Limões",
+                        "postalCode"      => "04664-020"
+                    ],
+                ],
+                "socialNetworks" => [
+                    0 => [
+                        "type"    => "facebook",
+                        "address" => "https://www.facebook.com/erterter.scostasafdddasda.4"
+                    ],
+                    1 => [
+                        "type"    => "twitter",
+                        "address" => "https://twitter.com/dsferetrt"
+                    ],
+                ],
+                "telephones"     => [
+                    0 => [
+                        "type"           => "residential",
+                        "number"         => "23423423",
+                        "DDD"            => "11"
+                    ],
+                ],
+                "documents"      => [
+                    0 => [
+                        "type"   => "rg",
+                        "field1" => "123123123",
+                        "field2" => "ssp"
+                    ],
+                    1 => [
+                        "type"   => "cpf",
+                        "field1" => '3453453453'
+                    ],
+                ],
+            ],
+            1
+        ];
+
+        $arrCollContacts = new ArrayCollection();
+
+        foreach ($contacts as $contact) {
+            if (is_numeric($contact)) {
+                $contact = $this->em->getReference('DABase\Entity\Person', $contact);
+            } else if (is_array($contact)) {
+                $contact = static::getPerson($contact);
+            }
+            $arrCollContacts->add($contact);
+        }
+
+        $company1 = static::getCompany(
+        	[
+	            "tradingName"    => "Empresa Teste 3 Ltda.",
+	            "companyName"    => "Minha Mega 3 Empresa",
+	            "category"       => 1,
+	            "website"        => "http://www.minhaempresa3.combr",
+                'type'           => 'manufacturer',
+	            "telephones"     => [
+	                0 => [
+	                    "answerable"     => "FAC",
+	                    "type"           => "mobile",
+	                    "number"         => '0800123222',
+	                    "mobileOperator" => "vivo",
+	                    "DDD"            => 11,
+	                    "notes"          => "11",
+	                ],
+	            ],
+                'contacts' => $arrCollContacts
+	        ]
+        );
+
+        $manufacturer1 = new \DAErp\Entity\Manufacturer\Manufacturer([
+        	'company' => $company1
+        ]);
+
+        //var_dump($manufacturer1->getCompany()->getTelephones()->count());die;
+
+        $this->em->persist($manufacturer1);
+        $this->em->flush();*/

@@ -9,9 +9,9 @@ class BrasilLoad extends AbstractFixture implements OrderedFixtureInterface
 {
 	public function load(ObjectManager $manager)
 	{
-		$brasil = new \DABase\Entity\Country(array('name' => 'Brasil', 'code' => 'BRA'));
-		$manager->persist($brasil);
-		$manager->flush();
+		$sql = file_get_contents(getcwd() . '/data/sql/queryCountries.sql');
+		$stmt = $manager->getConnection()->prepare($sql);
+		$stmt->execute();
 	}
 
 	public function getOrder()

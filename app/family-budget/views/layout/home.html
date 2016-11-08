@@ -1,0 +1,236 @@
+<div class="row">
+
+    <div class="row">
+        <div class="columns small-8">
+            <h1>Faturas do Mês de {{home.monthTitle}}</h1>
+        </div>
+        <div class="columns small-4">
+            <label for="selectedMonth"></label>
+        <b>Selecione o Mês:</b>
+        <input type="month"
+            ng-model="home.selectedMonth">
+        </div>
+    </div>
+
+    <h2>Receitas</h2>
+    <div class="expanded button-group">
+      <a class="button">Adicionar Categoria de Receita</a>
+      <a class="button">Adicionar Fatura de Receita</a>
+    </div>
+
+    <v-accordion class="vAccordion--default" multiple>
+        <!-- add expanded attribute to open the section -->
+        <v-pane ng-repeat="category in home.incomeCollection">
+            <v-pane-header>
+                <div class="row">
+                    <div class="columns small-5">
+                        <button class="button teste" ng-click="home.cliquei()">
+                            <span class="icon-pencil"></span>
+                        </button>
+                        <span class="title">{{category.title}}</span>
+                        <b class="float-right">
+                            (function...)
+                        </b>
+                    </div>
+                    <div class="columns small-2">
+                        Previsto:
+                        <b class="float-right">
+                            {{category.intendedBillAmountPerMonth | currency}}
+                        </b>
+                    </div>
+                    <div class="columns small-2">
+                        Subtotal:
+                        <b class="float-right">
+                            function...
+                        </b>
+                    </div>
+                    <div class="columns small-2 end">
+                        Diferença:
+                        <b class="float-right">
+                            function...
+                        </b>
+                    </div>
+                </div>
+            </v-pane-header>
+            <v-pane-content >
+                <div class="row table-header">
+                    <div class="columns small-3">
+                        <b>
+                            Data Pagamento:
+                        </b>
+                    </div>
+                    <div class="columns small-3">
+                        <b>
+                            Forma Pagamento:
+                        </b>
+                    </div>
+                    <div class="columns small-3">
+                        <b>
+                            Valor Pago:
+                        </b>
+                    </div>
+                    <div class="columns small-3">
+                        <b>
+                            Editar / Excluir
+                        </b>
+                    </div>
+                </div>
+                <div class="row" ng-repeat="billing in category.billings">
+                    <ul>
+                        <li>
+                            <div class="columns small-3">
+                                {{billing.paymentDate}}
+                            </div>
+                            <div class="columns small-3">
+                                {{billing.paymentMethod}}
+                            </div>
+                            <div class="columns small-3">
+                                {{billing.amountIncome | currency}}
+                            </div>
+                            <div class="columns small-3">
+                                <button>
+                                    <span class="icon-pencil color-green"></span>
+                                </button>
+                                &nbsp;
+                                <button>
+                                    <span class="icon-remove2 color-red"></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </v-pane-content>
+        </v-pane>
+    </v-accordion>
+    <br>
+	<div class="row">
+        <div class="columns small-12"><h3>Resumo das Receitas</h3></div>
+        <div class="brief-billings">
+            <div class="columns small-4">
+                <b>Total de Faturas:</b>
+                <b class="float-right">function...</b>
+            </div>
+            <div class="columns small-4">
+                <b>Direfença Total:</b>
+                <b class="float-right">function...</b>
+            </div>
+            <div class="columns small-4">
+                <b>Receita Total:</b>
+                <b class="float-right">function...</b>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Despesas</h2>
+    <div class="expanded button-group">
+      <a class="button">Adicionar Categoria de Despesa</a>
+      <a class="button">Adicionar Fatura de Despesa</a>
+    </div>
+
+    <v-accordion class="vAccordion--default" multiple="">
+        <!-- add expanded attribute to open the section -->
+        <v-pane ng-repeat="category in home.expenseCollection">
+            <v-pane-header>
+                <div class="row">
+                    <div class="columns small-5">
+                        <button class="button teste" ng-click="home.cliquei()">
+                            <span class="icon-pencil"></span>
+                        </button>
+                        <span class="title">{{category.title}}</span>
+                        <b class="float-right">
+                            (function...)
+                        </b>
+                    </div>
+                    <div class="columns small-2">
+                        Previsto:
+                        <b class="float-right">
+                            {{category.intendedBillAmountPerMonth | currency}}
+                        </b>
+                    </div>
+                    <div class="columns small-2">
+                        Subtotal:
+                        <b class="float-right">
+                            function...
+                        </b>
+                    </div>
+                    <div class="columns small-2 end">
+                        Diferença:
+                        <b class="float-right">
+                            function...
+                        </b>
+                    </div>
+                </div>
+            </v-pane-header>
+
+            <v-pane-content >
+                <div class="row table-header">
+                    <div class="columns small-3">
+                        <b>
+                            Data Pagamento:
+                        </b>
+                    </div>
+                    <div class="columns small-3">
+                        <b>
+                            Forma Pagamento:
+                        </b>
+                    </div>
+                    <div class="columns small-3">
+                        <b>
+                            Valor Pago:
+                        </b>
+                    </div>
+                    <div class="columns small-3">
+                        <b>
+                            Editar / Excluir
+                        </b>
+                    </div>
+                </div>
+                <div class="row" ng-repeat="billing in category.billings">
+                    <ul>
+                        <li>
+                            <div class="columns small-3">
+                                {{billing.paymentDate}}
+                            </div>
+                            <div class="columns small-3">
+                                {{billing.paymentMethod}}
+                            </div>
+                            <div class="columns small-3">
+                                {{billing.amountOutcome | currency}}
+                            </div>
+                            <div class="columns small-3">
+                                <button>
+                                    <span class="icon-pencil color-green"></span>
+                                </button>
+                                &nbsp;
+                                <button>
+                                    <span class="icon-remove2 color-red"></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </v-pane-content>
+        </v-pane>
+    </v-accordion>
+    <br>
+    <div class="row">
+        <div class="columns small-12"><h3>Resumo das Despesas</h3></div>
+        <div class="brief-billings">
+            <div class="columns small-4">
+                <b>Total de Faturas:</b>
+                <b class="float-right">function...</b>
+            </div>
+            <div class="columns small-4">
+                <b>Direfença Total:</b>
+                <b class="float-right">function...</b>
+            </div>
+            <div class="columns small-4">
+                <b>Despesa Total:</b>
+                <b class="float-right">function...</b>
+            </div>
+        </div>
+    </div>
+</div>

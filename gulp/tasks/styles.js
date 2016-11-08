@@ -29,6 +29,11 @@ function styles(src, dest) {
     .pipe(browserSync.stream());
 }
 
+gulp.task('baseStyles', function() {
+  return styles(config.base.styles.src, config.base.styles.dest);
+});
+
+
 gulp.task('blogStyles', function() {
   return styles(config.blog.styles.src, config.blog.styles.dest);
 });
@@ -44,4 +49,8 @@ gulp.task('erpStyles', function() {
 
 gulp.task('modulesStyles', function() {
   return styles(config.modules.styles.src, config.modules.styles.dest);
+});
+
+gulp.task('fbStyles', function() {
+  return styles(config.fb.styles.src, config.fb.styles.dest);
 });

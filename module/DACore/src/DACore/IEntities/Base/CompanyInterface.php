@@ -5,6 +5,7 @@ interface CompanyInterface
 {
 	function getId();
 	function getReference();
+	function getSpokesman();
 	function getTypes();
 	function addType(\DACore\IEntities\Base\CompanyTypeInterface $type);
 	function removeType(\DACore\IEntities\Base\CompanyTypeInterface $type);

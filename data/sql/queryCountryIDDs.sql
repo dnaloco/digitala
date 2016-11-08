@@ -1,4 +1,4 @@
-INSERT INTO `r2_base_countries_IDD` (`country_IDD`) VALUES
+INSERT INTO `dabase_DDI` (`ddi`) VALUES
 ('Afghanistão (+93)'),
 ('África do Sul (+27)'),
 ('Albânia (+355)'),

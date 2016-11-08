@@ -1,217 +1,212 @@
 <?php
 namespace DABase;
 
-use Zend\Mvc\Router\Http\{
-    Literal,
-    Hostname,
-    Segment
-};
-use Zend\ServiceManager\Factory\InvokableFactory;
-
-use Zend\ServiceManager\ServiceManager;
+use Zend\Mvc\Router\Http\Hostname;
+use Zend\Mvc\Router\Http\Segment;
 
 return [
-    'router' => [
+    'router'                  => [
         'routes' => [
-            'daapi-subdomain' => [
-                'type' => Hostname::class,
-                'options' => [
-                    'route' => 'api.agenciadigitala.[:tail]',
+            'daapi-subdomain'                => [
+                'type'          => Hostname::class,
+                'options'       => [
+                    'route'       => 'api.agenciadigitala.[:tail]',
                     'constraints' => [
                         'tail' => '[a-zA-Z._-]*',
                     ],
                 ],
                 'may_terminate' => false,
             ],
-            'dabase-cities-rest' => [
-                'type' => 'Segment',
+            'dabase-cities-rest'             => [
+                'type'    => 'Segment',
                 'options' => [
-                    'route' => '/api/:access/cities[/:id]',
+                    'route'       => '/api/:access/cities[/:id]',
                     'constraints' => [
-                        'id' => '[0-9]+',
-                        'access' => 'private|public'
+                        'id'     => '[0-9]+',
+                        'access' => 'private|public',
                     ],
-                    'defaults' => [
+                    'defaults'    => [
                         'controller' => 'DABase\Controller\CitiesRest',
                     ],
                 ],
             ],
             'dabase-company-categories-rest' => [
-                'type' => Segment::class,
+                'type'    => Segment::class,
                 'options' => [
-                    'route' => '/api/private/company-categories[/:id]',
+                    'route'       => '/api/private/company-categories[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
-                    'defaults' => [
-                        'controller' =>  'DABase\Controller\CompanyCategoriesRest',
+                    'defaults'    => [
+                        'controller' => 'DABase\Controller\CompanyCategoriesRest',
                     ],
                 ],
             ],
-            'dabase-company-types-rest' => [
-                'type' => Segment::class,
+            'dabase-company-types-rest'      => [
+                'type'    => Segment::class,
                 'options' => [
-                    'route' => '/api/private/company-types[/:id]',
+                    'route'       => '/api/private/company-types[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
-                    'defaults' => [
-                        'controller' =>  'DABase\Controller\CompanyTypesRest',
+                    'defaults'    => [
+                        'controller' => 'DABase\Controller\CompanyTypesRest',
                     ],
                 ],
             ],
-            'dabase-good-tags-rest' => [
-                'type' => Segment::class,
+            'dabase-good-tags-rest'          => [
+                'type'    => Segment::class,
                 'options' => [
-                    'route' => '/api/private/good-tags[/:id]',
+                    'route'       => '/api/private/good-tags[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
-                    'defaults' => [
-                        'controller' =>  'DABase\Controller\GoodTagsRest',
+                    'defaults'    => [
+                        'controller' => 'DABase\Controller\GoodTagsRest',
                     ],
                 ],
             ],
-            'dabase-people-rest' => [
-                'type' => Segment::class,
+            'dabase-people-rest'             => [
+                'type'    => Segment::class,
                 'options' => [
-                    'route' => '/api/private/people[/:id]',
+                    'route'       => '/api/private/people[/:id]',
                     'constraints' => [
                         'id' => '[0-9]+',
                     ],
-                    'defaults' => [
-                        'controller' =>  'DABase\Controller\PeopleRest',
+                    'defaults'    => [
+                        'controller' => 'DABase\Controller\PeopleRest',
                     ],
                 ],
             ],
-            'dabase-states-rest' => [
-                'type' => 'Segment',
+            'dabase-states-rest'             => [
+                'type'    => 'Segment',
                 'options' => [
-                    'route' => '/api/:access/states[/:id]',
+                    'route'       => '/api/:access/states[/:id]',
                     'constraints' => [
-                        'id' => '[0-9]+',
-                        'access' => 'private|public'
+                        'id'     => '[0-9]+',
+                        'access' => 'private|public',
                     ],
-                    'defaults' => [
+                    'defaults'    => [
                         'controller' => 'DABase\Controller\StatesRest',
                     ],
                 ],
             ],
         ],
     ],
-    'entity_rest_service' => [
-        'DABase\Service\City' => [
+    'entity_rest_service'     => [
+        'DABase\Service\City'            => [
             'class_name' => 'DABase\Service\City',
-            'entity' => 'DABase\Entity\City'
+            'entity'     => 'DABase\Entity\City',
         ],
-        'DABase\Service\State' => [
+        'DABase\Service\State'           => [
             'class_name' => 'DABase\Service\State',
-            'entity' => 'DABase\Entity\State'
+            'entity'     => 'DABase\Entity\State',
         ],
         'DABase\Service\CompanyCategory' => [
             'class_name' => 'DABase\Service\CompanyCategory',
-            'entity' => 'DABase\Entity\CompanyCategory'
+            'entity'     => 'DABase\Entity\CompanyCategory',
         ],
-        'DABase\Service\CompanyType' => [
+        'DABase\Service\CompanyType'     => [
             'class_name' => 'DABase\Service\CompanyType',
-            'entity' => 'DABase\Entity\CompanyType'
+            'entity'     => 'DABase\Entity\CompanyType',
         ],
-        'DABase\Service\GoodTag' => [
+        'DABase\Service\GoodTag'         => [
             'class_name' => 'DABase\Service\GoodTag',
-            'entity' => 'DABase\Entity\GoodTag'
+            'entity'     => 'DABase\Entity\GoodTag',
         ],
-        'DABase\Service\Person' => [
+        'DABase\Service\Person'          => [
             'class_name' => 'DABase\Service\Person',
-            'entity' => 'DABase\Entity\Person'
+            'entity'     => 'DABase\Entity\Person',
         ],
     ],
 
     'service_rest_controller' => [
-        'DABase\Controller\CitiesRest' => [
+        'DABase\Controller\CitiesRest'            => [
             'class_name' => 'DABase\Controller\CitiesRestController',
-            'service' => 'DABase\Service\City'
+            'service'    => 'DABase\Service\City',
         ],
-        'DABase\Controller\StatesRest' => [
+        'DABase\Controller\StatesRest'            => [
             'class_name' => 'DABase\Controller\StatesRestController',
-            'service' => 'DABase\Service\State'
+            'service'    => 'DABase\Service\State',
         ],
         'DABase\Controller\CompanyCategoriesRest' => [
             'class_name' => 'DABase\Controller\CompanyCategoriesRestController',
-            'service' => 'DABase\Service\CompanyCategory'
+            'service'    => 'DABase\Service\CompanyCategory',
         ],
-        'DABase\Controller\CompanyTypesRest' => [
+        'DABase\Controller\CompanyTypesRest'      => [
             'class_name' => 'DABase\Controller\CompanyTypesRestController',
-            'service' => 'DABase\Service\CompanyType'
+            'service'    => 'DABase\Service\CompanyType',
         ],
-        'DABase\Controller\PeopleRest' => [
+        'DABase\Controller\PeopleRest'            => [
             'class_name' => 'DABase\Controller\PeopleRestController',
-            'service' => 'DABase\Service\Person'
+            'service'    => 'DABase\Service\Person',
         ],
-        'DABase\Controller\GoodTagsRest' => [
+        'DABase\Controller\GoodTagsRest'          => [
             'class_name' => 'DABase\Controller\GoodTagsRestController',
-            'service' => 'DABase\Service\GoodTag'
+            'service'    => 'DABase\Service\GoodTag',
         ],
     ],
-    'view_manager' => [
+    'view_manager'            => [
         'strategies' => [
             'ViewJsonStrategy',
         ],
     ],
-    'doctrine' => [
-        'driver' => [
+    'doctrine'                => [
+        'driver'          => [
             __NAMESPACE__ . '_driver' => [
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
                 'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity'),
             ],
-            'orm_default' => [
+            'orm_default'             => [
                 'drivers' => [
                     __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
                 ],
             ],
         ],
-        'configuration' => [
+        'configuration'   => [
             'orm_default' => [
                 'types' => [
-                    'enum_addresstype'      => 'DABase\Enum\AddressType',
-                    'enum_companytype'      => 'DABase\Enum\CompanyType',
-                    'enum_filetype'         => 'DABase\Enum\FileType',
-                    'enum_gendertype'       => 'DABase\Enum\GenderType',
-                    'enum_imagefiletype'    => 'DABase\Enum\ImageFiletype',
-                    'enum_licence'          => 'DABase\Enum\Licence',
-                    'enum_mobileoperator'   => 'DABase\Enum\MobileOperator',
-                    'enum_socialtype'       => 'DABase\Enum\SocialType',
-                    'enum_telephonetype'    => 'DABase\Enum\TelephoneType',
-                    'enum_documenttype'     => 'DABase\Enum\DocumentType',
-                ]
-            ]
+                    'enum_addresstype'    => 'DABase\Enum\AddressType',
+                    'enum_companytype'    => 'DABase\Enum\CompanyType',
+                    'enum_filetype'       => 'DABase\Enum\FileType',
+                    'enum_gendertype'     => 'DABase\Enum\GenderType',
+                    'enum_imagefiletype'  => 'DABase\Enum\ImageFiletype',
+                    'enum_licence'        => 'DABase\Enum\Licence',
+                    'enum_mobileoperator' => 'DABase\Enum\MobileOperator',
+                    'enum_socialtype'     => 'DABase\Enum\SocialType',
+                    'enum_telephonetype'  => 'DABase\Enum\TelephoneType',
+                    'enum_documenttype'   => 'DABase\Enum\DocumentType',
+                ],
+            ],
         ],
         'entity_resolver' => [
             'orm_default' => [
                 'resolvers' => [
-                    'DACore\IEntities\Base\AddressInterface'           => 'DABase\Entity\Address',
-                    'DACore\IEntities\Base\CityInterface'              => 'DABase\Entity\City',
-                    'DACore\IEntities\Base\CompanyInterface'           => 'DABase\Entity\Company',
-                    'DACore\IEntities\Base\CompanyCategoryInterface'   => 'DABase\Entity\CompanyCategory',
-                    'DACore\IEntities\Base\CompanyTypeInterface'        => 'DABase\Entity\CompanyType',
-                    'DACore\IEntities\Base\CountryInterface'           => 'DABase\Entity\Country',
-                    'DACore\IEntities\Base\CurrencyInterface'          => 'DABase\Entity\Currency',
-                    'DACore\IEntities\Base\DocumentInterface'          => 'DABase\Entity\Document',
-                    'DACore\IEntities\Base\EmailInterface'             => 'DABase\Entity\Email',
-                    'DACore\IEntities\Base\FileInterface'              => 'DABase\Entity\File',
-                    'DACore\IEntities\Base\GoodTagInterface'           => 'DABase\Entity\GoodTag',
-                    'DACore\IEntities\Base\ImageInterface'             => 'DABase\Entity\Image',
-                    'DACore\IEntities\Base\PersonInterface'            => 'DABase\Entity\Person',
-                    'DACore\IEntities\Base\SocialNetworkInterface'     => 'DABase\Entity\SocialNetwork',
-                    'DACore\IEntities\Base\StateInterface'             => 'DABase\Entity\State',
-                    'DACore\IEntities\Base\TelephoneInterface'         => 'DABase\Entity\Telephone',
-                    'DACore\IEntities\Base\VideoInterface'             => 'DABase\Entity\Video',
+                    'DACore\IEntities\Base\AddressInterface'         => 'DABase\Entity\Address',
+                    'DACore\IEntities\Base\CityInterface'            => 'DABase\Entity\City',
+                    'DACore\IEntities\Base\CompanyInterface'         => 'DABase\Entity\Company',
+                    'DACore\IEntities\Base\CompanyCategoryInterface' => 'DABase\Entity\CompanyCategory',
+                    'DACore\IEntities\Base\CompanyTypeInterface'     => 'DABase\Entity\CompanyType',
+                    'DACore\IEntities\Base\CountryInterface'         => 'DABase\Entity\Country',
+                    'DACore\IEntities\Base\CurrencyInterface'        => 'DABase\Entity\Currency',
+                    'DACore\IEntities\Base\DDIInterface'             => 'DABase\Entity\DDI',
+                    'DACore\IEntities\Base\DocumentInterface'        => 'DABase\Entity\Document',
+                    'DACore\IEntities\Base\EmailInterface'           => 'DABase\Entity\Email',
+                    'DACore\IEntities\Base\FileInterface'            => 'DABase\Entity\File',
+                    'DACore\IEntities\Base\GoodTagInterface'         => 'DABase\Entity\GoodTag',
+                    'DACore\IEntities\Base\ImageInterface'           => 'DABase\Entity\Image',
+                    'DACore\IEntities\Base\PersonInterface'          => 'DABase\Entity\Person',
+                    'DACore\IEntities\Base\SocialNetworkInterface'   => 'DABase\Entity\SocialNetwork',
+                    'DACore\IEntities\Base\StateInterface'           => 'DABase\Entity\State',
+                    'DACore\IEntities\Base\TelephoneInterface'       => 'DABase\Entity\Telephone',
+                    'DACore\IEntities\Base\VideoInterface'           => 'DABase\Entity\Video',
                 ],
             ],
         ],
     ],
 
-    'data-fixture' => array(
+    'data-fixture'            => array(
 
         __NAMESPACE__ . '_fixture' => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
 

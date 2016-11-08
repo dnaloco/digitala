@@ -28,6 +28,42 @@ class Product implements ProductInterface
      */
     private $reference;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nature", type="string", length=255, nullable=true)
+     */
+    private $nature;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Base\CountryInterface")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     **/
+    private $country;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Financial\TaxInterface")
+     * @ORM\JoinTable(name="daerp_product_taxes",
+     *      joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tax_id", referencedColumnName="id")}
+     *      )
+     */
+    private $taxes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="accountancy_code_for_selling", type="string", length=255, nullable=true)
+     */
+    private $accountancyCodeForSelling;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="accountancy_code_for_buying", type="string", length=255, nullable=true)
+     */
+    private $accountancyCodeForBuying;
+
 	/**
 	 * @var string
 	 *
@@ -42,11 +78,17 @@ class Product implements ProductInterface
 	 */
 	private $subtitle;
 
-	/**
+    /**
+     * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Manufacturer\ManufacturerInterface")
+     * @ORM\JoinColumn(name="ncm_id", referencedColumnName="id")
+     */
+	private $ncm;
+
+    /**
      * @ORM\ManyToOne(targetEntity="DACore\IEntities\Erp\Manufacturer\ManufacturerInterface", inversedBy="products")
      * @ORM\JoinColumn(name="manufacturer_id", referencedColumnName="id")
      */
-	private $manufacturer;
+    private $manufacturer;
 
     /**
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Supplier\SupplierInterface", inversedBy="products")
@@ -156,14 +198,6 @@ class Product implements ProductInterface
 	 */
 	private $dimensionWidth;
 
-	/**
-	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Product\RatingInterface")
-	 * @ORM\JoinTable(name="daerp_products_ratings",
-	 *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
-	 *      inverseJoinColumns={@ORM\JoinColumn(name="rating_id", referencedColumnName="id", unique=true)}
-	 *      )
-	 */
-
     /**
      * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Product\RatingInterface", mappedBy="product")
      */
@@ -204,6 +238,20 @@ class Product implements ProductInterface
      */
     private $status;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="to_sell", type="boolean", nullable=true)
+     */
+    private $toSell;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="to_buy", type="boolean", nullable=true)
+     */
+    private $toBuy;
+
 	/**
 	 * @var \DateTime
 	 *
@@ -220,6 +268,8 @@ class Product implements ProductInterface
 
 	public function __construct(array $data = array()) {
         $this->status = 'cadastrado';
+        $this->toSell = true;
+        $this->toBuy = true;
 		$this->createdAt = new \DateTime("now");
 		$this->updatedAt = new \DateTime("now");
 

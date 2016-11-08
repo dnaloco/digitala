@@ -1,4 +1,4 @@
-function LayoutController($rootScope, LoginService, jwtHelper, $state, StatesService) {
+function LayoutController($rootScope, LoginService, jwtHelper, $state, StatesService, $scope) {
 	'ngInject';
 
 	const vm = this;
@@ -7,34 +7,27 @@ function LayoutController($rootScope, LoginService, jwtHelper, $state, StatesSer
 		{title: 'Home', uiRef: 'Home'}
 	];
 
+	vm.user = {};
+
 	console.log('LAYOUT CONTROLLER');
 
-	vm.logged = false;
+	$scope.$watch('$root.iframeLoaded', function () {
+		console.log('VAL', $rootScope.iframeLoaded);
 
-	StatesService.getList().then(function(result) {
-		console.log('RESULT', result);
+		if ($rootScope.iframeLoaded) {
+			LoginService.getUserEmail().then(function (result) {
+				vm.user.email = result.value;
+			});
+
+			LoginService.getUserName().then(function (result) {
+				vm.user.name = result.value;
+			});
+
+		}
 	})
-
-	$rootScope.$on('isLogged', function(value) {
-		vm.logged = true;
-	})
-
-	$rootScope.$on('iframeReady', function () {
-	    LoginService.getToken().then(function(response) {
-	    	console.log('Login token resp', response);
-	    	console.log('Login token isTokenExpired', jwtHelper.isTokenExpired(response.value));
-	    	console.log('Login token undefined', response.value === undefined);
-	    	if (response.value === undefined) $state.go('Login');
-	    	if (response.value === null) $state.go('Login');
-	    	if (jwtHelper.isTokenExpired(response.value)) $state.go('Login');
-
-	    	vm.logged = true;
-	    })
-	  });
 
 	vm.logout = function () {
 		LoginService.removeToken();
-		vm.logged = false;
 		$state.go('Login');
 	};
 

@@ -9,6 +9,7 @@ use DACore\IEntities\Erp\Inventory\Parked\ReservationInterface;
  *
  * @ORM\Table(name="daerp_inventory_parked_reservations")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class Reservation implements ReservationInterface
 {

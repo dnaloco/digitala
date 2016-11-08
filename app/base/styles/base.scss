@@ -47,29 +47,5 @@
 // @include foundation-flex-classes;
 
 
-@import "normalize-layout";
-
-
-/* ASSETS */
-@import 'assets/ngdialog';
-@import 'assets/loading-bar';
-@import 'assets/angular-material';
-@import 'assets/angular-material-sidemenu';
-@import 'assets/sir-accordion';
-//@import 'assets/ngDialogThemeDefault';
-
-
-@import 'vars';
-@import 'typography';
-@import 'icons';
-@import 'animations';
-@import "normalize";
-@import "forms";
-@import "generics";
-@import "dialogs";
-@import "damw-menu";
-@import "footer";
-@import "tables";
-
-
+@import 'calendar';
 

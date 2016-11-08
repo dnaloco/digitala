@@ -77,22 +77,28 @@ function OnInterceptor(
           if (privateApi.test(options.url)) {
             console.log('Verificando token privado');
             var deferred = $q.defer();
-            $rootScope.$watch('iframeLoaded', function (newVal) {
-              console.log('iframeLoaded', newVal);
-              if (newVal) {
+
+            $rootScope.$watch('$root.iframeLoaded', function () {
+              if ($rootScope.iframeLoaded) {
                 LoginService.getToken().then(function(response) {
                 console.log('LoginService Verificando token privado response', response);
                   if (response.value == null) {
                     deferred.reject(response.value);
-                    $state.go('Login');
+                    $state.go('Login', {}, {reload: true});
                     return;
                   }
+
+                  if (jwtHelper.isTokenExpired(response.value)) {
+                     deferred.reject(response.value);
+                    $state.go('Login', {}, {reload: true});
+                    return;
+                  }
+
                   console.log('Enviando token', response.value);
                   deferred.resolve(response.value);
                 });
               }
-
-            });
+            })
 
             return deferred.promise;
 

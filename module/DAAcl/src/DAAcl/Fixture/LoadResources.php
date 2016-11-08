@@ -299,6 +299,18 @@ class LoadResource extends AbstractFixture implements OrderedFixtureInterface
                 $resource->setName('users');
                 $manager->persist($resource);
 
+                $resource = new Resource;
+                $resource->setName('invTransferences');
+                $manager->persist($resource);
+
+                $resource = new Resource;
+                $resource->setName('fbBillings');
+                $manager->persist($resource);
+                
+                $resource = new Resource;
+                $resource->setName('fbCategories');
+                $manager->persist($resource);
+
 		$manager->flush();
 	}
 

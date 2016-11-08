@@ -11,5 +11,5 @@ interface AddressInterface
 	function getNumber();
 	function getDistrict();
 	function getPostalCode();
-
+	function getNotes();
 }

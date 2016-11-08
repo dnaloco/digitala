@@ -31,6 +31,12 @@
         "monolog/monolog": "^1.21",
         "learnzf2/route-cache": "dev-master",
         "facebook/graph-sdk": "^5.3",
-        "zfr/zfr-cors": "1.*"
+        "zfr/zfr-cors": "1.*",
+        "nfephp-org/nfephp": "^4.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "DoctrineExtensions": "library/php/DoctrineExtensions/lib/"
+        }
     }
 }

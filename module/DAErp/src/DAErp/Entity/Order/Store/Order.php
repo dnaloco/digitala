@@ -26,11 +26,6 @@ class Order extends OrderSuperclass implements OrderInterface
      **/
     private $supplier;
 
-    /**
-     * @ORM\OneToOne(targetEntity="DACore\IEntities\Erp\Order\Production\ProductionInterface", mappedBy="storeOrder")
-     */
-    private $production;
-
 	public function __construct(array $data = array()) {
         parent::__construct($data);
 		$this->setPaymentType('compra');

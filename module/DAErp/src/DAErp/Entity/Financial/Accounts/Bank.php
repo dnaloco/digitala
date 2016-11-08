@@ -50,6 +50,12 @@ implements BankInterface
 	 */
 	private $digit;
 
+    /**
+     * @ORM\OneToOne(targetEntity="DACore\IEntities\Base\AddressInterface", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id", nullable=true)
+     **/
+    private $address;
+
 	/**
 	 * @var string
 	 *
@@ -61,6 +67,7 @@ implements BankInterface
 		parent::__construct($data);
 		(new Hydrator\ClassMethods)->hydrate($data, $this);
 	}
+
 
     /**
      * Gets the value of name.
@@ -82,6 +89,30 @@ implements BankInterface
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of code.
+     *
+     * @return mixed
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Sets the value of code.
+     *
+     * @param mixed $code the code
+     *
+     * @return self
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
 
         return $this;
     }
@@ -178,6 +209,30 @@ implements BankInterface
     public function setDigit($digit)
     {
         $this->digit = $digit;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of address.
+     *
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Sets the value of address.
+     *
+     * @param mixed $address the address
+     *
+     * @return self
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
 
         return $this;
     }

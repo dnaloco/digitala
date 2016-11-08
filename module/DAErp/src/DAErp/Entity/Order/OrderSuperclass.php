@@ -147,7 +147,7 @@ class OrderSuperclass implements OrderSuperclassInterface
 
     /**
      * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Financial\TaxInterface")
-     * @ORM\JoinTable(name="users_phonenumbers",
+     * @ORM\JoinTable(name="daerp_order_taxes",
      *      joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tax_id", referencedColumnName="id")}
      *      )

@@ -64,6 +64,11 @@ class Budget implements BudgetInterface
      */
     private $discountType;
 
+    /**
+     * @ORM\Column(name="payment_method", type="enum_paymentmethod", nullable=false)
+     */
+    private $paymentMethod;
+
 	/**
 	 * @var string
 	 *
@@ -273,6 +278,30 @@ class Budget implements BudgetInterface
     }
 
     /**
+     * Gets the value of paymentMethod.
+     *
+     * @return mixed
+     */
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod;
+    }
+
+    /**
+     * Sets the value of paymentMethod.
+     *
+     * @param mixed $paymentMethod the payment method
+     *
+     * @return self
+     */
+    public function setPaymentMethod($paymentMethod)
+    {
+        $this->paymentMethod = $paymentMethod;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of totalWithDiscount.
      *
      * @return string
@@ -360,12 +389,10 @@ class Budget implements BudgetInterface
      * @param \DateTime $updatedAt the updated at
      *
      * @return self
-     * 
-     * @ORM\PrePersist
      */
-    public function setUpdatedAt()
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
-        $this->updatedAt = new \DateTime("now");
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

@@ -24,7 +24,7 @@ class Supplier implements SupplierInterface
 
 	/**
 	 * @ORM\OneToOne(targetEntity="DACore\IEntities\Base\CompanyInterface")
-	 * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
+	 * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true, unique=true)
 	 **/
 	private $company;
 

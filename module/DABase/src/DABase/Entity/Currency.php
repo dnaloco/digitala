@@ -20,31 +20,43 @@ class Currency implements CurrencyInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-	protected $id;
+	private $id;
 
 	/**
      *
      * @ORM\Column(name="name", type="string", length=30, nullable=false)
      */
-	protected $name;
+	private $name;
+
+    /**
+     *
+     * @ORM\Column(name="code", type="string", length=5, nullable=false)
+     */
+    private $code;
 
 	/**
      *
-     * @ORM\Column(name="symbol", type="string", length=5, nullable=false)
+     * @ORM\Column(name="major_symbol", type="string", length=5, nullable=false)
      */
-	protected $symbol;
+	private $majorSymbol;
+
+    /**
+     *
+     * @ORM\Column(name="minor_symbol", type="string", length=5, nullable=false)
+     */
+    private $minorSymbol;
 
 	/**
 	 *
 	 * @ORM\Column(name="rate", precision=7, scale=2, nullable=false)
 	 */
-	protected $rate;
+	private $rate;
 
     /**
      *
      * @ORM\Column(name="standard", type="boolean", unique=true)
      */
-    protected $standard;
+    private $standard;
 
 	public function __construct(array $data)
 	{
@@ -102,25 +114,73 @@ class Currency implements CurrencyInterface
     }
 
     /**
-     * Gets the value of symbol.
+     * Gets the value of code.
      *
      * @return mixed
      */
-    public function getSymbol()
+    public function getCode()
     {
-        return $this->symbol;
+        return $this->code;
     }
 
     /**
-     * Sets the value of symbol.
+     * Sets the value of code.
      *
-     * @param mixed $symbol the symbol
+     * @param mixed $code the code
      *
      * @return self
      */
-    public function setSymbol($symbol)
+    public function setCode($code)
     {
-        $this->symbol = $symbol;
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of majorSymbol.
+     *
+     * @return mixed
+     */
+    public function getMajorSymbol()
+    {
+        return $this->majorSymbol;
+    }
+
+    /**
+     * Sets the value of majorSymbol.
+     *
+     * @param mixed $majorSymbol the major symbol
+     *
+     * @return self
+     */
+    public function setMajorSymbol($majorSymbol)
+    {
+        $this->majorSymbol = $majorSymbol;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of minorSymbol.
+     *
+     * @return mixed
+     */
+    public function getMinorSymbol()
+    {
+        return $this->minorSymbol;
+    }
+
+    /**
+     * Sets the value of minorSymbol.
+     *
+     * @param mixed $minorSymbol the minor symbol
+     *
+     * @return self
+     */
+    public function setMinorSymbol($minorSymbol)
+    {
+        $this->minorSymbol = $minorSymbol;
 
         return $this;
     }

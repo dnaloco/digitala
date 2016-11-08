@@ -8,10 +8,9 @@ function OnRoute(
   .state('Home', {
     url: '/',
     views: {
-/*      'header': {
-        templateUrl: 'layout/header.html',
-        controller: 'HeaderController as header'
-      },*/
+      'header': {
+        templateUrl: 'layout/header.html'
+      },
       'leftsidebar': {
         templateUrl: 'layout/left-navbar.html',
         controller: 'NavbarController as navbar'
@@ -27,9 +26,28 @@ function OnRoute(
     },
     title: 'Home'
   })
+  .state('Dummy', {
+    url: '/dummy-test',
+    views: {
+        'middlecontent@': {
+            templateUrl: 'dummy/dummy.html',
+            controller: 'DummyController as dummy',
+        }
+    },
+    title: 'Dummy'
+  })
   .state('Login', {
     url: '/login',
     views: {
+        'header@': {
+          template: ''
+        },
+        'leftsidebar@': {
+          template: ''
+        },
+        'footer@': {
+          template: ''
+        },
         'middlecontent@': {
             templateUrl: 'pages/login.html',
             controller: 'LoginController as login',

@@ -35,27 +35,24 @@ class Storage implements StorageInterface
 	 **/
 	private $orderIn;
 
-	/**
-	 * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Order\OrderSuperclassInterface")
-	 * @ORM\JoinTable(name="daerp_inventory_warehouse_storage_ordersout",
-	 *      joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id")},
-	 *      inverseJoinColumns={@ORM\JoinColumn(name="storage_id", referencedColumnName="id", unique=true)}
-	 *      )
-	 **/
-	private $ordersOut;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Order\Production\RawMaterialInterface")
-     * @ORM\JoinTable(name="daerp_inventory_warehouse_storage_raw_materials",
-     *      joinColumns={@ORM\JoinColumn(name="raw_material_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="storage_id", referencedColumnName="id", unique=true)}
-     *      )
-     **/
-
     /**
      * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Order\Production\RawMaterialInterface", mappedBy="storage")
      */
     private $rawMaterials;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="DACore\IEntities\Erp\Inventory\Warehouse\TransferenceInterface")
+     * @ORM\JoinTable(name="daerp_inventory_storage_tranferences",
+     *      joinColumns={@ORM\JoinColumn(name="storage_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="transference_id", referencedColumnName="id", unique=false)}
+     *      )
+     */
+    private $transferences;
+
+    /**
+     * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Order\Sale\SaleInterface", mappedBy="storage")
+     */
+    private $sales;
 
 	/**
      * @ORM\OneToMany(targetEntity="DACore\IEntities\Erp\Inventory\Parked\DevolutionInterface", mappedBy="storage")

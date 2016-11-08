@@ -36,20 +36,39 @@ class AccountSuperclass implements AccountSuperclassInterface
      */
 	private $partner;
 
-
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="amount", type="decimal", precision=7, scale=2, nullable=false)
-	 */
-	private $amount;
-
 	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="description", type="text", nullable=false)
 	 */
 	private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="amount", type="decimal", precision=7, scale=2, nullable=false)
+     */
+    private $amount;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="amount_minimun", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $amountMinimun;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="amount_desired", type="decimal", precision=7, scale=2, nullable=true)
+     */
+    private $amountDesired;
+
+    /**
+     *
+     * @ORM\Column(name="accountancy_code", type="smallint", nullable=false)
+     */
+    private $accountancyCode;
 
 	/**
 	 * @var \DateTime
@@ -70,6 +89,7 @@ class AccountSuperclass implements AccountSuperclassInterface
 		$this->updatedAt = new \DateTime("now");
 		(new Hydrator\ClassMethods)->hydrate($options, $this);
 	}
+    
 
     /**
      * Gets the value of id.
@@ -120,6 +140,30 @@ class AccountSuperclass implements AccountSuperclassInterface
     }
 
     /**
+     * Gets the value of description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Sets the value of description.
+     *
+     * @param string $description the description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of amount.
      *
      * @return string
@@ -144,25 +188,73 @@ class AccountSuperclass implements AccountSuperclassInterface
     }
 
     /**
-     * Gets the value of description.
+     * Gets the value of amountMinimun.
      *
      * @return string
      */
-    public function getDescription()
+    public function getAmountMinimun()
     {
-        return $this->description;
+        return $this->amountMinimun;
     }
 
     /**
-     * Sets the value of description.
+     * Sets the value of amountMinimun.
      *
-     * @param string $description the description
+     * @param string $amountMinimun the amount minimun
      *
      * @return self
      */
-    public function setDescription($description)
+    public function setAmountMinimun($amountMinimun)
     {
-        $this->description = $description;
+        $this->amountMinimun = $amountMinimun;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of amountDesired.
+     *
+     * @return string
+     */
+    public function getAmountDesired()
+    {
+        return $this->amountDesired;
+    }
+
+    /**
+     * Sets the value of amountDesired.
+     *
+     * @param string $amountDesired the amount desired
+     *
+     * @return self
+     */
+    public function setAmountDesired($amountDesired)
+    {
+        $this->amountDesired = $amountDesired;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of accountancyCode.
+     *
+     * @return mixed
+     */
+    public function getAccountancyCode()
+    {
+        return $this->accountancyCode;
+    }
+
+    /**
+     * Sets the value of accountancyCode.
+     *
+     * @param mixed $accountancyCode the accountancy code
+     *
+     * @return self
+     */
+    public function setAccountancyCode($accountancyCode)
+    {
+        $this->accountancyCode = $accountancyCode;
 
         return $this;
     }

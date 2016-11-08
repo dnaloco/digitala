@@ -5,6 +5,9 @@ interface CurrencyInterface
 {
 	function getId();
 	function getName();
-	function getSymbol();
+	function getCode();
+	function getMajorSymbol();
+	function getMinorSymbol();
 	function getRate();
+	function getStandard();
 }
