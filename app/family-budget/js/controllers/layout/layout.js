@@ -9,7 +9,6 @@ function LayoutController($rootScope, LoginService, jwtHelper, $state, StatesSer
 
 	vm.user = {};
 
-	console.log('LAYOUT CONTROLLER');
 
 	vm.user.email = null;
 	vm.user.name = null;
@@ -20,13 +19,11 @@ function LayoutController($rootScope, LoginService, jwtHelper, $state, StatesSer
 		});
 
 		LoginService.getUserName().then(function (result) {
-			console.log('VALOR NOME LAYOUT', result.value);
 			vm.user.name = result.value;
 		})
 	}
 
 	$scope.$watch('$root.iframeLoaded', function () {
-		console.log('VAL', $rootScope.iframeLoaded);
 		if ($rootScope.iframeLoaded) {
 			updateUser();
 		}
@@ -38,7 +35,6 @@ function LayoutController($rootScope, LoginService, jwtHelper, $state, StatesSer
 	};
 
 	$rootScope.$on('refreshPage', function () {
-		console.log('ATUALIZAR PÁGINA');
 		$state.go('Home', {}, {reload: true});
 		vm.user.email = null;
 		vm.user.name = null;

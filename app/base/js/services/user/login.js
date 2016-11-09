@@ -20,7 +20,6 @@ function LoginService(Restangular, xdLocalStorage, jwtHelper) {
 
   service.setToken = function (token) {
     var tokenPayload = jwtHelper.decodeToken(token);
-    console.log('tokenPayload', tokenPayload);
     xdLocalStorage.setItem('userEmail', tokenPayload.email);
     xdLocalStorage.setItem('userName', tokenPayload.name);
 

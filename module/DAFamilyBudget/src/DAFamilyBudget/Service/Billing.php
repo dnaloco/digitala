@@ -14,6 +14,8 @@ class Billing extends AbstractCrudService
 
 	public function prepareData(array $data)
 	{
+		unset($data['createdAt']);
+		unset($data['updatedAt']);
 		$data = array_filter($data);
 		$key = 'fb_billing';
 
@@ -36,6 +38,9 @@ class Billing extends AbstractCrudService
 		if (!isset($data['paymentMethod'])) {
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'paymentMethod');
 		} else {
+			if (isset($data['paymentMethod']['value'])) {
+				$data['paymentMethod'] = $data['paymentMethod']['value'];
+			}
 			$data['paymentMethod'] = static::checkType($key, 'DAErp\Enum\PaymentMethod', $data['paymentMethod'], 'paymentMethod');
 		}
 

@@ -29,7 +29,8 @@
     "angular-fontawesome": "./node_modules/angular-fontawesome/dist/angular-fontawesome.js",
     "angular-datepicker": "./library/angular/vendor/angular-datepicker/build/angular-datepicker.js",
     "angular-moment": "./node_modules/angular-moment/angular-moment.js",
-    "v-accordion": "./node_modules/v-accordion/dist/v-accordion.js"
+    "v-accordion": "./node_modules/v-accordion/dist/v-accordion.js",
+    "angular-locale-pt": "./bower_components/angular-locale-pt-br/angular-locale_pt-br.js"
   },
   "browserify-shim": {
     "jquery": {
@@ -146,6 +147,12 @@
       "depends": [
         "angular",
         "angular-animate"
+      ]
+    },
+    "angular-locale-pt": {
+      "exports": "angular.module('ngLocale')",
+      "depends": [
+        "angular"
       ]
     }
   },

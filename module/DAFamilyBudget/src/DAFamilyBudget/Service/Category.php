@@ -53,8 +53,30 @@ class Category extends AbstractCrudService
     	return $result;
     }
 
+    public function getList(array $where = array(), array $options = array(), $limit = null, $offset = null)
+	{
+		$whereArr = [];
+		foreach($where as $w) {
+
+			if (is_string($w)) {
+				$wArray = json_decode($w, true);
+				$whereArr[$wArray['key']] = $wArray['value'];
+			}
+
+		}
+
+		$whereArr['user'] = $this->em->getReference('DACore\IEntities\User\UserInterface', $this->cache->getItem('user')->getId());
+
+		$repo = self::getRepository();
+
+		$data = $repo->findBy($whereArr, $options, $limit, $offset);
+
+		return $data;
+	}
+
     public function prepareData(array $data)
     {
+    	//var_dump($data);die;
     	unset($data['billings']);
 
     	$data = array_filter($data);
@@ -76,6 +98,9 @@ class Category extends AbstractCrudService
 		if (!isset($data['type'])) {
 			static::addDataError($key, static::ERROR_REQUIRED_FIELD, 'type');
 		} else {
+			if (isset($data['type']['value'])) {
+				$data['type'] = $data['type']['value'];
+			}
 			$data['type'] = static::checkType($key, 'DAFamilyBudget\Enum\BillingType', $data['type'], 'type');
 		}
 

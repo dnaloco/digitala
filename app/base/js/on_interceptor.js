@@ -31,8 +31,7 @@ function OnInterceptor(
       tokenGetter: ['options', 'PublicTokenService', 'LoginService', 'jwtHelper', '$q', '$state', '$rootScope',
 
         function(options, PublicTokenService, LoginService, jwtHelper, $q, $state, $rootScope) {
-          console.log('OK...');
-          
+
           var publicApi = new RegExp("/api/public/");
           var privateApi = new RegExp("/api/private/");
 
@@ -52,53 +51,49 @@ function OnInterceptor(
             return null;
           }
 
-          
-          //return localStorage.getItem('publicToken');
-          // public api...
-          if (publicApi.test(options.url)) {
-            
 
-            //return refreshToken();
-            console.log('tenho token publico?', localStorage.getItem('publicToken'));
+          if (publicApi.test(options.url)) {
 
             if (localStorage.getItem('publicToken') === null || localStorage.getItem('publicToken') === undefined) {
-              console.log('Não. Gerando um novo.');
               return refreshToken();
             }
 
             if (jwtHelper.isTokenExpired(localStorage.getItem('publicToken'))) {
-              console.log('Tenho, mas expirou.');
               return refreshToken();
             }
-            console.log('Tenho.');
+
             return localStorage.getItem('publicToken');
           }
 
           if (privateApi.test(options.url)) {
-            console.log('Verificando token privado');
+
             var deferred = $q.defer();
 
-            $rootScope.$watch('$root.iframeLoaded', function () {
-              if ($rootScope.iframeLoaded) {
+            $rootScope.$watch('iframeLoaded', function (val) {
+              if (val) {
                 LoginService.getToken().then(function(response) {
-                console.log('LoginService Verificando token privado response', response);
-                  if (response.value == null) {
-                    deferred.reject(response.value);
-                    $state.go('Login', {}, {reload: true});
+                  if (response.value === undefined) {
+                    deferred.resolve(localStorage.getItem('publicToken'));
+                    $state.go('Login');
+                    return;
+                  }
+
+                  if (response.value === null) {
+                    deferred.resolve(localStorage.getItem('publicToken'));
+                    $state.go('Login');
                     return;
                   }
 
                   if (jwtHelper.isTokenExpired(response.value)) {
-                     deferred.reject(response.value);
-                    $state.go('Login', {}, {reload: true});
+                    deferred.resolve(localStorage.getItem('publicToken'));
+                    $state.go('Login');
                     return;
                   }
 
-                  console.log('Enviando token', response.value);
                   deferred.resolve(response.value);
                 });
               }
-            })
+            });
 
             return deferred.promise;
 

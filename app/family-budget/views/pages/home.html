@@ -1,0 +1,282 @@
+<div class="row">
+
+    <div class="row">
+        <div class="columns small-6 page-title">
+            <h1>Faturas do Mês de {{home.monthTitle}} de {{home.yearTitle}}</h1>
+        </div>
+        <div class="columns small-6">
+            <label for="selectedMonth"></label>
+        <b>Selecione o Mês:</b>
+        <input type="month"
+            ng-model="home.selectedMonth">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="columns small-12">
+            <fieldset>
+
+                <legend>
+                    <h2 class="resumo-geral-title">Resumo Geral</h2>
+                </legend>
+
+                <div class="row resumo-geral">
+                    <label for="totalReceita" class="columns small-4">
+                        Total Receita:
+                        <span class="float-right"><b>{{home.incomeCollection.totalAmount | currency}}</b></span>
+                    </label>
+                    <label for="totalDespesas" class="columns small-4">
+                        Total Despesas:
+                        <span class="float-right"><b>{{home.expenseCollection.totalAmount | currency}}</b></span>
+                    </label>
+
+                    <label for="saldo" class="columns small-4">
+                        Saldo:
+                        <span class="float-right ng-class:{ 'color-red': home.saldoMes < 0, 'color-green': home.saldoMes > 0, 'color-blue': home.saldoMes == 0}"><b>{{home.saldoMes | currency}}</b></span>
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <br>
+
+
+    <fieldset>
+        <legend><h2>Receitas</h2></legend>
+        <div class="expanded button-group">
+          <a class="button" ng-click="saveCategory('', false, true, 'income')">Adicionar Categoria de Receita</a>
+          <a class="button" ng-click="saveBilling('', false, true, 'income')">Adicionar Fatura de Receita</a>
+        </div>
+
+        <v-accordion class="vAccordion--default" multiple="">
+            <!-- add expanded attribute to open the section -->
+            <v-pane ng-repeat="category in home.incomeCollection">
+                <v-pane-header>
+                    <div class="row">
+                        <div class="columns small-5">
+                            <button class="button teste" ng-click="saveCategory('', false, true, 'income', category)">
+                                <span class="icon-pencil"></span>
+                            </button>
+                            <span class="title">{{category.title}}</span>
+                            <b class="float-right">
+                                {{category.subtotalBillings}}
+                            </b>
+                        </div>
+                        <div class="columns small-2">
+                            Previsto:
+                            <b class="float-right">
+                                {{category.intendedBillAmountPerMonth | currency}}
+                            </b>
+                        </div>
+                        <div class="columns small-2">
+                            Subtotal:
+                            <b class="float-right">
+                                {{category.subamountBillings | currency}}
+                            </b>
+                        </div>
+                        <div class="columns small-2 end">
+                            Diferença:
+                            <b class="float-right ng-class:{ 'color-red': category.subdifference < 0, 'color-green': category.subdifference > 0, 'color-blue': category.subdifference == 0}">
+                                {{category.subdifference | currency}}
+                            </b>
+                        </div>
+                    </div>
+                </v-pane-header>
+
+                <v-pane-content >
+                    <div class="row table-header">
+                        <div class="columns small-3">
+                            <b>
+                                Data Pagamento:
+                            </b>
+                        </div>
+                        <div class="columns small-3">
+                            <b>
+                                Forma Pagamento:
+                            </b>
+                        </div>
+                        <div class="columns small-3">
+                            <b>
+                                Valor Pago:
+                            </b>
+                        </div>
+                        <div class="columns small-3">
+                            <b>
+                                Editar / Excluir
+                            </b>
+                        </div>
+                    </div>
+                    <div class="row" ng-repeat="billing in category.billings">
+                        <ul>
+                            <li>
+                                <div class="columns small-3">
+                                    {{billing.paymentDate | date:'shortDate'}}
+                                </div>
+                                <div class="columns small-3">
+                                    {{billing.paymentMethod}}
+                                </div>
+                                <div class="columns small-3">
+                                    {{billing.amountIncome | currency}}
+                                </div>
+                                <div class="columns small-3">
+                                    <button ng-click="saveBilling('', false, true, 'income', billing)">
+                                        <span class="icon-pencil color-green"></span>
+                                    </button>
+                                    &nbsp;
+                                    <button ng-click="deleteBilling(billing.id, 'income')">
+                                        <span class="icon-remove2 color-red"></span>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </v-pane-content>
+            </v-pane>
+        </v-accordion>
+        <br>
+        <div class="row">
+            <div class="columns small-12"><h3>Resumo das Receitas</h3></div>
+            <div class="brief-billings">
+                <div class="columns small-3">
+                    Total de Faturas:
+                    <b class="float-right">{{home.incomeCollection.totalBillings}}</b>
+                </div>
+                <div class="columns small-3">
+                    Total Previsto:
+                    <b class="float-right">{{home.incomeCollection.totalIntendedAmount | currency}}</b>
+                </div>
+                <div class="columns small-3">
+                    Despesa Total:
+                    <b class="float-right">{{home.incomeCollection.totalAmount | currency}}</b>
+                </div>
+                <div class="columns small-3">
+                    Direfença Total:
+                    <b class="float-right ng-class:{ 'color-red': home.incomeCollection.totaldifference < 0, 'color-green': home.incomeCollection.totaldifference > 0, 'color-blue': home.incomeCollection.totaldifference == 0}">{{home.incomeCollection.totaldifference | currency}}</b>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <br>
+
+    <fieldset>
+        <legend>
+            <h2>Despesas</h2>
+        </legend>
+        <div class="expanded button-group">
+          <a class="button" ng-click="saveCategory('', false, true, 'expense')">Adicionar Categoria de Despesa</a>
+          <a class="button" ng-click="saveBilling('', false, true, 'expense')">Adicionar Fatura de Despesa</a>
+        </div>
+
+        <v-accordion class="vAccordion--default" multiple="">
+            <!-- add expanded attribute to open the section -->
+            <v-pane ng-repeat="category in home.expenseCollection">
+                <v-pane-header>
+                    <div class="row">
+                        <div class="columns small-5">
+                            <button class="button teste" ng-click="saveCategory('', false, true, 'expense', category)">
+                                <span class="icon-pencil"></span>
+                            </button>
+                            <span class="title">{{category.title}}</span>
+                            <b class="float-right">
+                                {{category.subtotalBillings}}
+                            </b>
+                        </div>
+                        <div class="columns small-2">
+                            Previsto:
+                            <b class="float-right">
+                                {{category.intendedBillAmountPerMonth | currency}}
+                            </b>
+                        </div>
+                        <div class="columns small-2">
+                            Subtotal:
+                            <b class="float-right">
+                                {{category.subamountBillings | currency}}
+                            </b>
+                        </div>
+                        <div class="columns small-2 end">
+                            Diferença:
+                            <b class="float-right ng-class:{ 'color-red': category.subdifference < 0, 'color-green': category.subdifference > 0, 'color-blue': category.subdifference == 0}">
+                                {{category.subdifference | currency}}
+                            </b>
+                        </div>
+                    </div>
+                </v-pane-header>
+
+                <v-pane-content >
+                    <div class="row table-header">
+                        <div class="columns small-3">
+                            <b>
+                                Data Pagamento:
+                            </b>
+                        </div>
+                        <div class="columns small-3">
+                            <b>
+                                Forma Pagamento:
+                            </b>
+                        </div>
+                        <div class="columns small-3">
+                            <b>
+                                Valor Pago:
+                            </b>
+                        </div>
+                        <div class="columns small-3">
+                            <b>
+                                Editar / Excluir
+                            </b>
+                        </div>
+                    </div>
+                    <div class="row" ng-repeat="billing in category.billings">
+                        <ul>
+                            <li>
+                                <div class="columns small-3">
+                                    {{billing.paymentDate | date:'shortDate'}}
+                                </div>
+                                <div class="columns small-3">
+                                    {{billing.paymentMethod}}
+                                </div>
+                                <div class="columns small-3">
+                                    {{billing.amountOutcome | currency}}
+                                </div>
+                                <div class="columns small-3">
+                                    <button ng-click="saveBilling('', false, true, 'expense', billing)">
+                                        <span class="icon-pencil color-green"></span>
+                                    </button>
+                                    &nbsp;
+                                    <button ng-click="deleteBilling(billing.id, 'expense')">
+                                        <span class="icon-remove2 color-red"></span>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </v-pane-content>
+            </v-pane>
+        </v-accordion>
+        <br>
+        <div class="row">
+            <div class="columns small-12"><h3>Resumo das Despesas</h3></div>
+            <div class="brief-billings">
+                <div class="columns small-3">
+                    Total de Faturas:
+                    <b class="float-right">{{home.expenseCollection.totalBillings}}</b>
+                </div>
+                <div class="columns small-3">
+                    Total Previsto:
+                    <b class="float-right">{{home.expenseCollection.totalIntendedAmount | currency}}</b>
+                </div>
+                <div class="columns small-3">
+                    Despesa Total:
+                    <b class="float-right">{{home.expenseCollection.totalAmount | currency}}</b>
+                </div>
+                <div class="columns small-3">
+                    Direfença Total:
+                    <b class="float-right ng-class:{ 'color-red': home.expenseCollection.totaldifference < 0, 'color-green': home.expenseCollection.totaldifference > 0, 'color-blue': home.expenseCollection.totaldifference == 0}">{{home.expenseCollection.totaldifference | currency}}</b>
+                </div>
+                
+            </div>
+        </div>
+    </fieldset>
+    <br><br>
+</div>

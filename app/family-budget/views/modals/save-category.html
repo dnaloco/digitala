@@ -1,0 +1,26 @@
+<div class="budget-form">
+    <form novalidate name="categoryForm">
+        <h3>
+            <span ng-show="editing">Editando Categoria de {{type}} ID: {{category.id}}</span>
+            <span ng-hide="editing">Adicionando Nova Categoria de {{type}}</span>
+        </h3>
+
+        <br>
+
+        <label for="title">
+            Título:
+            <input type="text" name="title" id="title" ng-model="category.title" ng-required="true">
+        </label>
+
+        <label for="intendedBillAmountPerMonth">
+            Valor Previsto Por Mês:
+            <input type="number" name="intendedBillAmountPerMonth" id="intendedBillAmountPerMonth" ng-model="category.intendedBillAmountPerMonth" ng-required="true">
+        </label>
+        <br>
+
+        <button class="button expanded success" ng-click="ok()" ng-disabled="categoryForm.$invalid">Salvar</button>
+        <button ng-click="cancel()" class="close-button" aria-label="Close reveal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </form>
+</div>

@@ -23,3 +23,23 @@ gulp.task('prod', ['clean'], function(cb) {
   	'indexFile', 'gzip', cb);*/
 
 });
+
+gulp.task('fbProd', ['clean'], function(cb) {
+
+  cb = cb || function() {};
+
+  global.isProd = true;
+
+  runSequence(
+    'crossDomainStorage',
+    'baseStyles',
+    ['fbStyles', 'fbImages', 'fbViews'],
+    'fbBrowserify',
+    'fonts', 'fontsWatch', 'indexFile', 'uploadsDir', 'gzip', cb);
+
+/*  runSequence(
+    ['siteStyles', 'siteImages', 'siteFonts', 'siteViews'],
+    'siteBrowserify',
+    'indexFile', 'gzip', cb);*/
+
+});

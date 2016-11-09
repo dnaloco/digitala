@@ -24,9 +24,18 @@
 @import "footer";
 @import "tables";
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 body {
-	color: #555;	
+	background: #fafafa;
+	font-family: 'Open Sans', sans-serif;
 }
+
+v-accordion {
+	padding: 0px 10px 0 10px;	
+}
+
+
 
 ul {
 	list-style: none;
@@ -73,18 +82,93 @@ h2 {
 }
 
 .color-green {
-	color: #006309
+	color: #00980D
 }
 
 .color-red {
-	color: #890202
+	color: #B80F0F
 }
 
-h3 {
-	font-size: 1em;
-	text-decoration: underline;	
+.color-blue {
+	color: #004195
 }
 
 .brief-billings {
-	font-size: 0.9em;	
+	font-size: 1.1em;	
+}
+
+.resumo-geral > label{
+	padding-right: 20px;
+	font-size: 1.2em
+}
+
+.confirm-to-remove {
+	padding: 40px;	
+}
+
+#da-admin-layout-header {
+	padding: 5px;
+	margin-bottom: 20px;
+	color: #F2F2F2;
+	background: #1F497D;
+	border-bottom: 2px solid #AEAEAE;
+	a {
+		color: #FFC1C3;
+		&:hover {
+			color: #FE6166;
+		}
+	}
+}
+
+
+fieldset {
+    font-family: sans-serif;
+    border: 2px solid #1F497D;
+    background: #eee;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+fieldset legend {
+    background: #1F497D;
+    color: #fff;
+    padding: 7px 15px 1px;
+    font-size: 1.1em;
+    border-radius: 4px;
+    box-shadow: 0 0 0 2px #ddd;
+    margin-left: 20px;
+}
+
+.button {
+	border-radius: 4px;
+	font-weight: bold;
+}
+
+div.reveal.without-overlay {
+	border-radius: 5px;
+	background: #ddd;
+}
+
+.budget-form {
+	padding: 10px;
+}
+
+.budget-form h3 {
+	font-size: 1.2em;
+	color: #1F497D;
+	text-decoration: underline;
+}
+
+.budget-form label {
+	font-weight: bold;
+}
+
+.budget-form input {
+	font-weight: normal;
+}
+
+.page-title h1{
+	font-size: 1.8em !important;
+	color: #0D325F;
+	text-decoration: underline
 }

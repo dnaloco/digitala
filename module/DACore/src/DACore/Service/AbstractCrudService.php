@@ -47,9 +47,19 @@ abstract class AbstractCrudService implements PrepareDataInterface
 
 	public function getList(array $where = array(), array $options = array(), $limit = null, $offset = null)
 	{
+		$whereArr = [];
+		foreach($where as $w) {
+
+			if (is_string($w)) {
+				$wArray = json_decode($w, true);
+				$whereArr[$wArray['key']] = $wArray['value'];
+			}
+
+		}
+
 		$repo = self::getRepository();
 
-		$data = $repo->findBy($where, $options, $limit, $offset);
+		$data = $repo->findBy($whereArr, $options, $limit, $offset);
 
 		return $data;
 	}

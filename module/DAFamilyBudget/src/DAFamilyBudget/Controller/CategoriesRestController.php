@@ -10,6 +10,7 @@ class CategoriesRestController extends AbstractCrudRestController
 
     public function getList()
     {
+
         $data = null;
         if (isset($_GET['selectYearMonth'])
             && isset($_GET['year'])

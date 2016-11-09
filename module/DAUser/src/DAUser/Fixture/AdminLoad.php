@@ -27,7 +27,7 @@ class AdminLoad extends AbstractFixture implements OrderedFixtureInterface
 			'password' => 'artdna',
 			'roles' => $roles,
 			'active' => true,
-			'person' => $person
+			'person' => $person1
 		]);
 
 		$manager->persist($userAdmin1);
@@ -50,7 +50,7 @@ class AdminLoad extends AbstractFixture implements OrderedFixtureInterface
 			'password' => '123456',
 			'roles' => $roles,
 			'active' => true,
-			'person' => $person
+			'person' => $person2
 		]);
 
 		$manager->persist($userAdmin2);

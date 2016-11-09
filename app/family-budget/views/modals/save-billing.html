@@ -1,0 +1,38 @@
+<div class="budget-form">
+    <form novalidate name="billingForm">
+        <h3>
+            <span ng-show="editing">Editando Fatura de {{type}} ID: {{billing.id}}</span>
+            <span ng-hide="editing">Adicionando Nova Fatura de {{type}}</span>
+        </h3>
+
+        <br>
+
+        <label for="category">
+            Categoria:
+            <select name="category" id="category" ng-model="billing.category" ng-options="c.title for c in categories" ng-required="true">
+            </select>
+        </label>
+
+        <label for="paymentDate">
+            Data do Pagamento:
+            <input type="date"
+                ng-model="billing.paymentDate" ng-required="true">
+        </label>
+
+        <label for="paymentMethod">
+            Método de Pagamento:
+            <select name="paymentMethod" id="paymentMethod" ng-model="billing.paymentMethod" ng-options="pm.value for pm in paymentMethods" ng-required="true"></select>
+        </label>
+
+        <label for="amount">
+            Valor:
+            <input type="number" name="amount" id="amount" ng-model="billing.amount" step="any" ng-required="true">
+        </label>
+
+        <br>
+        <button class="button expanded success" ng-click="ok()" ng-disabled="billingForm.$invalid">salvar</button>
+        <button ng-click="cancel()" class="close-button" aria-label="Close reveal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </form>
+</div>

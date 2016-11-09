@@ -9,7 +9,9 @@ function OnInterceptor(
 
   // TODO: melhorar o interceptador da resposta...
   RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
+    console.log('RESTANGULAR RESPONSE', response);
     if (operation == "getList") {
+
       var responseData = response.data;
       if (responseData.total == undefined) return responseData.data;
       var newResponse = responseData.data;

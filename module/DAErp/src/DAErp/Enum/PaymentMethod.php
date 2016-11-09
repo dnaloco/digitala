@@ -6,11 +6,11 @@ use DACore\Types\EnumType;
 class PaymentMethod extends EnumType
 {
     protected $name = 'enum_paymentmethod';
-    protected $values = array('debit', 'credit', 'money');
+    protected $values = array('crédito', 'débito', 'dinheiro');
 
     public static function getValues()
     {
-    	return array('debit', 'credit', 'money');
+    	return array('crédito', 'débito', 'dinheiro');
     }
 }
 

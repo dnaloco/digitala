@@ -1,6 +1,6 @@
 function CsrfFormService($http) {
   'ngInject';
-  console.log('CsrfFormService from base module');
+
   const service = {};
 
   service.getCsrf = function(formToken) {
@@ -11,10 +11,10 @@ function CsrfFormService($http) {
         method: 'GET',
         params: {'formName': formToken}
       }).success((data) => {
-        console.info('novo csrf gerado...');
+
         resolve(data.formToken);
       }).error((err, status) => {
-      	console.error('Csrf com problema...')
+
         reject(err, status);
       });
     });

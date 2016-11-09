@@ -12,7 +12,7 @@ function OnRoute(
         templateUrl: 'layout/header.html'
       },
       'middlecontent': {
-        templateUrl: 'layout/home.html',
+        templateUrl: 'pages/home.html',
         controller: 'HomeController as home'
       },
       'footer':{

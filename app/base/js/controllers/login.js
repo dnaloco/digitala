@@ -7,8 +7,6 @@ function LoginController($scope, CsrfFormService, LoginService, $state, $rootSco
 
   vm.login = {};
 
-  console.log('LOGIN CONTROLLER');
-
   $rootScope.$broadcast('loginPage', true);
 
   vm.getToken = function(formName, scope) {
@@ -16,21 +14,18 @@ function LoginController($scope, CsrfFormService, LoginService, $state, $rootSco
     var tokenName = formName + 'Token';
 
     CsrfFormService.getCsrf(tokenName).then(function (csrfToken) {
-      console.log('Form Name', formName);
       scope[tokenName] = csrfToken;
       scope.tokenName = tokenName;
-      console.log('FORM TOKEN' , scope[tokenName]);
       $scope[formName][tokenName].$setValidity('required', true);
     });
   }
 
   vm.testLogin = function () {
     LoginService.post(vm.login).then( function (resp) {
-      console.log('Resp login', resp);
       LoginService.setToken(resp.token);
 
       LoginService.getUserName().then(function (result) {
-        console.log('VALOR NOME LOGIN', result.value);
+
         $state.go('Home', {}, {reload: true});
         $rootScope.$broadcast('refreshPage', true);
       })

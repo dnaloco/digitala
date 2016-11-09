@@ -24,12 +24,12 @@ function FBBillingsService(Restangular) {
   }
 
 
-  function edit(scope) {
-    return scope.put();
+  function edit(id, scope) {
+    return Restangular.one(privateUrl, id).customPUT(scope);
   }
 
-  function remove(scope) {
-    return scope.remove();
+  function remove(id) {
+    return Restangular.one(privateUrl, id).remove();
   }
 
   return service;
